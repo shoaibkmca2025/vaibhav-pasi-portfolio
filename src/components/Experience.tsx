@@ -1,0 +1,119 @@
+import { motion } from 'motion/react';
+import { Zap, TrendingUp } from 'lucide-react';
+import { contactHref } from '../contact';
+
+const experiences = [
+  {
+    company: '4amglobalmedia',
+    role: 'FOUNDING ENGINEER & STRATEGIST',
+    period: '2022 — PRESENT',
+    description: 'Pioneering the intersection of technical architecture and brand growth. Engineered high-performance digital ecosystems that scale with user demand.',
+    achievement: '400%',
+    metric: 'USER GROWTH ARCHITECTURE',
+    icon: TrendingUp,
+    active: true
+  },
+  {
+    company: 'NextGen Systems',
+    role: 'SENIOR FULL STACK LEAD',
+    period: '2020 — 2022',
+    description: 'Spearheaded the migration of legacy infrastructure to a modular, micro-frontend architecture, reducing deployment latency by 60%.',
+    achievement: '0.8s',
+    metric: 'LCP OPTIMIZATION LEAD',
+    icon: Zap,
+    active: false
+  }
+];
+
+export default function Experience() {
+  return (
+    <div className="pt-32 min-h-screen">
+      <div className="section-padding">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-[10px] tracking-widest text-brand-yellow mb-8 uppercase font-bold">CHRONOLOGY OF IMPACT</div>
+          <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-20 leading-[0.9]">
+            Engineering Growth <br />
+            Through <span className="text-brand-yellow glow-yellow">Precision.</span>
+          </h1>
+
+          <div className="relative border-l border-white/5 ml-4 md:ml-0 md:pl-0 pl-10 space-y-32">
+            {experiences.map((exp, index) => (
+              <div key={exp.company} className="relative">
+                {/* Node */}
+                <div className={`absolute left-[-45px] md:left-[-5px] top-4 w-3 h-3 rounded-full ${
+                  exp.active ? 'bg-brand-yellow shadow-[0_0_15px_#FFD700]' : 'bg-gray-800'
+                }`} />
+
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>
+                  <motion.div
+                    initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    className="p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5"
+                  >
+                    <div className="flex justify-between items-start mb-10">
+                      <div>
+                        <h3 className="text-4xl font-bold mb-2 tracking-tighter">{exp.company}</h3>
+                        <div className="text-[10px] tracking-widest text-brand-yellow font-bold uppercase">{exp.role}</div>
+                      </div>
+                      <div className="text-xs font-bold text-gray-600 tracking-widest">{exp.period}</div>
+                    </div>
+                    
+                    <p className="text-gray-400 font-light text-sm mb-12 leading-relaxed">
+                      {exp.description}
+                    </p>
+
+                    <div className="pt-8 border-t border-white/5">
+                      <div className="text-[10px] tracking-widest text-gray-500 font-bold mb-4 uppercase">KEY ACHIEVEMENTS</div>
+                      <div className="flex items-center gap-4">
+                        <exp.icon className="w-6 h-6 text-brand-yellow" />
+                        <div>
+                          <div className="text-3xl font-bold text-white">{exp.achievement}</div>
+                          <div className="text-[9px] tracking-wider text-gray-600 font-bold uppercase">{exp.metric}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="aspect-square rounded-3xl overflow-hidden grayscale border border-white/10"
+                  >
+                    <img 
+                      src={index === 0 
+                        ? "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" 
+                        : "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop"} 
+                      alt={exp.company}
+                      className="w-full h-full object-cover opacity-60"
+                      loading="lazy"
+                      decoding="async"
+                      referrerPolicy="no-referrer"
+                    />
+                  </motion.div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Experience CTA */}
+      <section className="section-padding">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-brand-dark-gray/10 rounded-3xl p-20 text-center border border-white/5">
+             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8 italic">Ready to Build the Future?</h2>
+             <p className="text-gray-400 font-light mb-12 max-w-lg mx-auto">
+               Let's combine technical surgical precision with visionary strategy to create something exceptional.
+             </p>
+             <a href={contactHref} className="bg-white text-black px-10 py-4 font-bold uppercase tracking-widest text-xs inline-flex items-center gap-3 mx-auto hover:bg-brand-yellow transition-colors group">
+               INITIATE PARTNERSHIP
+               <TrendingUp className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+             </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
