@@ -235,7 +235,8 @@ function ProofLink({ onClick }: { onClick: () => void }) {
 
 const subHeading = 'text-[10px] font-bold tracking-[0.4em] uppercase text-gray-500 mb-6 md:mb-8';
 
-export default function ClientWins() {
+// `hideHeader` is used on the Client Wins page, where the page header already carries the title
+export default function ClientWins({ hideHeader = false }: { hideHeader?: boolean }) {
   const [open, setOpen] = useState<number | null>(null);
   const openSrc = (src: string) => setOpen(shot(src));
   const step = (d: number) => setOpen((i) => (i === null ? i : (i + d + screenshots.length) % screenshots.length));
@@ -257,11 +258,12 @@ export default function ClientWins() {
   }, [open]);
 
   return (
-    <section className="section-padding bg-brand-black border-t border-white/5 relative overflow-hidden">
+    <section className={`section-padding bg-brand-black relative overflow-hidden ${hideHeader ? '' : 'border-t border-white/5'}`}>
       <div className="absolute top-40 -right-40 w-[320px] h-[320px] md:w-[600px] md:h-[600px] bg-brand-yellow/5 blur-[80px] md:blur-[160px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative">
         {/* Header */}
+        {!hideHeader && (
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="max-w-2xl">
             <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Client Wins</span>
@@ -278,6 +280,7 @@ export default function ClientWins() {
           </div>
           <div className="section-marker self-start md:self-auto">RESULTS</div>
         </div>
+        )}
 
         {/* 01: headline lifts */}
         <p className={subHeading}>01 — The numbers</p>

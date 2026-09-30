@@ -2,12 +2,14 @@ import { StrictMode } from 'react';
 import { renderToString } from 'react-dom/server';
 import App from './App';
 import { posts } from './blog/posts';
-import { getSeo, renderHead } from './seo';
+import { getSeo, renderHead, pageSeo } from './seo';
+import { sitePages } from './router';
 import { SITE_URL, DEFAULT_DESCRIPTION, person } from './site';
 import { faqs } from './components/FAQ';
 
 // Every page that gets its own prerendered HTML file
-export const routes = ['/', '/blog', ...posts.map((p) => `/blog/${p.slug}`)];
+const pagePaths = sitePages.filter((p) => p.key !== 'blog').map((p) => p.path);
+export const routes = ['/', ...pagePaths, '/blog', ...posts.map((p) => `/blog/${p.slug}`)];
 
 export function render(path: string) {
   return {
@@ -24,6 +26,7 @@ export function sitemap() {
   const latest = posts[0]?.date;
   const entries = [
     { loc: '/', lastmod: latest, priority: '1.0' },
+    ...pagePaths.map((loc) => ({ loc, lastmod: latest, priority: '0.9' })),
     { loc: '/blog', lastmod: latest, priority: '0.8' },
     ...posts.map((p) => ({ loc: `/blog/${p.slug}`, lastmod: p.date, priority: '0.7' })),
   ];
@@ -58,7 +61,10 @@ export function llmsTxt() {
     ...person.sameAs.map((url) => `- ${url}`),
     '',
     '## Pages',
-    `- [Home / About](${SITE_URL}/): background, services, case studies, press coverage and FAQs`,
+    `- [Home](${SITE_URL}/): overview, press coverage, testimonials and FAQs`,
+    ...sitePages
+      .filter((p) => p.key !== 'blog')
+      .map((p) => `- [${p.label}](${SITE_URL}${p.path}): ${pageSeo[p.key as keyof typeof pageSeo].description}`),
     `- [Blog](${SITE_URL}/blog): articles on growth marketing, AI and e-commerce`,
     '',
     '## Articles',

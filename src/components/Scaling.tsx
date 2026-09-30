@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Users, Play, Radio, ArrowUpRight } from 'lucide-react';
+import { onLinkClick } from '../router';
 
 const sections = [
   {
@@ -56,7 +57,7 @@ export default function Scaling() {
                 {section.description}
               </p>
 
-              <a href="#contact" className="py-2 -my-2 flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow hover:gap-4 transition-all">
+              <a href="/contact" onClick={onLinkClick} className="py-2 -my-2 flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow hover:gap-4 transition-all">
                 LEARN MORE <ArrowUpRight className="w-3 h-3" />
               </a>
               
