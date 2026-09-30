@@ -10,7 +10,7 @@ interface NavigationProps {
 
 export default function Navigation({ activeTab, setActiveTab }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const navItems = ['Home', 'About', 'Projects', 'Case Studies', 'How It Works', 'Testimonials', 'Blog', 'FAQ', 'Experience', 'Contact'];
+  const navItems = ['Home', 'About', 'Projects', 'Case Studies', 'Client Wins', 'How It Works', 'Testimonials', 'Blog', 'FAQ', 'Experience', 'Contact'];
 
   const socials = [
     { icon: Linkedin, ...socialLinks[0] },
@@ -36,17 +36,17 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
   return (
     <>
     <nav className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between py-4 md:py-6 px-5 sm:px-6 md:px-12 backdrop-blur-md bg-brand-black/50 border-b border-white/5">
-      <div className="text-xl font-bold tracking-tighter uppercase italic">
+      <div className="text-xl font-bold tracking-tighter uppercase italic whitespace-nowrap">
         Vaibhav Pasi
       </div>
       
-      <div className="hidden xl:flex items-center gap-5 2xl:gap-8">
+      <div className="hidden xl:flex items-center gap-3.5 2xl:gap-8">
         {navItems.map((item) => (
           <button
             type="button"
             key={item}
             onClick={() => setActiveTab(item)}
-            className={`text-[11px] font-bold tracking-widest uppercase transition-colors hover:text-brand-yellow relative ${
+            className={`whitespace-nowrap text-[10px] 2xl:text-[11px] font-bold tracking-wider 2xl:tracking-widest uppercase transition-colors hover:text-brand-yellow relative ${
               activeTab === item ? 'text-brand-yellow' : 'text-gray-400'
             }`}
           >
@@ -79,7 +79,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
         
         <a
           href={contactHref}
-          className="hidden md:block bg-brand-yellow text-black px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all"
+          className="hidden md:block whitespace-nowrap bg-brand-yellow text-black px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all"
         >
           LET'S COLLABORATE
         </a>

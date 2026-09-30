@@ -19,6 +19,7 @@ import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Skills from './components/Skills';
 import CaseStudies from './components/CaseStudies';
+import ClientWins from './components/ClientWins';
 import Testimonials from './components/Testimonials';
 import CTASection from './components/CTASection';
 import CustomCursor from './components/CustomCursor';
@@ -90,7 +91,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'projects', 'casestudies', 'howitworks', 'testimonials', 'blog', 'faq', 'experience', 'contact'];
+      const sections = ['home', 'about', 'projects', 'casestudies', 'clientwins', 'howitworks', 'testimonials', 'blog', 'faq', 'experience', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const sectionId of sections) {
@@ -105,6 +106,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
               'about': 'About',
               'projects': 'Projects',
               'casestudies': 'Case Studies',
+              'clientwins': 'Client Wins',
               'howitworks': 'How It Works',
               'testimonials': 'Testimonials',
               'blog': 'Blog',
@@ -180,6 +182,10 @@ export default function App({ initialPath }: { initialPath?: string }) {
 
         <section id="casestudies">
           <CaseStudies />
+        </section>
+
+        <section id="clientwins">
+          <ClientWins />
         </section>
 
         <section id="howitworks">
