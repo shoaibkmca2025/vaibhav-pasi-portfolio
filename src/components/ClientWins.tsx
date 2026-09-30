@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Eye, Images, MessageCircle, Play, TrendingUp, X } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight, Eye, Images, MessageCircle, Play, TrendingUp, X } from 'lucide-react';
 
 // The original screenshots (in /public/wins), shown in the gallery and opened from each result
 const screenshots = [
@@ -67,6 +67,160 @@ const fade = (delay = 0) => ({
   transition: { duration: 0.6, delay },
 });
 
+type Glow = (typeof glowUps)[number];
+
+// Staggered, overlapping chip layout lifted from the "client wins" screenshots (percent of the board)
+const afterSlots = [
+  { top: 19, left: 30, width: 54, z: 4 },
+  { top: 27, left: 5, width: 47, z: 3 },
+  { top: 31, left: 54, width: 41, z: 2 },
+  { top: 39, left: 13, width: 44, z: 1 },
+];
+const beforeSlots = [
+  { top: 66, left: 8, width: 48, z: 1 },
+  { top: 68, left: 50, width: 44, z: 3 },
+  { top: 75, left: 24, width: 40, z: 2 },
+  { top: 81, left: 44, width: 48, z: 4 },
+];
+// Faint colour washes standing in for the reel thumbnails behind each count
+const tints = [
+  'from-violet-900/70 via-zinc-900 to-zinc-950',
+  'from-red-950/80 via-zinc-950 to-black',
+  'from-zinc-700/60 via-zinc-800 to-zinc-900',
+  'from-stone-600/50 via-zinc-900 to-zinc-950',
+];
+
+function Chip({
+  value,
+  Icon,
+  slot,
+  tint,
+  big,
+  dim,
+  delay,
+}: {
+  value: string;
+  Icon: typeof Eye;
+  slot: { top: number; left: number; width: number; z: number };
+  tint: string;
+  big?: boolean;
+  dim?: boolean;
+  delay: number;
+  key?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+      className={`absolute flex items-center gap-[2.5cqw] rounded-[2.2cqw] border border-white/10 bg-gradient-to-r ${tint} px-[4cqw] py-[2.6cqw] shadow-[0_18px_40px_-8px_rgba(0,0,0,0.9)] ${
+        big ? 'ring-1 ring-brand-yellow/60' : ''
+      }`}
+      style={{ top: `${slot.top}%`, left: `${slot.left}%`, width: `${slot.width}%`, zIndex: slot.z }}
+    >
+      <Icon className={`shrink-0 w-[5cqw] h-[5cqw] ${dim ? 'text-white/70' : 'text-white'}`} strokeWidth={2.5} aria-hidden />
+      <span className={`font-semibold tabular-nums tracking-tight ${big ? 'text-[7cqw] text-white' : dim ? 'text-[5cqw] text-white/75' : 'text-[6cqw] text-white'}`}>
+        {value}
+      </span>
+    </motion.div>
+  );
+}
+
+function WinBoard({ g, index, onProof }: { g: Glow; index: number; onProof: () => void; key?: string }) {
+  const Icon = g.icon;
+  const multiple = Math.round(g.bestAfter / g.bestBefore).toLocaleString('en-US');
+  // Curves up from the "before" pile and lands under the "after" pile, like the hand-drawn arrows in the screenshots
+  // Drawn in a 100×125 box that matches the board's 4:5 shape, so the stroke never distorts
+  const path = index % 2 === 0 ? 'M64 83 C 92 70, 82 56, 56 63 C 30 70, 6 73, 12 62' : 'M48 82 C 64 75, 80 70, 72 55';
+  const head = index % 2 === 0 ? 'M8 65 L 12 61 L 16.5 64' : 'M67.5 57.5 L 72 54 L 75.5 59';
+
+  return (
+    <motion.article
+      {...fade(index * 0.1)}
+      className="@container relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 bg-[#0b0b0b]"
+    >
+      {/* Striped, vignetted backdrop */}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            'radial-gradient(ellipse at 45% 45%, rgba(255,255,255,0.14), transparent 60%), repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 9%, rgba(255,255,255,0.015) 9% 18%)',
+        }}
+      />
+      <div aria-hidden className="absolute inset-0 opacity-[0.18] mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
+
+      {/* Label + multiplier */}
+      <div className="absolute top-[5cqw] left-[6cqw] right-[6cqw] flex items-start justify-between z-10">
+        <div>
+          <div className="text-[3.4cqw] font-bold tracking-tight text-white">{g.label}</div>
+          <div className="text-[2.6cqw] font-bold uppercase tracking-[0.2em] text-white/40 mt-[0.5cqw]">Reel views</div>
+        </div>
+        <div className="text-right">
+          <div className="text-[11cqw] font-black italic tracking-tighter leading-none text-brand-yellow glow-yellow">{multiple}×</div>
+          <div className="text-[2.6cqw] font-bold uppercase tracking-[0.2em] text-white/50 mt-[1cqw]">Best reel</div>
+        </div>
+      </div>
+
+      {/* Hand-drawn arrow */}
+      <svg aria-hidden viewBox="0 0 100 125" className="absolute inset-0 w-full h-full z-[5] pointer-events-none">
+        <motion.path
+          d={path}
+          fill="none"
+          stroke="white"
+          strokeWidth={0.7}
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          whileInView={{ pathLength: 1 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 1.2, delay: 0.5, ease: 'easeInOut' }}
+        />
+        <motion.path
+          d={head}
+          fill="none"
+          stroke="white"
+          strokeWidth={0.7}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.2, delay: 1.6 }}
+        />
+      </svg>
+
+      {/* After (top) and before (bottom) piles */}
+      {g.after.map((v, j) => (
+        <Chip key={`a-${v}`} value={v} Icon={Icon} slot={afterSlots[j]} tint={tints[j % tints.length]} big={j === 0} delay={0.9 + j * 0.08} />
+      ))}
+      {g.before.map((v, j) => (
+        <Chip
+          key={`b-${v}`}
+          value={v.toLocaleString('en-US')}
+          Icon={Icon}
+          slot={beforeSlots[j]}
+          tint={tints[(j + 2) % tints.length]}
+          dim
+          delay={0.1 + j * 0.08}
+        />
+      ))}
+
+      <span className="absolute left-[6cqw] top-[59%] text-[2.6cqw] font-bold uppercase tracking-[0.2em] text-white/40 z-10">Before</span>
+      <span className="absolute left-[6cqw] top-[20%] text-[2.6cqw] font-bold uppercase tracking-[0.2em] text-brand-yellow z-10">After</span>
+
+      {/* Footer line */}
+      <div className="absolute bottom-[5cqw] left-[6cqw] right-[6cqw] flex flex-wrap items-center justify-between gap-2 z-10">
+        <p className="text-[3.2cqw] text-gray-400 font-light">
+          Best reel: <span className="text-white font-medium">{g.bestBefore.toLocaleString('en-US')}</span> →{' '}
+          <span className="text-brand-yellow font-bold">{g.after[0]}</span> views
+        </p>
+        <ProofLink onClick={onProof} />
+      </div>
+    </motion.article>
+  );
+}
+
 function ProofLink({ onClick }: { onClick: () => void }) {
   return (
     <button
@@ -111,9 +265,13 @@ export default function ClientWins() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="max-w-2xl">
             <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Client Wins</span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-6">
-              Receipts, <span className="text-gray-500">Not Promises.</span>
+            <h2 className="flex items-end mb-6 leading-none" aria-label="Client Wins">
+              <span className="text-6xl sm:text-7xl md:text-8xl font-black tracking-[-0.06em] bg-gradient-to-r from-[#d8c3a0] via-[#f1e6d0] to-white bg-clip-text text-transparent pb-2">
+                client
+              </span>
+              <span className="font-script text-8xl sm:text-9xl md:text-[10rem] text-white ml-2 md:ml-3 -mb-3 md:-mb-5 leading-[0.8]">Wins</span>
             </h2>
+            <p className="text-xl md:text-2xl font-bold tracking-tight text-white mb-3">Receipts, not promises.</p>
             <p className="text-gray-400 font-light leading-relaxed md:text-lg">
               Real numbers from real client accounts. Tap any result to see the original screenshot behind it.
             </p>
@@ -170,62 +328,10 @@ export default function ClientWins() {
 
         {/* 02: before → after reels */}
         <p className={`${subHeading} mt-20 md:mt-28`}>02 — Before → after, reel views</p>
-        <div className="grid gap-4 md:gap-6 lg:grid-cols-2">
-          {glowUps.map((g, i) => {
-            const Icon = g.icon;
-            const multiple = Math.round(g.bestAfter / g.bestBefore).toLocaleString('en-US');
-            return (
-              <motion.article key={g.label} {...fade(i * 0.1)} className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5">
-                <div className="flex items-start justify-between gap-4 mb-8">
-                  <div>
-                    <div className="text-2xl font-bold tracking-tight">{g.label}</div>
-                    <div className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Top 4 reels</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-3xl md:text-4xl font-black italic tracking-tighter text-brand-yellow glow-yellow">{multiple}×</div>
-                    <div className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Best reel</div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 md:gap-5">
-                  <div>
-                    <div className="text-[10px] text-gray-600 font-bold uppercase tracking-widest mb-3">Before</div>
-                    <ul className="space-y-2">
-                      {g.before.map((v) => (
-                        <li key={v} className="flex items-center gap-2 px-3 py-2 rounded-xl border border-white/5 text-sm text-gray-500 tabular-nums">
-                          <Icon className="w-3.5 h-3.5 shrink-0" aria-hidden /> {v.toLocaleString('en-US')}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <ArrowRight className="w-6 h-6 text-brand-yellow" aria-hidden />
-                  <div>
-                    <div className="text-[10px] text-brand-yellow font-bold uppercase tracking-widest mb-3">After</div>
-                    <ul className="space-y-2">
-                      {g.after.map((v, j) => (
-                        <li
-                          key={v}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-xl font-bold tabular-nums ${
-                            j === 0 ? 'bg-brand-yellow text-black text-base md:text-lg' : 'bg-white/5 border border-white/10 text-white text-sm'
-                          }`}
-                        >
-                          <Icon className="w-3.5 h-3.5 shrink-0" aria-hidden /> {v}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-3">
-                  <p className="text-sm text-gray-400 font-light">
-                    Best reel went from <span className="text-white font-medium">{g.bestBefore.toLocaleString('en-US')}</span> views to{' '}
-                    <span className="text-brand-yellow font-bold">{g.after[0]}</span>.
-                  </p>
-                  <ProofLink onClick={() => openSrc(g.receipt)} />
-                </div>
-              </motion.article>
-            );
-          })}
+        <div className="grid gap-6 lg:grid-cols-2">
+          {glowUps.map((g, i) => (
+            <WinBoard key={g.label} g={g} index={i} onProof={() => openSrc(g.receipt)} />
+          ))}
         </div>
 
         {/* 03: profile growth + 04: messages */}
