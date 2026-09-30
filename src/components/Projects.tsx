@@ -35,15 +35,15 @@ const projects = [
 
 export default function Projects() {
   return (
-    <div className="pt-32 min-h-screen">
+    <div className="pt-4 md:pt-32 md:min-h-screen">
       <div className="section-padding">
         <div className="max-w-7xl mx-auto">
           <div className="text-[10px] tracking-widest text-brand-yellow mb-8 uppercase font-bold">SELECTED WORK</div>
-          <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-8 leading-[0.9]">
+          <h1 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter mb-8 leading-[0.9]">
             Marketing & Brand <br />
             <span className="text-brand-yellow glow-yellow">Excellence.</span>
           </h1>
-          <p className="max-w-xl text-gray-400 font-light mb-20">
+          <p className="max-w-xl text-gray-400 font-light mb-12 md:mb-20">
             Crafting digital narratives that convert. Explore my recent work in brand growth, influencer strategies, and e-commerce optimization.
           </p>
 
@@ -55,7 +55,7 @@ export default function Projects() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`group relative overflow-hidden rounded-2xl border border-white/5 bg-brand-dark-gray/20 ${
-                  project.featured ? 'md:col-span-2 aspect-[21/10]' : 'aspect-square md:aspect-[4/3]'
+                  project.featured ? 'aspect-[4/5] sm:aspect-video md:col-span-2 md:aspect-[21/10]' : 'aspect-[4/5] sm:aspect-square md:aspect-[4/3]'
                 }`}
               >
                 <img
@@ -68,20 +68,20 @@ export default function Projects() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 
-                <div className="absolute bottom-10 left-10 right-10">
-                  <div className="flex items-center gap-2 mb-4">
+                <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10">
+                  <div className="flex flex-wrap items-center gap-2 mb-4">
                     {project.tags.map(tag => (
                       <span key={tag} className="text-[9px] font-bold tracking-widest text-brand-yellow border border-brand-yellow/20 px-2 py-0.5 rounded bg-brand-yellow/5">
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <div className="flex justify-between items-end">
+                  <div className="flex justify-between items-end gap-4">
                     <div className="max-w-md">
                       <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">{project.title}</h3>
                       <p className="text-xs text-gray-400 font-light line-clamp-2">{project.description}</p>
                     </div>
-                    <div className="w-12 h-12 rounded-full bg-brand-yellow flex items-center justify-center text-black opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-300">
+                    <div className="hidden sm:flex shrink-0 w-12 h-12 rounded-full bg-brand-yellow flex items-center justify-center text-black opacity-0 group-hover:opacity-100 transition-opacity translate-y-4 group-hover:translate-y-0 duration-300">
                       <ArrowUpRight className="w-6 h-6" />
                     </div>
                   </div>
@@ -94,8 +94,8 @@ export default function Projects() {
       
       {/* Branding Workshop section */}
       <section className="section-padding bg-black/50 overflow-hidden">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
-           <div className="flex-1 relative aspect-video rounded-3xl overflow-hidden border border-white/10">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
+           <div className="w-full md:w-auto flex-1 relative aspect-video rounded-3xl overflow-hidden border border-white/10">
               <img 
                 src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=2070&auto=format&fit=crop" 
                 alt="Workshop"
@@ -113,7 +113,7 @@ export default function Projects() {
            
            <div className="flex-1">
               <div className="text-[10px] tracking-widest text-brand-yellow mb-4 uppercase font-bold">EDUCATIONAL SERIES</div>
-              <h2 className="text-4xl font-bold tracking-tighter mb-6">Personal Branding Workshop</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">Personal Branding Workshop</h2>
               <p className="text-gray-400 font-light mb-8 max-w-md">
                 An exclusive masterclass series designed for executives to master their digital footprint and authority in the tech sector.
               </p>

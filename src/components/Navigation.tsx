@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Twitter, Instagram, Linkedin, Menu, X } from 'lucide-react';
 import { contactHref, socialLinks } from '../contact';
@@ -18,8 +18,24 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
     { icon: Instagram, ...socialLinks[1] },
   ];
 
+  // Lock page scroll and allow Escape to close while the mobile menu is open
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKey);
+    };
+  }, [isOpen]);
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between py-6 px-6 md:px-12 backdrop-blur-md bg-brand-black/50 border-b border-white/5">
+    <>
+    <nav className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between py-4 md:py-6 px-5 sm:px-6 md:px-12 backdrop-blur-md bg-brand-black/50 border-b border-white/5">
       <div className="text-xl font-bold tracking-tighter uppercase italic">
         Vaibhav Pasi
       </div>
@@ -79,6 +95,9 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
+    </nav>
+
+      {/* Rendered outside <nav>: its backdrop-blur would otherwise become the containing block for this fixed overlay */}
 
       <AnimatePresence>
         {isOpen && (
@@ -87,10 +106,10 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-brand-black z-[999] lg:hidden flex flex-col pt-32 px-6"
+            className="fixed inset-0 bg-brand-black z-[999] lg:hidden flex flex-col pt-24 px-6 overflow-y-auto overscroll-contain"
           >
             {/* Background Accent */}
-            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-brand-yellow/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2" />
+            <div className="pointer-events-none absolute top-0 right-0 w-[300px] h-[300px] bg-brand-yellow/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2" />
             
             <div className="flex flex-col gap-4 relative z-10">
               {navItems.map((item, idx) => (
@@ -110,7 +129,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
                     setActiveTab(item);
                     setIsOpen(false);
                   }}
-                  className={`text-5xl font-black tracking-tighter text-left uppercase italic leading-none ${
+                  className={`text-4xl sm:text-5xl font-black tracking-tighter text-left uppercase italic leading-none py-1 ${
                     activeTab === item ? 'text-brand-yellow' : 'text-white/20'
                   }`}
                 >
@@ -123,7 +142,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="mt-auto pb-12 pt-10 border-t border-white/5 flex flex-col gap-10"
+              className="mt-auto pb-[max(3rem,env(safe-area-inset-bottom))] pt-8 mt-10 border-t border-white/5 flex flex-col gap-10"
             >
               <div className="flex gap-8">
                 {socials.map((social, idx) => (
@@ -133,7 +152,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open Vaibhav Pasi on ${social.label}`}
-                    className="text-gray-400 hover:text-brand-yellow transition-colors"
+                    className="p-2 -m-2 text-gray-400 hover:text-brand-yellow transition-colors"
                   >
                     <social.icon className="w-6 h-6" />
                   </a>
@@ -150,6 +169,6 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }

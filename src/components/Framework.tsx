@@ -16,7 +16,7 @@ export default function Framework() {
                 Everything You Need. <br />
                 <span className="text-brand-yellow">One Place.</span>
               </h2>
-              <p className="text-gray-400 font-light max-w-xl text-lg">
+              <p className="text-gray-400 font-light max-w-xl text-base md:text-lg">
                 The Marketing Ecosystem that never sleeps. We provide the complete infrastructure required to scale from zero to global authority.
               </p>
             </motion.div>
@@ -28,7 +28,7 @@ export default function Framework() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 group"
+          className="relative aspect-[4/3] sm:aspect-video rounded-2xl overflow-hidden border border-white/10 group"
         >
           <img
             src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
@@ -41,9 +41,9 @@ export default function Framework() {
           <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-60" />
           
           {/* Dashboard overlay simulation */}
-          <div className="absolute top-8 right-8 flex flex-col gap-2">
+          <div className="absolute top-4 right-4 md:top-8 md:right-8 flex flex-col gap-2">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="w-32 h-1 bg-brand-yellow/20 rounded-full overflow-hidden">
+              <div key={i} className="w-20 md:w-32 h-1 bg-brand-yellow/20 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ x: '-100%' }}
                   whileInView={{ x: '0%' }}

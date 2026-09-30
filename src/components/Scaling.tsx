@@ -29,14 +29,14 @@ export default function Scaling() {
   return (
     <section id="scaling" className="section-padding bg-black border-t border-white/5">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-20">
-          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-8">
+        <div className="mb-12 md:mb-20">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-8">
             Everything You Need <br />
             <span className="text-gray-500">To Scale.</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
           {sections.map((section, idx) => (
             <motion.div
               key={section.title}
@@ -45,18 +45,18 @@ export default function Scaling() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: idx * 0.1 }}
               whileHover={{ y: -10 }}
-              className="group relative p-10 border border-white/5 bg-brand-dark-gray/10 hover:bg-brand-dark-gray/20 hover:border-brand-yellow/20 transition-all rounded-[2rem] overflow-hidden"
+              className="group relative p-6 md:p-10 border border-white/5 bg-brand-dark-gray/10 hover:bg-brand-dark-gray/20 hover:border-brand-yellow/20 transition-all rounded-[2rem] overflow-hidden"
             >
-              <div className={`w-16 h-16 ${section.color} rounded-2xl flex items-center justify-center mb-10 group-hover:rotate-[10deg] transition-transform duration-500`}>
+              <div className={`w-16 h-16 ${section.color} rounded-2xl flex items-center justify-center mb-8 md:mb-10 group-hover:rotate-[10deg] transition-transform duration-500`}>
                 <section.icon className={`w-8 h-8 ${section.textColor}`} />
               </div>
               
               <h3 className="text-2xl font-bold mb-4 tracking-tight uppercase italic">{section.title}</h3>
-              <p className="text-gray-400 font-light leading-relaxed mb-10">
+              <p className="text-gray-400 font-light leading-relaxed mb-8 md:mb-10">
                 {section.description}
               </p>
 
-              <a href="#contact" className="flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow hover:gap-4 transition-all">
+              <a href="#contact" className="py-2 -my-2 flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow hover:gap-4 transition-all">
                 LEARN MORE <ArrowUpRight className="w-3 h-3" />
               </a>
               

@@ -23,8 +23,8 @@ export default function HowItWorks() {
   return (
     <section className="section-padding bg-brand-black border-b border-white/5">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
-          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-6">How It Works</h2>
+        <div className="text-center mb-14 md:mb-24">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-6">How It Works</h2>
           <p className="text-gray-400 font-light max-w-xl mx-auto">
             A streamlined onboarding process designed for speed. We move as fast as the algorithms do.
           </p>
@@ -40,7 +40,7 @@ export default function HowItWorks() {
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               className="text-center group"
             >
-              <div className="w-20 h-20 rounded-full bg-brand-yellow/5 border border-brand-yellow/20 flex items-center justify-center mx-auto mb-10 group-hover:bg-brand-yellow/10 transition-all">
+              <div className="w-20 h-20 rounded-full bg-brand-yellow/5 border border-brand-yellow/20 flex items-center justify-center mx-auto mb-6 md:mb-10 group-hover:bg-brand-yellow/10 transition-all">
                 <step.icon className="w-8 h-8 text-brand-yellow" />
               </div>
               <h3 className="text-xl font-bold tracking-widest mb-4 italic uppercase">{step.title}</h3>

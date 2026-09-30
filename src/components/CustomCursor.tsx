@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { motion, useSpring } from 'motion/react';
 
+// Only show the custom cursor on devices with a real mouse (not phones or touch tablets)
+const hasFinePointer = () =>
+  typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
+  const [enabled] = useState(hasFinePointer);
   
   const cursorX = useSpring(0, { stiffness: 500, damping: 28 });
   const cursorY = useSpring(0, { stiffness: 500, damping: 28 });
@@ -10,6 +15,7 @@ export default function CustomCursor() {
   const dotY = useSpring(0, { stiffness: 1000, damping: 50 });
 
   useEffect(() => {
+    if (!enabled) return;
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX - 16);
       cursorY.set(e.clientY - 16);
@@ -38,7 +44,9 @@ export default function CustomCursor() {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseover', handleHover);
     };
-  }, [cursorX, cursorY, dotX, dotY]);
+  }, [enabled, cursorX, cursorY, dotX, dotY]);
+
+  if (!enabled) return null;
 
   return (
     <>

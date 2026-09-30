@@ -46,7 +46,7 @@ export default function CaseStudies() {
   return (
     <section className="section-padding bg-black">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="max-w-2xl">
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">Case Studies</h2>
             <p className="text-gray-400 font-light leading-relaxed">
@@ -58,7 +58,7 @@ export default function CaseStudies() {
           </div>
         </div>
 
-        <div className="space-y-32">
+        <div className="space-y-20 md:space-y-32">
           {caseStudies.map((study, idx) => (
             <motion.div
               key={study.id}
@@ -66,7 +66,7 @@ export default function CaseStudies() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className={`flex flex-col ${idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-24`}
+              className={`flex flex-col ${idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 md:gap-12 lg:gap-24`}
             >
               {/* Visual Side */}
               <div className="flex-1 lg:w-1/2 relative group">
@@ -80,7 +80,7 @@ export default function CaseStudies() {
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-                  <div className="absolute top-6 left-6">
+                  <div className="absolute top-4 left-4 md:top-6 md:left-6">
                      <span className="bg-brand-yellow/10 backdrop-blur-md text-brand-yellow border border-brand-yellow/20 px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">
                         {study.category}
                      </span>
@@ -110,7 +110,7 @@ export default function CaseStudies() {
               {/* Content Side */}
               <div className="flex-1 lg:w-1/2 flex flex-col justify-center">
                 <div className="text-xs font-bold text-gray-500 mb-2 uppercase tracking-widest">CLIENT: {study.client}</div>
-                <h3 className="text-3xl md:text-4xl font-bold tracking-tight mb-8 leading-none">{study.title}</h3>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-8 leading-tight md:leading-none">{study.title}</h3>
                 
                 <div className="space-y-10">
                   <div>
@@ -143,10 +143,10 @@ export default function CaseStudies() {
                       <BarChart3 className="w-4 h-4" />
                       <span className="text-[10px] font-bold tracking-widest uppercase">Measurable Results</span>
                     </div>
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-3 sm:gap-4">
                       {study.results.map((res) => (
                         <div key={res.label}>
-                          <div className="text-2xl font-bold tracking-tighter">{res.value}</div>
+                          <div className="text-lg min-[400px]:text-xl sm:text-2xl font-bold tracking-tighter">{res.value}</div>
                           <div className="text-[9px] text-gray-600 font-bold uppercase tracking-wider">{res.label}</div>
                         </div>
                       ))}

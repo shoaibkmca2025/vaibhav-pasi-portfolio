@@ -27,11 +27,11 @@ export default function FAQ() {
   return (
     <section className="section-padding bg-brand-black">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic uppercase mb-6">Questions? <br /> <span className="text-brand-yellow">Answered.</span></h2>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
           {faqs.map((faq, idx) => (
             <div key={idx} className="border border-white/5 rounded-2xl overflow-hidden bg-brand-dark-gray/20">
               <button
@@ -39,13 +39,13 @@ export default function FAQ() {
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
                 aria-expanded={openIndex === idx}
                 aria-controls={`faq-answer-${idx}`}
-                className="w-full p-8 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors"
+                className="w-full p-5 md:p-8 flex items-center justify-between gap-4 text-left hover:bg-white/[0.02] transition-colors"
               >
-                <span className="text-lg font-bold tracking-tight">{faq.question}</span>
+                <span className="text-base md:text-lg font-bold tracking-tight">{faq.question}</span>
                 {openIndex === idx ? (
-                  <Minus className="w-5 h-5 text-brand-yellow" />
+                  <Minus className="w-5 h-5 shrink-0 text-brand-yellow" />
                 ) : (
-                  <Plus className="w-5 h-5 text-gray-500" />
+                  <Plus className="w-5 h-5 shrink-0 text-gray-500" />
                 )}
               </button>
               <AnimatePresence>
@@ -58,7 +58,7 @@ export default function FAQ() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="px-8 pb-8 text-gray-400 font-light leading-relaxed text-sm">
+                    <div className="px-5 pb-5 md:px-8 md:pb-8 text-gray-400 font-light leading-relaxed text-sm">
                       {faq.answer}
                     </div>
                   </motion.div>

@@ -60,7 +60,7 @@ export default function Services() {
   return (
     <section id="services" className="section-padding">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
           <div className="max-w-2xl">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6 uppercase italic">The Full Spectrum</h2>
             <p className="text-gray-400 font-light leading-relaxed">
@@ -80,7 +80,7 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="p-8 bg-brand-dark-gray/20 hover:bg-brand-dark-gray/40 border border-white/5 hover:border-brand-yellow/30 transition-all group rounded-[2rem]"
+              className="p-6 md:p-8 bg-brand-dark-gray/20 hover:bg-brand-dark-gray/40 border border-white/5 hover:border-brand-yellow/30 transition-all group rounded-[2rem]"
             >
               <motion.div
                 initial={{ scale: 0.5, opacity: 0, rotate: -15 }}
@@ -92,12 +92,12 @@ export default function Services() {
                   damping: 20, 
                   delay: index * 0.1 + 0.2 
                 }}
-                className="w-14 h-14 bg-brand-yellow/5 rounded-3xl flex items-center justify-center mb-8 border border-white/5 group-hover:border-brand-yellow/50 group-hover:bg-brand-yellow transition-all duration-500 group-hover:shadow-[0_0_40px_-15px_rgba(245,255,0,0.6)]"
+                className="w-14 h-14 bg-brand-yellow/5 rounded-3xl flex items-center justify-center mb-6 md:mb-8 border border-white/5 group-hover:border-brand-yellow/50 group-hover:bg-brand-yellow transition-all duration-500 group-hover:shadow-[0_0_40px_-15px_rgba(245,255,0,0.6)]"
               >
                 <service.icon className="w-6 h-6 text-brand-yellow group-hover:text-brand-black transition-colors duration-500" />
               </motion.div>
               <h3 className="text-lg font-bold mb-4 tracking-tight">{service.title}</h3>
-              <p className="text-[11px] text-gray-500 leading-relaxed font-light">
+              <p className="text-sm md:text-[11px] text-gray-500 leading-relaxed font-light">
                 {service.description}
               </p>
             </motion.div>

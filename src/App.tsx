@@ -131,25 +131,25 @@ export default function App() {
           <Experience />
         </section>
 
-        <section id="contact" className="pt-32 pb-32 text-center bg-brand-dark-gray/10">
+        <section id="contact" className="pt-20 md:pt-32 pb-16 md:pb-32 text-center bg-brand-dark-gray/10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-12">Get in touch.</h1>
-            <p className="text-gray-400 max-w-lg mx-auto mb-16 px-6">
+            <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter mb-8 md:mb-12 px-5">Get in touch.</h1>
+            <p className="text-gray-400 max-w-lg mx-auto mb-10 md:mb-16 px-6">
               Looking to elevate your brand or discuss a potential project? I'm always open to new opportunities and strategic collaborations.
             </p>
             <a 
               href={contactHref}
-              className="text-4xl md:text-6xl font-bold tracking-tighter text-brand-yellow hover:glow-yellow transition-all"
+              className="inline-block px-5 text-2xl min-[400px]:text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter text-brand-yellow hover:glow-yellow transition-all break-all sm:break-normal"
             >
               {contactEmail}
             </a>
             
-            <div className="mt-32 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto px-6 pb-20">
+            <div className="mt-16 md:mt-32 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-8 max-w-4xl mx-auto px-5 sm:px-6 pb-10 md:pb-20">
                {socialLinks.map(social => (
                   <a 
                     key={social.label} 
@@ -157,7 +157,7 @@ export default function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open Vaibhav Pasi on ${social.label}`}
-                    className="p-8 border border-white/5 rounded-2xl hover:bg-brand-yellow hover:text-black transition-all group font-bold tracking-widest text-[10px]"
+                    className="p-6 md:p-8 border border-white/5 rounded-2xl hover:bg-brand-yellow hover:text-black transition-all group font-bold tracking-widest text-[10px]"
                   >
                      {social.label.toUpperCase()}
                   </a>

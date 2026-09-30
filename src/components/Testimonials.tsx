@@ -26,7 +26,7 @@ export default function Testimonials() {
   return (
     <section className="section-padding bg-brand-black border-t border-white/5">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="max-w-2xl">
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 italic">Trust by Design</h2>
             <p className="text-gray-400 font-light leading-relaxed">
@@ -38,7 +38,7 @@ export default function Testimonials() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
           {testimonials.map((t, idx) => (
             <motion.div
               key={idx}
@@ -46,17 +46,17 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="p-10 rounded-3xl bg-brand-dark-gray/10 border border-white/5 flex flex-col justify-between group hover:border-brand-yellow/30 transition-all"
+              className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/10 border border-white/5 flex flex-col justify-between group hover:border-brand-yellow/30 transition-all"
             >
               <div>
-                <Quote className="w-8 h-8 text-brand-yellow/20 mb-8 group-hover:text-brand-yellow/50 transition-colors" />
-                <p className="text-lg text-gray-300 font-light leading-relaxed mb-12 italic">
+                <Quote className="w-8 h-8 text-brand-yellow/20 mb-6 md:mb-8 group-hover:text-brand-yellow/50 transition-colors" />
+                <p className="text-base md:text-lg text-gray-300 font-light leading-relaxed mb-8 md:mb-12 italic">
                   "{t.quote}"
                 </p>
               </div>
               
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 transition-all">
+                <div className="shrink-0 w-12 h-12 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 transition-all">
                   <img
                     src={t.avatar}
                     alt={t.author}

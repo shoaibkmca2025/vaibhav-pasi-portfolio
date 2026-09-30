@@ -31,7 +31,7 @@ export default function About() {
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-yellow/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -39,12 +39,12 @@ export default function About() {
             transition={{ duration: 0.8 }}
           >
             <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-6 block">The Architect</span>
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-10 leading-[0.9]">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-8 md:mb-10 leading-[0.9]">
               Vaibhav Pasi <br />
               <span className="text-gray-500">Beyond the Code.</span>
             </h2>
 
-            <div className="flex flex-col md:flex-row gap-10 items-start mb-10">
+            <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-start mb-10">
               <div className="relative group shrink-0">
                 <div className="absolute inset-0 bg-brand-yellow/20 rounded-2xl blur-xl group-hover:bg-brand-yellow/40 transition-all duration-500" />
                 <img 
@@ -57,7 +57,7 @@ export default function About() {
                 />
               </div>
               
-              <div className="space-y-6 text-gray-400 font-light text-lg leading-relaxed max-w-xl">
+              <div className="space-y-6 text-gray-400 font-light text-base md:text-lg leading-relaxed max-w-xl">
                 <p>
                   Vaibhav Pasi is the strategic force behind the marketing ecosystem that never sleeps. He doesn't just build websites; he builds digital empires that operate on the edge of the algorithms.
                 </p>
@@ -67,7 +67,7 @@ export default function About() {
               </div>
             </div>
 
-            <div className="mt-12 flex items-center gap-10">
+            <div className="mt-12 flex items-center gap-6 sm:gap-10">
                <div>
                   <div className="text-4xl font-bold italic tracking-tighter text-brand-yellow">100+</div>
                   <div className="text-[9px] font-bold tracking-widest text-gray-500 uppercase mt-1">Brands Scaled</div>

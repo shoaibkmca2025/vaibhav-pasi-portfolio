@@ -42,7 +42,7 @@ export default function Skills() {
            style={{ backgroundImage: 'linear-gradient(#f5ff00 1px, transparent 1px), linear-gradient(90deg, #f5ff00 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
           <div className="max-w-2xl">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">Marketing Arsenal</h2>
             <p className="text-gray-400 font-light leading-relaxed">
@@ -54,7 +54,7 @@ export default function Skills() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {skillCategories.map((category, idx) => (
             <motion.div
               key={category.title}
@@ -62,9 +62,9 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-brand-yellow/20 transition-all group"
+              className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-brand-yellow/20 transition-all group"
             >
-              <div className="flex items-center gap-4 mb-8">
+              <div className="flex items-center gap-4 mb-6 md:mb-8">
                 <div className="w-10 h-10 rounded-xl bg-brand-yellow/5 border border-brand-yellow/20 flex items-center justify-center">
                   <motion.div
                     initial={{ scale: 0, rotate: -20 }}

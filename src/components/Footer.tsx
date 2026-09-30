@@ -10,16 +10,16 @@ export default function ContactCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="bg-brand-dark-gray/20 rounded-3xl p-12 md:p-24 text-center border border-white/5 relative overflow-hidden"
+          className="bg-brand-dark-gray/20 rounded-3xl p-8 sm:p-12 md:p-24 text-center border border-white/5 relative overflow-hidden"
         >
           <div className="relative z-10">
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter mb-6">
               Ready to Scale Your <br className="hidden md:block" /> Digital Footprint?
             </h2>
             <p className="text-gray-400 font-light mb-12 max-w-xl mx-auto text-sm md:text-base">
               Let's discuss how we can engineer your brand's growth and establish market dominance.
             </p>
-            <a href={contactHref} className="btn-primary inline-block px-12">
+            <a href={contactHref} className="btn-primary inline-block px-8 sm:px-12">
               START A PROJECT
             </a>
           </div>
@@ -37,12 +37,12 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="py-12 px-6 md:px-12 lg:px-24 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div className="text-[10px] tracking-widest text-gray-600 uppercase font-bold">
+    <footer className="py-10 md:py-12 pb-[max(2.5rem,env(safe-area-inset-bottom))] px-5 sm:px-6 md:px-12 lg:px-24 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="text-[10px] tracking-widest text-gray-600 uppercase font-bold text-center md:text-left">
         © {year} VAIBHAV PASI. DIGITAL ALCHEMIST.
       </div>
       
-      <div className="flex items-center gap-12">
+      <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
         {socialLinks.slice(0, 3).map((social) => (
           <a
             key={social.label}
@@ -50,7 +50,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Open Vaibhav Pasi on ${social.label}`}
-            className="text-[10px] tracking-widest text-gray-500 hover:text-white transition-colors font-bold"
+            className="py-2 text-[10px] tracking-widest text-gray-500 hover:text-white transition-colors font-bold"
           >
             {social.label.toUpperCase()}
           </a>
