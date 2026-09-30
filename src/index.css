@@ -9,6 +9,17 @@
   --color-brand-black: #050505;
   --color-brand-dark-gray: #0e0e0e;
   --color-brand-muted: #1a1a1a;
+
+  /* Notebook / blueprint palette used by the home page */
+  --font-hand: "Gloria Hallelujah", "Comic Sans MS", cursive;
+  --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-ink: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-paper: #f4efe6;
+  --color-paper-dark: #e5dfc8;
+  --color-ink: #012ceb;
+  --color-navy: #051024;
+  --color-void: #01040a;
+  --color-marker: #8de254;
 }
 
 @layer base {
@@ -201,3 +212,116 @@
   background: #f5ff00;
   color: #000;
 }
+
+
+/* ═══════════ Notebook concept (home page) ═══════════ */
+.nb-root {
+  font-family: var(--font-ink);
+  background: var(--color-paper);
+  color: var(--color-navy);
+  font-weight: 600;
+}
+.nb-root ::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* Faint blueprint grid on paper */
+.bg-blueprint {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(1, 44, 235, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(1, 44, 235, 0.06) 1px, transparent 1px);
+}
+/* Ruled notebook lines */
+.bg-ruled {
+  background-image: repeating-linear-gradient(to bottom, transparent 0 31px, rgba(1, 44, 235, 0.12) 31px 32px);
+}
+
+/* Neo-brutalist box: hard border + offset shadow */
+.brutal {
+  border: 2px solid var(--color-navy);
+  box-shadow: 4px 4px 0 var(--color-navy);
+}
+@media (min-width: 768px) {
+  .brutal { border-width: 3px; box-shadow: 8px 8px 0 var(--color-navy); }
+}
+.brutal-sm {
+  border: 2px solid var(--color-navy);
+  box-shadow: 3px 3px 0 var(--color-navy);
+}
+.brutal-press {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.brutal-press:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--color-navy);
+}
+.brutal-press:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--color-navy);
+}
+
+/* Italic green marker highlight */
+.glow-highlight {
+  position: relative;
+  display: inline-block;
+  color: var(--color-marker);
+  text-shadow: 0 0 15px rgba(141, 226, 84, 0.4);
+  font-style: italic;
+}
+.glow-highlight::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(141, 226, 84, 0.8), transparent);
+}
+
+/* Yellow highlighter swipe behind text */
+.marker-swipe {
+  background: linear-gradient(104deg, transparent 0.5%, #fff25c 2%, #fff25c 97%, transparent 99%);
+  background-size: 100% 70%;
+  background-position: 0 70%;
+  background-repeat: no-repeat;
+  padding: 0 0.15em;
+}
+
+/* Rubber stamp */
+.stamp {
+  border: 3px solid currentColor;
+  border-radius: 6px;
+  padding: 0.25em 0.6em;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  mix-blend-mode: multiply;
+  mask-image: radial-gradient(circle at 30% 40%, #000 60%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+/* Masking tape strip */
+.tape {
+  position: absolute;
+  width: 88px;
+  height: 26px;
+  background: rgba(255, 244, 179, 0.75);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(1px);
+}
+
+@keyframes nb-ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes nb-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes nb-rumble {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(1px, -1px) rotate(0.1deg); }
+  50% { transform: translate(-1px, 1px) rotate(-0.1deg); }
+  75% { transform: translate(-0.5px, -1px) rotate(0.05deg); }
+}
+@keyframes nb-blink { 50% { opacity: 0; } }
+.animate-float { animation: nb-float 4s ease-in-out infinite; }
+.animate-rumble { animation: nb-rumble 0.15s ease-in-out infinite; }
+.animate-ticker { animation: nb-ticker 30s linear infinite; }
+.caret::after { content: "_"; animation: nb-blink 1s steps(1) infinite; }
