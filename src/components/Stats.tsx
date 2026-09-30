@@ -1,4 +1,30 @@
-import { motion } from 'motion/react';
+import { useEffect, useRef } from 'react';
+import { animate, motion, useInView, useReducedMotion } from 'motion/react';
+
+// Renders the final value (so it's in the prerendered HTML for crawlers),
+// then counts up from zero the first time it scrolls into view
+function CountUp({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const reduceMotion = useReducedMotion();
+  const match = value.match(/^(\d+)(.*)$/);
+
+  useEffect(() => {
+    if (!inView || !match || reduceMotion || !ref.current) return;
+    const [, digits, suffix] = match;
+    const node = ref.current;
+    const controls = animate(0, Number(digits), {
+      duration: 1.8,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (n) => {
+        node.textContent = `${Math.round(n)}${suffix}`;
+      },
+    });
+    return () => controls.stop();
+  }, [inView]);
+
+  return <span ref={ref}>{value}</span>;
+}
 
 const stats = [
   { label: 'ACTIVE CLIENTS', value: '30K+', marker: '01' },
@@ -33,7 +59,7 @@ export default function Stats() {
               <span className="text-[9px] font-bold tracking-[0.4em] text-gray-700 mb-3 md:mb-4">{stat.marker}</span>
               
               <div className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-3 md:mb-4 group-hover:text-brand-yellow transition-all duration-500 italic uppercase">
-                {stat.value}
+                <CountUp value={stat.value} />
               </div>
               <div className="text-[9px] md:text-[11px] tracking-[0.2em] md:tracking-[0.4em] font-bold text-gray-500 uppercase border-l-2 border-brand-yellow pl-3 md:pl-4">
                 {stat.label}

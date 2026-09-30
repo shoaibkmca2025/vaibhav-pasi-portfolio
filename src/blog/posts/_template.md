@@ -9,7 +9,7 @@ featured: false
 draft: true
 ---
 
-Copy this file, rename it (the file name becomes the link, e.g. `my-new-post.md` → `#/blog/my-new-post`),
+Copy this file, rename it (the file name becomes the link, e.g. `my-new-post.md` → `/blog/my-new-post`),
 fill in the details above and remove `draft: true` to publish.
 
 ## Use headings like this

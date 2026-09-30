@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
 import { Zap, TrendingUp } from 'lucide-react';
-import { contactHref } from '../contact';
 import { unsplashAt, unsplashSrcSet } from '../image';
 
 const experiences = [
@@ -101,22 +100,6 @@ export default function Experience() {
           </div>
         </div>
       </div>
-
-      {/* Experience CTA */}
-      <section className="section-padding">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-brand-dark-gray/10 rounded-3xl p-8 sm:p-12 md:p-20 text-center border border-white/5">
-             <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8 italic">Ready to Build the Future?</h2>
-             <p className="text-gray-400 font-light mb-12 max-w-lg mx-auto">
-               Let's combine technical surgical precision with visionary strategy to create something exceptional.
-             </p>
-             <a href={contactHref} className="bg-white text-black px-6 sm:px-10 py-4 font-bold uppercase tracking-widest text-xs inline-flex items-center gap-3 mx-auto hover:bg-brand-yellow transition-colors group">
-               INITIATE PARTNERSHIP
-               <TrendingUp className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-             </a>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

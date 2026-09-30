@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, Check, Clock, Linkedin, Link2, Share2, Twitter } from 'lucide-react';
 import { posts, getPost, formatDate } from '../blog/posts';
 import { responsiveImage } from '../image';
+import { onLinkClick } from '../router';
 import { contactHref } from '../contact';
+import { absoluteUrl, person } from '../site';
 import ScrollProgress from './ScrollProgress';
 import BlogHeader from './BlogHeader';
 
@@ -11,29 +13,20 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
   const post = getPost(slug);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    if (!post) return;
-    const previous = document.title;
-    document.title = `${post.title} | Vaibhav Pasi`;
-    return () => {
-      document.title = previous;
-    };
-  }, [post]);
-
   if (!post) {
     return (
       <>
-        <BlogHeader backHref="#/blog" backLabel="All articles" />
+        <BlogHeader backHref="/blog" backLabel="All articles" />
         <main className="min-h-svh flex flex-col items-center justify-center text-center px-5">
           <p className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-4">404</p>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8">Article not found.</h1>
-          <a href="#/blog" className="btn-primary rounded-full">Back to the journal</a>
+          <a href="/blog" onClick={onLinkClick} className="btn-primary rounded-full">Back to the journal</a>
         </main>
       </>
     );
   }
 
-  const url = window.location.href;
+  const url = absoluteUrl(`/blog/${post.slug}`);
   const more = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
   const share = async () => {
@@ -63,7 +56,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
       <ScrollProgress />
 
       <BlogHeader
-        backHref="#/blog"
+        backHref="/blog"
         backLabel="All articles"
         action={
           <button
@@ -86,9 +79,21 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-4xl mx-auto px-5 sm:px-6 text-center"
           >
-            <span className="inline-block text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow border border-brand-yellow/20 bg-brand-yellow/5 px-4 py-1.5 rounded-full mb-6 md:mb-8">
-              {post.category}
-            </span>
+            <nav aria-label="Breadcrumb" className="mb-6 md:mb-8">
+              <ol className="flex items-center justify-center gap-2 text-[10px] font-bold tracking-widest uppercase text-gray-500">
+                <li>
+                  <a href="/" onClick={onLinkClick} className="hover:text-brand-yellow transition-colors">Home</a>
+                </li>
+                <li aria-hidden>/</li>
+                <li>
+                  <a href="/blog" onClick={onLinkClick} className="hover:text-brand-yellow transition-colors">Blog</a>
+                </li>
+                <li aria-hidden>/</li>
+                <li className="text-brand-yellow border border-brand-yellow/20 bg-brand-yellow/5 px-3 py-1 rounded-full">
+                  {post.category}
+                </li>
+              </ol>
+            </nav>
             <h1 className="text-3xl min-[400px]:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.02]">
               {post.title}
             </h1>
@@ -99,16 +104,18 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
             )}
             <div className="mt-8 md:mt-10 flex items-center justify-center gap-4">
               <img
-                src="/vaibhav_pasi_portrait.png"
-                alt=""
+                src="/vaibhav-pasi.jpg"
+                alt={person.name}
                 width={44}
                 height={44}
                 className="w-11 h-11 rounded-full object-cover border border-white/10"
               />
               <div className="text-left">
-                <div className="text-sm font-bold">Vaibhav Pasi</div>
+                <a href="/#about" onClick={onLinkClick} rel="author" className="text-sm font-bold hover:text-brand-yellow transition-colors">
+                  {person.name}
+                </a>
                 <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-gray-500 mt-0.5">
-                  <span>{formatDate(post.date)}</span>
+                  <time dateTime={post.date}>{formatDate(post.date)}</time>
                   <span className="w-1 h-1 rounded-full bg-gray-700" />
                   <span className="inline-flex items-center gap-1">
                     <Clock className="w-3 h-3" /> {post.readingMinutes} min read
@@ -129,7 +136,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
               <div className="aspect-[16/10] md:aspect-[21/9] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10">
                 <img
                   {...responsiveImage(post.cover, '(min-width: 1152px) 1104px, 100vw')}
-                  alt=""
+                  alt={post.title}
                   className="w-full h-full object-cover"
                   decoding="async"
                   referrerPolicy="no-referrer"
@@ -186,6 +193,36 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
               </button>
             </div>
           </div>
+
+          {/* Author box: tells readers (and search/AI engines) who wrote this and why to trust it */}
+          <aside className="max-w-2xl mx-auto px-5 sm:px-6 mt-10">
+            <div className="flex flex-col sm:flex-row gap-5 p-6 md:p-8 rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-white/[0.04] to-transparent">
+              <img
+                src="/vaibhav-pasi.jpg"
+                alt={person.name}
+                width={72}
+                height={72}
+                loading="lazy"
+                className="w-[72px] h-[72px] rounded-2xl object-cover border border-white/10 shrink-0"
+              />
+              <div>
+                <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow mb-2">Written by</p>
+                <p className="text-lg font-bold">{person.name}</p>
+                <p className="mt-2 text-sm text-gray-400 font-light leading-relaxed">
+                  Co-Founder of {person.organization.name}. Digital marketing strategist, software developer and AI
+                  consultant helping startups, SMEs and enterprises scale with data-driven growth, AI automation and
+                  marketplace onboarding.
+                </p>
+                <a
+                  href="/#about"
+                  onClick={onLinkClick}
+                  className="mt-4 inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-brand-yellow transition-colors"
+                >
+                  More about Vaibhav <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </aside>
         </article>
 
         {/* Keep reading */}
@@ -199,7 +236,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 {more.map((p) => (
                   <a
                     key={p.slug}
-                    href={`#/blog/${p.slug}`}
+                    href={`/blog/${p.slug}`} onClick={onLinkClick}
                     className="group flex gap-4 sm:gap-5 p-3 sm:p-4 rounded-[1.5rem] border border-white/5 bg-brand-black hover:border-brand-yellow/30 transition-colors"
                   >
                     {p.cover && (

@@ -1,4 +1,4 @@
-import { useEffect, useState, type AnchorHTMLAttributes, type MouseEvent } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 
 export type Route = { page: 'home' } | { page: 'blog' } | { page: 'post'; slug: string };
 
@@ -48,16 +48,4 @@ export function onLinkClick(e: MouseEvent<HTMLAnchorElement>) {
   if (url.origin !== window.location.origin || url.pathname === window.location.pathname) return;
   e.preventDefault();
   navigate(url.pathname + url.hash);
-}
-
-export function Link({ onClick, ...rest }: AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
-  return (
-    <a
-      {...rest}
-      onClick={(e) => {
-        onClick?.(e);
-        onLinkClick(e);
-      }}
-    />
-  );
 }

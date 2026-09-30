@@ -1,7 +1,7 @@
 import { marked } from 'marked';
 
 // Every .md file in ./posts becomes a blog post. The file name is the URL slug:
-// posts/my-first-post.md  ->  #/blog/my-first-post
+// posts/my-first-post.md  ->  /blog/my-first-post
 const files = import.meta.glob('./posts/*.md', {
   query: '?raw',
   import: 'default',

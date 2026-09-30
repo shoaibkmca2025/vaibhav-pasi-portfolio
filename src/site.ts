@@ -5,11 +5,13 @@ export const SITE_URL = 'https://vaibhav-pasi-portfolio.vercel.app';
 
 export const SITE_NAME = 'Vaibhav Pasi';
 
-export const DEFAULT_TITLE = 'Vaibhav Pasi | Digital Marketing Strategist & AI Consultant';
+export const DEFAULT_TITLE = 'Vaibhav Pasi | Tech x Marketing';
 export const DEFAULT_DESCRIPTION =
   'Vaibhav Pasi is a digital marketing strategist, software developer and AI consultant, and Co-Founder of 4AM Global Media, helping brands scale with growth marketing, AI and e-commerce.';
 
-export const PORTRAIT_URL = `${SITE_URL}/vaibhav_pasi_portrait.png`;
+export const PORTRAIT_URL = `${SITE_URL}/vaibhav-pasi.jpg`;
+// 1200x630 image shown in link previews on WhatsApp, LinkedIn, X, etc.
+export const SHARE_IMAGE_URL = `${SITE_URL}/vaibhav-pasi-og.jpg`;
 
 export const person = {
   name: 'Vaibhav Pasi',

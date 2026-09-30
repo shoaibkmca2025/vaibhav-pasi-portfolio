@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, Clock, PenLine, Search } from 'lucide-react';
 import { posts, categories, formatDate, type Post } from '../blog/posts';
 import { responsiveImage } from '../image';
+import { onLinkClick } from '../router';
 
 const PAGE_SIZE = 9;
 
@@ -24,7 +25,7 @@ function PostCard({ post, index }: { post: Post; index: number; key?: string }) 
   return (
     <motion.a
       layout
-      href={`#/blog/${post.slug}`}
+      href={`/blog/${post.slug}`} onClick={onLinkClick}
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
@@ -65,7 +66,7 @@ function PostCard({ post, index }: { post: Post; index: number; key?: string }) 
 function FeaturedPost({ post }: { post: Post }) {
   return (
     <motion.a
-      href={`#/blog/${post.slug}`}
+      href={`/blog/${post.slug}`} onClick={onLinkClick}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -159,7 +160,7 @@ export default function Blog() {
           </div>
           {posts.length > 0 && (
             <a
-              href="#/blog"
+              href="/blog" onClick={onLinkClick}
               className="group self-start md:self-auto inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-brand-yellow border-b border-white/10 hover:border-brand-yellow pb-2 transition-colors"
             >
               All {posts.length} articles
@@ -176,7 +177,7 @@ export default function Blog() {
             {latest.length > 0 && <PostGrid items={latest} />}
 
             <div className="mt-10 md:mt-14 flex justify-center">
-              <a href="#/blog" className="btn-primary rounded-full inline-flex items-center gap-2">
+              <a href="/blog" onClick={onLinkClick} className="btn-primary rounded-full inline-flex items-center gap-2">
                 View all articles <ArrowUpRight className="w-4 h-4" />
               </a>
             </div>
@@ -187,7 +188,7 @@ export default function Blog() {
   );
 }
 
-/* ─── Full blog page (#/blog): search, filters, every article ─── */
+/* ─── Full blog page (/blog): search, filters, every article ─── */
 export function BlogIndex() {
   const [category, setCategory] = useState('All');
   const [query, setQuery] = useState('');
@@ -206,14 +207,6 @@ export function BlogIndex() {
   const shown = rest.slice(0, visible);
 
   const resetPaging = () => setVisible(PAGE_SIZE);
-
-  useEffect(() => {
-    const previous = document.title;
-    document.title = 'Blog | Vaibhav Pasi';
-    return () => {
-      document.title = previous;
-    };
-  }, []);
 
   return (
     <main className="relative overflow-hidden">

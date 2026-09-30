@@ -8,6 +8,7 @@ import {
   DEFAULT_TITLE,
   DEFAULT_DESCRIPTION,
   PORTRAIT_URL,
+  SHARE_IMAGE_URL,
   person,
   absoluteUrl,
 } from './site';
@@ -60,7 +61,7 @@ const websiteSchema = {
 };
 
 const coverUrl = (cover: string) => {
-  if (!cover) return PORTRAIT_URL;
+  if (!cover) return SHARE_IMAGE_URL;
   if (cover.includes('images.unsplash.com')) return unsplashAt(cover, 1200);
   return cover.startsWith('http') ? cover : absoluteUrl(cover);
 };
@@ -84,7 +85,7 @@ export function getSeo(pathname: string): Seo {
       description:
         'Playbooks and lessons from Vaibhav Pasi on growth marketing, viral content, AI automation, quick commerce and building brands that scale.',
       path: '/blog',
-      image: PORTRAIT_URL,
+      image: SHARE_IMAGE_URL,
       type: 'website',
       jsonLd: {
         '@context': 'https://schema.org',
@@ -162,7 +163,7 @@ export function getSeo(pathname: string): Seo {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
     path: '/',
-    image: PORTRAIT_URL,
+    image: SHARE_IMAGE_URL,
     type: 'profile',
     jsonLd: {
       '@context': 'https://schema.org',

@@ -3,11 +3,13 @@ import { motion, useSpring } from 'motion/react';
 
 // Only show the custom cursor on devices with a real mouse (not phones or touch tablets)
 const hasFinePointer = () =>
-  typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
-  const [enabled] = useState(hasFinePointer);
+  // Decided after mount so the prerendered HTML and first client render match
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => setEnabled(hasFinePointer()), []);
   
   const cursorX = useSpring(0, { stiffness: 500, damping: 28 });
   const cursorY = useSpring(0, { stiffness: 500, damping: 28 });

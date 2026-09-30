@@ -165,7 +165,7 @@ export default function About() {
                   <div className="absolute -inset-2 bg-gradient-to-br from-brand-yellow/30 via-brand-yellow/10 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
                   <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-brand-yellow/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
                   <img
-                    src="/vaibhav_pasi_portrait.png"
+                    src="/vaibhav-pasi.jpg"
                     alt="Vaibhav Pasi — Founder of 4AM Global Media"
                     className="relative w-36 h-36 md:w-52 md:h-52 object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700 border border-white/10"
                     loading="lazy"

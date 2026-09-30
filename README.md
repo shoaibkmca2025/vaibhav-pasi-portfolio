@@ -13,9 +13,9 @@ Premium React/Vite portfolio for Vaibhav Pasi, focused on digital strategy, soci
 
 ## Publishing Blog Posts
 
-Blog posts are Markdown files in [`src/blog/posts/`](src/blog/posts/). Each file becomes an article on the site. All articles are listed on the blog page at `yoursite.com/#/blog`, and the newest ones are previewed in the Blog section on the home page.
+Blog posts are Markdown files in [`src/blog/posts/`](src/blog/posts/). Each file becomes an article on the site. All articles are listed on the blog page at `yoursite.com/blog`, and the newest ones are previewed in the Blog section on the home page.
 
-1. Copy `src/blog/posts/_template.md` and rename it. The file name becomes the link: `my-new-post.md` → `yoursite.com/#/blog/my-new-post`.
+1. Copy `src/blog/posts/_template.md` and rename it. The file name becomes the link: `my-new-post.md` → `yoursite.com/blog/my-new-post`.
 2. Fill in the details at the top (between the `---` lines):
 
    | Field      | What it does                                                        |
@@ -31,3 +31,13 @@ Blog posts are Markdown files in [`src/blog/posts/`](src/blog/posts/). Each file
 
 3. Write the article below the second `---` in normal Markdown: `## headings`, **bold**, lists, `> quotes`, links and images.
 4. Rebuild and deploy (`npm run build`). The post appears in the Blog section automatically.
+
+## SEO
+
+`npm run build` prerenders every page (home, `/blog`, each article) to static HTML with its own title,
+description, social preview tags and structured data, so search engines, AI assistants and link previews
+see the full content. It also generates `sitemap.xml`, `robots.txt` and `llms.txt`.
+
+- Site address, name and default title/description: [`src/site.ts`](src/site.ts). Update `SITE_URL` if you move to a custom domain.
+- Per-page tags and structured data: [`src/seo.ts`](src/seo.ts)
+- FAQ questions (also used for Google's FAQ markup): [`src/components/FAQ.tsx`](src/components/FAQ.tsx)
