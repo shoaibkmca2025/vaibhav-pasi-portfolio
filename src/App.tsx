@@ -31,6 +31,7 @@ import ScrollProgress from './components/ScrollProgress';
 import { contactEmail, contactHref, socialLinks } from './contact';
 import { navigate, useRoute } from './router';
 import { applySeo, getSeo } from './seo';
+import { SPLASH_DONE_EVENT } from './splash';
 
 // `initialPath` is passed when prerendering at build time; in the browser the URL is used
 export default function App({ initialPath }: { initialPath?: string }) {
@@ -38,6 +39,14 @@ export default function App({ initialPath }: { initialPath?: string }) {
   const route = useRoute(initialPath);
   const routeKey = route.page === 'post' ? `post:${route.slug}` : route.page;
   const previousRoute = useRef(routeKey);
+  // Bumped when the intro splash lifts, remounting the hero so its entrance plays in view
+  const [heroKey, setHeroKey] = useState(0);
+
+  useEffect(() => {
+    const replayHero = () => setHeroKey((k) => k + 1);
+    window.addEventListener(SPLASH_DONE_EVENT, replayHero);
+    return () => window.removeEventListener(SPLASH_DONE_EVENT, replayHero);
+  }, []);
 
   useEffect(() => {
     if (previousRoute.current === routeKey) return;
@@ -147,7 +156,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
 
       <main>
         <section id="home">
-          <Hero />
+          <Hero key={heroKey} />
           <Stats />
         </section>
 

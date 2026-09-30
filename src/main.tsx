@@ -2,6 +2,7 @@ import {StrictMode} from 'react';
 import {createRoot, hydrateRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
+import { finishSplash } from './splash';
 
 const root = document.getElementById('root')!;
 const app = (
@@ -17,3 +18,5 @@ if (root.firstElementChild) {
 } else {
   createRoot(root).render(app);
 }
+
+finishSplash();

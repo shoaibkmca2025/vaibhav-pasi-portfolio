@@ -21,8 +21,88 @@
       content="Vaibhav Pasi is a digital marketing strategist, software developer and AI consultant, and Co-Founder of 4AM Global Media, helping brands scale with growth marketing, AI and e-commerce."
     />
     <title>Vaibhav Pasi | Tech x Marketing</title>
+
+    <!-- Intro splash: shown once per browser session, skipped for reduced motion. Removed by src/splash.ts -->
+    <script>
+      try {
+        if (sessionStorage.getItem('vp-splash') || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('no-splash');
+        }
+      } catch (e) {}
+    </script>
+    <style>
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 100000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
+        background: #050505;
+        color: #fff;
+        transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+        /* Failsafe: hides itself even if the app's JavaScript never runs */
+        animation: splash-failsafe 0.6s ease 5s forwards;
+      }
+      .no-splash #splash { display: none; }
+      #splash.exit { transform: translateY(-100%); }
+      .splash-name {
+        display: flex;
+        overflow: hidden;
+        /* Extra room so the italic lean and yellow glow aren't clipped by the rise mask */
+        padding: 0.14em 0.4em 0.1em;
+        font: italic 900 clamp(36px, 10.5vw, 132px) / 1 'Outfit', system-ui, sans-serif;
+        letter-spacing: -0.05em;
+        text-transform: uppercase;
+      }
+      .splash-name span {
+        display: inline-block;
+        transform: translateY(115%);
+        animation: splash-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation-delay: calc(var(--i) * 45ms + 0.1s);
+      }
+      .splash-name .gap { width: 0.26em; }
+      .splash-name .accent { color: #f5ff00; text-shadow: 0 0 30px rgba(245, 255, 0, 0.35); }
+      .splash-bar {
+        width: min(320px, 60vw);
+        height: 2px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .splash-bar i {
+        display: block;
+        height: 100%;
+        background: #f5ff00;
+        box-shadow: 0 0 12px rgba(245, 255, 0, 0.7);
+        transform: scaleX(0);
+        transform-origin: left;
+        animation: splash-load 1.5s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+      }
+      .splash-tag {
+        font: 700 11px 'Outfit', system-ui, sans-serif;
+        letter-spacing: 0.55em;
+        text-transform: uppercase;
+        color: #6b7280;
+        opacity: 0;
+        animation: splash-fade 0.7s ease 0.9s forwards;
+      }
+      @keyframes splash-rise { to { transform: none; } }
+      @keyframes splash-load { to { transform: scaleX(1); } }
+      @keyframes splash-fade { to { opacity: 1; } }
+      @keyframes splash-failsafe { to { opacity: 0; visibility: hidden; } }
+      @media (prefers-reduced-motion: reduce) { #splash { display: none; } }
+    </style>
   </head>
   <body>
+    <div id="splash" aria-hidden="true">
+      <div class="splash-name">
+        <span style="--i: 0">V</span><span style="--i: 1">a</span><span style="--i: 2">i</span><span style="--i: 3">b</span><span style="--i: 4">h</span><span style="--i: 5">a</span><span style="--i: 6">v</span><span class="gap"></span><span class="accent" style="--i: 7">P</span><span class="accent" style="--i: 8">a</span><span class="accent" style="--i: 9">s</span><span class="accent" style="--i: 10">i</span>
+      </div>
+      <div class="splash-bar"><i></i></div>
+      <div class="splash-tag">Tech x Marketing</div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
