@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Zap, TrendingUp } from 'lucide-react';
 import { contactHref } from '../contact';
+import { unsplashAt, unsplashSrcSet } from '../image';
 
 const experiences = [
   {
@@ -11,6 +12,7 @@ const experiences = [
     achievement: '400%',
     metric: 'USER GROWTH ARCHITECTURE',
     icon: TrendingUp,
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop',
     active: true
   },
   {
@@ -21,6 +23,7 @@ const experiences = [
     achievement: '0.8s',
     metric: 'LCP OPTIMIZATION LEAD',
     icon: Zap,
+    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop',
     active: false
   }
 ];
@@ -81,10 +84,10 @@ export default function Experience() {
                     viewport={{ once: true }}
                     className="aspect-video lg:aspect-square rounded-3xl overflow-hidden grayscale border border-white/10"
                   >
-                    <img 
-                      src={index === 0 
-                        ? "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" 
-                        : "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop"} 
+                    <img
+                      src={unsplashAt(exp.image, 1200)}
+                      srcSet={unsplashSrcSet(exp.image)}
+                      sizes="(min-width: 1024px) 50vw, 100vw"
                       alt={exp.company}
                       className="w-full h-full object-cover opacity-60"
                       loading="lazy"

@@ -1,6 +1,9 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { contactHref } from '../contact';
+import { unsplashAt, unsplashSrcSet } from '../image';
+
+const workshopImage = 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=2070&auto=format&fit=crop';
 
 const projects = [
   {
@@ -59,7 +62,9 @@ export default function Projects() {
                 }`}
               >
                 <img
-                  src={project.image}
+                  src={unsplashAt(project.image, 1200)}
+                  srcSet={unsplashSrcSet(project.image)}
+                  sizes={project.featured ? '(min-width: 1280px) 1232px, 100vw' : '(min-width: 1280px) 608px, (min-width: 768px) 50vw, 100vw'}
                   alt={project.title}
                   className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-700 group-hover:scale-105"
                   loading="lazy"
@@ -96,8 +101,10 @@ export default function Projects() {
       <section className="section-padding bg-black/50 overflow-hidden">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
            <div className="w-full md:w-auto flex-1 relative aspect-video rounded-3xl overflow-hidden border border-white/10">
-              <img 
-                src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=2070&auto=format&fit=crop" 
+              <img
+                src={unsplashAt(workshopImage, 1200)}
+                srcSet={unsplashSrcSet(workshopImage)}
+                sizes="(min-width: 768px) 50vw, 100vw"
                 alt="Workshop"
                 className="w-full h-full object-cover grayscale brightness-50"
                 loading="lazy"

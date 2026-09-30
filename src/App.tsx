@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, MotionConfig } from 'motion/react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
@@ -80,11 +80,25 @@ export default function App() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Passive + one check per frame keeps scrolling smooth on phones
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        handleScroll();
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-brand-black text-white font-sans selection:bg-brand-yellow selection:text-brand-black overflow-x-hidden">
       <div className="noise" />
       <CustomCursor />
@@ -175,5 +189,6 @@ export default function App() {
 
       <Footer />
     </div>
+    </MotionConfig>
   );
 }

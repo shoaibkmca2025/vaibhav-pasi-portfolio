@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Target, Lightbulb, BarChart3, ChevronRight } from 'lucide-react';
+import { unsplashAt, unsplashSrcSet } from '../image';
 
 const caseStudies = [
   {
@@ -72,7 +73,9 @@ export default function CaseStudies() {
               <div className="flex-1 lg:w-1/2 relative group">
                 <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/5 bg-brand-dark-gray/20">
                   <img
-                    src={study.image}
+                    src={unsplashAt(study.image, 1200)}
+                    srcSet={unsplashSrcSet(study.image)}
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                     alt={study.title}
                     className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
                     loading="lazy"
@@ -96,7 +99,9 @@ export default function CaseStudies() {
                   className={`absolute -bottom-10 ${idx % 2 === 0 ? '-right-10' : '-left-10'} w-2/3 aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl z-20 hidden md:block`}
                 >
                   <img
-                    src={study.secondaryImage}
+                    src={unsplashAt(study.secondaryImage, 800)}
+                    srcSet={unsplashSrcSet(study.secondaryImage, [480, 800, 1200])}
+                    sizes="(min-width: 1024px) 33vw, 66vw"
                     alt={`${study.title} detail`}
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
                     loading="lazy"

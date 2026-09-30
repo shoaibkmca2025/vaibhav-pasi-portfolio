@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Outfit is loaded from index.html so the font request starts in parallel with this stylesheet */
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   
   --color-brand-yellow: #f5ff00;
-  --color-brand-black: #000000;
-  --color-brand-dark-gray: #111111;
+  --color-brand-black: #050505;
+  --color-brand-dark-gray: #0e0e0e;
+  --color-brand-muted: #1a1a1a;
 }
 
 @layer base {
@@ -30,8 +31,23 @@
   body {
     @apply bg-brand-black text-white antialiased selection:bg-brand-yellow selection:text-black min-h-screen relative;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
+/* ─── Noise overlay ─── */
 .noise {
   position: fixed;
   top: 0;
@@ -39,24 +55,73 @@
   width: 100%;
   height: 100%;
   content: "";
-  opacity: 0.05;
+  opacity: 0.04;
   z-index: 9999;
   pointer-events: none;
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
 }
 
+/* ─── Glow effects ─── */
 .glow-yellow {
-  text-shadow: 0 0 20px rgba(245, 255, 0, 0.4);
+  text-shadow: 0 0 30px rgba(245, 255, 0, 0.4), 0 0 60px rgba(245, 255, 0, 0.1);
 }
 
+.glow-box {
+  box-shadow: 0 0 40px -10px rgba(245, 255, 0, 0.2);
+}
+
+/* ─── Section padding ─── */
 .section-padding {
-  @apply py-16 md:py-24 px-5 sm:px-6 md:px-12 lg:px-24;
+  @apply py-20 md:py-32 px-5 sm:px-6 md:px-12 lg:px-24;
 }
 
+/* ─── Buttons ─── */
 .btn-primary {
-  @apply bg-brand-yellow text-black px-8 py-3 font-semibold transition-all hover:brightness-110 active:scale-95 text-sm uppercase tracking-wider;
+  @apply bg-brand-yellow text-black px-8 py-4 font-extrabold transition-all hover:brightness-110 active:scale-95 text-[11px] uppercase tracking-[0.25em];
 }
 
 .btn-secondary {
-  @apply border border-white/30 text-white px-8 py-3 font-semibold transition-all hover:bg-white hover:text-black active:scale-95 text-sm uppercase tracking-wider;
+  @apply border border-white/20 text-white px-8 py-4 font-extrabold transition-all hover:bg-white hover:text-black active:scale-95 text-[11px] uppercase tracking-[0.25em];
+}
+
+/* ─── Editorial section markers ─── */
+.section-marker {
+  @apply text-[10px] font-bold tracking-[0.4em] uppercase text-gray-600 border-b border-gray-800 pb-2;
+}
+
+/* ─── Horizontal divider ─── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* ─── Card base ─── */
+.card-dark {
+  @apply bg-brand-muted/40 border border-white/5 rounded-[1.5rem] md:rounded-[2rem] transition-all duration-500;
+}
+
+.card-dark:hover {
+  @apply border-brand-yellow/20;
+  box-shadow: 0 0 50px -20px rgba(245, 255, 0, 0.08);
+}
+
+/* ─── Scrollbar styling ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* ─── Selection ─── */
+::selection {
+  background: #f5ff00;
+  color: #000;
 }

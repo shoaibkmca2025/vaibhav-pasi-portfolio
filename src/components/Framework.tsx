@@ -1,4 +1,7 @@
 import { motion } from 'motion/react';
+import { unsplashAt, unsplashSrcSet } from '../image';
+
+const frameworkImage = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop';
 
 export default function Framework() {
   return (
@@ -31,7 +34,9 @@ export default function Framework() {
           className="relative aspect-[4/3] sm:aspect-video rounded-2xl overflow-hidden border border-white/10 group"
         >
           <img
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
+            src={unsplashAt(frameworkImage, 1200)}
+            srcSet={unsplashSrcSet(frameworkImage)}
+            sizes="(min-width: 1280px) 1232px, 100vw"
             alt="Data Analytics Framework"
             className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
             loading="lazy"

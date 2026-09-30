@@ -110,8 +110,8 @@ export default function About() {
   return (
     <section className="relative overflow-hidden bg-brand-black">
       {/* ── Ambient background effects ── */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-yellow/5 blur-[160px] rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-yellow/3 blur-[140px] rounded-full translate-y-1/3 -translate-x-1/3 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[320px] h-[320px] md:w-[600px] md:h-[600px] bg-brand-yellow/5 blur-[80px] md:blur-[160px] rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[280px] h-[280px] md:w-[500px] md:h-[500px] bg-brand-yellow/3 blur-[80px] md:blur-[140px] rounded-full translate-y-1/3 -translate-x-1/3 pointer-events-none" />
 
       {/* ═══════════════════ PART 1 — Hero About ═══════════════════ */}
       <div className="section-padding relative z-10">

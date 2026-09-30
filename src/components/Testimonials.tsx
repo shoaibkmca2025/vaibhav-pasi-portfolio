@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Quote } from 'lucide-react';
+import { unsplashAt } from '../image';
 
 const testimonials = [
   {
@@ -58,7 +59,10 @@ export default function Testimonials() {
               <div className="flex items-center gap-4">
                 <div className="shrink-0 w-12 h-12 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 transition-all">
                   <img
-                    src={t.avatar}
+                    src={unsplashAt(t.avatar, 96)}
+                    srcSet={`${unsplashAt(t.avatar, 96)} 1x, ${unsplashAt(t.avatar, 192)} 2x`}
+                    width={48}
+                    height={48}
                     alt={t.author}
                     className="w-full h-full object-cover"
                     loading="lazy"
