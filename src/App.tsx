@@ -14,7 +14,7 @@ import Scaling from './components/Scaling';
 import About from './components/About';
 import HowItWorks from './components/HowItWorks';
 import FAQ from './components/FAQ';
-import ContactCTA, { Footer } from './components/Footer';
+import { Footer } from './components/Footer';
 import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Skills from './components/Skills';
@@ -29,50 +29,33 @@ import BlogPost from './components/BlogPost';
 import BlogHeader from './components/BlogHeader';
 import ScrollProgress from './components/ScrollProgress';
 import { contactEmail, contactHref, socialLinks } from './contact';
+import { navigate, useRoute } from './router';
+import { applySeo, getSeo } from './seo';
 
-type Route = { page: 'home' } | { page: 'blog' } | { page: 'post'; slug: string };
-
-// #/blog is the blog page, #/blog/<slug> an article; any other hash is an on-page section anchor
-function parseRoute(hash: string): Route {
-  if (hash === '#/blog' || hash === '#/blog/') return { page: 'blog' };
-  if (hash.startsWith('#/blog/')) return { page: 'post', slug: decodeURIComponent(hash.slice('#/blog/'.length)) };
-  return { page: 'home' };
-}
-
-function useRoute() {
-  const [hash, setHash] = useState(() => window.location.hash);
-
-  useEffect(() => {
-    const onHashChange = () => setHash(window.location.hash);
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
-
-  return parseRoute(hash);
-}
-
-export default function App() {
+// `initialPath` is passed when prerendering at build time; in the browser the URL is used
+export default function App({ initialPath }: { initialPath?: string }) {
   const [activeTab, setActiveTab] = useState('Home');
-  const route = useRoute();
+  const route = useRoute(initialPath);
   const routeKey = route.page === 'post' ? `post:${route.slug}` : route.page;
   const previousRoute = useRef(routeKey);
 
   useEffect(() => {
     if (previousRoute.current === routeKey) return;
+    previousRoute.current = routeKey;
+    applySeo(getSeo(window.location.pathname));
     if (route.page !== 'home') {
       window.scrollTo({ top: 0, behavior: 'instant' });
     } else {
       // Back on the home page: the target section only exists after this render
-      const target = document.getElementById(window.location.hash.slice(1));
+      const target = window.location.hash && document.getElementById(window.location.hash.slice(1));
       if (target) target.scrollIntoView({ behavior: 'instant' });
       else window.scrollTo({ top: 0, behavior: 'instant' });
     }
-    previousRoute.current = routeKey;
   }, [routeKey]);
 
   const scrollToSection = (tab: string) => {
     if (tab === 'Blog') {
-      window.location.hash = '#/blog';
+      navigate('/blog');
       return;
     }
     const id = tab.toLowerCase().replace(/\s+/g, '');
@@ -154,7 +137,7 @@ export default function App() {
       ) : route.page === 'blog' ? (
         <>
           <ScrollProgress />
-          <BlogHeader backHref="#home" backLabel="Home" />
+          <BlogHeader backHref="/" backLabel="Home" />
           <BlogIndex />
         </>
       ) : (
@@ -245,7 +228,6 @@ export default function App() {
                ))}
             </div>
           </motion.div>
-          <ContactCTA />
         </section>
       </main>
       </>

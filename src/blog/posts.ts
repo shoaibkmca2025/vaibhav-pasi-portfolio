@@ -18,6 +18,7 @@ export interface Post {
   tags: string[];
   featured: boolean;
   readingMinutes: number;
+  wordCount: number;
   html: string;
 }
 
@@ -55,6 +56,7 @@ function toPost(path: string, raw: string): Post | null {
     tags: data.tags ? data.tags.split(',').map((t) => t.trim()).filter(Boolean) : [],
     featured: data.featured === 'true',
     readingMinutes: Math.max(1, Math.round(words / 200)),
+    wordCount: words,
     html: marked.parse(body, { async: false }),
   };
 }

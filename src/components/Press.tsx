@@ -1,12 +1,12 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 
-const featureHeadline = 'Vaibhav Pasi: Visionary Entrepreneur Redefining Digital Marketing Through 4AM Global Media';
+export const featureHeadline = 'Vaibhav Pasi: Visionary Entrepreneur Redefining Digital Marketing Through 4AM Global Media';
 
 // Logos live in /public/press. Most are dark artwork, so they sit on a light plate;
 // "dark" is for logos drawn in white.
 // Publications without a local logo use a text-only fallback (textOnly: true).
-const publications = [
+export const publications = [
   {
     name: 'Dailyhunt',
     href: 'https://m.dailyhunt.in/news/india/english/punjabbytes-epaper-dhb7faabc774324241990251ac4336f653/-newsid-dhb7faabc774324241990251ac4336f653_9e048369b0044e30a55581dd34c09d1f',
