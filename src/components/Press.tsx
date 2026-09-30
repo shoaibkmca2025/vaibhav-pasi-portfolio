@@ -1,14 +1,15 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 
-const featureHeadline = 'Vaibhav Pasi: The Visionary Entrepreneur Redefining Digital Marketing Through 4AM Global Media';
+const featureHeadline = 'Vaibhav Pasi: Visionary Entrepreneur Redefining Digital Marketing Through 4AM Global Media';
 
 // Logos live in /public/press. Most are dark artwork, so they sit on a light plate;
 // "dark" is for logos drawn in white.
+// Publications without a local logo use a text-only fallback (textOnly: true).
 const publications = [
   {
     name: 'Dailyhunt',
-    href: 'https://dhunt.in/14pA87',
+    href: 'https://m.dailyhunt.in/news/india/english/punjabbytes-epaper-dhb7faabc774324241990251ac4336f653/-newsid-dhb7faabc774324241990251ac4336f653_9e048369b0044e30a55581dd34c09d1f',
     logo: '/press/dailyhunt.png',
     wordmark: true,
   },
@@ -27,6 +28,41 @@ const publications = [
     name: 'Indian Prime Bulletin',
     href: 'https://indianprimebulletin.com/2026/05/19/vaibhav-pasi-the-visionary-entrepreneur-redefining-digital-marketing-through-4am-global-media/',
     logo: '/press/indian-prime-bulletin.png',
+  },
+  {
+    name: 'Smart Bharat News',
+    href: 'https://www.smartbharatnews.top/2026/05/vaibhav-pasi-visionary-entrepreneur.html',
+    textOnly: true,
+  },
+  {
+    name: 'National Outlook Daily',
+    href: 'https://www.nationaloutlookdaily.top/2026/05/vaibhav-pasi-visionary-entrepreneur.html',
+    textOnly: true,
+  },
+  {
+    name: 'Bharat Biz Wire',
+    href: 'https://www.bharatbizwire.top/2026/05/vaibhav-pasi-visionary-entrepreneur.html',
+    textOnly: true,
+  },
+  {
+    name: 'Saga of India',
+    href: 'https://www.sagaofindia.top/2026/05/vaibhav-pasi-visionary-entrepreneur.html',
+    textOnly: true,
+  },
+  {
+    name: 'The Republic News',
+    href: 'https://www.therepublicnews.co.in/2026/05/vaibhav-pasi-visionary-entrepreneur.html',
+    textOnly: true,
+  },
+  {
+    name: 'Indian Economics News',
+    href: 'https://www.indianeconomicsnews.co.in/2026/05/vaibhav-pasi-visionary-entrepreneur.html',
+    textOnly: true,
+  },
+  {
+    name: 'Times News Express',
+    href: 'http://www.timesnewsexpress.co.in/2026/05/vaibhav-pasi-visionary-entrepreneur.html',
+    textOnly: true,
   },
   {
     name: 'Daily District News',
@@ -106,18 +142,26 @@ export default function Press() {
             >
               <div
                 className={`h-20 sm:h-24 md:h-28 rounded-xl md:rounded-2xl flex items-center justify-center gap-2 px-4 py-3 md:px-6 md:py-4 transition-transform duration-500 group-hover:scale-[0.98] ${
-                  pub.plate === 'dark' ? 'bg-neutral-900 border border-white/10' : 'bg-white'
+                  ('textOnly' in pub && pub.textOnly)
+                    ? 'bg-neutral-900 border border-white/10'
+                    : pub.plate === 'dark' ? 'bg-neutral-900 border border-white/10' : 'bg-white'
                 }`}
               >
-                <img
-                  src={pub.logo}
-                  alt={`${pub.name} logo`}
-                  className={`object-contain ${pub.wordmark ? 'h-8 md:h-10 w-auto' : 'max-h-full max-w-full'}`}
-                  loading="lazy"
-                  decoding="async"
-                />
-                {pub.wordmark && (
-                  <span className="text-base sm:text-lg md:text-2xl font-bold tracking-tight text-neutral-800">{pub.name}</span>
+                {('textOnly' in pub && pub.textOnly) ? (
+                  <span className="text-sm sm:text-base md:text-lg font-bold tracking-tight text-white text-center leading-tight">{pub.name}</span>
+                ) : (
+                  <>
+                    <img
+                      src={pub.logo}
+                      alt={`${pub.name} logo`}
+                      className={`object-contain ${pub.wordmark ? 'h-8 md:h-10 w-auto' : 'max-h-full max-w-full'}`}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    {pub.wordmark && (
+                      <span className="text-base sm:text-lg md:text-2xl font-bold tracking-tight text-neutral-800">{pub.name}</span>
+                    )}
+                  </>
                 )}
               </div>
               <div className="flex items-center justify-between gap-2 px-2 pt-3 pb-1">
