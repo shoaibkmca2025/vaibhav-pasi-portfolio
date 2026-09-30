@@ -1,8 +1,20 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Eye, MessageCircle, Play, TrendingUp, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Eye, Images, MessageCircle, Play, TrendingUp, X } from 'lucide-react';
 
-// Figures are taken from client analytics screenshots; `receipt` points at the screenshot in /public/wins
+// The original screenshots (in /public/wins), shown in the gallery and opened from each result
+const screenshots = [
+  { src: '/wins/analytics-90d.jpg', caption: 'Impressions & views, 90 days' },
+  { src: '/wins/analytics-likes-views.jpg', caption: 'Likes & views, 28 days' },
+  { src: '/wins/analytics-watch-time.jpg', caption: 'Views & watch time, 28 days' },
+  { src: '/wins/reels-creator-a.jpg', caption: 'Creator A: reel views before → after' },
+  { src: '/wins/reels-creator-b.jpg', caption: 'Creator B: reel views before → after' },
+  { src: '/wins/profile-growth.jpg', caption: 'Profile growth on Instagram & TikTok' },
+  { src: '/wins/client-messages.jpg', caption: 'Client messages' },
+];
+const shot = (src: string) => screenshots.findIndex((s) => s.src === src);
+
+// Figures are taken from the screenshots above; `receipt` points at the one each figure comes from
 const stats = [
   { lift: '+67,471%', metric: 'Impressions', total: '127,710', period: '90 days vs previous 90', receipt: '/wins/analytics-90d.jpg' },
   { lift: '+14,968%', metric: 'Views', total: '8,740', period: '90 days vs previous 90', receipt: '/wins/analytics-90d.jpg' },
@@ -17,6 +29,7 @@ const glowUps = [
   {
     label: 'Creator A',
     icon: Eye,
+    receipt: '/wins/reels-creator-a.jpg',
     before: [433, 513, 461, 661],
     after: ['28K', '4,055', '3,038', '2,931'],
     bestBefore: 661,
@@ -25,6 +38,7 @@ const glowUps = [
   {
     label: 'Creator B',
     icon: Play,
+    receipt: '/wins/reels-creator-b.jpg',
     before: [643, 1075, 991, 722],
     after: ['3.1M', '999.8K', '174.6K', '127.9K'],
     bestBefore: 1075,
@@ -53,22 +67,40 @@ const fade = (delay = 0) => ({
   transition: { duration: 0.6, delay },
 });
 
+function ProofLink({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-brand-yellow hover:gap-2.5 transition-all"
+    >
+      See screenshot <ArrowUpRight className="w-3.5 h-3.5" />
+    </button>
+  );
+}
+
 const subHeading = 'text-[10px] font-bold tracking-[0.4em] uppercase text-gray-500 mb-6 md:mb-8';
 
 export default function ClientWins() {
-  const [receipt, setReceipt] = useState<string | null>(null);
+  const [open, setOpen] = useState<number | null>(null);
+  const openSrc = (src: string) => setOpen(shot(src));
+  const step = (d: number) => setOpen((i) => (i === null ? i : (i + d + screenshots.length) % screenshots.length));
 
   useEffect(() => {
-    if (!receipt) return;
+    if (open === null) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setReceipt(null);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(null);
+      if (e.key === 'ArrowRight') step(1);
+      if (e.key === 'ArrowLeft') step(-1);
+    };
     window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = prev;
       window.removeEventListener('keydown', onKey);
     };
-  }, [receipt]);
+  }, [open]);
 
   return (
     <section className="section-padding bg-brand-black border-t border-white/5 relative overflow-hidden">
@@ -83,7 +115,7 @@ export default function ClientWins() {
               Receipts, <span className="text-gray-500">Not Promises.</span>
             </h2>
             <p className="text-gray-400 font-light leading-relaxed md:text-lg">
-              Real numbers from real client accounts. Tap any result to see the analytics screenshot behind it.
+              Real numbers from real client accounts. Tap any result to see the original screenshot behind it.
             </p>
           </div>
           <div className="section-marker self-start md:self-auto">RESULTS</div>
@@ -99,7 +131,7 @@ export default function ClientWins() {
                 key={`${s.metric}-${s.total}`}
                 type="button"
                 {...fade((i % 3) * 0.08)}
-                onClick={() => setReceipt(s.receipt)}
+                onClick={() => openSrc(s.receipt)}
                 className={`group text-left p-6 md:p-8 rounded-3xl border transition-all ${
                   featured
                     ? 'bg-brand-yellow text-black border-brand-yellow glow-box'
@@ -184,10 +216,13 @@ export default function ClientWins() {
                   </div>
                 </div>
 
-                <p className="mt-8 pt-6 border-t border-white/5 text-sm text-gray-400 font-light">
-                  Best reel went from <span className="text-white font-medium">{g.bestBefore.toLocaleString('en-US')}</span> views to{' '}
-                  <span className="text-brand-yellow font-bold">{g.after[0]}</span>.
-                </p>
+                <div className="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-sm text-gray-400 font-light">
+                    Best reel went from <span className="text-white font-medium">{g.bestBefore.toLocaleString('en-US')}</span> views to{' '}
+                    <span className="text-brand-yellow font-bold">{g.after[0]}</span>.
+                  </p>
+                  <ProofLink onClick={() => openSrc(g.receipt)} />
+                </div>
               </motion.article>
             );
           })}
@@ -222,11 +257,17 @@ export default function ClientWins() {
                   ))}
                 </tbody>
               </table>
+              <div className="mt-6 flex justify-end">
+                <ProofLink onClick={() => openSrc('/wins/profile-growth.jpg')} />
+              </div>
             </motion.div>
           </div>
 
           <div className="lg:col-span-7">
-            <p className={subHeading}>04 — Straight from the DMs</p>
+            <div className="flex items-start justify-between gap-4">
+              <p className={subHeading}>04 — Straight from the DMs</p>
+              <ProofLink onClick={() => openSrc('/wins/client-messages.jpg')} />
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               {messages.map((m, i) => (
                 <motion.figure
@@ -242,43 +283,95 @@ export default function ClientWins() {
             </div>
           </div>
         </div>
+
+        {/* 05: the original screenshots */}
+        <div className="mt-20 md:mt-28 flex items-end justify-between gap-4 mb-6 md:mb-8">
+          <p className={`${subHeading} !mb-0`}>05 — The original screenshots</p>
+          <span className="hidden sm:inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-gray-600">
+            <Images className="w-3.5 h-3.5" /> {screenshots.length} screenshots
+          </span>
+        </div>
+        <div className="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory -mx-5 px-5 sm:mx-0 sm:px-0 pb-2">
+          {screenshots.map((s, i) => (
+            <motion.button
+              key={s.src}
+              type="button"
+              {...fade(Math.min(i, 4) * 0.06)}
+              onClick={() => setOpen(i)}
+              className="group relative shrink-0 w-[62vw] sm:w-[240px] lg:w-[calc((100%-6*16px)/7)] snap-start text-left"
+            >
+              <div className="aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 group-hover:border-brand-yellow/50 transition-colors bg-brand-dark-gray">
+                <img
+                  src={s.src}
+                  alt={s.caption}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                />
+              </div>
+              <span className="mt-3 block text-[10px] font-bold tracking-widest uppercase text-gray-500 group-hover:text-brand-yellow transition-colors leading-relaxed">
+                {s.caption}
+              </span>
+            </motion.button>
+          ))}
+        </div>
       </div>
 
       {/* Screenshot viewer */}
       <AnimatePresence>
-        {receipt && (
+        {open !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setReceipt(null)}
+            onClick={() => setOpen(null)}
             role="dialog"
             aria-modal="true"
-            aria-label="Client analytics screenshot"
-            className="fixed inset-0 z-[5000] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+            aria-label={screenshots[open].caption}
+            className="fixed inset-0 z-[5000] bg-black/90 backdrop-blur-sm flex flex-col items-center justify-center gap-4 p-4"
           >
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative"
-            >
-              <img
-                src={receipt}
-                alt="Client analytics screenshot"
-                className="max-h-[88svh] w-auto rounded-2xl border border-white/10"
-              />
+            <div className="relative flex items-center gap-2 sm:gap-4" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                onClick={() => step(-1)}
+                aria-label="Previous screenshot"
+                className="shrink-0 w-10 h-10 rounded-full border border-white/15 text-white hover:border-brand-yellow hover:text-brand-yellow flex items-center justify-center transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={open}
+                  src={screenshots[open].src}
+                  alt={screenshots[open].caption}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  transition={{ duration: 0.2 }}
+                  className="max-h-[80svh] max-w-[calc(100vw-120px)] w-auto rounded-2xl border border-white/10"
+                />
+              </AnimatePresence>
+              <button
+                type="button"
+                onClick={() => step(1)}
+                aria-label="Next screenshot"
+                className="shrink-0 w-10 h-10 rounded-full border border-white/15 text-white hover:border-brand-yellow hover:text-brand-yellow flex items-center justify-center transition-colors"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
               <button
                 type="button"
                 autoFocus
-                onClick={() => setReceipt(null)}
+                onClick={() => setOpen(null)}
                 aria-label="Close"
-                className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-brand-yellow text-black flex items-center justify-center"
+                className="absolute -top-3 right-9 sm:right-11 w-10 h-10 rounded-full bg-brand-yellow text-black flex items-center justify-center"
               >
                 <X className="w-4 h-4" />
               </button>
-            </motion.div>
+            </div>
+            <p className="text-[10px] font-bold tracking-widest uppercase text-gray-400 text-center">
+              {screenshots[open].caption} · {open + 1} / {screenshots.length}
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
