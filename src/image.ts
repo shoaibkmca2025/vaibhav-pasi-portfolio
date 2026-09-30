@@ -11,3 +11,11 @@ export function unsplashSrcSet(url: string, widths: number[] = DEFAULT_WIDTHS) {
 export function unsplashAt(url: string, width: number) {
   return url.replace(/([?&])w=\d+/, `$1w=${width}`);
 }
+
+// Responsive props for any image: Unsplash URLs get a srcSet, local files are used as-is.
+export function responsiveImage(url: string, sizes: string) {
+  if (url.includes('images.unsplash.com') && /[?&]w=\d+/.test(url)) {
+    return { src: unsplashAt(url, 1200), srcSet: unsplashSrcSet(url), sizes };
+  }
+  return { src: url };
+}

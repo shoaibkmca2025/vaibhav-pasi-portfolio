@@ -77,7 +77,7 @@ export default function CaseStudies() {
                     srcSet={unsplashSrcSet(study.image)}
                     sizes="(min-width: 1024px) 50vw, 100vw"
                     alt={study.title}
-                    className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000"
+                    className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 pointer-coarse:grayscale-0 pointer-coarse:opacity-90 transition-all duration-1000"
                     loading="lazy"
                     decoding="async"
                     referrerPolicy="no-referrer"

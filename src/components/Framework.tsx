@@ -38,7 +38,7 @@ export default function Framework() {
             srcSet={unsplashSrcSet(frameworkImage)}
             sizes="(min-width: 1280px) 1232px, 100vw"
             alt="Data Analytics Framework"
-            className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+            className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 pointer-coarse:grayscale-0 pointer-coarse:opacity-80 transition-all duration-700"
             loading="lazy"
             decoding="async"
             referrerPolicy="no-referrer"

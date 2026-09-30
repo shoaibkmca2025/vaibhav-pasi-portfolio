@@ -105,6 +105,82 @@
   box-shadow: 0 0 50px -20px rgba(245, 255, 0, 0.08);
 }
 
+/* ─── Horizontal scrollers (e.g. blog filters) ─── */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Blog article body (rendered Markdown) ─── */
+.prose-blog {
+  @apply text-gray-300 font-light text-[17px] md:text-lg leading-[1.8];
+}
+.prose-blog > * + * {
+  margin-top: 1.4em;
+}
+.prose-blog > p:first-child {
+  @apply text-xl md:text-2xl text-white font-normal leading-relaxed;
+}
+.prose-blog h2 {
+  @apply text-2xl md:text-3xl font-bold tracking-tight text-white leading-tight;
+  margin-top: 2.2em;
+}
+.prose-blog h3 {
+  @apply text-xl md:text-2xl font-bold tracking-tight text-white;
+  margin-top: 1.8em;
+}
+.prose-blog h2 + *,
+.prose-blog h3 + * {
+  margin-top: 0.8em;
+}
+.prose-blog strong {
+  @apply text-white font-semibold;
+}
+.prose-blog a {
+  @apply text-brand-yellow underline decoration-brand-yellow/40 underline-offset-4 hover:decoration-brand-yellow;
+}
+.prose-blog ul,
+.prose-blog ol {
+  @apply pl-6 space-y-2;
+}
+.prose-blog ul {
+  list-style: none;
+}
+.prose-blog ul > li {
+  position: relative;
+}
+.prose-blog ul > li::before {
+  content: "";
+  @apply absolute -left-5 top-[0.75em] w-2 h-2 rounded-full bg-brand-yellow;
+}
+.prose-blog ol {
+  @apply list-decimal marker:text-brand-yellow marker:font-bold;
+}
+.prose-blog blockquote {
+  @apply border-l-4 border-brand-yellow pl-5 md:pl-6 py-1 text-xl md:text-2xl font-medium italic text-white leading-snug;
+}
+.prose-blog blockquote p {
+  margin: 0;
+}
+.prose-blog hr {
+  @apply border-0 h-px bg-white/10;
+  margin: 3em 0;
+}
+.prose-blog img {
+  @apply w-full rounded-2xl border border-white/10;
+}
+.prose-blog code {
+  @apply text-brand-yellow bg-white/5 px-1.5 py-0.5 rounded text-[0.9em];
+}
+.prose-blog pre {
+  @apply bg-brand-muted border border-white/10 rounded-2xl p-5 overflow-x-auto text-sm;
+}
+.prose-blog pre code {
+  @apply bg-transparent p-0 text-gray-200;
+}
+
 /* ─── Scrollbar styling ─── */
 ::-webkit-scrollbar {
   width: 6px;

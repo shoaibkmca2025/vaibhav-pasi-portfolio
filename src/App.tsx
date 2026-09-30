@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, MotionConfig } from 'motion/react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -24,12 +24,57 @@ import CTASection from './components/CTASection';
 import CustomCursor from './components/CustomCursor';
 import Marquee from './components/Marquee';
 import Press from './components/Press';
+import Blog, { BlogIndex } from './components/Blog';
+import BlogPost from './components/BlogPost';
+import BlogHeader from './components/BlogHeader';
+import ScrollProgress from './components/ScrollProgress';
 import { contactEmail, contactHref, socialLinks } from './contact';
+
+type Route = { page: 'home' } | { page: 'blog' } | { page: 'post'; slug: string };
+
+// #/blog is the blog page, #/blog/<slug> an article; any other hash is an on-page section anchor
+function parseRoute(hash: string): Route {
+  if (hash === '#/blog' || hash === '#/blog/') return { page: 'blog' };
+  if (hash.startsWith('#/blog/')) return { page: 'post', slug: decodeURIComponent(hash.slice('#/blog/'.length)) };
+  return { page: 'home' };
+}
+
+function useRoute() {
+  const [hash, setHash] = useState(() => window.location.hash);
+
+  useEffect(() => {
+    const onHashChange = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  return parseRoute(hash);
+}
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('Home');
+  const route = useRoute();
+  const routeKey = route.page === 'post' ? `post:${route.slug}` : route.page;
+  const previousRoute = useRef(routeKey);
+
+  useEffect(() => {
+    if (previousRoute.current === routeKey) return;
+    if (route.page !== 'home') {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    } else {
+      // Back on the home page: the target section only exists after this render
+      const target = document.getElementById(window.location.hash.slice(1));
+      if (target) target.scrollIntoView({ behavior: 'instant' });
+      else window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    previousRoute.current = routeKey;
+  }, [routeKey]);
 
   const scrollToSection = (tab: string) => {
+    if (tab === 'Blog') {
+      window.location.hash = '#/blog';
+      return;
+    }
     const id = tab.toLowerCase().replace(/\s+/g, '');
     const element = document.getElementById(id);
     if (element) {
@@ -53,7 +98,7 @@ export default function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'projects', 'casestudies', 'howitworks', 'testimonials', 'faq', 'experience', 'contact'];
+      const sections = ['home', 'about', 'projects', 'casestudies', 'howitworks', 'testimonials', 'blog', 'faq', 'experience', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const sectionId of sections) {
@@ -70,6 +115,7 @@ export default function App() {
               'casestudies': 'Case Studies',
               'howitworks': 'How It Works',
               'testimonials': 'Testimonials',
+              'blog': 'Blog',
               'faq': 'FAQ',
               'experience': 'Experience',
               'contact': 'Contact'
@@ -102,8 +148,20 @@ export default function App() {
     <div className="min-h-screen bg-brand-black text-white font-sans selection:bg-brand-yellow selection:text-brand-black overflow-x-hidden">
       <div className="noise" />
       <CustomCursor />
+
+      {route.page === 'post' ? (
+        <BlogPost key={route.slug} slug={route.slug} />
+      ) : route.page === 'blog' ? (
+        <>
+          <ScrollProgress />
+          <BlogHeader backHref="#home" backLabel="Home" />
+          <BlogIndex />
+        </>
+      ) : (
+      <>
+      <ScrollProgress />
       <Navigation activeTab={activeTab} setActiveTab={scrollToSection} />
-      
+
       <main>
         <section id="home">
           <Hero />
@@ -138,6 +196,10 @@ export default function App() {
 
         <section id="testimonials">
           <Testimonials />
+        </section>
+
+        <section id="blog">
+          <Blog />
         </section>
 
         <section id="faq">
@@ -186,6 +248,8 @@ export default function App() {
           <ContactCTA />
         </section>
       </main>
+      </>
+      )}
 
       <Footer />
     </div>

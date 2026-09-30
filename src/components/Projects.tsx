@@ -66,7 +66,7 @@ export default function Projects() {
                   srcSet={unsplashSrcSet(project.image)}
                   sizes={project.featured ? '(min-width: 1280px) 1232px, 100vw' : '(min-width: 1280px) 608px, (min-width: 768px) 50vw, 100vw'}
                   alt={project.title}
-                  className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-80 pointer-coarse:grayscale-0 pointer-coarse:opacity-70 transition-all duration-700 group-hover:scale-105"
                   loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"

@@ -10,7 +10,7 @@ interface NavigationProps {
 
 export default function Navigation({ activeTab, setActiveTab }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const navItems = ['Home', 'About', 'Projects', 'Case Studies', 'How It Works', 'Testimonials', 'FAQ', 'Experience', 'Contact'];
+  const navItems = ['Home', 'About', 'Projects', 'Case Studies', 'How It Works', 'Testimonials', 'Blog', 'FAQ', 'Experience', 'Contact'];
 
   const socials = [
     { icon: Linkedin, ...socialLinks[0] },
@@ -40,7 +40,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
         Vaibhav Pasi
       </div>
       
-      <div className="hidden lg:flex items-center gap-8">
+      <div className="hidden xl:flex items-center gap-5 2xl:gap-8">
         {navItems.map((item) => (
           <button
             type="button"
@@ -62,7 +62,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
       </div>
 
       <div className="flex items-center gap-4 md:gap-6">
-        <div className="hidden sm:flex items-center gap-4 mr-2 border-r border-white/10 pr-6">
+        <div className="hidden sm:flex xl:hidden 2xl:flex items-center gap-4 mr-2 border-r border-white/10 pr-6">
           {socials.map((social, idx) => (
             <a 
               key={idx} 
@@ -86,7 +86,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
 
         <button 
           type="button"
-          className="lg:hidden p-2 text-white"
+          className="xl:hidden p-2 text-white"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={isOpen}
@@ -106,7 +106,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-brand-black z-[999] lg:hidden flex flex-col pt-24 px-6 overflow-y-auto overscroll-contain"
+            className="fixed inset-0 bg-brand-black z-[999] xl:hidden flex flex-col pt-24 px-6 overflow-y-auto overscroll-contain"
           >
             {/* Background Accent */}
             <div className="pointer-events-none absolute top-0 right-0 w-[300px] h-[300px] bg-brand-yellow/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2" />
