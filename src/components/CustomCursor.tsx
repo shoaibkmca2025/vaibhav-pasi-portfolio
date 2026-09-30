@@ -5,7 +5,9 @@ import { motion, useSpring } from 'motion/react';
 const hasFinePointer = () =>
   window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-export default function CustomCursor() {
+// `tone` picks the accent: yellow on the dark blog pages, blueprint blue on the notebook home page
+export default function CustomCursor({ tone = 'yellow' }: { tone?: 'yellow' | 'ink' }) {
+  const accent = tone === 'ink' ? { border: 'border-ink', bg: 'bg-ink', fill: 'rgba(1, 44, 235, 0.12)' } : { border: 'border-brand-yellow', bg: 'bg-brand-yellow', fill: 'rgba(245, 255, 0, 0.1)' };
   const [isHovering, setIsHovering] = useState(false);
   // Decided after mount so the prerendered HTML and first client render match
   const [enabled, setEnabled] = useState(false);
@@ -53,17 +55,17 @@ export default function CustomCursor() {
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-brand-yellow rounded-full pointer-events-none z-[10000] hidden md:block"
+        className={`fixed top-0 left-0 w-8 h-8 border ${accent.border} rounded-full pointer-events-none z-[10000] hidden md:block`}
         style={{
           x: cursorX,
           y: cursorY,
           scale: isHovering ? 2 : 1,
-          backgroundColor: isHovering ? 'rgba(245, 255, 0, 0.1)' : 'transparent',
+          backgroundColor: isHovering ? accent.fill : 'transparent',
         }}
         transition={{ type: 'spring', stiffness: 250, damping: 20 }}
       />
       <motion.div
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-brand-yellow rounded-full pointer-events-none z-[10001] hidden md:block"
+        className={`fixed top-0 left-0 w-1.5 h-1.5 ${accent.bg} rounded-full pointer-events-none z-[10001] hidden md:block`}
         style={{
           x: dotX,
           y: dotY,
