@@ -23,6 +23,7 @@ import Testimonials from './components/Testimonials';
 import CTASection from './components/CTASection';
 import CustomCursor from './components/CustomCursor';
 import Marquee from './components/Marquee';
+import Press from './components/Press';
 import { contactEmail, contactHref, socialLinks } from './contact';
 
 export default function App() {
@@ -96,6 +97,10 @@ export default function App() {
         </section>
 
         <Marquee />
+
+        <section id="press">
+          <Press />
+        </section>
 
         <section id="about">
           <About />
