@@ -44,13 +44,16 @@ export default function Skills() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
           <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">Marketing Arsenal</h2>
-            <p className="text-gray-400 font-light leading-relaxed">
+            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Toolkit</span>
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-6">
+              Marketing <span className="text-gray-500">Arsenal.</span>
+            </h2>
+            <p className="text-gray-400 font-light leading-relaxed md:text-lg">
               A comprehensive stack of digital expertise, spanning from creative social growth to high-performance software engineering.
             </p>
           </div>
-          <div className="text-[10px] tracking-[0.4em] font-bold text-gray-600 border-b border-gray-800 pb-2">
-            03 — EXPERTISE
+          <div className="section-marker self-start md:self-auto">
+            02 — EXPERTISE
           </div>
         </div>
 

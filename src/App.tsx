@@ -219,7 +219,7 @@ export default function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter mb-8 md:mb-12 px-5">Get in touch.</h1>
+            <h2 className="text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter mb-8 md:mb-12 px-5">Get in touch.</h2>
             <p className="text-gray-400 max-w-lg mx-auto mb-10 md:mb-16 px-6">
               Looking to elevate your brand or discuss a potential project? I'm always open to new opportunities and strategic collaborations.
             </p>

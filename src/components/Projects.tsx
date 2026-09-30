@@ -42,10 +42,10 @@ export default function Projects() {
       <div className="section-padding">
         <div className="max-w-7xl mx-auto">
           <div className="text-[10px] tracking-widest text-brand-yellow mb-8 uppercase font-bold">SELECTED WORK</div>
-          <h1 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter mb-8 leading-[0.9]">
+          <h2 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter mb-8 leading-[0.9]">
             Marketing & Brand <br />
             <span className="text-brand-yellow glow-yellow">Excellence.</span>
-          </h1>
+          </h2>
           <p className="max-w-xl text-gray-400 font-light mb-12 md:mb-20">
             Crafting digital narratives that convert. Explore my recent work in brand growth, influencer strategies, and e-commerce optimization.
           </p>

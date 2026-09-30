@@ -34,10 +34,10 @@ export default function Experience() {
       <div className="section-padding">
         <div className="max-w-7xl mx-auto">
           <div className="text-[10px] tracking-widest text-brand-yellow mb-8 uppercase font-bold">CHRONOLOGY OF IMPACT</div>
-          <h1 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter mb-12 md:mb-20 leading-[0.9]">
+          <h2 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter mb-12 md:mb-20 leading-[0.9]">
             Engineering Growth <br />
             Through <span className="text-brand-yellow glow-yellow">Precision.</span>
-          </h1>
+          </h2>
 
           <div className="relative border-l border-white/5 ml-1 md:ml-0 md:pl-0 pl-6 space-y-16 md:space-y-32">
             {experiences.map((exp, index) => (
