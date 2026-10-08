@@ -41,7 +41,8 @@ export function sitemap() {
 
 export function robots() {
   // Search engines and AI assistants are all welcome, so the site can be cited in AI answers
-  return `User-agent: *\nAllow: /\n\n# AI search and assistant crawlers\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: Claude-SearchBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`;
+  // (the blog admin and API endpoints are kept out of search results)
+  return `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\n\n# AI search and assistant crawlers\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: Claude-SearchBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`;
 }
 
 // llms.txt: a plain-text summary AI assistants can read to understand who this site is about

@@ -32,7 +32,7 @@ export function PageHero({ page, title, intro, facts }: PageHeroProps) {
 
       <div className="relative max-w-7xl mx-auto">
         <nav aria-label="Breadcrumb" className="mb-10 md:mb-14">
-          <ol className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-gray-500">
+          <ol className="flex items-center gap-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">
             <li>
               <a href="/" onClick={onLinkClick} className="hover:text-brand-yellow transition-colors">
                 Home
@@ -46,14 +46,14 @@ export function PageHero({ page, title, intro, facts }: PageHeroProps) {
         </nav>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <span className="inline-flex items-center gap-2.5 text-[10px] font-extrabold tracking-[0.4em] uppercase text-brand-yellow mb-6">
+          <span className="inline-flex items-center gap-2.5 text-[0.6875rem] font-extrabold tracking-[0.4em] uppercase text-gray-300 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
             {String(index + 1).padStart(2, '0')} / {label}
           </span>
           <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[8.5rem] font-black tracking-tighter italic uppercase leading-[0.85] max-w-6xl">
             {title}
           </h1>
-          <div className="mt-8 md:mt-10 max-w-2xl text-gray-400 text-base md:text-xl font-light leading-relaxed">{intro}</div>
+          <div className="mt-8 md:mt-10 max-w-2xl text-gray-400 text-base md:text-xl font-normal leading-relaxed">{intro}</div>
         </motion.div>
 
         {facts && (
@@ -67,7 +67,7 @@ export function PageHero({ page, title, intro, facts }: PageHeroProps) {
               <div key={f.label} className="border-l-2 border-brand-yellow pl-4">
                 <dt className="sr-only">{f.label}</dt>
                 <dd className="text-3xl md:text-4xl font-black italic tracking-tighter">{f.value}</dd>
-                <dd className="mt-1 text-[10px] font-bold tracking-widest uppercase text-gray-500">{f.label}</dd>
+                <dd className="mt-1 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">{f.label}</dd>
               </div>
             ))}
           </motion.dl>
@@ -90,7 +90,7 @@ export function NextPage({ page }: { page: PageKey }) {
         className="group max-w-7xl mx-auto flex items-center justify-between gap-6 border-t border-white/10 pt-10 md:pt-14"
       >
         <span>
-          <span className="block text-[10px] font-bold tracking-[0.4em] uppercase text-gray-500 mb-3">Next page</span>
+          <span className="block text-[0.6875rem] font-bold tracking-[0.4em] uppercase text-gray-500 mb-3">Next page</span>
           <span className="block text-4xl sm:text-5xl md:text-7xl font-black italic uppercase tracking-tighter leading-none group-hover:text-brand-yellow transition-colors">
             {next.label}
           </span>

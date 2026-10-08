@@ -1,0 +1,81 @@
+# Blog admin (Sveltia CMS) — open https://www.vaibhavpasi.online/admin
+# Sign in with GitHub. Only accounts with write access to this repository can publish,
+# and ADMIN_GITHUB_USERS in Vercel can narrow that to specific people.
+
+backend:
+  name: github
+  repo: shoaibkmca2025/vaibhav-pasi-portfolio
+  branch: main
+  base_url: https://www.vaibhavpasi.online
+  auth_endpoint: api/auth
+  commit_messages:
+    create: 'blog: publish "{{slug}}"'
+    update: 'blog: update "{{slug}}"'
+    delete: 'blog: delete "{{slug}}"'
+    uploadMedia: 'blog: upload {{path}}'
+    deleteMedia: 'blog: delete {{path}}'
+
+site_url: https://www.vaibhavpasi.online
+display_url: https://www.vaibhavpasi.online
+logo_url: /favicon-192.png
+
+# Uploaded images are saved in public/blog and served from /blog/...
+media_folder: public/blog
+public_folder: /blog
+
+collections:
+  - name: blog
+    label: Blog posts
+    label_singular: Blog post
+    description: Articles shown on /blog. Publishing goes live in about a minute.
+    folder: src/blog/posts
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    summary: '{{title}} · {{date}}'
+    sortable_fields: [date, title, category]
+    preview_path: blog/{{slug}}
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        hint: The headline. Also used for the page title in Google, so keep it under about 60 characters.
+      - label: Publish date
+        name: date
+        widget: datetime
+        type: date
+        format: YYYY-MM-DD
+        hint: Newest posts appear first.
+      - label: Category
+        name: category
+        widget: select
+        options: [Growth, Social Media, E-commerce, AI & Tech, Branding, Insights]
+        default: Growth
+      - label: Excerpt
+        name: excerpt
+        widget: text
+        hint: One or two sentences for the blog card and Google search results (about 150 characters).
+      - label: Cover image
+        name: cover
+        widget: image
+        required: false
+        hint: Landscape image, ideally 1600×1000 and under 500 KB.
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+      - label: Featured
+        name: featured
+        widget: boolean
+        default: false
+        hint: Shows this post as the large card at the top of the blog.
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: false
+        hint: Drafts are saved but hidden from the website.
+      - label: Article
+        name: body
+        widget: markdown

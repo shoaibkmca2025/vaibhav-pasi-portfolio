@@ -82,7 +82,7 @@ function HomePage({ heroKey }: { heroKey: number }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open Vaibhav Pasi on ${social.label}`}
-                className="p-6 md:p-8 border border-white/5 rounded-2xl hover:bg-brand-yellow hover:text-black transition-all group font-bold tracking-widest text-[10px]"
+                className="p-6 md:p-8 border border-white/5 rounded-2xl hover:bg-brand-yellow hover:text-black transition-all group font-bold tracking-widest text-[0.6875rem]"
               >
                 {social.label.toUpperCase()}
               </a>

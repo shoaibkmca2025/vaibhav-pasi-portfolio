@@ -189,7 +189,7 @@ export default function About() {
                     Vaibhav Pasi is a technology entrepreneur, digital marketing strategist, software developer, AI consultant, and Product Onboarding Expert dedicated to helping businesses scale through <span className="text-white font-medium">innovation, technology, and data-driven growth strategies</span>.
                   </p>
                   <p>
-                    As the Co-Founder of <span className="text-brand-yellow font-semibold">4AM Global Media</span>, Vaibhav leads the company's vision of delivering next-generation digital solutions that combine creativity, technology, and business intelligence. His expertise spans digital marketing, software development, AI, web technologies, branding, performance marketing, business automation, and marketplace onboarding.
+                    As the Co-Founder of <span className="text-white font-semibold">4AM Global Media</span>, Vaibhav leads the company's vision of delivering next-generation digital solutions that combine creativity, technology, and business intelligence. His expertise spans digital marketing, software development, AI, web technologies, branding, performance marketing, business automation, and marketplace onboarding.
                   </p>
                 </div>
               </div>
@@ -200,7 +200,7 @@ export default function About() {
                   With a multidisciplinary background in technology and marketing, Vaibhav has successfully collaborated with <span className="text-white font-medium">startups, SMEs, enterprises, educational institutions, and entrepreneurs</span> to build high-performance websites, scalable software solutions, AI-powered business systems, and result-oriented digital marketing campaigns.
                 </p>
                 <p>
-                  Recognized as a <span className="text-brand-yellow font-medium">Product Onboarding Expert</span>, Vaibhav specializes in helping brands launch and scale across India's leading e-commerce and quick-commerce platforms — providing end-to-end onboarding support including seller account setup, compliance management, catalog creation, listing optimization, inventory management, pricing strategy, and marketplace growth consulting.
+                  Recognized as a <span className="text-white font-semibold">Product Onboarding Expert</span>, Vaibhav specializes in helping brands launch and scale across India's leading e-commerce and quick-commerce platforms — providing end-to-end onboarding support including seller account setup, compliance management, catalog creation, listing optimization, inventory management, pricing strategy, and marketplace growth consulting.
                 </p>
                 <p>
                   Driven by a passion for emerging technologies, Vaibhav actively promotes <span className="text-white font-medium">AI adoption and digital transformation</span> through workshops, corporate training programs, and Vibe Coding sessions — empowering students, professionals, and business leaders to build innovative digital products and automate business processes.

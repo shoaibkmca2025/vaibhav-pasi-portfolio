@@ -161,14 +161,14 @@ export function ContactPage() {
             className="group lg:col-span-7 p-8 md:p-12 rounded-3xl bg-brand-yellow text-black flex flex-col justify-between gap-10 glow-box"
           >
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-black/60">Email</span>
+              <span className="text-[0.6875rem] font-bold tracking-[0.4em] uppercase text-black/60">Email</span>
               <Mail className="w-6 h-6" />
             </div>
             <div>
               <span className="block text-[5.4vw] sm:text-4xl md:text-5xl font-black tracking-tighter whitespace-nowrap">
                 {contactEmail}
               </span>
-              <span className="mt-6 inline-flex items-center gap-2 text-[11px] font-black tracking-[0.2em] uppercase">
+              <span className="mt-6 inline-flex items-center gap-2 text-[0.6875rem] font-black tracking-[0.2em] uppercase">
                 Write to me <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </span>
             </div>
@@ -189,7 +189,7 @@ export function ContactPage() {
                 className="group p-6 md:p-8 rounded-3xl border border-white/5 bg-brand-dark-gray/20 hover:bg-brand-yellow hover:text-black transition-all flex flex-col justify-between gap-8"
               >
                 <ArrowUpRight className="w-5 h-5 text-brand-yellow group-hover:text-black self-end" />
-                <span className="font-bold tracking-widest text-[11px] uppercase">{s.label}</span>
+                <span className="font-bold tracking-widest text-[0.6875rem] uppercase">{s.label}</span>
               </motion.a>
             ))}
           </div>
@@ -200,7 +200,7 @@ export function ContactPage() {
       <section className="section-padding border-b border-white/5">
         <div className="max-w-7xl mx-auto grid gap-16 lg:grid-cols-2">
           <div>
-            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Before you write</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Before you write</span>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-10">
               What to <span className="text-gray-500">Include.</span>
             </h2>
@@ -210,7 +210,7 @@ export function ContactPage() {
                   <span className="text-brand-yellow font-black italic text-2xl leading-none">{String(i + 1).padStart(2, '0')}</span>
                   <span>
                     <span className="block font-bold text-lg tracking-tight">{t.title}</span>
-                    <span className="block mt-1 text-gray-400 font-light">{t.text}</span>
+                    <span className="block mt-1 text-gray-400 font-normal">{t.text}</span>
                   </span>
                 </li>
               ))}
@@ -218,7 +218,7 @@ export function ContactPage() {
           </div>
 
           <div>
-            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">I can help with</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">I can help with</span>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-10">
               Areas of <span className="text-gray-500">Work.</span>
             </h2>

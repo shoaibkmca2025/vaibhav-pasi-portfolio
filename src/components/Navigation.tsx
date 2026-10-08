@@ -54,7 +54,7 @@ export default function Navigation({ route }: { route: Route }) {
               href={item.path}
               onClick={onLinkClick}
               aria-current={active === item.key ? 'page' : undefined}
-              className={`relative whitespace-nowrap text-[11px] font-bold tracking-widest uppercase transition-colors hover:text-brand-yellow ${
+              className={`relative whitespace-nowrap text-[0.6875rem] font-bold tracking-widest uppercase transition-colors hover:text-brand-yellow ${
                 active === item.key ? 'text-brand-yellow' : 'text-gray-400'
               }`}
             >
@@ -85,7 +85,7 @@ export default function Navigation({ route }: { route: Route }) {
 
         <a
           href={contactHref}
-          className="hidden md:block whitespace-nowrap bg-brand-yellow text-black px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all"
+          className="hidden md:block whitespace-nowrap bg-brand-yellow text-black px-6 py-2.5 text-[0.6875rem] font-bold uppercase tracking-widest hover:brightness-110 transition-all"
         >
           LET'S COLLABORATE
         </a>
@@ -139,7 +139,7 @@ export default function Navigation({ route }: { route: Route }) {
                     }}
                     aria-current={active === item.key ? 'page' : undefined}
                     className={`block text-4xl sm:text-5xl font-black tracking-tighter uppercase italic leading-none py-1 ${
-                      active === item.key ? 'text-brand-yellow' : 'text-white/20 hover:text-white'
+                      active === item.key ? 'text-brand-yellow' : 'text-white/45 hover:text-white'
                     }`}
                   >
                     {item.label}

@@ -1,8 +1,8 @@
 ---
-title: Engineering Virality: Why Great Content Is a System, Not Luck
+title: "Engineering Virality: Why Great Content Is a System, Not Luck"
 date: 2026-09-18
 category: Growth
-excerpt: Viral moments look random from the outside. From the inside, they're the output of a repeatable loop of testing, packaging and distribution.
+excerpt: "Viral moments look random from the outside. From the inside, they're the output of a repeatable loop of testing, packaging and distribution."
 cover: https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2070&auto=format&fit=crop
 tags: Viral Engineering, Social Media, Content Strategy
 featured: true
