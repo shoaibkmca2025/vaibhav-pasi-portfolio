@@ -10,6 +10,20 @@
   --color-brand-black: #050505;
   --color-brand-dark-gray: #0e0e0e;
   --color-brand-muted: #1a1a1a;
+
+  /* Neutral (untinted) greys tuned for the dark background: Tailwind's default greys lean blue,
+     which clashes with the yellow-green brand colour. Body text (400) is ~9.7:1 and small
+     labels (500) ~7.2:1, meeting the 7:1 the HIG recommends for small text in dark mode. */
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #b3b3b3;
+  --color-gray-500: #999999;
+  --color-gray-600: #6e6e6e;
+  --color-gray-700: #4d4d4d;
+  --color-gray-800: #2b2b2b;
+  --color-gray-900: #171717;
+
+  /* Apple's soft white: avoids pure-white text and logo plates "glowing" against near-black */
+  --color-white: #f5f5f7;
 }
 
 @layer base {
@@ -43,8 +57,8 @@
   /* Honour the system "Increase Contrast" setting: lift secondary text and borders */
   @media (prefers-contrast: more) {
     :root {
-      --color-gray-400: #d1d5db;
-      --color-gray-500: #b4bac4;
+      --color-gray-400: #d4d4d4;
+      --color-gray-500: #c4c4c4;
     }
     .border-white\/5,
     .border-white\/10 {
@@ -73,6 +87,24 @@
   }
 }
 
+/* ─── Section labels ("eyebrows") ───
+   Neutral text with a short yellow dash: keeps the brand cue while reserving solid yellow
+   for actions and key highlights (HIG: don't use one colour to mean different things). */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
+  color: var(--color-gray-300);
+}
+.eyebrow::before {
+  content: "";
+  flex: none;
+  width: 1.75em;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-brand-yellow);
+}
+
 /* ─── Skip link: first Tab stop, jumps keyboard users past the navigation ─── */
 .skip-link {
   @apply fixed left-4 top-4 z-[100001] -translate-y-24 rounded-full bg-brand-yellow px-5 py-3 text-sm font-bold text-black transition-transform;
@@ -97,7 +129,8 @@
 
 /* ─── Glow effects ─── */
 .glow-yellow {
-  text-shadow: 0 0 30px rgba(245, 255, 0, 0.4), 0 0 60px rgba(245, 255, 0, 0.1);
+  /* Kept soft: a strong neon halo blurs letter edges and hurts legibility */
+  text-shadow: 0 0 24px rgba(245, 255, 0, 0.22);
 }
 
 .glow-box {

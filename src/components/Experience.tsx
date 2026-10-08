@@ -32,7 +32,7 @@ export default function Experience() {
     <div className="pt-4 md:pt-32 md:min-h-screen">
       <div className="section-padding">
         <div className="max-w-7xl mx-auto">
-          <div className="text-[0.6875rem] tracking-widest text-brand-yellow mb-8 uppercase font-bold">CHRONOLOGY OF IMPACT</div>
+          <div className="eyebrow text-[0.6875rem] tracking-widest mb-8 uppercase font-bold">CHRONOLOGY OF IMPACT</div>
           <h2 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter mb-12 md:mb-20 leading-[0.9]">
             Engineering Growth <br />
             Through <span className="text-brand-yellow glow-yellow">Precision.</span>
@@ -43,7 +43,7 @@ export default function Experience() {
               <div key={exp.company} className="relative">
                 {/* Node */}
                 <div className={`absolute left-[-31px] md:left-[-5px] top-4 w-3 h-3 rounded-full ${
-                  exp.active ? 'bg-brand-yellow shadow-[0_0_15px_#FFD700]' : 'bg-gray-800'
+                  exp.active ? 'bg-brand-yellow shadow-[0_0_15px_rgba(245,255,0,0.45)]' : 'bg-gray-800'
                 }`} />
 
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>

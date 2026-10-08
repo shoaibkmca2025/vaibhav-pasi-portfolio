@@ -17,7 +17,7 @@ export default function HomeExplore() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Explore</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Explore</span>
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9]">
               Go Deeper, <span className="text-gray-500">Page by Page.</span>
             </h2>

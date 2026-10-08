@@ -7,8 +7,8 @@ const sections = [
     title: "Community & Strategy",
     description: "Direct access to high-net-worth networks and specialized digital growth strategies. We build the room so you can be in it.",
     icon: Users,
-    color: "bg-blue-500/10",
-    textColor: "text-blue-400"
+    color: "bg-brand-yellow/10",
+    textColor: "text-brand-yellow"
   },
   {
     title: "Watch Us Work",
@@ -21,8 +21,8 @@ const sections = [
     title: "Creator Ecosystem",
     description: "Where creators blow up. We identify talent and engineer the frameworks required for explosive market entry.",
     icon: Radio,
-    color: "bg-purple-500/10",
-    textColor: "text-purple-400"
+    color: "bg-brand-yellow/10",
+    textColor: "text-brand-yellow"
   }
 ];
 

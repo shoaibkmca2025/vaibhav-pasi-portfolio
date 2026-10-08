@@ -41,7 +41,7 @@ export default function Projects() {
     <div className="pt-4 md:pt-32 md:min-h-screen">
       <div className="section-padding">
         <div className="max-w-7xl mx-auto">
-          <div className="text-[0.6875rem] tracking-widest text-brand-yellow mb-8 uppercase font-bold">SELECTED WORK</div>
+          <div className="eyebrow text-[0.6875rem] tracking-widest mb-8 uppercase font-bold">SELECTED WORK</div>
           <h2 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter mb-8 leading-[0.9]">
             Marketing & Brand <br />
             <span className="text-brand-yellow glow-yellow">Excellence.</span>
@@ -119,7 +119,7 @@ export default function Projects() {
            </div>
            
            <div className="flex-1">
-              <div className="text-[0.6875rem] tracking-widest text-brand-yellow mb-4 uppercase font-bold">EDUCATIONAL SERIES</div>
+              <div className="eyebrow text-[0.6875rem] tracking-widest mb-4 uppercase font-bold">EDUCATIONAL SERIES</div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">Personal Branding Workshop</h2>
               <p className="text-gray-400 font-normal mb-8 max-w-md">
                 An exclusive masterclass series designed for executives to master their digital footprint and authority in the tech sector.

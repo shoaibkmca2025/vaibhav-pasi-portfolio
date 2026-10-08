@@ -18,7 +18,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
       <>
         <BlogHeader backHref="/blog" backLabel="All articles" />
         <main id="main" tabIndex={-1} className="outline-none min-h-svh flex flex-col items-center justify-center text-center px-5">
-          <p className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4">404</p>
+          <p className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4">404</p>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8">Article not found.</h1>
           <a href="/blog" onClick={onLinkClick} className="btn-primary rounded-full">Back to the journal</a>
         </main>

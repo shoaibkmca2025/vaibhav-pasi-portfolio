@@ -266,7 +266,7 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
         {!hideHeader && (
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Client Wins</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Client Wins</span>
             <h2 className="flex items-end mb-6 leading-none" aria-label="Client Wins">
               <span className="text-6xl sm:text-7xl md:text-8xl font-black tracking-[-0.06em] bg-gradient-to-r from-[#d8c3a0] via-[#f1e6d0] to-white bg-clip-text text-transparent pb-2">
                 client

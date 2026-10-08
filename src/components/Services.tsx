@@ -80,7 +80,7 @@ export default function Services() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 md:mb-20 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Services</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Services</span>
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-6 uppercase italic leading-[0.85]">
               The Full <br className="hidden sm:block" />
               <span className="text-gray-500">Spectrum.</span>

@@ -42,25 +42,25 @@ const pillars = [
     icon: Shield,
     title: 'Identity Architecture',
     text: 'Building brands that don\'t just exist, but dominate their category through psychological resonance and strategic positioning.',
-    gradient: 'from-yellow-400/20 to-amber-600/5',
+    gradient: 'from-brand-yellow/[0.07] to-transparent',
   },
   {
     icon: Zap,
     title: 'Viral Engineering',
     text: 'Proprietary algorithmic loops designed to trigger mass distribution, organic attention, and sustainable engagement.',
-    gradient: 'from-lime-400/20 to-green-600/5',
+    gradient: 'from-brand-yellow/[0.07] to-transparent',
   },
   {
     icon: Globe,
     title: 'Global Scale',
     text: 'Integrating localized strategies into global frameworks for seamless cross-border expansion across markets.',
-    gradient: 'from-cyan-400/20 to-blue-600/5',
+    gradient: 'from-brand-yellow/[0.07] to-transparent',
   },
   {
     icon: Cpu,
     title: 'System Integration',
     text: 'Automating the growth process through high-fidelity technology, AI-powered systems, and proprietary software.',
-    gradient: 'from-purple-400/20 to-violet-600/5',
+    gradient: 'from-brand-yellow/[0.07] to-transparent',
   },
 ];
 
@@ -350,7 +350,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="mb-10 md:mb-14"
           >
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4 block">Expertise</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4 block">Expertise</span>
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter italic uppercase leading-[0.9]">
               Core <span className="text-gray-500">Competencies.</span>
             </h3>
@@ -395,7 +395,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="mb-12 md:mb-16"
           >
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4 block">Core Pillars</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4 block">Core Pillars</span>
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter italic uppercase leading-[0.9]">
               The Framework <br />
               <span className="text-gray-500">Behind the Results.</span>

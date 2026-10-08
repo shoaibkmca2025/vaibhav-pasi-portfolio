@@ -200,7 +200,7 @@ export function ContactPage() {
       <section className="section-padding border-b border-white/5">
         <div className="max-w-7xl mx-auto grid gap-16 lg:grid-cols-2">
           <div>
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Before you write</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Before you write</span>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-10">
               What to <span className="text-gray-500">Include.</span>
             </h2>
@@ -218,7 +218,7 @@ export function ContactPage() {
           </div>
 
           <div>
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">I can help with</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">I can help with</span>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-10">
               Areas of <span className="text-gray-500">Work.</span>
             </h2>
