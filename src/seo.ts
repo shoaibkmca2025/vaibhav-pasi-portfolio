@@ -1,7 +1,7 @@
 import { posts, getPost } from './blog/posts';
 import { faqs } from './components/FAQ';
 import { featureHeadline, publications } from './components/Press';
-import { parseRoute } from './router';
+import { parseRoute, sitePages, type PageKey } from './router';
 import {
   SITE_URL,
   SITE_NAME,
@@ -26,18 +26,31 @@ export interface Seo {
 
 const PERSON_ID = `${SITE_URL}/#person`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
+const ORG_ID = `${SITE_URL}/#organization`;
 
+// One consistent entity (same name, photo, profiles and company on every page) is what
+// search engines need before they can show a knowledge panel for a person
 const personSchema = {
   '@type': 'Person',
   '@id': PERSON_ID,
   name: person.name,
+  givenName: person.givenName,
+  familyName: person.familyName,
   url: SITE_URL,
-  image: PORTRAIT_URL,
+  mainEntityOfPage: absoluteUrl('/about'),
+  image: {
+    '@type': 'ImageObject',
+    '@id': `${SITE_URL}/#portrait`,
+    url: PORTRAIT_URL,
+    caption: person.name,
+  },
   jobTitle: person.jobTitle,
+  hasOccupation: person.jobTitle.split(/, | & /).map((name) => ({ '@type': 'Occupation', name })),
   description: DEFAULT_DESCRIPTION,
   email: `mailto:${person.email}`,
   nationality: { '@type': 'Country', name: person.country },
-  worksFor: { '@type': 'Organization', name: person.organization.name, url: person.organization.url },
+  homeLocation: { '@type': 'Country', name: person.country },
+  worksFor: { '@id': ORG_ID },
   knowsAbout: person.knowsAbout,
   sameAs: person.sameAs,
   // Press coverage is a strong trust signal for search and AI engines
@@ -50,11 +63,23 @@ const personSchema = {
   })),
 };
 
+// The company, linked both ways to the person (founder / worksFor)
+const organizationSchema = {
+  '@type': 'Organization',
+  '@id': ORG_ID,
+  name: person.organization.name,
+  url: person.organization.url,
+  founder: { '@id': PERSON_ID },
+  employee: { '@id': PERSON_ID },
+};
+
+// `name` + `alternateName` tell Google which site name to show above the result (instead of the bare domain)
 const websiteSchema = {
   '@type': 'WebSite',
   '@id': WEBSITE_ID,
   url: SITE_URL,
   name: SITE_NAME,
+  alternateName: ['Vaibhav Pasi Portfolio', 'vaibhavpasi.online'],
   description: DEFAULT_DESCRIPTION,
   publisher: { '@id': PERSON_ID },
   inLanguage: 'en',
@@ -76,8 +101,95 @@ const breadcrumbs = (items: { name: string; path: string }[]) => ({
   })),
 });
 
+// Title, description and schema type for each standalone page
+export const pageSeo: Record<PageKey, { name: string; title: string; description: string; type: string }> = {
+  about: {
+    name: 'About',
+    title: 'About Vaibhav Pasi | Marketer, Developer & Co-Founder of 4AM Global Media',
+    description:
+      'The story of Vaibhav Pasi: from digital marketing in 2019 to co-founding 4AM Global Media. Background, skills, experience and the approach behind 100+ brands scaled.',
+    type: 'ProfilePage',
+  },
+  services: {
+    name: 'Services',
+    title: 'Services: Growth Marketing, Ads, Websites & AI Automation | Vaibhav Pasi',
+    description:
+      'Digital marketing strategy, paid ads, content, SEO, websites, AI automation and quick-commerce onboarding, planned and run as one growth system.',
+    type: 'WebPage',
+  },
+  work: {
+    name: 'Work',
+    title: 'Work & Case Studies | Vaibhav Pasi',
+    description:
+      'Selected projects and in-depth case studies from Vaibhav Pasi: brand growth, viral campaigns, e-commerce rebuilds and influencer strategy, with goals, plans and results.',
+    type: 'CollectionPage',
+  },
+  'client-wins': {
+    name: 'Client Wins',
+    title: 'Client Wins: Real Results & Screenshots | Vaibhav Pasi',
+    description:
+      'Real client results: +67,471% impressions, a best reel of 3.1M views, 74 to 17.6K followers and more, each backed by the original analytics screenshot.',
+    type: 'WebPage',
+  },
+  contact: {
+    name: 'Contact',
+    title: 'Contact Vaibhav Pasi | Start a Project',
+    description: `Get in touch with Vaibhav Pasi about growth marketing, websites, AI automation or marketplace onboarding. Email ${person.email}.`,
+    type: 'ContactPage',
+  },
+};
+
 export function getSeo(pathname: string): Seo {
   const route = parseRoute(pathname);
+
+  if (route.page in pageSeo) {
+    const key = route.page as PageKey;
+    const meta = pageSeo[key];
+    const path = sitePages.find((p) => p.key === key)!.path;
+    return {
+      title: meta.title,
+      description: meta.description,
+      path,
+      image: SHARE_IMAGE_URL,
+      type: key === 'about' ? 'profile' : 'website',
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          websiteSchema,
+          personSchema,
+          organizationSchema,
+          {
+            '@type': meta.type,
+            '@id': `${absoluteUrl(path)}#page`,
+            url: absoluteUrl(path),
+            name: meta.title,
+            description: meta.description,
+            isPartOf: { '@id': WEBSITE_ID },
+            about: { '@id': PERSON_ID },
+            ...(meta.type === 'ProfilePage' ? { mainEntity: { '@id': PERSON_ID } } : {}),
+            inLanguage: 'en',
+          },
+          ...(key === 'contact'
+            ? [
+                {
+                  '@type': 'FAQPage',
+                  '@id': `${absoluteUrl(path)}#faq`,
+                  mainEntity: faqs.map((f) => ({
+                    '@type': 'Question',
+                    name: f.question,
+                    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+                  })),
+                },
+              ]
+            : []),
+          breadcrumbs([
+            { name: 'Home', path: '/' },
+            { name: meta.name, path },
+          ]),
+        ],
+      },
+    };
+  }
 
   if (route.page === 'blog') {
     return {
@@ -92,6 +204,7 @@ export function getSeo(pathname: string): Seo {
         '@graph': [
           websiteSchema,
           personSchema,
+          organizationSchema,
           {
             '@type': 'Blog',
             '@id': `${SITE_URL}/blog#blog`,
@@ -130,6 +243,7 @@ export function getSeo(pathname: string): Seo {
           '@graph': [
             websiteSchema,
             personSchema,
+            organizationSchema,
             {
               '@type': 'BlogPosting',
               '@id': `${url}#article`,
@@ -170,6 +284,7 @@ export function getSeo(pathname: string): Seo {
       '@graph': [
         websiteSchema,
         personSchema,
+        organizationSchema,
         {
           '@type': 'ProfilePage',
           '@id': `${SITE_URL}/#profile`,

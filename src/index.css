@@ -4,6 +4,7 @@
 @theme {
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Great Vibes", "Brush Script MT", cursive;
   
   --color-brand-yellow: #f5ff00;
   --color-brand-black: #050505;

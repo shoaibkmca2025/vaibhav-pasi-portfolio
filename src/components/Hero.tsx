@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
+import { onLinkClick } from '../router';
 
 export default function Hero() {
   return (
@@ -78,7 +79,8 @@ export default function Hero() {
         className="mt-12 md:mt-16 flex flex-col sm:flex-row gap-4 sm:gap-5 z-10 w-full sm:w-auto"
       >
         <motion.a 
-          href="#about"
+          href="/services"
+          onClick={onLinkClick}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           className="bg-brand-yellow text-black px-10 sm:px-12 py-5 font-black uppercase tracking-[0.2em] text-[0.6875rem] flex items-center justify-center gap-3 hover:shadow-[0_0_40px_rgba(245,255,0,0.3)] transition-all rounded-full"
@@ -87,7 +89,8 @@ export default function Hero() {
           <ArrowUpRight className="w-5 h-5" />
         </motion.a>
         <motion.a 
-          href="#projects"
+          href="/work"
+          onClick={onLinkClick}
           whileHover={{ scale: 1.03, backgroundColor: 'rgba(255,255,255,0.05)' }}
           whileTap={{ scale: 0.97 }}
           className="border border-white/20 text-white px-10 sm:px-12 py-5 font-black uppercase tracking-[0.2em] text-[0.6875rem] text-center hover:border-white/40 transition-all rounded-full"

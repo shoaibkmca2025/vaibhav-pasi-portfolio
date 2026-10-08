@@ -1,4 +1,4 @@
-export const contactEmail = 'vaibhavpasi@gmail.com';
+export const contactEmail = 'contact@vaibhavpasi.online';
 export const contactHref = `mailto:${contactEmail}`;
 
 export const socialLinks = [

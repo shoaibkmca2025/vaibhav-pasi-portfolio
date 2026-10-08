@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
+import { contactEmail } from '../contact';
 
 // Short, direct answers (~40-60 words) so search and AI answer engines can quote them.
 // These also feed the FAQPage structured data in src/seo.ts.
@@ -18,6 +19,15 @@ export const faqs = [
     question: 'What is 4AM Global Media?',
     answer:
       '4AM Global Media is a digital company co-founded by Vaibhav Pasi. It delivers software engineering, AI automation, branding, digital marketing, website development, cloud technologies and technology consulting for brands that want to scale.',
+  },
+  {
+    question: 'Where is Vaibhav Pasi based?',
+    answer:
+      'Vaibhav Pasi is based in India and works with startups, SMEs, enterprises and creators across India and internationally, both remotely and on site for workshops and training.',
+  },
+  {
+    question: 'How can I contact Vaibhav Pasi?',
+    answer: `Email Vaibhav Pasi at ${contactEmail}, or reach him on LinkedIn, Instagram or X. The contact page at vaibhavpasi.online/contact lists every channel and what to include in your first message.`,
   },
   {
     question: 'Can Vaibhav help my brand launch on Blinkit, Zepto or Instamart?',

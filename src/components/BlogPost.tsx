@@ -111,7 +111,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 className="w-11 h-11 rounded-full object-cover border border-white/10"
               />
               <div className="text-left">
-                <a href="/#about" onClick={onLinkClick} rel="author" className="text-sm font-bold hover:text-brand-yellow transition-colors">
+                <a href="/about" onClick={onLinkClick} rel="author" className="text-sm font-bold hover:text-brand-yellow transition-colors">
                   {person.name}
                 </a>
                 <div className="flex items-center gap-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500 mt-0.5">
@@ -214,7 +214,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                   marketplace onboarding.
                 </p>
                 <a
-                  href="/#about"
+                  href="/about"
                   onClick={onLinkClick}
                   className="mt-4 inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-brand-yellow transition-colors"
                 >

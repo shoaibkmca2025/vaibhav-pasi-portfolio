@@ -1,11 +1,25 @@
 import { useEffect, useState, type MouseEvent } from 'react';
 
-export type Route = { page: 'home' } | { page: 'blog' } | { page: 'post'; slug: string };
+// Standalone pages, in the order the nav and the "next page" links walk through them
+export const sitePages = [
+  { key: 'about', path: '/about', label: 'About' },
+  { key: 'services', path: '/services', label: 'Services' },
+  { key: 'work', path: '/work', label: 'Work' },
+  { key: 'client-wins', path: '/client-wins', label: 'Client Wins' },
+  { key: 'blog', path: '/blog', label: 'Blog' },
+  { key: 'contact', path: '/contact', label: 'Contact' },
+] as const;
 
-// Real paths so every page is indexable: /, /blog, /blog/<slug>
+export type PageKey = Exclude<(typeof sitePages)[number]['key'], 'blog'>;
+
+export type Route = { page: 'home' } | { page: 'blog' } | { page: 'post'; slug: string } | { page: PageKey };
+
+// Real paths so every page is indexable: /, /about, /services, ..., /blog, /blog/<slug>
 export function parseRoute(pathname: string): Route {
   const path = pathname.replace(/\/+$/, '') || '/';
   if (path === '/blog') return { page: 'blog' };
+  const standalone = sitePages.find((p) => p.path === path && p.key !== 'blog');
+  if (standalone) return { page: standalone.key as PageKey };
   const match = path.match(/^\/blog\/([^/]+)$/);
   if (match) return { page: 'post', slug: decodeURIComponent(match[1]) };
   return { page: 'home' };

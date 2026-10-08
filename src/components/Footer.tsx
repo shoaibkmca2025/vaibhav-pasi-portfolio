@@ -5,14 +5,14 @@ import { onLinkClick } from '../router';
 import { person } from '../site';
 
 const exploreLinks = [
-  { label: 'About', href: '/#about' },
-  { label: 'Services', href: '/#services' },
-  { label: 'Projects', href: '/#projects' },
-  { label: 'Case Studies', href: '/#casestudies' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Work', href: '/work' },
+  { label: 'Client Wins', href: '/client-wins' },
   { label: 'Press', href: '/#press' },
   { label: 'Blog', href: '/blog' },
   { label: 'FAQ', href: '/#faq' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 const linkClass = 'text-sm text-gray-400 hover:text-brand-yellow transition-colors';
