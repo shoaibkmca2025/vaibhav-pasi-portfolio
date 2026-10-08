@@ -1,7 +1,7 @@
 // POST /api/leads: every form on the site (hire me, contact, consulting, growth score, tools) posts here
-import { validateLead, type LeadInput } from '../shared/leads';
-import { buildLead, processLead } from './_lib/integrations';
-import { guard, rateLimited, readJson, send, type Req, type Res } from './_lib/http';
+import { validateLead, type LeadInput } from '../shared/leads.js';
+import { buildLead, processLead } from './_lib/integrations.js';
+import { guard, rateLimited, readJson, send, type Req, type Res } from './_lib/http.js';
 
 export default async function handler(req: Req, res: Res) {
   if (!guard(req, res)) return;

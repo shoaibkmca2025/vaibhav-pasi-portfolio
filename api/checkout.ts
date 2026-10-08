@@ -1,10 +1,10 @@
 // POST /api/checkout { itemId, name, email, whatsapp? } → Razorpay order (or test-mode response)
 // The price always comes from shared/catalog.ts, never from the browser.
-import { getCatalogItem } from '../shared/catalog';
-import { validateLead } from '../shared/leads';
-import { buildLead, processLead } from './_lib/integrations';
-import { env, guard, rateLimited, readJson, send, type Req, type Res } from './_lib/http';
-import { createOrder, paymentsConfigured } from './_lib/payments';
+import { getCatalogItem } from '../shared/catalog.js';
+import { validateLead } from '../shared/leads.js';
+import { buildLead, processLead } from './_lib/integrations.js';
+import { env, guard, rateLimited, readJson, send, type Req, type Res } from './_lib/http.js';
+import { createOrder, paymentsConfigured } from './_lib/payments.js';
 
 export default async function handler(req: Req, res: Res) {
   if (!guard(req, res)) return;

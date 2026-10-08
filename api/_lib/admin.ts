@@ -2,7 +2,7 @@
 // The cookie is HttpOnly (page scripts can't read it), Secure, SameSite=Strict and lasts 7 days.
 // Changing ADMIN_PASSWORD signs everyone out, because the signing key is derived from it.
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
-import { env, send, sameOrigin, type Req, type Res } from './http';
+import { env, send, sameOrigin, type Req, type Res } from './http.js';
 
 const COOKIE = 'vp_admin';
 const MAX_AGE_S = 7 * 24 * 60 * 60;

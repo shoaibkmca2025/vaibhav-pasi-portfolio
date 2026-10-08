@@ -1,10 +1,10 @@
 // POST /api/admin-upload { filename, contentType, data (base64) } -> { url: "/blog/<file>" }
 // Saves an image into public/blog via a Git commit. The dashboard shrinks images before
 // uploading, so files are normally a few hundred KB. Live on the site after the next deploy.
-import { MEDIA_DIR, slugify } from '../shared/blog';
-import { requireAdmin } from './_lib/admin';
-import { GitHubError, writeFile } from './_lib/github';
-import { readJson, send, type Req, type Res } from './_lib/http';
+import { MEDIA_DIR, slugify } from '../shared/blog.js';
+import { requireAdmin } from './_lib/admin.js';
+import { GitHubError, writeFile } from './_lib/github.js';
+import { readJson, send, type Req, type Res } from './_lib/http.js';
 
 const TYPES: Record<string, string> = {
   'image/jpeg': 'jpg',

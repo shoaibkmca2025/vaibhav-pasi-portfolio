@@ -1,11 +1,11 @@
 // POST /api/verify-payment { orderId, paymentId, signature }
 // Verifies Razorpay's signature server-side, re-reads the order to know what was bought,
 // then returns the next step: a signed download link, the booking link, or onboarding info.
-import { getCatalogItem } from '../shared/catalog';
-import { validateLead } from '../shared/leads';
-import { buildLead, processLead, recordPayment, sendEmail } from './_lib/integrations';
-import { env, guard, readJson, send, siteUrl, type Req, type Res } from './_lib/http';
-import { fetchOrder, paymentsConfigured, signDownload, verifySignature } from './_lib/payments';
+import { getCatalogItem } from '../shared/catalog.js';
+import { validateLead } from '../shared/leads.js';
+import { buildLead, processLead, recordPayment, sendEmail } from './_lib/integrations.js';
+import { env, guard, readJson, send, siteUrl, type Req, type Res } from './_lib/http.js';
+import { fetchOrder, paymentsConfigured, signDownload, verifySignature } from './_lib/payments.js';
 
 export default async function handler(req: Req, res: Res) {
   if (!guard(req, res)) return;

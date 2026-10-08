@@ -3,9 +3,9 @@
 // The browser combines these with the visitor's own answers into an indicative score.
 import { lookup } from 'node:dns/promises';
 import { isIP } from 'node:net';
-import { clean } from '../shared/leads';
-import type { SiteCheck } from '../shared/growth';
-import { guard, rateLimited, readJson, send, type Req, type Res } from './_lib/http';
+import { clean } from '../shared/leads.js';
+import type { SiteCheck } from '../shared/growth.js';
+import { guard, rateLimited, readJson, send, type Req, type Res } from './_lib/http.js';
 
 
 // Block requests to private / local networks (SSRF protection)

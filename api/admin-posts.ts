@@ -12,10 +12,10 @@ import {
   slugify,
   validatePost,
   type PostMeta,
-} from '../shared/blog';
-import { requireAdmin } from './_lib/admin';
-import { GitHubError, deleteFile, listDir, readFile, writeFile } from './_lib/github';
-import { readJson, send, type Req, type Res } from './_lib/http';
+} from '../shared/blog.js';
+import { requireAdmin } from './_lib/admin.js';
+import { GitHubError, deleteFile, listDir, readFile, writeFile } from './_lib/github.js';
+import { readJson, send, type Req, type Res } from './_lib/http.js';
 
 const postPath = (slug: string) => `${POSTS_DIR}/${slug}.md`;
 

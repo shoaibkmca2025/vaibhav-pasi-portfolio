@@ -2,7 +2,7 @@
 // Saving a post commits it, and Vercel redeploys the site automatically.
 // Needs GITHUB_TOKEN: a fine-grained personal access token with "Contents: Read and write"
 // on this repository only. It stays on the server and is never sent to the browser.
-import { env } from './http';
+import { env } from './http.js';
 
 const repo = () => env('GITHUB_REPO') || 'shoaibkmca2025/vaibhav-pasi-portfolio';
 const branch = () => env('GITHUB_BRANCH') || 'main';

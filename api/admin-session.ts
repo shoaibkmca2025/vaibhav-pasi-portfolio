@@ -2,8 +2,8 @@
 //   GET    -> { authenticated, setup: { password, github } }
 //   POST   { password } -> signs in (sets the session cookie)
 //   DELETE -> signs out
-import { adminConfigured, endSession, isAuthenticated, passwordMatches, startSession } from './_lib/admin';
-import { env, rateLimited, readJson, sameOrigin, send, type Req, type Res } from './_lib/http';
+import { adminConfigured, endSession, isAuthenticated, passwordMatches, startSession } from './_lib/admin.js';
+import { env, rateLimited, readJson, sameOrigin, send, type Req, type Res } from './_lib/http.js';
 
 export default async function handler(req: Req, res: Res) {
   if (req.method === 'GET') {
