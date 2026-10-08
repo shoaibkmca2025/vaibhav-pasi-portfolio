@@ -1,4 +1,4 @@
-import { motion, useInView } from 'motion/react';
+import { motion, useInView, useReducedMotion } from 'motion/react';
 import {
   Shield, Zap, Globe, Cpu, ArrowUpRight, Award, TrendingUp,
   Target, Lightbulb, Rocket, GraduationCap, ShoppingCart, Brain,
@@ -8,11 +8,15 @@ import {
 import { useRef, useState, useEffect } from 'react';
 
 /* ─── Animated Counter ─── */
+// Starts at the real number (so the prerendered page and screen readers get it right),
+// then counts up from zero once in view, unless Reduce Motion is on
 function useCounter(target: number, duration = 2000, inView = false) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target);
+  const reduceMotion = useReducedMotion();
   useEffect(() => {
-    if (!inView) return;
+    if (!inView || reduceMotion) return;
     let start = 0;
+    setCount(0);
     const increment = target / (duration / 16);
     const timer = setInterval(() => {
       start += increment;
@@ -20,7 +24,7 @@ function useCounter(target: number, duration = 2000, inView = false) {
       else setCount(Math.floor(start));
     }, 16);
     return () => clearInterval(timer);
-  }, [target, duration, inView]);
+  }, [target, duration, inView, reduceMotion]);
   return count;
 }
 
@@ -124,7 +128,7 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="mb-10 md:mb-14"
           >
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] border border-brand-yellow/20 px-4 py-2 rounded-full bg-brand-yellow/5 backdrop-blur-sm inline-flex items-center gap-2">
+            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] border border-brand-yellow/20 px-4 py-2 rounded-full bg-brand-yellow/5 backdrop-blur-sm inline-flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
               About the Founder
             </span>
@@ -152,7 +156,7 @@ export default function About() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.1 + idx * 0.06 }}
-                    className="text-[9px] sm:text-[10px] font-bold tracking-widest uppercase text-gray-400 border border-white/10 rounded-full px-3 py-1.5 bg-white/[0.02] hover:border-brand-yellow/30 hover:text-brand-yellow transition-all cursor-default"
+                    className="text-[0.6875rem] sm:text-[0.6875rem] font-bold tracking-widest uppercase text-gray-400 border border-white/10 rounded-full px-3 py-1.5 bg-white/[0.02] hover:border-brand-yellow/30 hover:text-brand-yellow transition-all cursor-default"
                   >
                     {role}
                   </motion.span>
@@ -175,12 +179,12 @@ export default function About() {
                   {/* Live badge */}
                   <div className="absolute -bottom-3 -right-3 bg-brand-black border border-brand-yellow/30 rounded-full px-3 py-1.5 flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                    <span className="text-[9px] font-bold tracking-widest uppercase text-gray-300">Available</span>
+                    <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-gray-300">Available</span>
                   </div>
                 </div>
 
                 {/* Bio paragraphs */}
-                <div className="space-y-5 text-gray-400 font-light text-base md:text-lg leading-relaxed max-w-xl">
+                <div className="space-y-5 text-gray-400 font-normal text-base md:text-lg leading-relaxed max-w-xl">
                   <p>
                     Vaibhav Pasi is a technology entrepreneur, digital marketing strategist, software developer, AI consultant, and Product Onboarding Expert dedicated to helping businesses scale through <span className="text-white font-medium">innovation, technology, and data-driven growth strategies</span>.
                   </p>
@@ -191,7 +195,7 @@ export default function About() {
               </div>
 
               {/* Extended bio paragraphs */}
-              <div className="mt-8 space-y-5 text-gray-400 font-light text-base md:text-lg leading-relaxed max-w-3xl">
+              <div className="mt-8 space-y-5 text-gray-400 font-normal text-base md:text-lg leading-relaxed max-w-3xl">
                 <p>
                   With a multidisciplinary background in technology and marketing, Vaibhav has successfully collaborated with <span className="text-white font-medium">startups, SMEs, enterprises, educational institutions, and entrepreneurs</span> to build high-performance websites, scalable software solutions, AI-powered business systems, and result-oriented digital marketing campaigns.
                 </p>
@@ -231,7 +235,7 @@ export default function About() {
                     <div className="text-2xl md:text-3xl font-black italic tracking-tighter text-brand-yellow">
                       {stat.value}{stat.suffix}
                     </div>
-                    <div className="text-[8px] md:text-[9px] font-bold tracking-widest text-gray-500 uppercase mt-1">
+                    <div className="text-[0.6875rem] md:text-[0.6875rem] font-bold tracking-widest text-gray-500 uppercase mt-1">
                       {stat.label}
                     </div>
                   </motion.div>
@@ -247,12 +251,12 @@ export default function About() {
                 className="relative p-6 md:p-8 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent overflow-hidden"
               >
                 <div className="absolute top-4 left-6 text-6xl md:text-8xl font-black italic text-brand-yellow/10 leading-none select-none">"</div>
-                <p className="relative text-base md:text-lg font-light italic text-gray-300 leading-relaxed mt-6 md:mt-8">
+                <p className="relative text-base md:text-lg font-normal italic text-gray-300 leading-relaxed mt-6 md:mt-8">
                   Innovation begins with vision, technology transforms possibilities, and execution creates lasting impact. My mission is to help businesses embrace the future through <span className="text-white font-medium not-italic">intelligent digital solutions</span> and transformative growth strategies.
                 </p>
                 <div className="mt-5 flex items-center gap-3">
                   <div className="w-8 h-[1px] bg-brand-yellow/40" />
-                  <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow/60">Vaibhav Pasi</span>
+                  <span className="text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-brand-yellow/60">Vaibhav Pasi</span>
                 </div>
               </motion.div>
 
@@ -271,7 +275,7 @@ export default function About() {
                     </div>
                     <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-brand-yellow">Vision</h4>
                   </div>
-                  <p className="text-gray-400 text-sm font-light leading-relaxed">
+                  <p className="text-gray-400 text-sm font-normal leading-relaxed">
                     To build globally recognized technology-driven businesses that leverage AI, software innovation, and digital transformation to create meaningful impact.
                   </p>
                 </motion.div>
@@ -289,7 +293,7 @@ export default function About() {
                     </div>
                     <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-brand-yellow">Mission</h4>
                   </div>
-                  <p className="text-gray-400 text-sm font-light leading-relaxed">
+                  <p className="text-gray-400 text-sm font-normal leading-relaxed">
                     To empower businesses with innovative technology, intelligent automation, strategic digital marketing, and scalable software solutions that accelerate growth and drive long-term success.
                   </p>
                 </motion.div>
@@ -303,7 +307,7 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.55 }}
                 className="p-6 md:p-8 rounded-2xl border border-white/5 bg-white/[0.02]"
               >
-                <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase text-gray-500 mb-5">The Journey</h4>
+                <h4 className="text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-500 mb-5">The Journey</h4>
                 <div className="space-y-4">
                   {journey.map((item, idx) => (
                     <motion.div
@@ -320,7 +324,7 @@ export default function About() {
                       </div>
                       <div className="-mt-1">
                         <span className="text-brand-yellow font-bold text-xs tracking-wider">{item.year}</span>
-                        <p className="text-gray-400 text-sm font-light mt-0.5">{item.label}</p>
+                        <p className="text-gray-400 text-sm font-normal mt-0.5">{item.label}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -346,7 +350,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="mb-10 md:mb-14"
           >
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-4 block">Expertise</span>
+            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4 block">Expertise</span>
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter italic uppercase leading-[0.9]">
               Core <span className="text-gray-500">Competencies.</span>
             </h3>
@@ -391,7 +395,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="mb-12 md:mb-16"
           >
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-4 block">Core Pillars</span>
+            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4 block">Core Pillars</span>
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter italic uppercase leading-[0.9]">
               The Framework <br />
               <span className="text-gray-500">Behind the Results.</span>
@@ -416,12 +420,12 @@ export default function About() {
                     <div className="w-12 h-12 rounded-2xl bg-brand-yellow/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-yellow/20 transition-all duration-500">
                       <pillar.icon className="w-6 h-6 text-brand-yellow" />
                     </div>
-                    <ArrowUpRight className="w-5 h-5 text-gray-700 group-hover:text-brand-yellow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+                    <ArrowUpRight className="w-5 h-5 text-gray-500 group-hover:text-brand-yellow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight italic uppercase group-hover:text-brand-yellow transition-colors duration-300">
                     {pillar.title}
                   </h3>
-                  <p className="text-gray-500 text-sm md:text-base font-light leading-relaxed group-hover:text-gray-400 transition-colors duration-300">
+                  <p className="text-gray-400 text-sm md:text-base font-normal leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                     {pillar.text}
                   </p>
                 </div>
@@ -437,7 +441,7 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-12 md:mt-16 text-center"
           >
-            <p className="text-gray-500 text-sm font-light max-w-2xl mx-auto leading-relaxed">
+            <p className="text-gray-400 text-sm font-normal max-w-2xl mx-auto leading-relaxed">
               Under his leadership, <span className="text-white font-medium">4AM Global Media</span> continues to expand its capabilities across software engineering, AI automation, branding, digital marketing, website development, cloud technologies, and technology consulting.
             </p>
           </motion.div>

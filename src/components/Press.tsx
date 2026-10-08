@@ -107,21 +107,21 @@ export default function Press() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[10px] mb-6 block">
+            <span className="text-brand-yellow font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[0.6875rem] mb-6 block">
               In the Press
             </span>
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-6 leading-[0.9]">
               As Featured <br />
               <span className="text-gray-500">In.</span>
             </h2>
-            <p className="text-gray-400 font-light leading-relaxed flex gap-3">
+            <p className="text-gray-400 font-normal leading-relaxed flex gap-3">
               <Newspaper className="w-5 h-5 shrink-0 text-brand-yellow mt-0.5" />
               <span>
                 <span className="text-white font-medium">"{featureHeadline}"</span> — covered by {publications.length} publications, May 2026.
               </span>
             </p>
           </div>
-          <div className="text-[10px] tracking-[0.4em] font-bold text-gray-600 border-b border-gray-800 pb-2 uppercase self-start md:self-auto">
+          <div className="text-[0.6875rem] tracking-[0.4em] font-bold text-gray-500 border-b border-gray-800 pb-2 uppercase self-start md:self-auto">
             {publications.length} Publications
           </div>
         </div>
@@ -165,10 +165,10 @@ export default function Press() {
                 )}
               </div>
               <div className="flex items-center justify-between gap-2 px-2 pt-3 pb-1">
-                <span className="text-[10px] md:text-[11px] font-bold tracking-wider uppercase text-gray-400 group-hover:text-white transition-colors leading-tight">
+                <span className="text-[0.6875rem] md:text-[0.6875rem] font-bold tracking-wider uppercase text-gray-400 group-hover:text-white transition-colors leading-tight">
                   {pub.name}
                 </span>
-                <ArrowUpRight className="w-4 h-4 shrink-0 text-gray-600 group-hover:text-brand-yellow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                <ArrowUpRight className="w-4 h-4 shrink-0 text-gray-500 group-hover:text-brand-yellow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </div>
             </motion.a>
           ))}

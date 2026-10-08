@@ -29,11 +29,11 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Testimonials</span>
+            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Testimonials</span>
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-6">
               Trust by <span className="text-gray-500">Design.</span>
             </h2>
-            <p className="text-gray-400 font-light leading-relaxed md:text-lg">
+            <p className="text-gray-400 font-normal leading-relaxed md:text-lg">
               Collaborations with industry leaders, founders, and visionaries across the global digital landscape.
             </p>
           </div>
@@ -54,7 +54,7 @@ export default function Testimonials() {
             >
               <div>
                 <Quote className="w-8 h-8 text-brand-yellow/20 mb-6 md:mb-8 group-hover:text-brand-yellow/50 transition-colors" />
-                <p className="text-base md:text-lg text-gray-300 font-light leading-relaxed mb-8 md:mb-12 italic">
+                <p className="text-base md:text-lg text-gray-300 font-normal leading-relaxed mb-8 md:mb-12 italic">
                   "{t.quote}"
                 </p>
               </div>
@@ -75,7 +75,7 @@ export default function Testimonials() {
                 </div>
                 <div>
                   <div className="text-sm font-bold tracking-tight">{t.author}</div>
-                  <div className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">{t.title}</div>
+                  <div className="text-[0.6875rem] text-gray-500 font-bold uppercase tracking-widest">{t.title}</div>
                 </div>
               </div>
             </motion.div>

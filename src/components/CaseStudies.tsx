@@ -49,11 +49,11 @@ export default function CaseStudies() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Proof</span>
+            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Proof</span>
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-6">
               Case <span className="text-gray-500">Studies.</span>
             </h2>
-            <p className="text-gray-400 font-light leading-relaxed md:text-lg">
+            <p className="text-gray-400 font-normal leading-relaxed md:text-lg">
               Deep dives into the strategies that drive exponential growth. No fluff—just data, precision, and architectural mastery.
             </p>
           </div>
@@ -87,7 +87,7 @@ export default function CaseStudies() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
                   <div className="absolute top-4 left-4 md:top-6 md:left-6">
-                     <span className="bg-brand-yellow/10 backdrop-blur-md text-brand-yellow border border-brand-yellow/20 px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">
+                     <span className="bg-brand-yellow/10 backdrop-blur-md text-brand-yellow border border-brand-yellow/20 px-4 py-1 rounded-full text-[0.6875rem] font-bold tracking-widest uppercase">
                         {study.category}
                      </span>
                   </div>
@@ -124,9 +124,9 @@ export default function CaseStudies() {
                   <div>
                     <div className="flex items-center gap-2 mb-3 text-brand-yellow">
                       <Target className="w-4 h-4" />
-                      <span className="text-[10px] font-bold tracking-widest uppercase">Project Goal</span>
+                      <span className="text-[0.6875rem] font-bold tracking-widest uppercase">Project Goal</span>
                     </div>
-                    <p className="text-sm text-gray-400 font-light leading-relaxed">
+                    <p className="text-sm text-gray-400 font-normal leading-relaxed">
                       {study.goals}
                     </p>
                   </div>
@@ -134,11 +134,11 @@ export default function CaseStudies() {
                   <div>
                     <div className="flex items-center gap-2 mb-4 text-brand-yellow">
                       <Lightbulb className="w-4 h-4" />
-                      <span className="text-[10px] font-bold tracking-widest uppercase">Implemented Strategy</span>
+                      <span className="text-[0.6875rem] font-bold tracking-widest uppercase">Implemented Strategy</span>
                     </div>
                     <ul className="space-y-3">
                       {study.strategy.map((item, i) => (
-                        <li key={i} className="flex gap-3 text-sm text-gray-300 font-light">
+                        <li key={i} className="flex gap-3 text-sm text-gray-300 font-normal">
                           <ChevronRight className="w-4 h-4 text-brand-yellow flex-shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </li>
@@ -149,13 +149,13 @@ export default function CaseStudies() {
                   <div className="pt-8 border-t border-white/5">
                     <div className="flex items-center gap-2 mb-6 text-brand-yellow">
                       <BarChart3 className="w-4 h-4" />
-                      <span className="text-[10px] font-bold tracking-widest uppercase">Measurable Results</span>
+                      <span className="text-[0.6875rem] font-bold tracking-widest uppercase">Measurable Results</span>
                     </div>
                     <div className="grid grid-cols-3 gap-3 sm:gap-4">
                       {study.results.map((res) => (
                         <div key={res.label}>
                           <div className="text-lg min-[400px]:text-xl sm:text-2xl font-bold tracking-tighter">{res.value}</div>
-                          <div className="text-[9px] text-gray-600 font-bold uppercase tracking-wider">{res.label}</div>
+                          <div className="text-[0.6875rem] text-gray-500 font-bold uppercase tracking-wider">{res.label}</div>
                         </div>
                       ))}
                     </div>

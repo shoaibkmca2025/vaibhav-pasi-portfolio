@@ -52,11 +52,11 @@ export default function Scaling() {
               </div>
               
               <h3 className="text-2xl font-bold mb-4 tracking-tight uppercase italic">{section.title}</h3>
-              <p className="text-gray-400 font-light leading-relaxed mb-8 md:mb-10">
+              <p className="text-gray-400 font-normal leading-relaxed mb-8 md:mb-10">
                 {section.description}
               </p>
 
-              <a href="#contact" className="py-2 -my-2 flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow hover:gap-4 transition-all">
+              <a href="#contact" className="py-2 -my-2 flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-brand-yellow hover:gap-4 transition-all">
                 LEARN MORE <ArrowUpRight className="w-3 h-3" />
               </a>
               

@@ -19,7 +19,7 @@ export default function Framework() {
                 Everything You Need. <br />
                 <span className="text-brand-yellow">One Place.</span>
               </h2>
-              <p className="text-gray-400 font-light max-w-xl text-base md:text-lg">
+              <p className="text-gray-400 font-normal max-w-xl text-base md:text-lg">
                 The Marketing Ecosystem that never sleeps. We provide the complete infrastructure required to scale from zero to global authority.
               </p>
             </motion.div>

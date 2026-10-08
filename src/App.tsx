@@ -139,6 +139,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
     <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-brand-black text-white font-sans selection:bg-brand-yellow selection:text-brand-black overflow-x-hidden">
       <div className="noise" />
+      <a href="#main" className="skip-link">Skip to content</a>
       <CustomCursor />
 
       {route.page === 'post' ? (
@@ -154,7 +155,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
       <ScrollProgress />
       <Navigation activeTab={activeTab} setActiveTab={scrollToSection} />
 
-      <main>
+      <main id="main" tabIndex={-1} className="outline-none">
         <section id="home">
           <Hero key={heroKey} />
           <Stats />
@@ -230,7 +231,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open Vaibhav Pasi on ${social.label}`}
-                    className="p-6 md:p-8 border border-white/5 rounded-2xl hover:bg-brand-yellow hover:text-black transition-all group font-bold tracking-widest text-[10px]"
+                    className="p-6 md:p-8 border border-white/5 rounded-2xl hover:bg-brand-yellow hover:text-black transition-all group font-bold tracking-widest text-[0.6875rem]"
                   >
                      {social.label.toUpperCase()}
                   </a>

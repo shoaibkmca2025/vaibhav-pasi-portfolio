@@ -80,12 +80,12 @@ export default function Services() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 md:mb-20 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Services</span>
+            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Services</span>
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-6 uppercase italic leading-[0.85]">
               The Full <br className="hidden sm:block" />
               <span className="text-gray-500">Spectrum.</span>
             </h2>
-            <p className="text-gray-400 font-light leading-relaxed text-base md:text-lg max-w-xl">
+            <p className="text-gray-400 font-normal leading-relaxed text-base md:text-lg max-w-xl">
               One ecosystem. Every solution. We provide the technical and creative infrastructure required for total digital dominance.
             </p>
           </div>
@@ -108,7 +108,7 @@ export default function Services() {
               <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-brand-yellow/0 group-hover:bg-brand-yellow/5 blur-[60px] transition-all duration-700 pointer-events-none" />
 
               {/* Marker */}
-              <span className="text-[9px] font-bold tracking-[0.4em] text-gray-700 group-hover:text-brand-yellow/40 transition-colors mb-6 block">{service.marker}</span>
+              <span className="text-[0.6875rem] font-bold tracking-[0.4em] text-gray-500 group-hover:text-brand-yellow/40 transition-colors mb-6 block">{service.marker}</span>
 
               <motion.div
                 initial={{ scale: 0.5, opacity: 0, rotate: -15 }}
@@ -126,12 +126,12 @@ export default function Services() {
               </motion.div>
 
               <h3 className="text-lg font-bold mb-4 tracking-tight uppercase group-hover:text-brand-yellow transition-colors duration-300">{service.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed font-light group-hover:text-gray-400 transition-colors duration-300">
+              <p className="text-sm text-gray-400 leading-relaxed font-normal group-hover:text-gray-300 transition-colors duration-300">
                 {service.description}
               </p>
 
               <div className="mt-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-brand-yellow">Learn more</span>
+                <span className="text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-brand-yellow">Learn more</span>
                 <ArrowUpRight className="w-3 h-3 text-brand-yellow" />
               </div>
             </motion.div>

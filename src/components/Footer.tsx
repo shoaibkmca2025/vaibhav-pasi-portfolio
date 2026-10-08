@@ -16,7 +16,7 @@ const exploreLinks = [
 ];
 
 const linkClass = 'text-sm text-gray-400 hover:text-brand-yellow transition-colors';
-const headingClass = 'text-[10px] font-bold tracking-[0.3em] uppercase text-gray-500 mb-5';
+const headingClass = 'text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-500 mb-5';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -33,8 +33,8 @@ export function Footer() {
             <a href="/" onClick={onLinkClick} className="text-2xl font-bold tracking-tighter uppercase italic">
               Vaibhav Pasi
             </a>
-            <p className="mt-2 text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow">Tech x Marketing</p>
-            <p className="mt-6 text-sm text-gray-400 font-light leading-relaxed max-w-sm">
+            <p className="mt-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-brand-yellow">Tech x Marketing</p>
+            <p className="mt-6 text-sm text-gray-400 font-normal leading-relaxed max-w-sm">
               Digital marketing strategist, software developer and AI consultant. Co-Founder of{' '}
               {person.organization.name}, helping brands scale through growth marketing, AI and e-commerce.
             </p>
@@ -70,7 +70,7 @@ export function Footer() {
                     <span className="text-sm text-gray-300 group-hover:text-brand-yellow transition-colors leading-snug line-clamp-2">
                       {post.title}
                     </span>
-                    <span className="mt-1 block text-[10px] font-bold tracking-widest uppercase text-gray-600">
+                    <span className="mt-1 block text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">
                       {post.category} · {post.readingMinutes} min read
                     </span>
                   </a>
@@ -80,7 +80,7 @@ export function Footer() {
                 <a
                   href="/blog"
                   onClick={onLinkClick}
-                  className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow hover:gap-2.5 transition-all"
+                  className="inline-flex items-center gap-1.5 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-brand-yellow hover:gap-2.5 transition-all"
                 >
                   All articles <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
@@ -109,16 +109,16 @@ export function Footer() {
         </div>
 
         <div className="mt-16 md:mt-20 pt-8 pb-[env(safe-area-inset-bottom)] border-t border-white/5 flex flex-col-reverse sm:flex-row items-center justify-between gap-6">
-          <p className="text-[10px] tracking-widest text-gray-600 uppercase font-bold text-center sm:text-left">
+          <p className="text-[0.6875rem] tracking-widest text-gray-500 uppercase font-bold text-center sm:text-left">
             © {year} Vaibhav Pasi. All rights reserved.
           </p>
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="group inline-flex items-center gap-3 text-[10px] font-bold tracking-[0.3em] uppercase text-gray-400 hover:text-brand-yellow transition-colors"
+            className="group inline-flex items-center gap-3 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-400 hover:text-brand-yellow transition-colors"
           >
             Back to top
-            <span className="w-10 h-10 rounded-full border border-white/10 group-hover:border-brand-yellow flex items-center justify-center transition-colors">
+            <span className="w-11 h-11 rounded-full border border-white/10 group-hover:border-brand-yellow flex items-center justify-center transition-colors">
               <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
             </span>
           </button>

@@ -46,7 +46,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
             type="button"
             key={item}
             onClick={() => setActiveTab(item)}
-            className={`text-[11px] font-bold tracking-widest uppercase transition-colors hover:text-brand-yellow relative ${
+            className={`py-2 text-[0.6875rem] font-bold tracking-widest uppercase transition-colors hover:text-brand-yellow relative ${
               activeTab === item ? 'text-brand-yellow' : 'text-gray-400'
             }`}
           >
@@ -54,7 +54,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
             {activeTab === item && (
               <motion.div
                 layoutId="activeTab"
-                className="absolute -bottom-1 left-0 w-full h-[1px] bg-brand-yellow"
+                className="absolute bottom-1 left-0 w-full h-[1px] bg-brand-yellow"
               />
             )}
           </button>
@@ -68,7 +68,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
               key={idx} 
               href={social.href} 
               aria-label={`Open Vaibhav Pasi on ${social.label}`}
-              className="text-gray-400 hover:text-brand-yellow transition-colors"
+              className="p-1.5 -m-1.5 text-gray-400 hover:text-brand-yellow transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -79,14 +79,14 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
         
         <a
           href={contactHref}
-          className="hidden md:block bg-brand-yellow text-black px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all"
+          className="hidden md:block bg-brand-yellow text-black px-6 py-2.5 text-[0.6875rem] font-bold uppercase tracking-widest hover:brightness-110 transition-all"
         >
           LET'S COLLABORATE
         </a>
 
         <button 
           type="button"
-          className="xl:hidden p-2 text-white"
+          className="xl:hidden p-2.5 -mr-2.5 text-white"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={isOpen}
@@ -130,7 +130,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
                     setIsOpen(false);
                   }}
                   className={`text-4xl sm:text-5xl font-black tracking-tighter text-left uppercase italic leading-none py-1 ${
-                    activeTab === item ? 'text-brand-yellow' : 'text-white/20'
+                    activeTab === item ? 'text-brand-yellow' : 'text-white/45'
                   }`}
                 >
                   {item}
@@ -152,7 +152,7 @@ export default function Navigation({ activeTab, setActiveTab }: NavigationProps)
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open Vaibhav Pasi on ${social.label}`}
-                    className="p-2 -m-2 text-gray-400 hover:text-brand-yellow transition-colors"
+                    className="p-2.5 -m-2.5 text-gray-400 hover:text-brand-yellow transition-colors"
                   >
                     <social.icon className="w-6 h-6" />
                   </a>

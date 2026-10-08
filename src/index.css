@@ -32,9 +32,34 @@
     @apply bg-brand-black text-white antialiased selection:bg-brand-yellow selection:text-black min-h-screen relative;
   }
 
+  /* Clear focus ring for keyboard users (mouse clicks don't show it) */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-yellow);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Honour the system "Increase Contrast" setting: lift secondary text and borders */
+  @media (prefers-contrast: more) {
+    :root {
+      --color-gray-400: #d1d5db;
+      --color-gray-500: #b4bac4;
+    }
+    .border-white\/5,
+    .border-white\/10 {
+      border-color: rgb(255 255 255 / 0.3);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+
+    /* Fade only: no animating out of a blur or scaling (HIG Reduce Motion guidance) */
+    .hero-title {
+      filter: none !important;
+      transform: none !important;
     }
 
     *,
@@ -45,6 +70,14 @@
       transition-duration: 0.01ms !important;
     }
   }
+}
+
+/* ─── Skip link: first Tab stop, jumps keyboard users past the navigation ─── */
+.skip-link {
+  @apply fixed left-4 top-4 z-[100001] -translate-y-24 rounded-full bg-brand-yellow px-5 py-3 text-sm font-bold text-black transition-transform;
+}
+.skip-link:focus {
+  @apply translate-y-0;
 }
 
 /* ─── Noise overlay ─── */
@@ -77,16 +110,16 @@
 
 /* ─── Buttons ─── */
 .btn-primary {
-  @apply bg-brand-yellow text-black px-8 py-4 font-extrabold transition-all hover:brightness-110 active:scale-95 text-[11px] uppercase tracking-[0.25em];
+  @apply bg-brand-yellow text-black px-8 py-4 font-extrabold transition-all hover:brightness-110 active:scale-95 text-[0.6875rem] uppercase tracking-[0.25em];
 }
 
 .btn-secondary {
-  @apply border border-white/20 text-white px-8 py-4 font-extrabold transition-all hover:bg-white hover:text-black active:scale-95 text-[11px] uppercase tracking-[0.25em];
+  @apply border border-white/20 text-white px-8 py-4 font-extrabold transition-all hover:bg-white hover:text-black active:scale-95 text-[0.6875rem] uppercase tracking-[0.25em];
 }
 
 /* ─── Editorial section markers ─── */
 .section-marker {
-  @apply text-[10px] font-bold tracking-[0.4em] uppercase text-gray-600 border-b border-gray-800 pb-2;
+  @apply text-[0.6875rem] font-bold tracking-[0.4em] uppercase text-gray-500 border-b border-gray-800 pb-2;
 }
 
 /* ─── Horizontal divider ─── */
@@ -115,7 +148,7 @@
 
 /* ─── Blog article body (rendered Markdown) ─── */
 .prose-blog {
-  @apply text-gray-300 font-light text-[17px] md:text-lg leading-[1.8];
+  @apply text-gray-300 font-normal text-[1.0625rem] md:text-lg leading-[1.8];
 }
 .prose-blog > * + * {
   margin-top: 1.4em;

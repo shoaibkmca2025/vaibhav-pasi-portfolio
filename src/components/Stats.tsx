@@ -56,12 +56,12 @@ export default function Stats() {
               className="flex flex-col items-center lg:items-start group relative"
             >
               {/* Editorial marker */}
-              <span className="text-[9px] font-bold tracking-[0.4em] text-gray-700 mb-3 md:mb-4">{stat.marker}</span>
+              <span className="text-[0.6875rem] font-bold tracking-[0.4em] text-gray-500 mb-3 md:mb-4">{stat.marker}</span>
               
               <div className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-3 md:mb-4 group-hover:text-brand-yellow transition-all duration-500 italic uppercase">
                 <CountUp value={stat.value} />
               </div>
-              <div className="text-[9px] md:text-[11px] tracking-[0.2em] md:tracking-[0.4em] font-bold text-gray-500 uppercase border-l-2 border-brand-yellow pl-3 md:pl-4">
+              <div className="text-[0.6875rem] md:text-[0.6875rem] tracking-[0.2em] md:tracking-[0.4em] font-bold text-gray-500 uppercase border-l-2 border-brand-yellow pl-3 md:pl-4">
                 {stat.label}
               </div>
             </motion.div>

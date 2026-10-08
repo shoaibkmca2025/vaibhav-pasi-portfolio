@@ -17,7 +17,7 @@ export default function BlogHeader({ backHref, backLabel, action }: BlogHeaderPr
       <a
         href={backHref}
         onClick={onLinkClick}
-        className="justify-self-start inline-flex items-center gap-2 py-2 text-[10px] font-bold tracking-widest uppercase text-gray-300 hover:text-brand-yellow transition-colors"
+        className="justify-self-start inline-flex items-center gap-2 py-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-300 hover:text-brand-yellow transition-colors"
       >
         <ArrowLeft className="w-4 h-4" /> {backLabel}
       </a>
@@ -28,7 +28,7 @@ export default function BlogHeader({ backHref, backLabel, action }: BlogHeaderPr
         {action ?? (
           <a
             href={contactHref}
-            className="hidden sm:inline-block bg-brand-yellow text-black px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all"
+            className="hidden sm:inline-block bg-brand-yellow text-black px-5 py-2.5 text-[0.6875rem] font-bold uppercase tracking-widest hover:brightness-110 transition-all"
           >
             Let's collaborate
           </a>

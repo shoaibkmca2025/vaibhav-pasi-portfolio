@@ -17,8 +17,8 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
     return (
       <>
         <BlogHeader backHref="/blog" backLabel="All articles" />
-        <main className="min-h-svh flex flex-col items-center justify-center text-center px-5">
-          <p className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-4">404</p>
+        <main id="main" tabIndex={-1} className="outline-none min-h-svh flex flex-col items-center justify-center text-center px-5">
+          <p className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4">404</p>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8">Article not found.</h1>
           <a href="/blog" onClick={onLinkClick} className="btn-primary rounded-full">Back to the journal</a>
         </main>
@@ -63,14 +63,14 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
             type="button"
             onClick={share}
             aria-label="Share this article"
-            className="p-2 -m-2 text-gray-300 hover:text-brand-yellow transition-colors"
+            className="p-3 -m-3 text-gray-300 hover:text-brand-yellow transition-colors"
           >
             {copied ? <Check className="w-5 h-5 text-brand-yellow" /> : <Share2 className="w-5 h-5" />}
           </button>
         }
       />
 
-      <main>
+      <main id="main" tabIndex={-1} className="outline-none">
         <article className="pt-28 md:pt-40 pb-16 md:pb-24">
           {/* Title block */}
           <motion.div
@@ -80,7 +80,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
             className="max-w-4xl mx-auto px-5 sm:px-6 text-center"
           >
             <nav aria-label="Breadcrumb" className="mb-6 md:mb-8">
-              <ol className="flex items-center justify-center gap-2 text-[10px] font-bold tracking-widest uppercase text-gray-500">
+              <ol className="flex items-center justify-center gap-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">
                 <li>
                   <a href="/" onClick={onLinkClick} className="hover:text-brand-yellow transition-colors">Home</a>
                 </li>
@@ -98,7 +98,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
               {post.title}
             </h1>
             {post.excerpt && (
-              <p className="mt-6 md:mt-8 text-gray-400 font-light text-base md:text-xl leading-relaxed max-w-2xl mx-auto">
+              <p className="mt-6 md:mt-8 text-gray-400 font-normal text-base md:text-xl leading-relaxed max-w-2xl mx-auto">
                 {post.excerpt}
               </p>
             )}
@@ -114,7 +114,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 <a href="/#about" onClick={onLinkClick} rel="author" className="text-sm font-bold hover:text-brand-yellow transition-colors">
                   {person.name}
                 </a>
-                <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-gray-500 mt-0.5">
+                <div className="flex items-center gap-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500 mt-0.5">
                   <time dateTime={post.date}>{formatDate(post.date)}</time>
                   <span className="w-1 h-1 rounded-full bg-gray-700" />
                   <span className="inline-flex items-center gap-1">
@@ -157,20 +157,20 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[10px] font-bold tracking-wider text-gray-400 bg-white/5 border border-white/5 px-3 py-1.5 rounded-full"
+                  className="text-[0.6875rem] font-bold tracking-wider text-gray-400 bg-white/5 border border-white/5 px-3 py-1.5 rounded-full"
                 >
                   #{tag}
                 </span>
               ))}
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold tracking-widest uppercase text-gray-500 mr-2">Share</span>
+              <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500 mr-2">Share</span>
               <a
                 href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Share on LinkedIn"
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all"
+                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
@@ -179,7 +179,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Share on X"
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all"
+                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all"
               >
                 <Twitter className="w-4 h-4" />
               </a>
@@ -187,7 +187,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 type="button"
                 onClick={copyLink}
                 aria-label="Copy link"
-                className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all"
+                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all"
               >
                 {copied ? <Check className="w-4 h-4" /> : <Link2 className="w-4 h-4" />}
               </button>
@@ -206,9 +206,9 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 className="w-[72px] h-[72px] rounded-2xl object-cover border border-white/10 shrink-0"
               />
               <div>
-                <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow mb-2">Written by</p>
+                <p className="text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-brand-yellow mb-2">Written by</p>
                 <p className="text-lg font-bold">{person.name}</p>
-                <p className="mt-2 text-sm text-gray-400 font-light leading-relaxed">
+                <p className="mt-2 text-sm text-gray-400 font-normal leading-relaxed">
                   Co-Founder of {person.organization.name}. Digital marketing strategist, software developer and AI
                   consultant helping startups, SMEs and enterprises scale with data-driven growth, AI automation and
                   marketplace onboarding.
@@ -216,7 +216,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 <a
                   href="/#about"
                   onClick={onLinkClick}
-                  className="mt-4 inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-brand-yellow transition-colors"
+                  className="mt-4 inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-brand-yellow transition-colors"
                 >
                   More about Vaibhav <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
@@ -252,9 +252,9 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                       </div>
                     )}
                     <div className="flex flex-col justify-center min-w-0">
-                      <span className="text-[9px] font-bold tracking-widest uppercase text-brand-yellow mb-2">{p.category}</span>
+                      <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-brand-yellow mb-2">{p.category}</span>
                       <h3 className="font-bold leading-snug line-clamp-3 group-hover:text-brand-yellow transition-colors">{p.title}</h3>
-                      <span className="mt-2 text-[10px] font-bold tracking-widest uppercase text-gray-500">
+                      <span className="mt-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">
                         {p.readingMinutes} min read
                       </span>
                     </div>
@@ -269,7 +269,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
         <section className="section-padding">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter mb-6">Want results like these?</h2>
-            <p className="text-gray-400 font-light mb-10 max-w-lg mx-auto">
+            <p className="text-gray-400 font-normal mb-10 max-w-lg mx-auto">
               Let's talk about what a growth system could look like for your brand.
             </p>
             <a href={contactHref} className="btn-primary rounded-full inline-flex items-center gap-2">

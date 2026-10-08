@@ -25,7 +25,7 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-14 md:mb-24">
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-6">How It Works</h2>
-          <p className="text-gray-400 font-light max-w-xl mx-auto">
+          <p className="text-gray-400 font-normal max-w-xl mx-auto">
             A streamlined onboarding process designed for speed. We move as fast as the algorithms do.
           </p>
         </div>
@@ -44,7 +44,7 @@ export default function HowItWorks() {
                 <step.icon className="w-8 h-8 text-brand-yellow" />
               </div>
               <h3 className="text-xl font-bold tracking-widest mb-4 italic uppercase">{step.title}</h3>
-              <p className="text-gray-500 text-sm font-light leading-relaxed px-4">
+              <p className="text-gray-400 text-sm font-normal leading-relaxed px-4">
                 {step.description}
               </p>
             </motion.div>
