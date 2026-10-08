@@ -13,26 +13,36 @@ Premium React/Vite portfolio for Vaibhav Pasi, focused on digital strategy, soci
 
 ## Publishing Blog Posts
 
-### The easy way: the admin at `/admin`
+### The easy way: your dashboard at `/admin`
 
-Go to **https://www.vaibhavpasi.online/admin**, sign in with GitHub, and use **New Blog post**: write in a normal editor,
-upload a cover image, and click **Publish**. The post is saved to this repository and Vercel puts it live in about a minute.
-You can also edit, unpublish (tick **Draft**) or delete existing posts there.
+Go to **https://www.vaibhavpasi.online/admin** and sign in with your admin password. From there you can:
 
-**Who can sign in:** only GitHub accounts with write access to this repository can publish. Set `ADMIN_GITHUB_USERS`
-in Vercel to limit it further to specific usernames.
+- **Write** a new article in the editor (toolbar for headings, bold, links, lists, quotes and images; Write/Preview tabs)
+- **Upload** a cover image and images inside the article (photos are resized automatically before upload)
+- Set the **date, category, excerpt, tags**, and mark it **Featured**
+- **Save as draft** (hidden from the site) or **Publish**; edit, **Unpublish** or **Delete** later
+- See a **Google preview** of how the article will appear in search results
 
-**One-time setup for "Sign in with GitHub"** (until this is done, use **Sign in with token** on the admin page with a
-GitHub personal access token that has *Contents: Read and write* on this repo):
+**How publishing works:** the dashboard saves the article as a Markdown file in [`src/blog/posts/`](src/blog/posts/) through
+the GitHub API (`api/admin-posts.ts`). That's a normal Git commit, so Vercel rebuilds the site and the article is live, with
+full SEO, in about a minute. The dashboard tells you when it's live. Every change is in Git history, so nothing is lost.
 
-1. GitHub → Settings → Developer settings → **OAuth Apps → New OAuth App**
-   - Homepage URL: `https://www.vaibhavpasi.online`
-   - Authorization callback URL: `https://www.vaibhavpasi.online/api/callback`
-2. Copy the **Client ID**, click **Generate a new client secret**, and copy it.
-3. Vercel → Project → Settings → Environment Variables: add `GITHUB_OAUTH_CLIENT_ID`, `GITHUB_OAUTH_CLIENT_SECRET`
-   and (recommended) `ADMIN_GITHUB_USERS`, then redeploy.
+**One-time setup** (Vercel → Project → Settings → Environment Variables, then redeploy):
 
-Admin settings (fields, categories, image folder) live in [`public/admin/config.yml`](public/admin/config.yml).
+| Variable | What it is |
+|---|---|
+| `ADMIN_PASSWORD` | The password for `/admin`. Use a long, unique one (8+ characters required; 16+ recommended). |
+| `GITHUB_TOKEN` | Lets the server save posts to this repo. GitHub → Settings → Developer settings → **Fine-grained tokens** → Generate new token: *Repository access* = only `vaibhav-pasi-portfolio`; *Permissions* → **Contents: Read and write**. Set an expiry and renew it when it runs out. |
+
+Optional: `ADMIN_SESSION_SECRET` (signs the login cookie; otherwise derived from the password), and `GITHUB_REPO` /
+`GITHUB_BRANCH` (default `shoaibkmca2025/vaibhav-pasi-portfolio` / `main`).
+
+**Security:** the password is checked on the server with a constant-time comparison and sign-in attempts are rate-limited.
+The session is an HttpOnly, Secure, SameSite=Strict cookie that expires after 7 days, and changing `ADMIN_PASSWORD` signs
+everyone out. The GitHub token never leaves the server, and `/admin` is excluded from search engines.
+
+**Code:** dashboard UI in [`src/admin/`](src/admin/) (a separate bundle that site visitors never download), API in
+`api/admin-*.ts`, and the post format shared by both in [`shared/blog.ts`](shared/blog.ts).
 
 ### By hand
 

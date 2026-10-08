@@ -29,10 +29,15 @@ function devApi(env: Record<string, string>): Plugin {
   };
 }
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, isSsrBuild }) => {
   const env = loadEnv(mode, '.', '');
   return {
     plugins: [react(), tailwindcss(), devApi(env)],
+    // Two pages: the public site (index.html) and the blog dashboard (admin.html -> /admin),
+    // so the dashboard's code never ships to site visitors
+    build: isSsrBuild
+      ? {}
+      : { rollupOptions: { input: { main: path.resolve(__dirname, 'index.html'), admin: path.resolve(__dirname, 'admin.html') } } },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
