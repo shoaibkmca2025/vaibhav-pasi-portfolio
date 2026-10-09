@@ -8,27 +8,27 @@ const sections = [
     description: "Direct access to high-net-worth networks and specialized digital growth strategies. We build the room so you can be in it.",
     icon: Users,
     color: "bg-brand-yellow/10",
-    textColor: "text-brand-yellow"
+    textColor: "text-accent"
   },
   {
     title: "Watch Us Work",
     description: "Experience the process behind the virality. Our production house operates 24/7 to maintain algorithmic dominance.",
     icon: Play,
     color: "bg-brand-yellow/10",
-    textColor: "text-brand-yellow"
+    textColor: "text-accent"
   },
   {
     title: "Creator Ecosystem",
     description: "Where creators blow up. We identify talent and engineer the frameworks required for explosive market entry.",
     icon: Radio,
     color: "bg-brand-yellow/10",
-    textColor: "text-brand-yellow"
+    textColor: "text-accent"
   }
 ];
 
 export default function Scaling() {
   return (
-    <section id="scaling" className="section-padding bg-black border-t border-white/5">
+    <section id="scaling" className="section-padding bg-brand-black border-t border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 md:mb-20">
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-8">
@@ -46,7 +46,7 @@ export default function Scaling() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: idx * 0.1 }}
               whileHover={{ y: -10 }}
-              className="group relative p-6 md:p-10 border border-white/5 bg-brand-dark-gray/10 hover:bg-brand-dark-gray/20 hover:border-brand-yellow/20 transition-all rounded-[2rem] overflow-hidden"
+              className="group relative p-6 md:p-10 border border-white/5 bg-brand-dark-gray/10 hover:bg-brand-dark-gray/20 hover:border-accent/20 transition-all rounded-[2rem] overflow-hidden"
             >
               <div className={`w-16 h-16 ${section.color} rounded-2xl flex items-center justify-center mb-8 md:mb-10 group-hover:rotate-[10deg] transition-transform duration-500`}>
                 <section.icon className={`w-8 h-8 ${section.textColor}`} />
@@ -57,7 +57,7 @@ export default function Scaling() {
                 {section.description}
               </p>
 
-              <a href="/contact" onClick={onLinkClick} className="py-2 -my-2 flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-brand-yellow hover:gap-4 transition-all">
+              <a href="/contact" onClick={onLinkClick} className="py-2 -my-2 flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-accent hover:gap-4 transition-all">
                 LEARN MORE <ArrowUpRight className="w-3 h-3" />
               </a>
               

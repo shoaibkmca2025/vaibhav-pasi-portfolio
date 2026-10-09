@@ -63,9 +63,9 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
             type="button"
             onClick={share}
             aria-label="Share this article"
-            className="p-3 -m-3 text-gray-300 hover:text-brand-yellow transition-colors"
+            className="p-3 -m-3 text-gray-300 hover:text-accent transition-colors"
           >
-            {copied ? <Check className="w-5 h-5 text-brand-yellow" /> : <Share2 className="w-5 h-5" />}
+            {copied ? <Check className="w-5 h-5 text-accent" /> : <Share2 className="w-5 h-5" />}
           </button>
         }
       />
@@ -82,14 +82,14 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
             <nav aria-label="Breadcrumb" className="mb-6 md:mb-8">
               <ol className="flex items-center justify-center gap-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">
                 <li>
-                  <a href="/" onClick={onLinkClick} className="hover:text-brand-yellow transition-colors">Home</a>
+                  <a href="/" onClick={onLinkClick} className="hover:text-accent transition-colors">Home</a>
                 </li>
                 <li aria-hidden>/</li>
                 <li>
-                  <a href="/blog" onClick={onLinkClick} className="hover:text-brand-yellow transition-colors">Blog</a>
+                  <a href="/blog" onClick={onLinkClick} className="hover:text-accent transition-colors">Blog</a>
                 </li>
                 <li aria-hidden>/</li>
-                <li className="text-brand-yellow border border-brand-yellow/20 bg-brand-yellow/5 px-3 py-1 rounded-full">
+                <li className="text-accent border border-accent/20 bg-brand-yellow/5 px-3 py-1 rounded-full">
                   {post.category}
                 </li>
               </ol>
@@ -111,7 +111,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 className="w-11 h-11 rounded-full object-cover border border-white/10"
               />
               <div className="text-left">
-                <a href="/about" onClick={onLinkClick} rel="author" className="text-sm font-bold hover:text-brand-yellow transition-colors">
+                <a href="/about" onClick={onLinkClick} rel="author" className="text-sm font-bold hover:text-accent transition-colors">
                   {person.name}
                 </a>
                 <div className="flex items-center gap-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500 mt-0.5">
@@ -170,7 +170,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Share on LinkedIn"
-                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all"
+                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-accent transition-all"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
@@ -179,7 +179,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Share on X"
-                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all"
+                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-accent transition-all"
               >
                 <Twitter className="w-4 h-4" />
               </a>
@@ -187,7 +187,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 type="button"
                 onClick={copyLink}
                 aria-label="Copy link"
-                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all"
+                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-gray-300 hover:bg-brand-yellow hover:text-black hover:border-accent transition-all"
               >
                 {copied ? <Check className="w-4 h-4" /> : <Link2 className="w-4 h-4" />}
               </button>
@@ -206,7 +206,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 className="w-[72px] h-[72px] rounded-2xl object-cover border border-white/10 shrink-0"
               />
               <div>
-                <p className="text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-brand-yellow mb-2">Written by</p>
+                <p className="text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-accent mb-2">Written by</p>
                 <p className="text-lg font-bold">{person.name}</p>
                 <p className="mt-2 text-sm text-gray-400 font-normal leading-relaxed">
                   Co-Founder of {person.organization.name}. Digital marketing strategist, software developer and AI
@@ -216,7 +216,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 <a
                   href="/about"
                   onClick={onLinkClick}
-                  className="mt-4 inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-brand-yellow transition-colors"
+                  className="mt-4 inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-accent transition-colors"
                 >
                   More about Vaibhav <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
@@ -237,7 +237,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                   <a
                     key={p.slug}
                     href={`/blog/${p.slug}`} onClick={onLinkClick}
-                    className="group flex gap-4 sm:gap-5 p-3 sm:p-4 rounded-[1.5rem] border border-white/5 bg-brand-black hover:border-brand-yellow/30 transition-colors"
+                    className="group flex gap-4 sm:gap-5 p-3 sm:p-4 rounded-[1.5rem] border border-white/5 bg-brand-black hover:border-accent/30 transition-colors"
                   >
                     {p.cover && (
                       <div className="w-24 sm:w-32 aspect-square shrink-0 rounded-xl overflow-hidden bg-brand-muted">
@@ -252,8 +252,8 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                       </div>
                     )}
                     <div className="flex flex-col justify-center min-w-0">
-                      <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-brand-yellow mb-2">{p.category}</span>
-                      <h3 className="font-bold leading-snug line-clamp-3 group-hover:text-brand-yellow transition-colors">{p.title}</h3>
+                      <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-accent mb-2">{p.category}</span>
+                      <h3 className="font-bold leading-snug line-clamp-3 group-hover:text-accent transition-colors">{p.title}</h3>
                       <span className="mt-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">
                         {p.readingMinutes} min read
                       </span>

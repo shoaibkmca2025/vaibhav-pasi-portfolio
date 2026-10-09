@@ -40,8 +40,8 @@ export default function HowItWorks() {
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               className="text-center group"
             >
-              <div className="w-20 h-20 rounded-full bg-brand-yellow/5 border border-brand-yellow/20 flex items-center justify-center mx-auto mb-6 md:mb-10 group-hover:bg-brand-yellow/10 transition-all">
-                <step.icon className="w-8 h-8 text-brand-yellow" />
+              <div className="w-20 h-20 rounded-full bg-brand-yellow/5 border border-accent/20 flex items-center justify-center mx-auto mb-6 md:mb-10 group-hover:bg-brand-yellow/10 transition-all">
+                <step.icon className="w-8 h-8 text-accent" />
               </div>
               <h3 className="text-xl font-bold tracking-widest mb-4 italic uppercase">{step.title}</h3>
               <p className="text-gray-400 text-sm font-normal leading-relaxed px-4">

@@ -26,7 +26,7 @@ export function AboutPage() {
         title={
           <>
             The Person <br />
-            <span className="text-brand-yellow glow-yellow">Behind the Growth.</span>
+            <span className="text-accent glow-yellow">Behind the Growth.</span>
           </>
         }
         intro={
@@ -61,7 +61,7 @@ export function ServicesPage() {
         title={
           <>
             Everything to <br />
-            <span className="text-brand-yellow glow-yellow">Scale a Brand.</span>
+            <span className="text-accent glow-yellow">Scale a Brand.</span>
           </>
         }
         intro="Growth marketing, paid ads, content, websites, AI automation and marketplace onboarding, planned and run as one system instead of ten separate vendors."
@@ -85,7 +85,7 @@ export function WorkPage() {
         title={
           <>
             Selected <br />
-            <span className="text-brand-yellow glow-yellow">Work.</span>
+            <span className="text-accent glow-yellow">Work.</span>
           </>
         }
         intro="Brand growth, viral campaigns, e-commerce rebuilds and influencer strategy, followed by in-depth case studies with the goals, the plan and the results."
@@ -144,7 +144,7 @@ export function ContactPage() {
         title={
           <>
             Let's Build <br />
-            <span className="text-brand-yellow glow-yellow">Something.</span>
+            <span className="text-accent glow-yellow">Something.</span>
           </>
         }
         intro="Looking to grow your brand, launch on a marketplace, build a website or bring AI into your business? Send a message. No forms, no friction."
@@ -188,7 +188,7 @@ export function ContactPage() {
                 transition={{ delay: i * 0.06 }}
                 className="group p-6 md:p-8 rounded-3xl border border-white/5 bg-brand-dark-gray/20 hover:bg-brand-yellow hover:text-black transition-all flex flex-col justify-between gap-8"
               >
-                <ArrowUpRight className="w-5 h-5 text-brand-yellow group-hover:text-black self-end" />
+                <ArrowUpRight className="w-5 h-5 text-accent group-hover:text-black self-end" />
                 <span className="font-bold tracking-widest text-[0.6875rem] uppercase">{s.label}</span>
               </motion.a>
             ))}
@@ -207,7 +207,7 @@ export function ContactPage() {
             <ol className="space-y-4">
               {firstMessageTips.map((t, i) => (
                 <li key={t.title} className="flex gap-5 p-6 rounded-2xl border border-white/5 bg-brand-dark-gray/10">
-                  <span className="text-brand-yellow font-black italic text-2xl leading-none">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="text-accent font-black italic text-2xl leading-none">{String(i + 1).padStart(2, '0')}</span>
                   <span>
                     <span className="block font-bold text-lg tracking-tight">{t.title}</span>
                     <span className="block mt-1 text-gray-400 font-normal">{t.text}</span>
@@ -225,7 +225,7 @@ export function ContactPage() {
             <ul className="grid sm:grid-cols-2 gap-3">
               {person.knowsAbout.map((area) => (
                 <li key={area} className="flex items-start gap-3 p-4 rounded-2xl border border-white/5 text-sm text-gray-300">
-                  <Check className="w-4 h-4 mt-0.5 shrink-0 text-brand-yellow" />
+                  <Check className="w-4 h-4 mt-0.5 shrink-0 text-accent" />
                   {area}
                 </li>
               ))}

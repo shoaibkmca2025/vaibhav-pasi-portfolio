@@ -6,6 +6,7 @@ import PostList from './PostList';
 import PostEditor from './PostEditor';
 import { Button, Notice, Spinner } from './ui';
 import { goTo } from './nav';
+import ThemeToggle from '../components/ThemeToggle';
 
 export interface DoneInfo {
   message: string;
@@ -118,6 +119,7 @@ export default function AdminApp() {
             <span className="hidden sm:inline text-xs font-bold tracking-[0.2em] uppercase text-gray-500">Dashboard</span>
           </a>
           <nav className="flex items-center gap-1 sm:gap-2">
+            <ThemeToggle />
             <a
               href="/blog"
               target="_blank"

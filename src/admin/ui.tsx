@@ -70,7 +70,7 @@ export function Field({
 }
 
 export const inputClass =
-  'w-full min-h-11 rounded-xl bg-white/[0.04] border border-white/10 px-4 py-2.5 text-base text-white placeholder:text-gray-600 outline-none transition-colors focus:border-brand-yellow/60 focus:bg-white/[0.06] aria-[invalid=true]:border-red-400/70';
+  'w-full min-h-11 rounded-xl bg-white/[0.04] border border-white/10 px-4 py-2.5 text-base text-white placeholder:text-gray-600 outline-none transition-colors focus:border-accent/60 focus:bg-white/[0.06] aria-[invalid=true]:border-red-400/70';
 
 export function Toggle({
   id,
@@ -121,7 +121,7 @@ export function Notice({ tone = 'info', children }: { tone?: 'info' | 'success' 
     info: 'border-white/15 bg-white/[0.04] text-gray-200',
     success: 'border-green-400/30 bg-green-400/10 text-green-100',
     error: 'border-red-400/40 bg-red-400/10 text-red-100',
-    warning: 'border-brand-yellow/30 bg-brand-yellow/10 text-yellow-50',
+    warning: 'border-accent/30 bg-brand-yellow/10 text-yellow-50',
   };
   return (
     <div role={tone === 'error' ? 'alert' : 'status'} className={`rounded-xl border px-4 py-3 text-sm leading-relaxed ${tones[tone]}`}>
@@ -162,7 +162,7 @@ export function ConfirmDialog({
         role="alertdialog"
         aria-modal="true"
         aria-labelledby="confirm-title"
-        className="w-full max-w-md rounded-2xl border border-white/10 bg-[#121212] p-6 shadow-2xl"
+        className="w-full max-w-md rounded-2xl border border-white/10 bg-brand-dark-gray p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 id="confirm-title" className="text-lg font-bold">

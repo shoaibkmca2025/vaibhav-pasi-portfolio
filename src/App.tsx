@@ -69,7 +69,7 @@ function HomePage({ heroKey }: { heroKey: number }) {
           </p>
           <a
             href={contactHref}
-            className="inline-block px-5 text-[6.4vw] sm:text-4xl md:text-6xl font-bold tracking-tighter text-brand-yellow hover:glow-yellow transition-all whitespace-nowrap"
+            className="inline-block px-5 text-[6.4vw] sm:text-4xl md:text-6xl font-bold tracking-tighter text-accent hover:glow-yellow transition-all whitespace-nowrap"
           >
             {contactEmail}
           </a>

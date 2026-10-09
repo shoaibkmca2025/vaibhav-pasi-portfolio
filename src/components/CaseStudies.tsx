@@ -45,7 +45,7 @@ const caseStudies = [
 
 export default function CaseStudies() {
   return (
-    <section className="section-padding bg-black">
+    <section className="section-padding bg-brand-black">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="max-w-2xl">
@@ -87,7 +87,7 @@ export default function CaseStudies() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
                   <div className="absolute top-4 left-4 md:top-6 md:left-6">
-                     <span className="bg-brand-yellow/10 backdrop-blur-md text-brand-yellow border border-brand-yellow/20 px-4 py-1 rounded-full text-[0.6875rem] font-bold tracking-widest uppercase">
+                     <span className="theme-dark bg-black/50 backdrop-blur-md text-accent border border-accent/20 px-4 py-1 rounded-full text-[0.6875rem] font-bold tracking-widest uppercase">
                         {study.category}
                      </span>
                   </div>
@@ -122,7 +122,7 @@ export default function CaseStudies() {
                 
                 <div className="space-y-10">
                   <div>
-                    <div className="flex items-center gap-2 mb-3 text-brand-yellow">
+                    <div className="flex items-center gap-2 mb-3 text-accent">
                       <Target className="w-4 h-4" />
                       <span className="text-[0.6875rem] font-bold tracking-widest uppercase">Project Goal</span>
                     </div>
@@ -132,14 +132,14 @@ export default function CaseStudies() {
                   </div>
 
                   <div>
-                    <div className="flex items-center gap-2 mb-4 text-brand-yellow">
+                    <div className="flex items-center gap-2 mb-4 text-accent">
                       <Lightbulb className="w-4 h-4" />
                       <span className="text-[0.6875rem] font-bold tracking-widest uppercase">Implemented Strategy</span>
                     </div>
                     <ul className="space-y-3">
                       {study.strategy.map((item, i) => (
                         <li key={i} className="flex gap-3 text-sm text-gray-300 font-normal">
-                          <ChevronRight className="w-4 h-4 text-brand-yellow flex-shrink-0 mt-0.5" />
+                          <ChevronRight className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -147,7 +147,7 @@ export default function CaseStudies() {
                   </div>
 
                   <div className="pt-8 border-t border-white/5">
-                    <div className="flex items-center gap-2 mb-6 text-brand-yellow">
+                    <div className="flex items-center gap-2 mb-6 text-accent">
                       <BarChart3 className="w-4 h-4" />
                       <span className="text-[0.6875rem] font-bold tracking-widest uppercase">Measurable Results</span>
                     </div>

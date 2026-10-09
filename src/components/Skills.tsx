@@ -65,10 +65,10 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-brand-yellow/20 transition-all group"
+              className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-accent/20 transition-all group"
             >
               <div className="flex items-center gap-4 mb-6 md:mb-8">
-                <div className="w-10 h-10 rounded-xl bg-brand-yellow/5 border border-brand-yellow/20 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-brand-yellow/5 border border-accent/20 flex items-center justify-center">
                   <motion.div
                     initial={{ scale: 0, rotate: -20 }}
                     whileInView={{ scale: 1, rotate: 0 }}
@@ -80,7 +80,7 @@ export default function Skills() {
                       delay: idx * 0.1 + 0.4
                     }}
                   >
-                    <category.icon className="w-5 h-5 text-brand-yellow group-hover:scale-110 transition-transform" />
+                    <category.icon className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
                   </motion.div>
                 </div>
                 <h3 className="text-lg font-bold tracking-tight">{category.title}</h3>
@@ -90,7 +90,7 @@ export default function Skills() {
                 {category.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="text-[0.6875rem] font-bold tracking-wider text-gray-500 bg-white/5 border border-white/5 px-3 py-1.5 rounded-full hover:bg-brand-yellow/10 hover:text-brand-yellow hover:border-brand-yellow/20 transition-all cursor-default"
+                    className="text-[0.6875rem] font-bold tracking-wider text-gray-500 bg-white/5 border border-white/5 px-3 py-1.5 rounded-full hover:bg-brand-yellow/10 hover:text-accent hover:border-accent/20 transition-all cursor-default"
                   >
                     {skill}
                   </span>

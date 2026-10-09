@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { contactHref } from '../contact';
 import { onLinkClick } from '../router';
+import ThemeToggle from './ThemeToggle';
 
 interface BlogHeaderProps {
   backHref: string;
@@ -17,14 +18,15 @@ export default function BlogHeader({ backHref, backLabel, action }: BlogHeaderPr
       <a
         href={backHref}
         onClick={onLinkClick}
-        className="justify-self-start inline-flex items-center gap-2 py-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-300 hover:text-brand-yellow transition-colors"
+        className="justify-self-start inline-flex items-center gap-2 py-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-300 hover:text-accent transition-colors"
       >
         <ArrowLeft className="w-4 h-4" /> {backLabel}
       </a>
       <a href="/" onClick={onLinkClick} className="text-base sm:text-lg font-bold tracking-tighter uppercase italic whitespace-nowrap">
         Vaibhav Pasi
       </a>
-      <div className="justify-self-end">
+      <div className="justify-self-end flex items-center gap-2 sm:gap-3">
+        <ThemeToggle />
         {action ?? (
           <a
             href={contactHref}

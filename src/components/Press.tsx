@@ -115,7 +115,7 @@ export default function Press() {
               <span className="text-gray-500">In.</span>
             </h2>
             <p className="text-gray-400 font-normal leading-relaxed flex gap-3">
-              <Newspaper className="w-5 h-5 shrink-0 text-brand-yellow mt-0.5" />
+              <Newspaper className="w-5 h-5 shrink-0 text-accent mt-0.5" />
               <span>
                 <span className="text-white font-medium">"{featureHeadline}"</span> — covered by {publications.length} publications, May 2026.
               </span>
@@ -138,13 +138,13 @@ export default function Press() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: (idx % 4) * 0.08 }}
-              className="group flex flex-col p-2 md:p-3 rounded-2xl md:rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-brand-yellow/40 transition-all"
+              className="group flex flex-col p-2 md:p-3 rounded-2xl md:rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-accent/40 transition-all"
             >
               <div
                 className={`h-20 sm:h-24 md:h-28 rounded-xl md:rounded-2xl flex items-center justify-center gap-2 px-4 py-3 md:px-6 md:py-4 transition-transform duration-500 group-hover:scale-[0.98] ${
                   ('textOnly' in pub && pub.textOnly)
-                    ? 'bg-neutral-900 border border-white/10'
-                    : pub.plate === 'dark' ? 'bg-neutral-900 border border-white/10' : 'bg-white'
+                    ? 'theme-dark bg-neutral-900 border border-white/10'
+                    : pub.plate === 'dark' ? 'theme-dark bg-neutral-900 border border-white/10' : 'bg-[#f5f5f7] border border-black/5'
                 }`}
               >
                 {('textOnly' in pub && pub.textOnly) ? (
@@ -168,7 +168,7 @@ export default function Press() {
                 <span className="text-[0.6875rem] md:text-[0.6875rem] font-bold tracking-wider uppercase text-gray-400 group-hover:text-white transition-colors leading-tight">
                   {pub.name}
                 </span>
-                <ArrowUpRight className="w-4 h-4 shrink-0 text-gray-500 group-hover:text-brand-yellow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                <ArrowUpRight className="w-4 h-4 shrink-0 text-gray-500 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </div>
             </motion.a>
           ))}

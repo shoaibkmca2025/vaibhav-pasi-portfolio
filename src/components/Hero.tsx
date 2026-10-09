@@ -14,7 +14,7 @@ export default function Hero() {
             opacity: [0.08, 0.15, 0.08]
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140vw] h-[140vw] max-w-[800px] max-h-[800px] border border-brand-yellow/10 rounded-full"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140vw] h-[140vw] max-w-[800px] max-h-[800px] border border-accent/10 rounded-full"
         />
         <motion.div 
           animate={{ 
@@ -23,7 +23,7 @@ export default function Hero() {
             opacity: [0.04, 0.08, 0.04]
           }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] border border-brand-yellow/5 rounded-full hidden md:block"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] border border-accent/5 rounded-full hidden md:block"
         />
 
         {/* Grid overlay */}
@@ -43,8 +43,8 @@ export default function Hero() {
         transition={{ duration: 0.6 }}
         className="mb-10 z-10"
       >
-        <span className="inline-flex items-center gap-2.5 text-[0.6875rem] sm:text-[0.6875rem] md:text-xs font-extrabold tracking-[0.3em] sm:tracking-[0.4em] uppercase text-brand-yellow px-5 sm:px-6 py-2.5 border border-brand-yellow/20 bg-brand-yellow/5 rounded-full backdrop-blur-sm">
-          <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
+        <span className="inline-flex items-center gap-2.5 text-[0.6875rem] sm:text-[0.6875rem] md:text-xs font-extrabold tracking-[0.3em] sm:tracking-[0.4em] uppercase text-accent px-5 sm:px-6 py-2.5 border border-accent/20 bg-brand-yellow/5 rounded-full backdrop-blur-sm">
+          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
           The Ecosystem That Never Sleeps
         </span>
       </motion.div>
@@ -57,7 +57,7 @@ export default function Hero() {
         className="hero-title text-5xl min-[400px]:text-6xl sm:text-8xl lg:text-[9rem] font-black tracking-tighter leading-[0.85] sm:leading-[0.8] max-w-6xl z-10 uppercase"
       >
         Scale Your <br />
-        <span className="text-brand-yellow glow-yellow">Digital Empire.</span>
+        <span className="text-accent glow-yellow">Digital Empire.</span>
       </motion.h1>
 
       {/* Subheading */}

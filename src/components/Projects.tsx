@@ -44,7 +44,7 @@ export default function Projects() {
           <div className="eyebrow text-[0.6875rem] tracking-widest mb-8 uppercase font-bold">SELECTED WORK</div>
           <h2 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter mb-8 leading-[0.9]">
             Marketing & Brand <br />
-            <span className="text-brand-yellow glow-yellow">Excellence.</span>
+            <span className="text-accent glow-yellow">Excellence.</span>
           </h2>
           <p className="max-w-xl text-gray-400 font-normal mb-12 md:mb-20">
             Crafting digital narratives that convert. Explore my recent work in brand growth, influencer strategies, and e-commerce optimization.
@@ -57,7 +57,7 @@ export default function Projects() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`group relative overflow-hidden rounded-2xl border border-white/5 bg-brand-dark-gray/20 ${
+                className={`theme-dark group relative overflow-hidden rounded-2xl border border-white/5 bg-brand-dark-gray/20 ${
                   project.featured ? 'aspect-[4/5] sm:aspect-video md:col-span-2 md:aspect-[21/10]' : 'aspect-[4/5] sm:aspect-square md:aspect-[4/3]'
                 }`}
               >
@@ -76,7 +76,7 @@ export default function Projects() {
                 <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10">
                   <div className="flex flex-wrap items-center gap-2 mb-4">
                     {project.tags.map(tag => (
-                      <span key={tag} className="text-[0.6875rem] font-bold tracking-widest text-brand-yellow border border-brand-yellow/20 px-2 py-0.5 rounded bg-brand-yellow/5">
+                      <span key={tag} className="text-[0.6875rem] font-bold tracking-widest text-accent border border-accent/20 px-2 py-0.5 rounded bg-brand-yellow/5">
                         {tag}
                       </span>
                     ))}
@@ -98,7 +98,7 @@ export default function Projects() {
       </div>
       
       {/* Branding Workshop section */}
-      <section className="section-padding bg-black/50 overflow-hidden">
+      <section className="section-padding bg-brand-dark-gray/40 overflow-hidden">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
            <div className="w-full md:w-auto flex-1 relative aspect-video rounded-3xl overflow-hidden border border-white/10">
               <img
@@ -124,7 +124,7 @@ export default function Projects() {
               <p className="text-gray-400 font-normal mb-8 max-w-md">
                 An exclusive masterclass series designed for executives to master their digital footprint and authority in the tech sector.
               </p>
-              <a href={contactHref} className="btn-secondary inline-block border-brand-yellow/20 text-brand-yellow hover:bg-brand-yellow hover:text-black">
+              <a href={contactHref} className="btn-secondary inline-block border-accent/20 text-accent hover:bg-brand-yellow hover:text-black">
                 Join Next Cohort
               </a>
            </div>

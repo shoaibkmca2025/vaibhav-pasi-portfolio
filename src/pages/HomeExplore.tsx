@@ -35,20 +35,20 @@ export default function HomeExplore() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
-              className={`group p-6 md:p-8 rounded-3xl border border-white/5 bg-brand-dark-gray/20 hover:border-brand-yellow/40 transition-all flex flex-col justify-between gap-10 min-h-[260px] ${
+              className={`group p-6 md:p-8 rounded-3xl border border-white/5 bg-brand-dark-gray/20 hover:border-accent/40 transition-all flex flex-col justify-between gap-10 min-h-[260px] ${
                 i === cards.length - 1 ? 'sm:col-span-2 lg:col-span-2' : ''
               }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <span className="text-[0.6875rem] font-bold tracking-[0.4em] uppercase text-gray-500">{String(i + 1).padStart(2, '0')}</span>
-                <span className="w-10 h-10 rounded-full border border-white/10 group-hover:bg-brand-yellow group-hover:border-brand-yellow group-hover:text-black flex items-center justify-center transition-all">
+                <span className="w-10 h-10 rounded-full border border-white/10 group-hover:bg-brand-yellow group-hover:border-accent group-hover:text-black flex items-center justify-center transition-all">
                   <ArrowUpRight className="w-4 h-4" />
                 </span>
               </div>
               <div>
-                <div className={`font-black italic tracking-tighter text-brand-yellow leading-none text-5xl`}>{c.stat}</div>
+                <div className={`font-black italic tracking-tighter text-accent leading-none text-5xl`}>{c.stat}</div>
                 <div className="mt-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">{c.statLabel}</div>
-                <h3 className="mt-8 text-3xl md:text-4xl font-black italic uppercase tracking-tighter group-hover:text-brand-yellow transition-colors">
+                <h3 className="mt-8 text-3xl md:text-4xl font-black italic uppercase tracking-tighter group-hover:text-accent transition-colors">
                   {c.label}
                 </h3>
                 <p className="mt-2 text-sm text-gray-400 font-normal leading-relaxed">{c.blurb}</p>

@@ -70,7 +70,7 @@ export default function FAQ() {
         <div className="text-center mb-12 md:mb-20">
           <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">FAQ</span>
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic uppercase mb-6">
-            Questions? <br /> <span className="text-brand-yellow">Answered.</span>
+            Questions? <br /> <span className="text-accent">Answered.</span>
           </h2>
         </div>
 
@@ -81,7 +81,7 @@ export default function FAQ() {
               <div
                 key={faq.question}
                 className={`border rounded-2xl overflow-hidden bg-brand-dark-gray/20 transition-colors ${
-                  open ? 'border-brand-yellow/30' : 'border-white/5'
+                  open ? 'border-accent/30' : 'border-white/5'
                 }`}
               >
                 <h3>
@@ -96,7 +96,7 @@ export default function FAQ() {
                     <span className="text-base md:text-lg font-bold tracking-tight">{faq.question}</span>
                     <Plus
                       className={`w-5 h-5 shrink-0 transition-transform duration-300 ${
-                        open ? 'rotate-45 text-brand-yellow' : 'text-gray-500'
+                        open ? 'rotate-45 text-accent' : 'text-gray-500'
                       }`}
                     />
                   </button>

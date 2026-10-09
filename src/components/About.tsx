@@ -128,8 +128,8 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="mb-10 md:mb-14"
           >
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[0.6875rem] border border-brand-yellow/20 px-4 py-2 rounded-full bg-brand-yellow/5 backdrop-blur-sm inline-flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
+            <span className="text-accent font-bold tracking-[0.4em] uppercase text-[0.6875rem] border border-accent/20 px-4 py-2 rounded-full bg-brand-yellow/5 backdrop-blur-sm inline-flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
               About the Founder
             </span>
           </motion.div>
@@ -156,7 +156,7 @@ export default function About() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.1 + idx * 0.06 }}
-                    className="text-[0.6875rem] sm:text-[0.6875rem] font-bold tracking-widest uppercase text-gray-400 border border-white/10 rounded-full px-3 py-1.5 bg-white/[0.02] hover:border-brand-yellow/30 hover:text-brand-yellow transition-all cursor-default"
+                    className="text-[0.6875rem] sm:text-[0.6875rem] font-bold tracking-widest uppercase text-gray-400 border border-white/10 rounded-full px-3 py-1.5 bg-white/[0.02] hover:border-accent/30 hover:text-accent transition-all cursor-default"
                   >
                     {role}
                   </motion.span>
@@ -177,7 +177,7 @@ export default function About() {
                     referrerPolicy="no-referrer"
                   />
                   {/* Live badge */}
-                  <div className="absolute -bottom-3 -right-3 bg-brand-black border border-brand-yellow/30 rounded-full px-3 py-1.5 flex items-center gap-1.5">
+                  <div className="absolute -bottom-3 -right-3 bg-brand-black border border-accent/30 rounded-full px-3 py-1.5 flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                     <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-gray-300">Available</span>
                   </div>
@@ -229,10 +229,10 @@ export default function About() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.3 + idx * 0.1 }}
-                    className="p-4 md:p-5 bg-white/[0.02] border border-white/5 rounded-2xl text-center hover:border-brand-yellow/20 transition-all group"
+                    className="p-4 md:p-5 bg-white/[0.02] border border-white/5 rounded-2xl text-center hover:border-accent/20 transition-all group"
                   >
-                    <stat.icon className="w-4 h-4 text-brand-yellow mx-auto mb-2 opacity-50 group-hover:opacity-100 transition-opacity" />
-                    <div className="text-2xl md:text-3xl font-black italic tracking-tighter text-brand-yellow">
+                    <stat.icon className="w-4 h-4 text-accent mx-auto mb-2 opacity-50 group-hover:opacity-100 transition-opacity" />
+                    <div className="text-2xl md:text-3xl font-black italic tracking-tighter text-accent">
                       {stat.value}{stat.suffix}
                     </div>
                     <div className="text-[0.6875rem] md:text-[0.6875rem] font-bold tracking-widest text-gray-500 uppercase mt-1">
@@ -250,13 +250,13 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="relative p-6 md:p-8 rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent overflow-hidden"
               >
-                <div className="absolute top-4 left-6 text-6xl md:text-8xl font-black italic text-brand-yellow/10 leading-none select-none">"</div>
+                <div className="absolute top-4 left-6 text-6xl md:text-8xl font-black italic text-accent/10 leading-none select-none">"</div>
                 <p className="relative text-base md:text-lg font-normal italic text-gray-300 leading-relaxed mt-6 md:mt-8">
                   Innovation begins with vision, technology transforms possibilities, and execution creates lasting impact. My mission is to help businesses embrace the future through <span className="text-white font-medium not-italic">intelligent digital solutions</span> and transformative growth strategies.
                 </p>
                 <div className="mt-5 flex items-center gap-3">
                   <div className="w-8 h-[1px] bg-brand-yellow/40" />
-                  <span className="text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-brand-yellow/60">Vaibhav Pasi</span>
+                  <span className="text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-accent/60">Vaibhav Pasi</span>
                 </div>
               </motion.div>
 
@@ -267,13 +267,13 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.45 }}
-                  className="p-5 md:p-6 rounded-2xl border border-white/5 bg-white/[0.02] group hover:border-brand-yellow/20 transition-all"
+                  className="p-5 md:p-6 rounded-2xl border border-white/5 bg-white/[0.02] group hover:border-accent/20 transition-all"
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-8 h-8 rounded-xl bg-brand-yellow/10 flex items-center justify-center">
-                      <Eye className="w-4 h-4 text-brand-yellow" />
+                      <Eye className="w-4 h-4 text-accent" />
                     </div>
-                    <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-brand-yellow">Vision</h4>
+                    <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-accent">Vision</h4>
                   </div>
                   <p className="text-gray-400 text-sm font-normal leading-relaxed">
                     To build globally recognized technology-driven businesses that leverage AI, software innovation, and digital transformation to create meaningful impact.
@@ -285,13 +285,13 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.5 }}
-                  className="p-5 md:p-6 rounded-2xl border border-white/5 bg-white/[0.02] group hover:border-brand-yellow/20 transition-all"
+                  className="p-5 md:p-6 rounded-2xl border border-white/5 bg-white/[0.02] group hover:border-accent/20 transition-all"
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-8 h-8 rounded-xl bg-brand-yellow/10 flex items-center justify-center">
-                      <Rocket className="w-4 h-4 text-brand-yellow" />
+                      <Rocket className="w-4 h-4 text-accent" />
                     </div>
-                    <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-brand-yellow">Mission</h4>
+                    <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-accent">Mission</h4>
                   </div>
                   <p className="text-gray-400 text-sm font-normal leading-relaxed">
                     To empower businesses with innovative technology, intelligent automation, strategic digital marketing, and scalable software solutions that accelerate growth and drive long-term success.
@@ -323,7 +323,7 @@ export default function About() {
                         {idx < journey.length - 1 && <div className="w-[1px] h-5 bg-white/10" />}
                       </div>
                       <div className="-mt-1">
-                        <span className="text-brand-yellow font-bold text-xs tracking-wider">{item.year}</span>
+                        <span className="text-accent font-bold text-xs tracking-wider">{item.year}</span>
                         <p className="text-gray-400 text-sm font-normal mt-0.5">{item.label}</p>
                       </div>
                     </motion.div>
@@ -366,10 +366,10 @@ export default function About() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: colIdx * 0.1 + idx * 0.06 }}
-                    className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-brand-yellow/20 group transition-all"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-accent/20 group transition-all"
                   >
                     <div className="w-9 h-9 rounded-lg bg-brand-yellow/5 flex items-center justify-center shrink-0 group-hover:bg-brand-yellow/15 transition-colors">
-                      <item.icon className="w-4 h-4 text-brand-yellow" />
+                      <item.icon className="w-4 h-4 text-accent" />
                     </div>
                     <span className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">{item.label}</span>
                   </motion.div>
@@ -418,11 +418,11 @@ export default function About() {
                 <div className={`relative p-7 md:p-9 bg-gradient-to-br ${pillar.gradient} border border-white/5 rounded-[2rem] transition-all duration-500 h-full`}>
                   <div className="flex items-start justify-between mb-6">
                     <div className="w-12 h-12 rounded-2xl bg-brand-yellow/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-yellow/20 transition-all duration-500">
-                      <pillar.icon className="w-6 h-6 text-brand-yellow" />
+                      <pillar.icon className="w-6 h-6 text-accent" />
                     </div>
-                    <ArrowUpRight className="w-5 h-5 text-gray-500 group-hover:text-brand-yellow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+                    <ArrowUpRight className="w-5 h-5 text-gray-500 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight italic uppercase group-hover:text-brand-yellow transition-colors duration-300">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight italic uppercase group-hover:text-accent transition-colors duration-300">
                     {pillar.title}
                   </h3>
                   <p className="text-gray-400 text-sm md:text-base font-normal leading-relaxed group-hover:text-gray-300 transition-colors duration-300">

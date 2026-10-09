@@ -514,7 +514,7 @@ export default function PostEditor({ slug: editSlug, onDone }: { slug?: string; 
           <Panel title="Web address">
             {isNew ? (
               <Field label="URL" htmlFor="slug" error={errors.slug} hint="Can't be changed after publishing, so links keep working.">
-                <div className="flex items-center rounded-xl bg-white/[0.04] border border-white/10 focus-within:border-brand-yellow/60">
+                <div className="flex items-center rounded-xl bg-white/[0.04] border border-white/10 focus-within:border-accent/60">
                   <span className="pl-4 text-sm text-gray-500 shrink-0">/blog/</span>
                   <input
                     id="slug"
@@ -542,7 +542,7 @@ export default function PostEditor({ slug: editSlug, onDone }: { slug?: string; 
               htmlFor="excerpt"
               error={errors.excerpt}
               aside={
-                <span className={`text-xs ${excerptLength > 160 ? 'text-brand-yellow' : 'text-gray-500'}`}>{excerptLength}/160</span>
+                <span className={`text-xs ${excerptLength > 160 ? 'text-accent' : 'text-gray-500'}`}>{excerptLength}/160</span>
               }
               hint="Shown on the blog card and in Google results. Aim for 120–160 characters."
             >
@@ -579,7 +579,7 @@ export default function PostEditor({ slug: editSlug, onDone }: { slug?: string; 
                   handleUpload(e.dataTransfer.files?.[0], 'cover');
                 }}
                 disabled={uploading === 'cover'}
-                className="w-full aspect-[16/10] rounded-xl border border-dashed border-white/20 hover:border-brand-yellow/60 hover:bg-white/[0.03] flex flex-col items-center justify-center gap-2 text-gray-400 transition-colors"
+                className="w-full aspect-[16/10] rounded-xl border border-dashed border-white/20 hover:border-accent/60 hover:bg-white/[0.03] flex flex-col items-center justify-center gap-2 text-gray-400 transition-colors"
               >
                 {uploading === 'cover' ? <Loader2 className="w-6 h-6 animate-spin" /> : <UploadCloud className="w-6 h-6" />}
                 <span className="text-sm font-semibold">{uploading === 'cover' ? 'Uploading…' : 'Upload or drop an image'}</span>
@@ -601,7 +601,7 @@ export default function PostEditor({ slug: editSlug, onDone }: { slug?: string; 
 
           <Panel>
             <Field label="Tags" htmlFor="tags" error={errors.tags} hint="Press Enter or comma to add. Up to 12.">
-              <div className="flex flex-wrap gap-2 rounded-xl bg-white/[0.04] border border-white/10 focus-within:border-brand-yellow/60 p-2">
+              <div className="flex flex-wrap gap-2 rounded-xl bg-white/[0.04] border border-white/10 focus-within:border-accent/60 p-2">
                 {meta.tags.map((tag) => (
                   <span key={tag} className="inline-flex items-center gap-1 rounded-full bg-white/10 pl-3 pr-1 py-1 text-sm">
                     {tag}

@@ -30,7 +30,7 @@ function PostCard({ post, index }: { post: Post; index: number; key?: string }) 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ duration: 0.45, delay: (index % 3) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex flex-col rounded-[1.5rem] md:rounded-[2rem] bg-brand-dark-gray/30 border border-white/5 hover:border-brand-yellow/30 overflow-hidden transition-colors duration-500"
+      className="group flex flex-col rounded-[1.5rem] md:rounded-[2rem] bg-brand-dark-gray/30 border border-white/5 hover:border-accent/30 overflow-hidden transition-colors duration-500"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-brand-muted">
         {post.cover && (
@@ -44,18 +44,18 @@ function PostCard({ post, index }: { post: Post; index: number; key?: string }) 
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-        <span className="absolute top-4 left-4 text-[0.6875rem] font-bold tracking-widest uppercase text-brand-yellow bg-black/60 backdrop-blur-md border border-brand-yellow/20 px-3 py-1 rounded-full">
+        <span className="theme-dark absolute top-4 left-4 text-[0.6875rem] font-bold tracking-widest uppercase text-accent bg-black/60 backdrop-blur-md border border-accent/20 px-3 py-1 rounded-full">
           {post.category}
         </span>
       </div>
 
       <div className="flex flex-col flex-1 p-6 md:p-7">
         <PostMeta post={post} />
-        <h3 className="mt-4 text-xl md:text-2xl font-bold tracking-tight leading-snug group-hover:text-brand-yellow transition-colors duration-300">
+        <h3 className="mt-4 text-xl md:text-2xl font-bold tracking-tight leading-snug group-hover:text-accent transition-colors duration-300">
           {post.title}
         </h3>
         <p className="mt-3 text-sm text-gray-400 font-normal leading-relaxed line-clamp-3">{post.excerpt}</p>
-        <span className="mt-auto pt-6 inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-300 group-hover:text-brand-yellow group-hover:gap-3 transition-all">
+        <span className="mt-auto pt-6 inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-300 group-hover:text-accent group-hover:gap-3 transition-all">
           Read article <ArrowUpRight className="w-3.5 h-3.5" />
         </span>
       </div>
@@ -71,7 +71,7 @@ function FeaturedPost({ post }: { post: Post }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative grid grid-cols-1 lg:grid-cols-2 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-brand-yellow/30 bg-brand-dark-gray/30 transition-colors duration-500 mb-6 md:mb-8"
+      className="group relative grid grid-cols-1 lg:grid-cols-2 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-accent/30 bg-brand-dark-gray/30 transition-colors duration-500 mb-6 md:mb-8"
     >
       <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-brand-muted">
         {post.cover && (
@@ -93,11 +93,11 @@ function FeaturedPost({ post }: { post: Post }) {
           <span className="text-[0.6875rem] font-black tracking-widest uppercase text-black bg-brand-yellow px-3 py-1 rounded-full">
             Featured
           </span>
-          <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-brand-yellow border border-brand-yellow/20 px-3 py-1 rounded-full">
+          <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-accent border border-accent/20 px-3 py-1 rounded-full">
             {post.category}
           </span>
         </div>
-        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-[1.05] group-hover:text-brand-yellow transition-colors duration-300">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-[1.05] group-hover:text-accent transition-colors duration-300">
           {post.title}
         </h3>
         <p className="mt-5 text-gray-400 font-normal leading-relaxed md:text-lg line-clamp-3">{post.excerpt}</p>
@@ -115,7 +115,7 @@ function FeaturedPost({ post }: { post: Post }) {
 function EmptyState({ title, hint }: { title: string; hint: string }) {
   return (
     <div className="flex flex-col items-center text-center py-16 md:py-20 px-6 rounded-[2rem] border border-dashed border-white/10">
-      <PenLine className="w-8 h-8 text-brand-yellow mb-4" />
+      <PenLine className="w-8 h-8 text-accent mb-4" />
       <p className="text-lg font-bold">{title}</p>
       <p className="text-sm text-gray-400 mt-2">{hint}</p>
     </div>
@@ -161,7 +161,7 @@ export default function Blog() {
           {posts.length > 0 && (
             <a
               href="/blog" onClick={onLinkClick}
-              className="group self-start md:self-auto inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-brand-yellow border-b border-white/10 hover:border-brand-yellow pb-2 transition-colors"
+              className="group self-start md:self-auto inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-accent border-b border-white/10 hover:border-accent pb-2 transition-colors"
             >
               All {posts.length} articles
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -220,12 +220,12 @@ export function BlogIndex() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="inline-flex items-center gap-2.5 text-[0.6875rem] font-extrabold tracking-[0.4em] uppercase text-brand-yellow px-5 py-2.5 border border-brand-yellow/20 bg-brand-yellow/5 rounded-full mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
+            <span className="inline-flex items-center gap-2.5 text-[0.6875rem] font-extrabold tracking-[0.4em] uppercase text-accent px-5 py-2.5 border border-accent/20 bg-brand-yellow/5 rounded-full mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
               {posts.length} {posts.length === 1 ? 'Article' : 'Articles'}
             </span>
             <h1 className="text-5xl min-[400px]:text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter italic uppercase leading-[0.85]">
-              The <span className="text-brand-yellow glow-yellow">Journal.</span>
+              The <span className="text-accent glow-yellow">Journal.</span>
             </h1>
             <p className="mt-6 md:mt-8 text-gray-400 font-normal text-base md:text-xl leading-relaxed max-w-2xl">
               Playbooks, experiments and hard-won lessons on growth marketing, AI, e-commerce and building brands that
@@ -254,7 +254,7 @@ export function BlogIndex() {
                       resetPaging();
                     }}
                     placeholder="Search articles…"
-                    className="w-full bg-white/[0.03] border border-white/10 focus:border-brand-yellow/50 rounded-full pl-12 pr-5 py-3.5 text-base md:text-sm text-white placeholder:text-gray-500 outline-none transition-colors"
+                    className="w-full bg-white/[0.03] border border-white/10 focus:border-accent/50 rounded-full pl-12 pr-5 py-3.5 text-base md:text-sm text-white placeholder:text-gray-500 outline-none transition-colors"
                   />
                 </label>
 
@@ -276,7 +276,7 @@ export function BlogIndex() {
                         }}
                         className={`relative shrink-0 min-h-11 px-5 py-2.5 rounded-full text-[0.6875rem] font-bold tracking-widest uppercase border transition-colors ${
                           category === c
-                            ? 'text-black border-brand-yellow'
+                            ? 'text-black border-accent'
                             : 'text-gray-400 border-white/10 hover:text-white hover:border-white/30'
                         }`}
                       >

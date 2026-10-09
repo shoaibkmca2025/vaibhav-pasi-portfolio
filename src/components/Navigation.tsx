@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Twitter, Instagram, Linkedin, Menu, X } from 'lucide-react';
 import { contactHref, socialLinks } from '../contact';
+import ThemeToggle from './ThemeToggle';
 import { onLinkClick, sitePages, type Route } from '../router';
 
 const navItems = [{ key: 'home', path: '/', label: 'Home' }, ...sitePages];
@@ -54,13 +55,13 @@ export default function Navigation({ route }: { route: Route }) {
               href={item.path}
               onClick={onLinkClick}
               aria-current={active === item.key ? 'page' : undefined}
-              className={`relative whitespace-nowrap text-[0.6875rem] font-bold tracking-widest uppercase transition-colors hover:text-brand-yellow ${
-                active === item.key ? 'text-brand-yellow' : 'text-gray-400'
+              className={`relative whitespace-nowrap text-[0.6875rem] font-bold tracking-widest uppercase transition-colors hover:text-accent ${
+                active === item.key ? 'text-accent' : 'text-gray-400'
               }`}
             >
               {item.label}
               {active === item.key && (
-                <motion.span layoutId="activeTab" className="absolute -bottom-1.5 left-0 w-full h-[1px] bg-brand-yellow" />
+                <motion.span layoutId="activeTab" className="absolute -bottom-1.5 left-0 w-full h-[1px] bg-accent" />
               )}
             </a>
           </li>
@@ -74,7 +75,7 @@ export default function Navigation({ route }: { route: Route }) {
               key={social.label}
               href={social.href}
               aria-label={`Open Vaibhav Pasi on ${social.label}`}
-              className="p-1.5 -m-1.5 text-gray-400 hover:text-brand-yellow transition-colors"
+              className="p-1.5 -m-1.5 text-gray-400 hover:text-accent transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -82,6 +83,8 @@ export default function Navigation({ route }: { route: Route }) {
             </a>
           ))}
         </div>
+
+        <ThemeToggle className="-mx-2 md:mx-0" />
 
         <a
           href={contactHref}
@@ -139,7 +142,7 @@ export default function Navigation({ route }: { route: Route }) {
                     }}
                     aria-current={active === item.key ? 'page' : undefined}
                     className={`block text-4xl sm:text-5xl font-black tracking-tighter uppercase italic leading-none py-1 ${
-                      active === item.key ? 'text-brand-yellow' : 'text-white/45 hover:text-white'
+                      active === item.key ? 'text-accent' : 'text-white/45 hover:text-white'
                     }`}
                   >
                     {item.label}
@@ -162,7 +165,7 @@ export default function Navigation({ route }: { route: Route }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open Vaibhav Pasi on ${social.label}`}
-                    className="p-2.5 -m-2.5 text-gray-400 hover:text-brand-yellow transition-colors"
+                    className="p-2.5 -m-2.5 text-gray-400 hover:text-accent transition-colors"
                   >
                     <social.icon className="w-6 h-6" />
                   </a>

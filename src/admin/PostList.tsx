@@ -151,12 +151,12 @@ export default function PostList() {
                     <div className="flex items-center gap-2 mb-1">
                       <Status draft={post.draft} />
                       {post.featured && (
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-brand-yellow">
+                        <span className="inline-flex items-center gap-1 text-xs font-bold text-accent">
                           <Star className="w-3.5 h-3.5 fill-current" aria-hidden /> Featured
                         </span>
                       )}
                     </div>
-                    <p className="font-bold text-white group-hover:text-brand-yellow transition-colors truncate">{post.title || post.slug}</p>
+                    <p className="font-bold text-white group-hover:text-accent transition-colors truncate">{post.title || post.slug}</p>
                     <p className="text-sm text-gray-500 mt-0.5 truncate">
                       {post.category} · {formatDate(post.date)} · {post.words.toLocaleString()} words
                     </p>
