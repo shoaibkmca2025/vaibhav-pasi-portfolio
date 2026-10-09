@@ -73,7 +73,8 @@ export default async function handler(req: Req, res: Res) {
     return send(res, 405, { error: 'Method not allowed' });
   } catch (e) {
     if (e instanceof GitHubError) {
-      if (e.status === 409) return send(res, 409, { error: 'The gallery was changed somewhere else. Reload, then make your changes again.' });
+      // GitHub answers 409 for an outdated version, 422 when the file appeared since it was loaded
+      if (e.status === 409 || e.status === 422) return send(res, 409, { error: 'The gallery was changed somewhere else. Reload, then make your changes again.' });
       return send(res, e.status >= 500 ? e.status : 502, { error: e.message });
     }
     console.error(e);

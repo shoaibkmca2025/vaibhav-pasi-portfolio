@@ -65,6 +65,34 @@ Blog posts are Markdown files in [`src/blog/posts/`](src/blog/posts/). Each file
 3. Write the article below the second `---` in normal Markdown: `## headings`, **bold**, lists, `> quotes`, links and images.
 4. Rebuild and deploy (`npm run build`). The post appears in the Blog section automatically.
 
+## Instagram Gallery
+
+The "Behind the Scenes" section on the home page shows up to 8 photos from two sources:
+
+1. **Photos you upload** in the dashboard: **/admin → Gallery**. Add photos (several at once), write a caption, paste the
+   Instagram post link (Instagram → ⋯ → Copy link), and **Pin** favourites to keep them first. Click **Save gallery**; the
+   site updates in about a minute. These are stored in [`src/content/gallery.json`](src/content/gallery.json) and `public/gallery/`.
+2. **Your latest Instagram posts, automatically**, once `INSTAGRAM_ACCESS_TOKEN` is set (below).
+
+Order: pinned uploads first, then everything else newest-first. If an upload links to a post that's also in the live feed,
+your upload replaces it, so nothing appears twice. Tapping a photo opens it full-screen with a **View on Instagram** button.
+The section stays hidden until there's at least one photo.
+
+### Connecting Instagram (optional, for auto-sync)
+
+Instagram only allows this for **Professional** accounts and through Meta's official API. One-time setup (Meta's menus
+change occasionally, so names may differ slightly):
+
+1. In the Instagram app: **Settings → Account type and tools → Switch to professional account → Creator** (free, reversible).
+2. Go to **developers.facebook.com → My Apps → Create app**, choose the use case for the **Instagram API**, and create it.
+3. In the app, open **Instagram → API setup with Instagram login → Generate access tokens**, add `@vaibhavpasi_`, sign in,
+   and copy the generated token (it lasts 60 days).
+4. In Vercel → Settings → Environment Variables, add `INSTAGRAM_ACCESS_TOKEN` with that token, then redeploy.
+
+The dashboard's Gallery tab shows **Connected** when it works. The site asks Instagram to extend the token about once a day
+while people visit. If it ever expires, the Gallery tab says so and the website simply shows your uploaded photos until you
+paste a new token. The live feed is cached for an hour (`api/instagram.ts`), so visitors never wait on Instagram.
+
 ## SEO
 
 `npm run build` prerenders every page (home, `/blog`, each article) to static HTML with its own title,

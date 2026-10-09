@@ -182,7 +182,7 @@ export default function GalleryManager() {
             <ul className="space-y-3">
               {uploads.map((u, i) => (
                 <li key={u.id} className="flex flex-col sm:flex-row gap-4 p-4 rounded-2xl border border-white/10 bg-white/[0.02]">
-                  <img src={src(u.image)} alt="" className="w-full sm:w-32 aspect-square object-cover rounded-xl border border-white/10 shrink-0" />
+                  <img src={src(u.image)} alt="" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} className="w-full sm:w-32 aspect-square object-cover rounded-xl border border-white/10 shrink-0" />
                   <div className="flex-1 min-w-0 space-y-3">
                     <div>
                       <label htmlFor={`caption-${u.id}`} className="text-xs font-bold tracking-wider uppercase text-gray-300">Caption</label>
@@ -284,7 +284,7 @@ export default function GalleryManager() {
               <ul className="grid grid-cols-4 gap-1.5">
                 {preview.map((item) => (
                   <li key={item.id} className="relative aspect-square overflow-hidden rounded-md bg-white/[0.05]">
-                    <img src={src(item.image)} alt="" referrerPolicy="no-referrer" className="w-full h-full object-cover" />
+                    <img src={src(item.image)} alt="" referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }} className="w-full h-full object-cover" />
                     {item.source === 'upload' && uploads.find((u) => u.id === item.id)?.pinned && (
                       <Pin className="absolute top-1 right-1 w-3 h-3 text-white drop-shadow" aria-label="Pinned" />
                     )}
