@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import type { CSSProperties } from 'react';
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 import { bookingExternal, bookingHref } from '../lib/booking';
 import { onLinkClick } from '../router';
@@ -7,7 +7,9 @@ import { publications } from './Press';
 // Verified press count: publications with a logo (the same 11 counted in content/proof.ts)
 const pressCount = publications.filter((p) => 'logo' in p && p.logo).length;
 
-const ease = [0.16, 1, 0.3, 1] as const;
+// Entrance is pure CSS (.reveal in index.css), so the prerendered hero is visible
+// before any JavaScript runs; --d staggers each line
+const delay = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
 
 export default function Hero() {
   return (
@@ -28,42 +30,22 @@ export default function Hero() {
 
       <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-14 lg:gap-16 items-center">
         <div>
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease }}
-            className="eyebrow mb-7"
-          >
+          <span className="eyebrow mb-7 reveal" style={delay(0)}>
             Technology × Marketing × AI
-          </motion.span>
+          </span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.08, ease }}
-            className="text-[2.75rem] leading-[1.02] sm:text-6xl md:text-7xl xl:text-[5.5rem] font-bold tracking-tighter"
-          >
+          <h1 className="text-[2.75rem] leading-[1.02] sm:text-6xl md:text-7xl xl:text-[5.5rem] font-bold tracking-tighter reveal" style={delay(80)}>
             Build Better. <br className="hidden sm:block" />
             Market Smarter. <br />
             <span className="text-gradient">Grow Faster.</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.18, ease }}
-            className="mt-7 max-w-xl text-lg md:text-xl text-gray-400 leading-relaxed"
-          >
+          <p className="mt-7 max-w-xl text-lg md:text-xl text-gray-400 leading-relaxed reveal" style={delay(160)}>
             I help ambitious businesses grow through performance-focused digital marketing, high-converting websites, custom
             software, and practical AI-powered automation.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.26, ease }}
-            className="mt-9 flex flex-col sm:flex-row gap-3"
-          >
+          <div className="mt-9 flex flex-col sm:flex-row gap-3 reveal" style={delay(240)}>
             <a
               href={bookingHref}
               data-cta="book"
@@ -75,30 +57,20 @@ export default function Hero() {
             <a href="/work" onClick={onLinkClick} className="btn-secondary">
               Explore My Work
             </a>
-          </motion.div>
+          </div>
 
           {/* Verifiable facts only */}
-          <motion.ul
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400"
-          >
+          <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400 reveal" style={delay(320)}>
             <li>Co-Founder, 4AM Global Media</li>
             <li aria-hidden className="hidden sm:block text-gray-600">·</li>
             <li>MCA, software developer</li>
             <li aria-hidden className="hidden sm:block text-gray-600">·</li>
             <li>Digital marketing since 2019</li>
-          </motion.ul>
+          </ul>
         </div>
 
         {/* Founder portrait */}
-        <motion.figure
-          initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.15, ease }}
-          className="relative mx-auto w-full max-w-[420px] lg:max-w-none"
-        >
+        <figure className="relative mx-auto w-full max-w-[420px] lg:max-w-none reveal" style={delay(120)}>
           <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden border border-brand-yellow/25 bg-brand-dark-gray">
             <img
               src="/vaibhav-pasi.jpg"
@@ -124,7 +96,7 @@ export default function Hero() {
               Featured in <strong className="text-white">{pressCount} publications</strong>
             </span>
           </a>
-        </motion.figure>
+        </figure>
       </div>
     </section>
   );

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { MotionConfig } from 'motion/react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -16,7 +16,6 @@ import FAQ from './components/FAQ';
 import { Footer } from './components/Footer';
 import Testimonials from './components/Testimonials';
 import CTASection from './components/CTASection';
-import CustomCursor from './components/CustomCursor';
 import Blog, { BlogIndex } from './components/Blog';
 import BlogPost from './components/BlogPost';
 import ScrollProgress from './components/ScrollProgress';
@@ -26,16 +25,15 @@ import { AboutPage, ClientWinsPage, ContactPage, PrivacyPage, ServicesPage, Term
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import { useRoute, type Route } from './router';
 import { applySeo, getSeo } from './seo';
-import { SPLASH_DONE_EVENT } from './splash';
 
 // Home is the overview; each nav item has its own detailed page.
 // Order follows the site brief: hero, proof, services, work, about, process,
 // testimonials, Instagram, insights, FAQ, final call to action.
-function HomePage({ heroKey }: { heroKey: number }) {
+function HomePage() {
   return (
     <main id="main" tabIndex={-1} className="outline-none">
       <section id="home">
-        <Hero key={heroKey} />
+        <Hero />
       </section>
 
       <Credibility />
@@ -79,7 +77,7 @@ function HomePage({ heroKey }: { heroKey: number }) {
   );
 }
 
-function PageContent({ route, heroKey }: { route: Route; heroKey: number; key?: string }) {
+function PageContent({ route }: { route: Route; key?: string }) {
   switch (route.page) {
     case 'about':
       return <AboutPage />;
@@ -100,7 +98,7 @@ function PageContent({ route, heroKey }: { route: Route; heroKey: number; key?: 
     case 'blog':
       return <BlogIndex />;
     default:
-      return <HomePage heroKey={heroKey} />;
+      return <HomePage />;
   }
 }
 
@@ -110,14 +108,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
   const routeKey =
     route.page === 'post' ? `post:${route.slug}` : route.page === 'service' ? `service:${route.slug}` : route.page;
   const previousRoute = useRef(routeKey);
-  // Bumped when the intro splash lifts, remounting the hero so its entrance plays in view
-  const [heroKey, setHeroKey] = useState(0);
 
-  useEffect(() => {
-    const replayHero = () => setHeroKey((k) => k + 1);
-    window.addEventListener(SPLASH_DONE_EVENT, replayHero);
-    return () => window.removeEventListener(SPLASH_DONE_EVENT, replayHero);
-  }, []);
 
   useEffect(() => {
     if (previousRoute.current === routeKey) return;
@@ -134,7 +125,6 @@ export default function App({ initialPath }: { initialPath?: string }) {
     <div className="min-h-screen bg-brand-black text-white font-sans selection:bg-brand-yellow selection:text-brand-black overflow-x-hidden">
       <div className="noise" />
       <a href="#main" className="skip-link">Skip to content</a>
-      <CustomCursor />
 
       {route.page === 'post' ? (
         <BlogPost key={route.slug} slug={route.slug} />
@@ -142,7 +132,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
         <>
           <ScrollProgress />
           <Navigation route={route} />
-          <PageContent key={routeKey} route={route} heroKey={heroKey} />
+          <PageContent key={routeKey} route={route} />
         </>
       )}
 

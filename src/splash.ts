@@ -27,7 +27,7 @@ export function finishSplash() {
       // Storage unavailable (private mode): the splash will simply show again next visit
     }
     splash.classList.add('exit');
-    // Lets the hero replay its entrance as the curtain lifts
+    // Signal for anything that wants to react to the curtain lifting
     window.dispatchEvent(new Event(SPLASH_DONE_EVENT));
     window.setTimeout(() => splash.remove(), 1000);
   };

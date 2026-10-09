@@ -288,7 +288,7 @@
 
 /* ─── Section padding ─── */
 .section-padding {
-  @apply py-20 md:py-32 px-5 sm:px-6 md:px-12 lg:px-24;
+  @apply py-16 md:py-24 px-5 sm:px-6 md:px-12 lg:px-24;
 }
 
 /* ─── Buttons ─── */
@@ -458,4 +458,21 @@
 .link-underline:hover,
 .link-underline:focus-visible {
   background-size: 100% 1px;
+}
+
+/* ─── Hero entrance: CSS only, so it plays from the prerendered HTML without waiting for JS ───
+   When the intro splash is showing, the entrance waits until the splash lifts (~1.6s). */
+@keyframes reveal-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.reveal {
+  animation: reveal-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+html:not(.no-splash) .reveal {
+  animation-delay: calc(var(--d, 0ms) + 1.5s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; }
 }

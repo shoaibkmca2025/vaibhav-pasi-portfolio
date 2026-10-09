@@ -123,8 +123,9 @@ function EmptyState({ title, hint }: { title: string; hint: string }) {
 }
 
 function PostGrid({ items }: { items: Post[] }) {
+  const cols = items.length === 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3';
   return (
-    <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+    <motion.div layout className={`grid grid-cols-1 sm:grid-cols-2 ${cols} gap-4 md:gap-6`}>
       <AnimatePresence mode="popLayout">
         {items.map((post, idx) => (
           <PostCard key={post.slug} post={post} index={idx} />
@@ -221,7 +222,7 @@ export function BlogIndex() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="inline-flex items-center gap-2.5 text-[0.6875rem] font-extrabold tracking-[0.4em] uppercase text-accent px-5 py-2.5 border border-accent/20 bg-brand-yellow/5 rounded-full mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-accent" />
               {posts.length} {posts.length === 1 ? 'Article' : 'Articles'}
             </span>
             <h1 className="text-5xl min-[400px]:text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85]">

@@ -10,6 +10,7 @@ import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import CTASection from '../components/CTASection';
 import LeadForm from '../components/LeadForm';
+import SocialIcon from '../components/SocialIcon';
 import { ToolChips } from '../components/ToolLogos';
 import { contactEmail, contactHref, contactPhoneDisplay, contactPhoneHref, socialLinks } from '../contact';
 import { industries, techGroups, trustFacts } from '../content/proof';
@@ -279,7 +280,7 @@ export function ContactPage() {
                     aria-label={`Vaibhav Pasi on ${s.label}`}
                     className="inline-flex items-center gap-1.5 min-h-11 rounded-full border border-white/10 px-4 text-sm font-semibold hover:border-brand-yellow/40 hover:text-accent transition-colors"
                   >
-                    {s.label} <ArrowUpRight className="w-3.5 h-3.5" aria-hidden />
+                    <SocialIcon label={s.label} className="w-4 h-4 text-accent" /> {s.label}
                   </a>
                 </li>
               ))}

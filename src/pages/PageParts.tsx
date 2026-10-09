@@ -47,7 +47,7 @@ export function PageHero({ page, title, intro, facts }: PageHeroProps) {
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <span className="inline-flex items-center gap-2.5 text-[0.6875rem] font-extrabold tracking-[0.4em] uppercase text-gray-300 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
             {String(index + 1).padStart(2, '0')} / {label}
           </span>
           <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[8.5rem] font-black tracking-tighter leading-[0.85] max-w-6xl">

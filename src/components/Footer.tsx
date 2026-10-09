@@ -2,6 +2,7 @@ import { ArrowUp, ArrowUpRight, Mail, Phone } from 'lucide-react';
 import { contactEmail, contactHref, contactPhoneDisplay, contactPhoneHref, socialLinks } from '../contact';
 import { posts } from '../blog/posts';
 import { onLinkClick } from '../router';
+import SocialIcon from './SocialIcon';
 import { person } from '../site';
 
 const exploreLinks = [
@@ -104,9 +105,12 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer me"
-                    className={`${linkClass} inline-flex items-center gap-1.5`}
+                    className={`${linkClass} inline-flex items-center gap-2.5`}
                   >
-                    {social.label} <ArrowUpRight className="w-3 h-3" />
+                    <span className="grid w-8 h-8 place-items-center rounded-lg border border-white/10 text-accent">
+                      <SocialIcon label={social.label} className="w-3.5 h-3.5" />
+                    </span>
+                    {social.label}
                   </a>
                 </li>
               ))}

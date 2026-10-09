@@ -3,6 +3,7 @@ import { ArrowUpRight, Linkedin } from 'lucide-react';
 import { socialLinks } from '../contact';
 import { techGroups } from '../content/proof';
 import { onLinkClick } from '../router';
+import { ToolChips } from './ToolLogos';
 
 const linkedin = socialLinks.find((s) => s.label === 'LinkedIn')!.href;
 
@@ -54,7 +55,9 @@ export default function AboutIntro({ onAboutPage = false }: { onAboutPage?: bool
             {techGroups.slice(0, 4).map((g) => (
               <li key={g.group}>
                 <span className="block text-xs font-bold tracking-[0.2em] uppercase text-gray-500">{g.group}</span>
-                <span className="block mt-1 text-sm text-gray-300">{g.items.join(' · ')}</span>
+                <div className="mt-2">
+                  <ToolChips tools={[...g.items]} label={g.group} />
+                </div>
               </li>
             ))}
           </ul>
