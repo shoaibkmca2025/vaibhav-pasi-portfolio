@@ -99,7 +99,7 @@
 /* System "Increase Contrast": push secondary text and borders further, in either theme */
 @media (prefers-contrast: more) {
   :root {
-    --color-gray-400: #e0ddd0;
+    --color-gray-400: #d4d4d4;
     --color-gray-500: #c4c4c4;
   }
 }
