@@ -152,7 +152,7 @@ export default function Blog() {
           <div className="max-w-2xl">
             <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Insights</span>
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
-              The <span className="text-accent">Journal.</span>
+              Latest <span className="text-accent">Insights.</span>
             </h2>
             <p className="text-gray-400 font-normal leading-relaxed md:text-lg">
               Playbooks, experiments and lessons from the front lines of growth marketing, AI and e-commerce.

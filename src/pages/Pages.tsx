@@ -1,53 +1,78 @@
 import { motion } from 'motion/react';
-import { ArrowUpRight, Check, Mail } from 'lucide-react';
-import About from '../components/About';
+import { ArrowUpRight, Mail, MessageCircle, Phone } from 'lucide-react';
 import Press from '../components/Press';
 import ServiceShowcase from '../components/ServiceShowcase';
-import Skills from '../components/Skills';
-import Experience from '../components/Experience';
 import HowItWorks from '../components/HowItWorks';
-import Projects from '../components/Projects';
+import AboutIntro from '../components/AboutIntro';
 import CaseStudies from '../components/CaseStudies';
 import ClientWins from '../components/ClientWins';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import CTASection from '../components/CTASection';
-import { contactEmail, contactHref, socialLinks } from '../contact';
-import { person } from '../site';
+import LeadForm from '../components/LeadForm';
+import { contactEmail, contactHref, contactPhoneDisplay, contactPhoneHref, socialLinks } from '../contact';
+import { industries, techGroups, trustFacts } from '../content/proof';
 import { hasDetailPage, services } from '../content/services';
+import { hasWhatsApp, whatsappHref } from '../lib/whatsapp';
 import { NextPage, PageHero } from './PageParts';
 import { onLinkClick } from '../router';
 
+export { PrivacyPage, TermsPage } from './Legal';
+
 /* ─────────────── About ─────────────── */
+// Everything here is verifiable: education, role, start year, press, tools actually used
+function Toolkit() {
+  return (
+    <section className="section-padding bg-brand-black">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16">
+        <div>
+          <span className="eyebrow mb-5">Toolkit</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-[1.08]">
+            The tools I <span className="text-accent">work with.</span>
+          </h2>
+          <p className="mt-6 text-gray-400 md:text-lg leading-relaxed">
+            Technologies used in real client work and in this website's own code, from the front end to automation and analytics.
+          </p>
+          <h3 className="mt-10 text-xs font-bold tracking-[0.2em] uppercase text-gray-500">Industries I've worked with</h3>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {industries.map((i) => (
+              <li key={i} className="rounded-full border border-white/10 px-3 py-1.5 text-sm text-gray-300">
+                {i}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {techGroups.map((g) => (
+            <div key={g.group} className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+              <dt className="text-xs font-bold tracking-[0.2em] uppercase text-accent">{g.group}</dt>
+              <dd className="mt-2 text-gray-300 leading-relaxed">{g.items.join(' · ')}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+}
+
 export function AboutPage() {
   return (
-    <main>
+    <main id="main" tabIndex={-1} className="outline-none">
       <PageHero
         page="about"
         title={
           <>
             The Person <br />
-            <span className="text-accent glow-yellow">Behind the Growth.</span>
+            <span className="text-accent">Behind the Work.</span>
           </>
         }
-        intro={
-          <>
-            Digital marketing strategist, software developer and AI consultant. Co-Founder of{' '}
-            <span className="text-white font-medium">{person.organization.name}</span>, helping brands scale where technology
-            and marketing meet.
-          </>
-        }
-        facts={[
-          { value: '100+', label: 'Brands scaled' },
-          { value: '30M+', label: 'Reach generated' },
-          { value: '200+', label: 'Projects delivered' },
-          { value: '15+', label: 'Press features' },
-        ]}
+        intro="MCA graduate, software developer and digital marketer since 2019. Co-Founder of 4AM Global Media, working where technology and marketing meet."
+        facts={trustFacts.slice(0, 4)}
       />
-      <About />
+      <AboutIntro onAboutPage />
+      <Toolkit />
       <Press />
-      <Skills />
-      <Experience />
+      <HowItWorks />
       <CTASection />
       <NextPage page="about" />
     </main>
@@ -75,7 +100,7 @@ function ServicesCompare() {
             return (
               <li key={s.slug}>
                 <a
-                  href={detail ? s.href : '/contact'}
+                  href={detail ? s.href : `/contact?service=${encodeURIComponent(s.navTitle)}#enquire`}
                   onClick={onLinkClick}
                   className="group grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] items-center gap-2 sm:gap-6 px-6 md:px-8 py-5 hover:bg-white/[0.03] transition-colors"
                 >
@@ -85,7 +110,7 @@ function ServicesCompare() {
                   </span>
                   <span className="font-semibold whitespace-nowrap">{s.price}</span>
                   <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent whitespace-nowrap">
-                    {detail ? 'View details' : 'Book a call'} <ArrowUpRight className="w-4 h-4" aria-hidden />
+                    {detail ? 'View details' : 'Enquire'} <ArrowUpRight className="w-4 h-4" aria-hidden />
                   </span>
                 </a>
               </li>
@@ -99,16 +124,16 @@ function ServicesCompare() {
 
 export function ServicesPage() {
   return (
-    <main>
+    <main id="main" tabIndex={-1} className="outline-none">
       <PageHero
         page="services"
         title={
           <>
-            Everything to <br />
-            <span className="text-accent glow-yellow">Scale a Brand.</span>
+            Marketing, Software <br />
+            <span className="text-accent">and AI, Together.</span>
           </>
         }
-        intro="Growth marketing, paid ads, content, websites, AI automation and marketplace onboarding, planned and run as one system instead of ten separate vendors."
+        intro="Digital marketing, websites, custom software, SEO, LinkedIn growth and AI automation, planned as one system instead of separate vendors."
       />
       <ServiceShowcase />
       <ServicesCompare />
@@ -119,22 +144,29 @@ export function ServicesPage() {
   );
 }
 
-/* ─────────────── Work ─────────────── */
+/* ─────────────── Portfolio ─────────────── */
 export function WorkPage() {
   return (
-    <main>
+    <main id="main" tabIndex={-1} className="outline-none">
       <PageHero
         page="work"
         title={
           <>
             Selected <br />
-            <span className="text-accent glow-yellow">Work.</span>
+            <span className="text-accent">Work.</span>
           </>
         }
-        intro="Brand growth, viral campaigns, e-commerce rebuilds and influencer strategy, followed by in-depth case studies with the goals, the plan and the results."
+        intro="Case studies from real client accounts: the challenge, what I did, the tools used and the results, each backed by the original screenshot. Client names are kept private."
       />
-      <Projects />
       <CaseStudies />
+      <section className="px-5 sm:px-6 md:px-12 lg:px-24 pb-16 md:pb-24">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-6 md:p-8">
+          <p className="text-gray-300 md:text-lg">More screenshots, reel results and client messages are on the Client Wins page.</p>
+          <a href="/client-wins" onClick={onLinkClick} className="btn-secondary shrink-0">
+            See client wins <ArrowUpRight className="w-4 h-4" aria-hidden />
+          </a>
+        </div>
+      </section>
       <CTASection />
       <NextPage page="work" />
     </main>
@@ -144,7 +176,7 @@ export function WorkPage() {
 /* ─────────────── Client Wins ─────────────── */
 export function ClientWinsPage() {
   return (
-    <main>
+    <main id="main" tabIndex={-1} className="outline-none">
       <PageHero
         page="client-wins"
         title={
@@ -172,108 +204,84 @@ export function ClientWinsPage() {
 }
 
 /* ─────────────── Contact ─────────────── */
-const firstMessageTips = [
-  { title: 'Your brand', text: 'What you sell, who buys it, and where you sell today.' },
-  { title: 'The goal', text: 'More reach, more sales, a new website, a marketplace launch, or automating the busywork.' },
-  { title: 'Timeline', text: 'When you want to start and any launch dates to plan around.' },
-  { title: 'Budget range', text: 'A rough range is enough to suggest the right plan.' },
-];
+function ContactLink({ href, icon: Icon, label, value, external = false }: { href: string; icon: typeof Mail; label: string; value: string; external?: boolean }) {
+  return (
+    <a
+      href={href}
+      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5 hover:border-brand-yellow/40 transition-colors"
+    >
+      <span className="grid w-11 h-11 shrink-0 place-items-center rounded-xl bg-brand-yellow text-black">
+        <Icon className="w-5 h-5" aria-hidden />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-xs font-bold tracking-[0.2em] uppercase text-gray-500">{label}</span>
+        <span className="block mt-0.5 font-semibold break-words group-hover:text-accent transition-colors">{value}</span>
+      </span>
+    </a>
+  );
+}
 
 export function ContactPage() {
   return (
-    <main>
+    <main id="main" tabIndex={-1} className="outline-none">
       <PageHero
         page="contact"
         title={
           <>
             Let's Build <br />
-            <span className="text-accent glow-yellow">Something.</span>
+            <span className="text-accent">Something.</span>
           </>
         }
-        intro="Looking to grow your brand, launch on a marketplace, build a website or bring AI into your business? Send a message. No forms, no friction."
+        intro="Tell me about your business and what you want to achieve. Use the enquiry form, call, WhatsApp or email, whichever is easiest for you."
       />
 
-      {/* Email + socials */}
-      <section className="section-padding border-b border-white/5">
-        <div className="max-w-7xl mx-auto grid gap-6 lg:grid-cols-12">
-          <motion.a
-            href={contactHref}
+      <section id="enquire" className="scroll-mt-24 section-padding border-b border-white/5">
+        <div className="max-w-7xl mx-auto grid gap-10 lg:gap-12 lg:grid-cols-12">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="group lg:col-span-7 p-8 md:p-12 rounded-3xl bg-brand-yellow text-black flex flex-col justify-between gap-10 glow-box"
+            className="lg:col-span-7"
           >
-            <div className="flex items-center justify-between">
-              <span className="text-[0.6875rem] font-bold tracking-[0.4em] uppercase text-black/60">Email</span>
-              <Mail className="w-6 h-6" />
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">Send an enquiry</h2>
+            <LeadForm source="contact" />
+          </motion.div>
+
+          <motion.aside
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.08 }}
+            className="lg:col-span-5"
+            aria-label="Other ways to get in touch"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">Or reach me directly</h2>
+            <div className="flex flex-col gap-3">
+              <ContactLink href={contactPhoneHref} icon={Phone} label="Call" value={contactPhoneDisplay} />
+              {hasWhatsApp && (
+                <ContactLink href={whatsappHref()} icon={MessageCircle} label="WhatsApp" value={contactPhoneDisplay} external />
+              )}
+              <ContactLink href={contactHref} icon={Mail} label="Email" value={contactEmail} />
             </div>
-            <div>
-              <span className="block text-[5.4vw] sm:text-4xl md:text-5xl font-black tracking-tighter whitespace-nowrap">
-                {contactEmail}
-              </span>
-              <span className="mt-6 inline-flex items-center gap-2 text-[0.6875rem] font-black tracking-[0.2em] uppercase">
-                Write to me <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </span>
-            </div>
-          </motion.a>
 
-          <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-            {socialLinks.map((s, i) => (
-              <motion.a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer me"
-                aria-label={`Open Vaibhav Pasi on ${s.label}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
-                className="group p-6 md:p-8 rounded-3xl border border-white/5 bg-brand-dark-gray/20 hover:bg-brand-yellow hover:text-black transition-all flex flex-col justify-between gap-8"
-              >
-                <ArrowUpRight className="w-5 h-5 text-accent group-hover:text-black self-end" />
-                <span className="font-bold tracking-widest text-[0.6875rem] uppercase">{s.label}</span>
-              </motion.a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* What to include + what I help with */}
-      <section className="section-padding border-b border-white/5">
-        <div className="max-w-7xl mx-auto grid gap-16 lg:grid-cols-2">
-          <div>
-            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Before you write</span>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[0.9] mb-10">
-              What to <span className="text-accent">Include.</span>
-            </h2>
-            <ol className="space-y-4">
-              {firstMessageTips.map((t, i) => (
-                <li key={t.title} className="flex gap-5 p-6 rounded-2xl border border-white/5 bg-brand-dark-gray/10">
-                  <span className="text-accent font-black italic text-2xl leading-none">{String(i + 1).padStart(2, '0')}</span>
-                  <span>
-                    <span className="block font-bold text-lg tracking-tight">{t.title}</span>
-                    <span className="block mt-1 text-gray-400 font-normal">{t.text}</span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div>
-            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">I can help with</span>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[0.9] mb-10">
-              Areas of <span className="text-accent">Work.</span>
-            </h2>
-            <ul className="grid sm:grid-cols-2 gap-3">
-              {person.knowsAbout.map((area) => (
-                <li key={area} className="flex items-start gap-3 p-4 rounded-2xl border border-white/5 text-sm text-gray-300">
-                  <Check className="w-4 h-4 mt-0.5 shrink-0 text-accent" />
-                  {area}
+            <h3 className="mt-10 text-xs font-bold tracking-[0.2em] uppercase text-gray-500">Social</h3>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {socialLinks.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    aria-label={`Vaibhav Pasi on ${s.label}`}
+                    className="inline-flex items-center gap-1.5 min-h-11 rounded-full border border-white/10 px-4 text-sm font-semibold hover:border-brand-yellow/40 hover:text-accent transition-colors"
+                  >
+                    {s.label} <ArrowUpRight className="w-3.5 h-3.5" aria-hidden />
+                  </a>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.aside>
         </div>
       </section>
 

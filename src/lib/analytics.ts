@@ -18,7 +18,7 @@ declare global {
 const GA_ID = String(import.meta.env.VITE_GA_ID ?? '').trim();
 const enabled = /^G-[A-Z0-9]+$/.test(GA_ID);
 
-export function track(event: string, params: Record<string, string | number> = {}) {
+export function track(event: string, params: Record<string, string | number | undefined> = {}) {
   if (!enabled || typeof window === 'undefined') return;
   window.gtag?.('event', event, { page_path: window.location.pathname, ...params });
 }

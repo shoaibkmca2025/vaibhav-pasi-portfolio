@@ -84,9 +84,9 @@ export default function Hero() {
             className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400"
           >
             <li>Co-Founder, 4AM Global Media</li>
-            <li aria-hidden className="text-gray-600">·</li>
+            <li aria-hidden className="hidden sm:block text-gray-600">·</li>
             <li>MCA, software developer</li>
-            <li aria-hidden className="text-gray-600">·</li>
+            <li aria-hidden className="hidden sm:block text-gray-600">·</li>
             <li>Digital marketing since 2019</li>
           </motion.ul>
         </div>

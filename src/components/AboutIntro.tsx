@@ -7,7 +7,7 @@ import { onLinkClick } from '../router';
 const linkedin = socialLinks.find((s) => s.label === 'LinkedIn')!.href;
 
 // Section 6 of the home page: a short founder story. Facts only; the full story lives on /about.
-export default function AboutIntro() {
+export default function AboutIntro({ onAboutPage = false }: { onAboutPage?: boolean }) {
   return (
     <section className="section-padding bg-brand-dark-gray border-y border-white/5">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16 items-center">
@@ -66,9 +66,11 @@ export default function AboutIntro() {
             <a href={linkedin} target="_blank" rel="noopener noreferrer" className="btn-secondary">
               <Linkedin className="w-4 h-4" aria-hidden /> LinkedIn
             </a>
-            <a href="/about" onClick={onLinkClick} className="inline-flex items-center min-h-11 px-3 text-sm font-semibold text-gray-300 link-underline">
-              Full story
-            </a>
+            {!onAboutPage && (
+              <a href="/about" onClick={onLinkClick} className="inline-flex items-center min-h-11 px-3 text-sm font-semibold text-gray-300 link-underline">
+                Full story
+              </a>
+            )}
           </div>
         </motion.div>
       </div>

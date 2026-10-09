@@ -1,6 +1,7 @@
 import { posts, getPost } from './blog/posts';
 import { getService } from './content/services';
 import { faqs } from './components/FAQ';
+import { contactPhone, contactPhoneDisplay } from './contact';
 import { featureHeadline, publications } from './components/Press';
 import { parseRoute, sitePages, type PageKey } from './router';
 import {
@@ -49,6 +50,8 @@ const personSchema = {
   hasOccupation: person.jobTitle.split(/, | & /).map((name) => ({ '@type': 'Occupation', name })),
   description: DEFAULT_DESCRIPTION,
   email: `mailto:${person.email}`,
+  telephone: `+${contactPhone}`,
+  hasCredential: { '@type': 'EducationalOccupationalCredential', credentialCategory: 'degree', name: 'Master of Computer Applications (MCA)' },
   nationality: { '@type': 'Country', name: person.country },
   homeLocation: { '@type': 'Country', name: person.country },
   worksFor: { '@id': ORG_ID },
@@ -106,23 +109,23 @@ const breadcrumbs = (items: { name: string; path: string }[]) => ({
 export const pageSeo: Record<PageKey, { name: string; title: string; description: string; type: string }> = {
   about: {
     name: 'About',
-    title: 'About Vaibhav Pasi | Marketer, Developer & Co-Founder of 4AM Global Media',
+    title: 'About Vaibhav Pasi | Developer, Marketer & Co-Founder of 4AM Global Media',
     description:
-      'The story of Vaibhav Pasi: from digital marketing in 2019 to co-founding 4AM Global Media. Background, skills, experience and the approach behind 100+ brands scaled.',
+      'Vaibhav Pasi is an MCA graduate, software developer and digital marketer since 2019, and Co-Founder of 4AM Global Media. Background, toolkit, press and how he works.',
     type: 'ProfilePage',
   },
   services: {
     name: 'Services',
-    title: 'Services: Growth Marketing, Ads, Websites & AI Automation | Vaibhav Pasi',
+    title: 'Services: Digital Marketing, Websites, Software & AI Automation | Vaibhav Pasi',
     description:
-      'Digital marketing strategy, paid ads, content, SEO, websites, AI automation and quick-commerce onboarding, planned and run as one growth system.',
+      'Digital marketing, website and software development, SEO, LinkedIn marketing and AI automation, with starting prices, process and FAQs for each service.',
     type: 'WebPage',
   },
   work: {
-    name: 'Work',
-    title: 'Work & Case Studies | Vaibhav Pasi',
+    name: 'Portfolio',
+    title: 'Portfolio & Case Studies | Vaibhav Pasi',
     description:
-      'Selected projects and in-depth case studies from Vaibhav Pasi: brand growth, viral campaigns, e-commerce rebuilds and influencer strategy, with goals, plans and results.',
+      'Case studies from real client accounts: the challenge, the approach, the tools used and the results, each backed by the original analytics screenshot.',
     type: 'CollectionPage',
   },
   'client-wins': {
@@ -134,9 +137,21 @@ export const pageSeo: Record<PageKey, { name: string; title: string; description
   },
   contact: {
     name: 'Contact',
-    title: 'Contact Vaibhav Pasi | Start a Project',
-    description: `Get in touch with Vaibhav Pasi about growth marketing, websites, AI automation or marketplace onboarding. Email ${person.email}.`,
+    title: 'Contact Vaibhav Pasi | Book a Strategy Call or Send an Enquiry',
+    description: `Enquire about digital marketing, websites, software or AI automation. Use the form, call or WhatsApp ${contactPhoneDisplay}, or email ${person.email}.`,
     type: 'ContactPage',
+  },
+  privacy: {
+    name: 'Privacy Policy',
+    title: 'Privacy Policy | Vaibhav Pasi',
+    description: 'What vaibhavpasi.online collects through its enquiry form and analytics, who processes it, and how to ask for it to be deleted.',
+    type: 'WebPage',
+  },
+  terms: {
+    name: 'Terms of Service',
+    title: 'Terms of Service | Vaibhav Pasi',
+    description: 'Terms for using vaibhavpasi.online and the information, prices and case studies published on it.',
+    type: 'WebPage',
   },
 };
 
@@ -318,7 +333,7 @@ export function getSeo(pathname: string): Seo {
           },
           breadcrumbs([
             { name: 'Home', path: '/' },
-            { name: 'Blog', path: '/blog' },
+            { name: 'Insights', path: '/blog' },
           ]),
         ],
       },
@@ -362,7 +377,7 @@ export function getSeo(pathname: string): Seo {
             },
             breadcrumbs([
               { name: 'Home', path: '/' },
-              { name: 'Blog', path: '/blog' },
+              { name: 'Insights', path: '/blog' },
               { name: post.title, path: `/blog/${post.slug}` },
             ]),
           ],

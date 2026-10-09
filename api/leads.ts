@@ -17,7 +17,10 @@ export default async function handler(req: Req, res: Res) {
   // Bots fill every field, including this invisible one: pretend success, store nothing
   if (body.company_url) return send(res, 200, { ok: true });
 
-  const { data, errors, ok } = validateLead(body);
+  // Name plus at least one way to reply: email or WhatsApp/phone
+  const { data, errors } = validateLead(body, ['name']);
+  if (!data.email && !data.whatsapp) errors.email = 'Enter an email or a WhatsApp number';
+  const ok = Object.keys(errors).length === 0;
   if (!ok) return send(res, 422, { error: 'Please check the highlighted fields.', fields: errors });
 
   const utm: Record<string, string> = {};

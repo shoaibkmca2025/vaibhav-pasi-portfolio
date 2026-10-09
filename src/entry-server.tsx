@@ -28,7 +28,8 @@ export function sitemap() {
   const latest = posts[0]?.date;
   const entries = [
     { loc: '/', lastmod: latest, priority: '1.0' },
-    ...pagePaths.map((loc) => ({ loc, lastmod: latest, priority: '0.9' })),
+    // Legal pages are indexable but low priority
+    ...pagePaths.map((loc) => ({ loc, lastmod: latest, priority: ['/privacy', '/terms'].includes(loc) ? '0.3' : '0.9' })),
     ...servicePaths.map((loc) => ({ loc, lastmod: latest, priority: '0.8' })),
     { loc: '/blog', lastmod: latest, priority: '0.8' },
     ...posts.map((p) => ({ loc: `/blog/${p.slug}`, lastmod: p.date, priority: '0.7' })),
@@ -65,11 +66,11 @@ export function llmsTxt() {
     ...person.sameAs.map((url) => `- ${url}`),
     '',
     '## Pages',
-    `- [Home](${SITE_URL}/): overview, press coverage, testimonials and FAQs`,
+    `- [Home](${SITE_URL}/): overview, services, featured projects, testimonials and FAQs`,
     ...sitePages
       .filter((p) => p.key !== 'blog')
       .map((p) => `- [${p.label}](${SITE_URL}${p.path}): ${pageSeo[p.key as keyof typeof pageSeo].description}`),
-    `- [Blog](${SITE_URL}/blog): articles on growth marketing, AI and e-commerce`,
+    `- [Insights](${SITE_URL}/blog): articles on marketing, websites, AI and e-commerce`,
     '',
     '## Services',
     ...landingServices.map((s) => `- [${s.title}](${SITE_URL}${s.href}): ${s.short} ${s.price}.`),
