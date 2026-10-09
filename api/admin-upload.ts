@@ -1,7 +1,9 @@
-// POST /api/admin-upload { filename, contentType, data (base64) } -> { url: "/blog/<file>" }
+// POST /api/admin-upload { filename, contentType, data (base64), folder? } -> { url: "/blog/<file>" }
+// folder: "blog" (default, article images) or "gallery" (Instagram gallery photos)
 // Saves an image into public/blog via a Git commit. The dashboard shrinks images before
 // uploading, so files are normally a few hundred KB. Live on the site after the next deploy.
 import { MEDIA_DIR, slugify } from '../shared/blog.js';
+import { GALLERY_MEDIA_DIR } from '../shared/gallery.js';
 import { requireAdmin } from './_lib/admin.js';
 import { GitHubError, writeFile } from './_lib/github.js';
 import { readJson, send, type Req, type Res } from './_lib/http.js';
@@ -22,12 +24,15 @@ export default async function handler(req: Req, res: Res) {
   }
   if (!requireAdmin(req, res)) return;
 
-  let input: { filename?: unknown; contentType?: unknown; data?: unknown };
+  let input: { filename?: unknown; contentType?: unknown; data?: unknown; folder?: unknown };
   try {
     input = await readJson(req, 4.5 * 1024 * 1024);
   } catch {
     return send(res, 413, { error: 'That image is too large. Use one under 3 MB.' });
   }
+
+  // Only these two folders can be written to
+  const folder = input.folder === 'gallery' ? { dir: GALLERY_MEDIA_DIR, url: '/gallery', label: 'gallery' } : { dir: MEDIA_DIR, url: '/blog', label: 'blog' };
 
   const ext = TYPES[String(input.contentType)];
   if (!ext) return send(res, 415, { error: 'Upload a JPG, PNG, WebP, GIF or AVIF image.' });
@@ -40,8 +45,8 @@ export default async function handler(req: Req, res: Res) {
   const name = `${base.slice(0, 50)}-${Date.now().toString(36)}.${ext}`;
 
   try {
-    await writeFile(`${MEDIA_DIR}/${name}`, bytes.toString('base64'), `blog: upload image ${name}`);
-    return send(res, 200, { ok: true, url: `/blog/${name}` });
+    await writeFile(`${folder.dir}/${name}`, bytes.toString('base64'), `${folder.label}: upload image ${name}`);
+    return send(res, 200, { ok: true, url: `${folder.url}/${name}` });
   } catch (e) {
     if (e instanceof GitHubError) return send(res, e.status >= 500 ? e.status : 502, { error: e.message });
     console.error(e);

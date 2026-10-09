@@ -36,12 +36,12 @@ function toBase64(blob: Blob) {
   });
 }
 
-// Returns the public URL (/blog/...) plus a local preview URL, because the uploaded file
+// Returns the public URL (/blog/... or /gallery/...) plus a local preview URL, because the uploaded file
 // only appears on the live site after the next deploy (about a minute)
-export async function uploadImage(file: File) {
+export async function uploadImage(file: File, folder: 'blog' | 'gallery' = 'blog') {
   if (!ACCEPTED.includes(file.type)) throw new Error('Upload a JPG, PNG, WebP, GIF or AVIF image.');
   const blob = await shrink(file);
   if (blob.size > 3 * 1024 * 1024) throw new Error('That image is still over 3 MB after resizing. Try a smaller one.');
-  const { url } = await api.uploadImage({ filename: file.name, contentType: blob.type, data: await toBase64(blob) });
+  const { url } = await api.uploadImage({ filename: file.name, contentType: blob.type, data: await toBase64(blob), folder });
   return { url, preview: URL.createObjectURL(blob) };
 }

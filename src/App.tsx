@@ -19,6 +19,7 @@ import Blog, { BlogIndex } from './components/Blog';
 import BlogPost from './components/BlogPost';
 import ScrollProgress from './components/ScrollProgress';
 import HomeExplore from './pages/HomeExplore';
+import InstagramGallery from './components/InstagramGallery';
 import { AboutPage, ClientWinsPage, ContactPage, ServicesPage, WorkPage } from './pages/Pages';
 import { contactEmail, contactHref, socialLinks } from './contact';
 import { useRoute, type Route } from './router';
@@ -44,6 +45,10 @@ function HomePage({ heroKey }: { heroKey: number }) {
 
       <section id="testimonials">
         <Testimonials />
+      </section>
+
+      <section id="instagram">
+        <InstagramGallery />
       </section>
 
       <section id="blog">

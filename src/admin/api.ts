@@ -1,6 +1,13 @@
 // Browser client for the dashboard API (/api/admin-*). The session lives in an HttpOnly cookie,
 // so there is no token to store here.
 import type { PostMeta } from '../../shared/blog';
+import type { GalleryItem, GalleryUpload } from '../../shared/gallery';
+
+export interface GalleryData {
+  uploads: GalleryUpload[];
+  sha: string | null;
+  instagram: { configured: boolean; ok: boolean; error?: string; items: GalleryItem[] };
+}
 
 export interface PostSummary extends PostMeta {
   slug: string;
@@ -71,6 +78,10 @@ export const api = {
       method: 'DELETE',
     }),
 
-  uploadImage: (input: { filename: string; contentType: string; data: string }) =>
+  uploadImage: (input: { filename: string; contentType: string; data: string; folder?: 'blog' | 'gallery' }) =>
     request<{ ok: true; url: string }>('/api/admin-upload', { method: 'POST', body: json(input) }),
+
+  getGallery: () => request<GalleryData>('/api/admin-gallery'),
+  saveGallery: (uploads: GalleryUpload[], sha: string | null) =>
+    request<{ ok: true; sha: string }>('/api/admin-gallery', { method: 'POST', body: json({ uploads, sha }) }),
 };

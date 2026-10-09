@@ -7,6 +7,7 @@ import PostEditor from './PostEditor';
 import { Button, Notice, Spinner } from './ui';
 import { goTo } from './nav';
 import ThemeToggle from '../components/ThemeToggle';
+import GalleryManager from './GalleryManager';
 
 export interface DoneInfo {
   message: string;
@@ -51,11 +52,13 @@ function LiveNotice({ info }: { info: DoneInfo }) {
 //   #/            article list
 //   #/new         new article
 //   #/edit/<slug> edit an article
-type View = { name: 'list' } | { name: 'new' } | { name: 'edit'; slug: string };
+//   #/gallery     Instagram gallery
+type View = { name: 'list' } | { name: 'new' } | { name: 'edit'; slug: string } | { name: 'gallery' };
 
 function readView(): View {
   const hash = window.location.hash.replace(/^#/, '');
   if (hash === '/new') return { name: 'new' };
+  if (hash === '/gallery') return { name: 'gallery' };
   const edit = hash.match(/^\/edit\/([a-z0-9-]+)$/);
   if (edit) return { name: 'edit', slug: edit[1] };
   return { name: 'list' };
@@ -135,6 +138,27 @@ export default function AdminApp() {
             </Button>
           </nav>
         </div>
+
+        {/* Section tabs */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <nav aria-label="Dashboard sections" className="flex gap-1 -mb-px">
+            {[
+              { href: '#/', label: 'Articles', active: view.name !== 'gallery' },
+              { href: '#/gallery', label: 'Gallery', active: view.name === 'gallery' },
+            ].map((tab) => (
+              <a
+                key={tab.href}
+                href={tab.href}
+                aria-current={tab.active ? 'page' : undefined}
+                className={`inline-flex items-center min-h-11 px-4 border-b-2 text-sm font-semibold transition-colors ${
+                  tab.active ? 'border-accent text-white' : 'border-transparent text-gray-400 hover:text-white'
+                }`}
+              >
+                {tab.label}
+              </a>
+            ))}
+          </nav>
+        </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
@@ -155,6 +179,7 @@ export default function AdminApp() {
         )}
 
         {view.name === 'list' && <PostList />}
+        {view.name === 'gallery' && <GalleryManager />}
         {view.name === 'new' && <PostEditor key="new" onDone={(info) => { setNotice(info); goTo('/'); }} />}
         {view.name === 'edit' && (
           <PostEditor key={view.slug} slug={view.slug} onDone={(info) => { setNotice(info); goTo('/'); }} />
