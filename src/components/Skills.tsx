@@ -39,7 +39,7 @@ export default function Skills() {
     <section className="section-padding bg-brand-dark-gray/10 relative overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'linear-gradient(#f5ff00 1px, transparent 1px), linear-gradient(90deg, #f5ff00 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+           style={{ backgroundImage: 'linear-gradient(#E8C888 1px, transparent 1px), linear-gradient(90deg, #E8C888 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">

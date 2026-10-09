@@ -1,6 +1,8 @@
-// WhatsApp chat links. Set VITE_WHATSAPP_NUMBER in Vercel (international format, digits only,
-// e.g. 919876543210) and redeploy; until then, WhatsApp buttons are hidden and CTAs use /contact.
-const number = String(import.meta.env.VITE_WHATSAPP_NUMBER ?? '').replace(/\D/g, '');
+// WhatsApp chat links, using the number in src/contact.ts.
+// VITE_WHATSAPP_NUMBER in Vercel (digits only, e.g. 918826406545) overrides it if ever needed.
+import { contactPhone } from '../contact';
+
+const number = String(import.meta.env.VITE_WHATSAPP_NUMBER || contactPhone).replace(/\D/g, '');
 
 export const hasWhatsApp = number.length >= 8;
 

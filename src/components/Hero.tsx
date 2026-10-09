@@ -1,135 +1,130 @@
 import { motion } from 'motion/react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Newspaper } from 'lucide-react';
+import { bookingExternal, bookingHref } from '../lib/booking';
 import { onLinkClick } from '../router';
+import { publications } from './Press';
+
+// Verified press count: publications with a logo (the same 11 counted in content/proof.ts)
+const pressCount = publications.filter((p) => 'logo' in p && p.logo).length;
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Hero() {
   return (
-    <section className="theme-dark bg-brand-black text-white relative min-h-svh flex flex-col items-center justify-center text-center pt-28 md:pt-32 pb-20 md:pb-28 px-5 sm:px-6 overflow-hidden">
-      {/* Background Animation */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-            opacity: [0.08, 0.15, 0.08]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140vw] h-[140vw] max-w-[800px] max-h-[800px] border border-accent/10 rounded-full"
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            rotate: [90, 0, 90],
-            opacity: [0.04, 0.08, 0.04]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] border border-accent/5 rounded-full hidden md:block"
-        />
-
-        {/* Grid overlay */}
+    <section className="theme-dark bg-brand-black text-white relative overflow-hidden pt-32 md:pt-40 pb-20 md:pb-28 px-5 sm:px-6 md:px-12 lg:px-24">
+      {/* Subtle background: fine grid fading out, and a soft warm glow behind the portrait */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.05] [mask-image:radial-gradient(70%_60%_at_50%_40%,#000,transparent)]"
           style={{
-            backgroundImage: 'linear-gradient(rgba(245,255,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(245,255,0,0.3) 1px, transparent 1px)',
-            backgroundSize: '60px 60px'
+            backgroundImage:
+              'linear-gradient(rgba(232,200,136,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(232,200,136,0.5) 1px, transparent 1px)',
+            backgroundSize: '64px 64px',
           }}
         />
+        <div className="absolute top-1/4 right-[8%] w-[320px] h-[320px] md:w-[520px] md:h-[520px] rounded-full bg-brand-yellow/10 blur-[90px] md:blur-[130px]" />
       </div>
 
-      {/* Editorial section marker */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mb-10 z-10"
-      >
-        <span className="inline-flex items-center gap-2.5 text-[0.6875rem] sm:text-[0.6875rem] md:text-xs font-extrabold tracking-[0.3em] sm:tracking-[0.4em] uppercase text-accent px-5 sm:px-6 py-2.5 border border-accent/20 bg-brand-yellow/5 rounded-full backdrop-blur-sm">
-          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          The Ecosystem That Never Sleeps
-        </span>
-      </motion.div>
+      <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-14 lg:gap-16 items-center">
+        <div>
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease }}
+            className="eyebrow mb-7"
+          >
+            Technology × Marketing × AI
+          </motion.span>
 
-      {/* Main headline */}
-      <motion.h1
-        initial={{ opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
-        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="hero-title text-5xl min-[400px]:text-6xl sm:text-8xl lg:text-[9rem] font-black tracking-tighter leading-[0.85] sm:leading-[0.8] max-w-6xl z-10 uppercase"
-      >
-        Scale Your <br />
-        <span className="text-accent glow-yellow">Digital Empire.</span>
-      </motion.h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.08, ease }}
+            className="text-[2.75rem] leading-[1.02] sm:text-6xl md:text-7xl xl:text-[5.5rem] font-bold tracking-tighter"
+          >
+            Build Better. <br className="hidden sm:block" />
+            Market Smarter. <br />
+            <span className="text-accent">Grow Faster.</span>
+          </motion.h1>
 
-      {/* Subheading */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="mt-8 md:mt-12 text-gray-400 text-base md:text-xl max-w-2xl font-normal leading-relaxed z-10 sm:px-4"
-      >
-        Vaibhav Pasi orchestrates the marketing ecosystem that never sleeps. 
-        From viral engineering to global identity. We deliver <span className="text-white font-medium">results, not promises.</span>
-      </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.18, ease }}
+            className="mt-7 max-w-xl text-lg md:text-xl text-gray-400 leading-relaxed"
+          >
+            I help ambitious businesses grow through performance-focused digital marketing, high-converting websites, custom
+            software, and practical AI-powered automation.
+          </motion.p>
 
-      {/* CTA Buttons */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.6 }}
-        className="mt-12 md:mt-16 flex flex-col sm:flex-row gap-4 sm:gap-5 z-10 w-full sm:w-auto"
-      >
-        <motion.a 
-          href="/services"
-          onClick={onLinkClick}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          className="bg-brand-yellow text-black px-10 sm:px-12 py-5 font-black uppercase tracking-[0.2em] text-[0.6875rem] flex items-center justify-center gap-3 hover:shadow-[0_0_40px_rgba(245,255,0,0.3)] transition-all rounded-full"
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.26, ease }}
+            className="mt-9 flex flex-col sm:flex-row gap-3"
+          >
+            <a
+              href={bookingHref}
+              data-cta="book"
+              {...(bookingExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              className="btn-primary"
+            >
+              Book a Strategy Call <ArrowUpRight className="w-4 h-4" aria-hidden />
+            </a>
+            <a href="/work" onClick={onLinkClick} className="btn-secondary">
+              Explore My Work
+            </a>
+          </motion.div>
+
+          {/* Verifiable facts only */}
+          <motion.ul
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400"
+          >
+            <li>Co-Founder, 4AM Global Media</li>
+            <li aria-hidden className="text-gray-600">·</li>
+            <li>MCA, software developer</li>
+            <li aria-hidden className="text-gray-600">·</li>
+            <li>Digital marketing since 2019</li>
+          </motion.ul>
+        </div>
+
+        {/* Founder portrait */}
+        <motion.figure
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.15, ease }}
+          className="relative mx-auto w-full max-w-[420px] lg:max-w-none"
         >
-          EXPLORE THE ECOSYSTEM
-          <ArrowUpRight className="w-5 h-5" />
-        </motion.a>
-        <motion.a 
-          href="/work"
-          onClick={onLinkClick}
-          whileHover={{ scale: 1.03, backgroundColor: 'rgba(255,255,255,0.05)' }}
-          whileTap={{ scale: 0.97 }}
-          className="border border-white/20 text-white px-10 sm:px-12 py-5 font-black uppercase tracking-[0.2em] text-[0.6875rem] text-center hover:border-white/40 transition-all rounded-full"
-        >
-          WATCH OUR WORK
-        </motion.a>
-      </motion.div>
-
-      {/* Bottom editorial elements */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 1 }}
-        className="absolute bottom-8 left-5 sm:left-8 md:left-12 lg:left-24 hidden md:flex items-center gap-6 z-10"
-      >
-        <div className="text-[0.6875rem] font-bold tracking-[0.4em] text-gray-500 uppercase">VP © 2026</div>
-        <div className="w-12 h-[1px] bg-white/10" />
-        <div className="text-[0.6875rem] font-bold tracking-[0.4em] text-gray-500 uppercase">India</div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-8 right-5 sm:right-8 md:right-12 lg:right-24 hidden md:flex flex-col items-center gap-4 z-10"
-      >
-        <div className="text-[0.6875rem] font-bold tracking-[0.5em] text-gray-500 uppercase" style={{ writingMode: 'vertical-rl' }}>Scroll</div>
-        <motion.div 
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-[1px] h-16 bg-gradient-to-b from-brand-yellow to-transparent"
-        />
-      </motion.div>
-
-      {/* Decorative elements */}
-      {/* Large blurs are costly to paint on phone GPUs, so they're smaller and softer below md */}
-      <div className="absolute top-1/4 -left-20 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brand-yellow/5 rounded-full blur-[80px] md:blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brand-yellow/8 rounded-full blur-[80px] md:blur-[150px] pointer-events-none" />
+          <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden border border-brand-yellow/25 bg-brand-dark-gray">
+            <img
+              src="/vaibhav-pasi.jpg"
+              alt="Vaibhav Pasi, digital marketer, software developer and Co-Founder of 4AM Global Media"
+              width={640}
+              height={800}
+              fetchPriority="high"
+              className="w-full h-full object-cover object-top"
+            />
+            <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" />
+            <figcaption className="absolute left-5 right-5 bottom-5">
+              <span className="block text-lg font-semibold text-white">Vaibhav Pasi</span>
+              <span className="block text-sm text-gray-300">Technology & growth partner</span>
+            </figcaption>
+          </div>
+          <a
+            href="/about"
+            onClick={onLinkClick}
+            className="absolute -left-3 sm:-left-8 top-8 inline-flex items-center gap-2.5 rounded-2xl border border-white/10 bg-brand-black/90 backdrop-blur px-4 py-3 text-sm shadow-xl hover:border-brand-yellow/40 transition-colors"
+          >
+            <Newspaper className="w-4 h-4 text-accent" aria-hidden />
+            <span>
+              Featured in <strong className="text-white">{pressCount} publications</strong>
+            </span>
+          </a>
+        </motion.figure>
+      </div>
     </section>
   );
 }

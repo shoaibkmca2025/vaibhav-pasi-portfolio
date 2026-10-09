@@ -24,7 +24,7 @@ export const aboutFaqs: Faq[] = [
   },
   {
     question: 'How can I contact Vaibhav Pasi?',
-    answer: `Email ${contactEmail}, use the project form at vaibhavpasi.online/hire-me, or message on WhatsApp from any page of the website.`,
+    answer: `Email ${contactEmail}, use the enquiry form at vaibhavpasi.online/contact, or message on WhatsApp from any page of the website.`,
   },
 ];
 

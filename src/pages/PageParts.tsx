@@ -23,7 +23,7 @@ export function PageHero({ page, title, intro, facts }: PageHeroProps) {
           className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(245,255,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(245,255,0,0.3) 1px, transparent 1px)',
+              'linear-gradient(rgba(232,200,136,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(232,200,136,0.3) 1px, transparent 1px)',
             backgroundSize: '60px 60px',
           }}
         />
@@ -79,8 +79,10 @@ export function PageHero({ page, title, intro, facts }: PageHeroProps) {
 
 // Large link to the following page, so visitors can walk the site page by page
 export function NextPage({ page }: { page: PageKey }) {
+  // The next menu page after this one (pages outside the menu continue to the next menu page)
   const index = sitePages.findIndex((p) => p.key === page);
-  const next = sitePages[(index + 1) % sitePages.length];
+  const ordered = [...sitePages.slice(index + 1), ...sitePages.slice(0, index + 1)];
+  const next = ordered.find((p) => p.nav && p.key !== page) ?? sitePages[0];
 
   return (
     <section className="px-5 sm:px-6 md:px-12 lg:px-24 pb-20 md:pb-32">

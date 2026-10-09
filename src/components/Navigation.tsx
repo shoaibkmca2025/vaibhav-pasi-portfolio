@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, Twitter, Instagram, Linkedin, Menu, X } from 'lucide-react';
-import { contactHref, socialLinks } from '../contact';
+import { socialLinks } from '../contact';
+import { bookingExternal, bookingHref } from '../lib/booking';
 import ThemeToggle from './ThemeToggle';
-import { onLinkClick, sitePages, type Route } from '../router';
+import { navPages, onLinkClick, type Route } from '../router';
 
-const navItems = [{ key: 'home', path: '/', label: 'Home' }, ...sitePages];
+const navItems = [{ key: 'home', path: '/', label: 'Home' }, ...navPages];
 
 // Articles live under the Blog tab
 // Article pages highlight Blog; individual service pages highlight Services
@@ -88,10 +89,12 @@ export default function Navigation({ route }: { route: Route }) {
         <ThemeToggle className="-mx-2 md:mx-0" />
 
         <a
-          href={contactHref}
+          href={bookingHref}
+          data-cta="book"
+          {...(bookingExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
           className="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-brand-yellow text-black px-5 py-2.5 text-sm font-semibold hover:brightness-105 hover:shadow-lg hover:shadow-brand-yellow/20 transition-all"
         >
-          Let's talk <ArrowUpRight className="w-4 h-4" aria-hidden />
+          Book a Strategy Call <ArrowUpRight className="w-4 h-4" aria-hidden />
         </a>
 
         <button
@@ -174,10 +177,12 @@ export default function Navigation({ route }: { route: Route }) {
               </div>
 
               <a
-                href={contactHref}
+                href={bookingHref}
+          data-cta="book"
+          {...(bookingExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brand-yellow text-black py-4 text-base font-semibold"
               >
-                Let's talk <ArrowUpRight className="w-4 h-4" aria-hidden />
+                Book a Strategy Call <ArrowUpRight className="w-4 h-4" aria-hidden />
               </a>
             </motion.div>
           </motion.div>

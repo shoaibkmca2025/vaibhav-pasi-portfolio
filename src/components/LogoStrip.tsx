@@ -12,7 +12,7 @@ export default function LogoStrip() {
           As featured <span className="text-accent">in</span>
         </h2>
         <p className="mt-2 text-sm md:text-base text-gray-400">
-          Coverage of Vaibhav's work across {publications.length} publications.
+          Coverage of Vaibhav's work across {logos.length} publications.
         </p>
       </div>
 

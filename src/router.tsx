@@ -2,14 +2,20 @@ import { getServiceByPath } from './content/services';
 import { useEffect, useState, type MouseEvent } from 'react';
 
 // Standalone pages, in the order the nav and the "next page" links walk through them
+// `nav: false` pages are real routes that aren't in the top menu (linked from elsewhere).
+// Paths stay as they were (/work, /blog) so existing links keep working; only the labels changed.
 export const sitePages = [
-  { key: 'about', path: '/about', label: 'About' },
-  { key: 'services', path: '/services', label: 'Services' },
-  { key: 'work', path: '/work', label: 'Work' },
-  { key: 'client-wins', path: '/client-wins', label: 'Client Wins' },
-  { key: 'blog', path: '/blog', label: 'Blog' },
-  { key: 'contact', path: '/contact', label: 'Contact' },
+  { key: 'about', path: '/about', label: 'About', nav: true },
+  { key: 'services', path: '/services', label: 'Services', nav: true },
+  { key: 'work', path: '/work', label: 'Portfolio', nav: true },
+  { key: 'client-wins', path: '/client-wins', label: 'Client Wins', nav: false },
+  { key: 'blog', path: '/blog', label: 'Insights', nav: true },
+  { key: 'contact', path: '/contact', label: 'Contact', nav: true },
+  { key: 'privacy', path: '/privacy', label: 'Privacy Policy', nav: false },
+  { key: 'terms', path: '/terms', label: 'Terms of Service', nav: false },
 ] as const;
+
+export const navPages = sitePages.filter((p) => p.nav);
 
 export type PageKey = Exclude<(typeof sitePages)[number]['key'], 'blog'>;
 
@@ -72,5 +78,5 @@ export function onLinkClick(e: MouseEvent<HTMLAnchorElement>) {
   const url = new URL(e.currentTarget.href, window.location.href);
   if (url.origin !== window.location.origin || url.pathname === window.location.pathname) return;
   e.preventDefault();
-  navigate(url.pathname + url.hash);
+  navigate(url.pathname + url.search + url.hash);
 }

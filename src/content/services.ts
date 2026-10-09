@@ -1,7 +1,7 @@
 // Services shown on the home page, /services and each /services/<slug> landing page.
 // Edit copy, deliverables and prices here; pages update automatically.
 
-export type ServiceIcon = 'globe' | 'megaphone' | 'search' | 'bot' | 'database' | 'code' | 'compass' | 'linkedin';
+export type ServiceIcon = 'globe' | 'megaphone' | 'search' | 'bot' | 'database' | 'code' | 'compass' | 'linkedin' | 'user' | 'graduation';
 
 // A monthly package in a 3-tier pricing table
 export interface ServicePackage {
@@ -32,6 +32,9 @@ export interface Service {
   seo: { title: string; description: string; keywords?: string[] };
   faqs: { question: string; answer: string }[];
 
+  // Tools and technologies used to deliver it (only ones used in real work: see proof.ts techGroups)
+  tools?: string[];
+
   // ── Optional sections: shown on the detail page only when filled in ──
   tagline?: string; // one-line promise under the page title
   highlights?: string[]; // short chips in the hero
@@ -46,6 +49,7 @@ export interface Service {
 export const services: Service[] = [
   {
     slug: 'website-development',
+    tools: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Vercel'],
     href: '/services/website-development',
     title: 'Websites & Landing Pages',
     navTitle: 'Website Development',
@@ -84,6 +88,7 @@ export const services: Service[] = [
   },
   {
     slug: 'digital-marketing',
+    tools: ['Meta & Google Ads', 'Google Analytics', 'Instagram', 'Short-form video'],
     href: '/services/digital-marketing',
     title: 'Digital Marketing',
     navTitle: 'Digital Marketing',
@@ -122,6 +127,7 @@ export const services: Service[] = [
   },
   {
     slug: 'linkedin-marketing',
+    tools: ['LinkedIn', 'Content calendar', 'Lead pipeline tracking'],
     href: '/linkedin-marketing-services',
     title: 'LinkedIn Marketing & B2B Lead Generation',
     navTitle: 'LinkedIn Marketing',
@@ -269,6 +275,7 @@ export const services: Service[] = [
   },
   {
     slug: 'seo',
+    tools: ['Google Search Console', 'Google Analytics', 'Structured data'],
     href: '/services/seo',
     title: 'SEO',
     navTitle: 'SEO',
@@ -306,6 +313,7 @@ export const services: Service[] = [
   },
   {
     slug: 'ai-automation',
+    tools: ['n8n', 'AI models (LLMs)', 'Google Sheets', 'WhatsApp & email automation'],
     href: '/services/ai-automation',
     title: 'AI Automation',
     navTitle: 'AI Automation',
@@ -343,6 +351,7 @@ export const services: Service[] = [
   },
   {
     slug: 'crm-development',
+    tools: ['Supabase / Postgres', 'React', 'Node.js', 'CRM integrations'],
     href: '/services/crm-development',
     title: 'CRM & Business Software',
     navTitle: 'CRM Development',
@@ -379,6 +388,7 @@ export const services: Service[] = [
   },
   {
     slug: 'software-development',
+    tools: ['React', 'TypeScript', 'Node.js', 'Supabase / Postgres', 'Vercel'],
     href: '/services/software-development',
     title: 'Software Development',
     navTitle: 'Software Development',
@@ -403,6 +413,98 @@ export const services: Service[] = [
     },
     faqs: [
       { question: 'Do you build mobile apps?', answer: 'I focus on web applications, which work on every device and can be installed on phones. For native app needs we can discuss the right approach.' },
+    ],
+  },
+  {
+    slug: 'personal-branding',
+    href: '/services/personal-branding',
+    title: 'Personal Branding & Content Strategy',
+    navTitle: 'Personal Branding',
+    icon: 'user',
+    tools: ['Instagram', 'LinkedIn', 'Short-form video', 'Content calendar'],
+    short: 'Positioning, content pillars and a consistent publishing system that builds a recognisable personal brand.',
+    intro:
+      'A personal brand grows when people understand what you stand for and see it consistently. I help founders, creators and professionals define their positioning, plan content pillars, sharpen hooks and build a publishing rhythm they can sustain, using the same short-form approach behind the creator results on this site.',
+    deliverables: [
+      'Positioning and audience definition',
+      'Content pillars and core messaging',
+      'Hook and format playbook',
+      'Content calendar and publishing rhythm',
+      'Profile optimisation across platforms',
+      'Monthly performance review',
+    ],
+    useCases: ['Founders building authority in their market', 'Creators stuck at low reach', 'Consultants and coaches', 'Professionals building a public profile'],
+    process: [
+      { title: 'Discover', text: 'Your story, expertise, audience and what you want to be known for.' },
+      { title: 'Position', text: 'A clear positioning statement, content pillars and the formats that suit you.' },
+      { title: 'Publish', text: 'A calendar and hook playbook so content goes out consistently.' },
+      { title: 'Review', text: 'Monthly review of what performs, then double down on it.' },
+    ],
+    price: 'Custom quote',
+    priceNote: 'Scoped after a discovery call, as a fixed project or a monthly retainer.',
+    whatsapp: "Hi Vaibhav, I'd like to discuss personal branding and content strategy.",
+    seo: {
+      title: 'Personal Branding & Content Strategy | Vaibhav Pasi',
+      description:
+        'Personal branding for founders, creators and professionals: positioning, content pillars, hooks and a consistent publishing system for Instagram, LinkedIn and short-form video.',
+    },
+    faqs: [
+      {
+        question: 'Which platforms do you work on?',
+        answer: 'Mainly Instagram, LinkedIn and short-form video. The strategy focuses on the one or two platforms where your audience actually spends time.',
+      },
+      {
+        question: 'Do you create the content for me?',
+        answer:
+          'The strategy, hooks and content calendar are always included. Scripting and copywriting can be added to the scope; you stay the face and voice of the brand.',
+      },
+      {
+        question: 'Can you guarantee followers or viral posts?',
+        answer: 'No. Reach depends on many factors outside anyone’s control. What you get is a clear strategy, consistent execution and honest monthly reporting.',
+      },
+    ],
+  },
+  {
+    slug: 'ai-workshops',
+    href: '/services/ai-workshops',
+    title: 'AI Workshops & Technology Consulting',
+    navTitle: 'AI Workshops',
+    icon: 'graduation',
+    tools: ['AI models (LLMs)', 'n8n', 'Automation tools', 'Hands-on exercises'],
+    short: 'Hands-on AI workshops, corporate training and technology consulting for teams, institutions and business leaders.',
+    intro:
+      'I run AI workshops, corporate training programs and Vibe Coding sessions that help students, professionals and business leaders adopt AI, build simple digital products and automate business processes. Sessions are practical and built around exercises, not slides. The same experience is available as one-to-one technology consulting for tool and build decisions.',
+    deliverables: [
+      'Workshop agenda tailored to your audience',
+      'Hands-on AI and automation exercises',
+      'Vibe Coding sessions for building simple tools',
+      'Resources and follow-up material',
+      'Technology consulting for tool and vendor decisions',
+    ],
+    useCases: ['Colleges and educational institutions', 'Corporate teams adopting AI', 'Startup founders', 'Business leadership teams'],
+    process: [
+      { title: 'Brief', text: 'Your audience, their current skill level and what they should be able to do afterwards.' },
+      { title: 'Design', text: 'An agenda and exercises matched to the group and the time available.' },
+      { title: 'Deliver', text: 'On site or online, with hands-on practice throughout.' },
+      { title: 'Follow up', text: 'Resources and next steps so the learning turns into practice.' },
+    ],
+    price: 'Custom quote',
+    priceNote: 'Depends on duration, group size and on-site or online delivery.',
+    whatsapp: "Hi Vaibhav, I'd like to discuss an AI workshop or training session.",
+    seo: {
+      title: 'AI Workshops, Corporate Training & Technology Consulting | Vaibhav Pasi',
+      description:
+        'Practical AI workshops, corporate training and Vibe Coding sessions for institutions and teams, plus technology consulting for AI, automation and software decisions.',
+    },
+    faqs: [
+      {
+        question: 'Are workshops online or on site?',
+        answer: 'Both. Workshops can run on site at your campus or office, or online for distributed teams.',
+      },
+      {
+        question: 'Do participants need coding experience?',
+        answer: 'No. Each session is designed for its audience, from complete beginners to technical teams. The agenda is agreed with you beforehand.',
+      },
     ],
   },
   {
