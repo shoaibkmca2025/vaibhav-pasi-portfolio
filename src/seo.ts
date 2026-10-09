@@ -219,7 +219,33 @@ export function getSeo(pathname: string): Seo {
               url,
               provider: { '@id': PERSON_ID },
               areaServed: { '@type': 'Country', name: 'India' },
-              ...(priceMatch
+              ...(service.seo.keywords ? { keywords: service.seo.keywords.join(', ') } : {}),
+              ...(service.packages?.length
+                ? {
+                    // Package tiers as a price range, with each package listed
+                    offers: {
+                      '@type': 'AggregateOffer',
+                      priceCurrency: 'INR',
+                      lowPrice: Math.min(...service.packages.map((p) => Number(p.price.replace(/\D/g, '')))),
+                      highPrice: Math.max(...service.packages.map((p) => Number(p.price.replace(/\D/g, '')))),
+                      offerCount: service.packages.length,
+                      offers: service.packages.map((p) => ({
+                        '@type': 'Offer',
+                        name: `${p.name} package`,
+                        description: p.description,
+                        price: p.price.replace(/\D/g, ''),
+                        priceCurrency: 'INR',
+                        priceSpecification: {
+                          '@type': 'UnitPriceSpecification',
+                          price: p.price.replace(/\D/g, ''),
+                          priceCurrency: 'INR',
+                          unitText: 'MONTH',
+                        },
+                        url: `${url}#pricing`,
+                      })),
+                    },
+                  }
+                : priceMatch
                 ? {
                     offers: {
                       '@type': 'Offer',

@@ -14,7 +14,7 @@ import FAQ from '../components/FAQ';
 import CTASection from '../components/CTASection';
 import { contactEmail, contactHref, socialLinks } from '../contact';
 import { person } from '../site';
-import { services } from '../content/services';
+import { hasDetailPage, services } from '../content/services';
 import { NextPage, PageHero } from './PageParts';
 import { onLinkClick } from '../router';
 
@@ -71,7 +71,7 @@ function ServicesCompare() {
         </div>
         <ul className="rounded-[1.75rem] border border-white/10 bg-brand-black overflow-hidden divide-y divide-white/10">
           {services.map((s) => {
-            const detail = s.href.startsWith('/services/');
+            const detail = hasDetailPage(s);
             return (
               <li key={s.slug}>
                 <a

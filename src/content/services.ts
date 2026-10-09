@@ -1,11 +1,22 @@
 // Services shown on the home page, /services and each /services/<slug> landing page.
 // Edit copy, deliverables and prices here; pages update automatically.
 
-export type ServiceIcon = 'globe' | 'megaphone' | 'search' | 'bot' | 'database' | 'code' | 'compass';
+export type ServiceIcon = 'globe' | 'megaphone' | 'search' | 'bot' | 'database' | 'code' | 'compass' | 'linkedin';
+
+// A monthly package in a 3-tier pricing table
+export interface ServicePackage {
+  name: string;
+  price: string; // e.g. '₹12,000'
+  period: string; // e.g. '/month'
+  description: string;
+  features: string[];
+  popular?: boolean;
+}
 
 export interface Service {
   slug: string;
-  // Consulting has its own page; everything else gets /services/<slug>
+  // Where the detail page lives: usually /services/<slug>; a service can use its own path
+  // (e.g. /linkedin-marketing-services). Consulting has no detail page (it links to /contact).
   href: string;
   title: string;
   navTitle: string;
@@ -18,8 +29,18 @@ export interface Service {
   price: string;
   priceNote: string;
   whatsapp: string;
-  seo: { title: string; description: string };
+  seo: { title: string; description: string; keywords?: string[] };
   faqs: { question: string; answer: string }[];
+
+  // ── Optional sections: shown on the detail page only when filled in ──
+  tagline?: string; // one-line promise under the page title
+  highlights?: string[]; // short chips in the hero
+  challenges?: { title: string; text: string }[]; // problems this service solves
+  whyUs?: { title: string; text: string }[]; // reasons to choose you
+  offerings?: { title: string; text: string }[]; // sub-services, shown instead of the deliverables grid
+  packages?: ServicePackage[]; // 3-tier pricing table, shown instead of the single pricing card
+  packagesNote?: string; // small print under the pricing table
+  ctas?: { primary: string; packages: string; final: string }; // custom button labels
 }
 
 export const services: Service[] = [
@@ -97,6 +118,153 @@ export const services: Service[] = [
       { question: 'Do you manage posting as well as strategy?', answer: 'Yes. Engagements can cover strategy only, or strategy plus content direction, calendars and publishing, depending on your team.' },
       { question: 'Which platforms do you work with?', answer: 'Mainly Instagram, LinkedIn, YouTube and X, plus Meta and Google ads, chosen according to where your buyers spend time.' },
       { question: 'When will I see results?', answer: 'Early engagement signals usually show within the first month; lead and sales impact typically builds over two to three months of consistent execution.' },
+    ],
+  },
+  {
+    slug: 'linkedin-marketing',
+    href: '/linkedin-marketing-services',
+    title: 'LinkedIn Marketing & B2B Lead Generation',
+    navTitle: 'LinkedIn Marketing',
+    icon: 'linkedin',
+    tagline: 'Build your brand authority. Connect with decision-makers. Generate business opportunities.',
+    highlights: ['Personal Branding', 'Content Marketing', 'B2B Lead Generation'],
+    short:
+      'LinkedIn marketing services for founders and B2B companies: personal branding, content, company page management and organic lead generation.',
+    intro:
+      'At 4AM Global Media, we help businesses strengthen their LinkedIn presence through strategic content creation, executive personal branding, company page management, and targeted organic lead generation.',
+    deliverables: [
+      'LinkedIn profile optimization',
+      'Content strategy, copywriting and carousels',
+      'Company page management',
+      'Prospect research and personalized outreach',
+      'Lead pipeline tracking',
+      'Monthly analytics and strategy review',
+    ],
+    offerings: [
+      {
+        title: 'LinkedIn Profile Optimization',
+        text: 'Improve professional positioning, headlines, About sections, Featured sections, and calls to action.',
+      },
+      {
+        title: 'LinkedIn Content Marketing',
+        text: 'Strategy, copywriting, carousel design, post scheduling, thought leadership, and company updates.',
+      },
+      {
+        title: 'B2B Lead Generation',
+        text: 'Target audience research, prospect identification, personalized outreach, follow-up coordination, and lead tracking.',
+      },
+      {
+        title: 'Company Page Management',
+        text: 'Page optimization, brand communication, content publishing, audience engagement, and analytics.',
+      },
+    ],
+    challenges: [
+      { title: 'Your profile undersells you', text: "Your headline and About section don't tell decision-makers what you do or why it matters to them." },
+      { title: 'Posting is inconsistent', text: 'Without a plan and a content calendar, LinkedIn activity stops the moment work gets busy.' },
+      { title: 'Connections, but no conversations', text: 'Your network grows, but it rarely turns into conversations with the right buyers.' },
+      { title: 'An inactive company page', text: 'An outdated company page weakens trust when prospects look you up before replying.' },
+    ],
+    whyUs: [
+      { title: 'Technology + marketing expertise', text: 'One partner for software development and digital growth.' },
+      { title: 'Business-focused strategy', text: "Content aligned with your industry, audience, and objectives." },
+      { title: 'Consistent execution', text: 'Planned publishing, outreach, and monthly reporting.' },
+      { title: 'Transparent deliverables', text: 'Clearly defined packages, scope, and performance tracking.' },
+    ],
+    useCases: [
+      'Founders and CEOs building a personal brand',
+      'B2B companies that want conversations with decision-makers',
+      'Consultants and professionals growing their authority',
+      'Businesses with an inactive LinkedIn company page',
+    ],
+    process: [
+      { title: 'Audit & strategy', text: 'Review your profile, company page, audience and competitors, then agree goals and content pillars.' },
+      { title: 'Optimize profiles', text: 'Rework headlines, About and Featured sections, the company page and calls to action.' },
+      { title: 'Publish & engage', text: 'Planned posts, carousels and thought leadership, plus organic outreach within the agreed scope.' },
+      { title: 'Report & refine', text: 'Monthly analytics and a strategy review, so effort goes into what is working.' },
+    ],
+    price: 'From ₹12,000 / month',
+    priceNote: 'Starter ₹12,000 · Growth ₹20,000 · Premium ₹35,000 per month (professional fees).',
+    packages: [
+      {
+        name: 'Starter',
+        price: '₹12,000',
+        period: '/month',
+        description: 'Ideal for professionals and small businesses building their LinkedIn presence.',
+        features: ['Profile optimization', '8 posts per month', 'Content calendar and copywriting', 'Basic keyword research', 'Monthly performance report'],
+      },
+      {
+        name: 'Growth',
+        price: '₹20,000',
+        period: '/month',
+        description: 'For growing businesses seeking stronger brand visibility and B2B engagement.',
+        features: [
+          '12–16 posts per month',
+          'Personal profile and company page management',
+          'Up to 4 carousel/document creatives',
+          'Audience and competitor research',
+          'Defined organic outreach allowance',
+          'Monthly analytics and strategy review',
+        ],
+        popular: true,
+      },
+      {
+        name: 'Premium',
+        price: '₹35,000',
+        period: '/month',
+        description: 'Full-service LinkedIn marketing for SMEs focused on B2B opportunities.',
+        features: [
+          '16–20 posts per month',
+          'Executive personal branding',
+          'Company page management',
+          'Content strategy and thought leadership',
+          'Prospect research and personalized outreach',
+          'Lead pipeline tracking and follow-up coordination',
+          'Monthly performance report and strategy meeting',
+        ],
+      },
+    ],
+    packagesNote:
+      'Prices are indicative starting packages. Advertising spend, premium tools, additional profiles, and applicable taxes are charged separately. Outreach and lead generation are subject to agreed scope; leads or sales are not guaranteed.',
+    ctas: { primary: 'Get a Free Consultation', packages: 'View Our Packages', final: 'Discuss Your LinkedIn Strategy' },
+    whatsapp: "Hi Vaibhav, I'd like to discuss LinkedIn marketing for my business.",
+    seo: {
+      title: 'LinkedIn Marketing Services & B2B Lead Generation | 4AM Global Media',
+      description:
+        'Grow your professional brand with LinkedIn marketing, content creation, company page management, and B2B lead generation services from 4AM Global Media.',
+      keywords: [
+        'LinkedIn marketing services',
+        'LinkedIn management services',
+        'LinkedIn lead generation',
+        'B2B marketing agency',
+        'LinkedIn personal branding',
+      ],
+    },
+    faqs: [
+      {
+        question: 'What do your LinkedIn marketing services include?',
+        answer:
+          'Every package includes content and copywriting plus a monthly performance report. Starter covers profile optimization and 8 posts a month; Growth adds company page management, carousels, research and a defined outreach allowance; Premium adds executive personal branding, personalized prospect outreach and lead pipeline tracking.',
+      },
+      {
+        question: 'How much does LinkedIn marketing cost?',
+        answer:
+          'Packages start at ₹12,000 per month (Starter), with Growth at ₹20,000 and Premium at ₹35,000 per month. These are professional fees; advertising spend, premium tools, additional profiles and applicable taxes are charged separately.',
+      },
+      {
+        question: 'Can you guarantee leads or sales from LinkedIn?',
+        answer:
+          'No. Outreach and lead generation follow an agreed scope, and results are tracked and reported every month, but leads or sales cannot be guaranteed.',
+      },
+      {
+        question: 'Do I have to write the posts myself?',
+        answer:
+          'No. Content strategy and copywriting are included in every package. You share your expertise, goals and updates; the posts and carousels are written and designed for you.',
+      },
+      {
+        question: 'Can you manage both my personal profile and our company page?',
+        answer:
+          'Yes. The Growth and Premium packages include both your personal profile and your company page. Additional profiles can be added for a separate fee.',
+      },
     ],
   },
   {
@@ -256,5 +424,8 @@ export const services: Service[] = [
   },
 ];
 
-export const landingServices = services.filter((s) => s.href.startsWith('/services/'));
+// Services with a full detail page (Consulting is a short entry that links to /contact)
+export const landingServices = services.filter((s) => s.process.length > 0);
+export const hasDetailPage = (s: Service) => landingServices.includes(s);
+export const getServiceByPath = (path: string) => landingServices.find((s) => s.href === path);
 export const getService = (slug: string) => landingServices.find((s) => s.slug === slug);

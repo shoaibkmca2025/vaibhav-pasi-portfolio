@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
-import { services, type Service } from '../content/services';
+import { hasDetailPage, services, type Service } from '../content/services';
 import { onLinkClick } from '../router';
 import { hasWhatsApp, whatsappHref } from '../lib/whatsapp';
 
@@ -24,7 +24,7 @@ const screen: Record<Variant, { bg: string; ink: string; soft: string; accent: s
 
 type Scene = 'site' | 'dashboard' | 'chat';
 export const sceneFor = (icon: Service['icon']): Scene =>
-  icon === 'bot' ? 'chat' : icon === 'megaphone' || icon === 'search' || icon === 'database' ? 'dashboard' : 'site';
+  icon === 'bot' ? 'chat' : icon === 'megaphone' || icon === 'search' || icon === 'database' || icon === 'linkedin' ? 'dashboard' : 'site';
 
 function Bar({ w, h = 6, c }: { w: string; h?: number; c: string }) {
   return <div style={{ width: w, height: h, background: c, borderRadius: 999 }} />;
@@ -181,13 +181,13 @@ export default function ServiceShowcase({ limit = services.length }: { limit?: n
                         {cta.label} <ArrowUpRight className="w-4 h-4" aria-hidden />
                       </a>
                       <a
-                        href={service.href.startsWith('/services/') ? service.href : '/contact'}
+                        href={hasDetailPage(service) ? service.href : '/contact'}
                         onClick={onLinkClick}
                         className={`inline-flex items-center gap-2 min-h-11 px-6 rounded-full text-sm font-semibold border transition-colors ${
                           onYellow ? 'border-black/25 hover:bg-black/5' : 'border-white/25 hover:bg-white/10'
                         }`}
                       >
-                        {service.href.startsWith('/services/') ? 'Details & pricing' : 'Book a call'}
+                        {hasDetailPage(service) ? 'Details & pricing' : 'Book a call'}
                       </a>
                     </div>
                   </div>

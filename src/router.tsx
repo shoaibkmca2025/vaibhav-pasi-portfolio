@@ -1,3 +1,4 @@
+import { getServiceByPath } from './content/services';
 import { useEffect, useState, type MouseEvent } from 'react';
 
 // Standalone pages, in the order the nav and the "next page" links walk through them
@@ -27,6 +28,9 @@ export function parseRoute(pathname: string): Route {
   if (standalone) return { page: standalone.key as PageKey };
   const service = path.match(/^\/services\/([^/]+)$/);
   if (service) return { page: 'service', slug: decodeURIComponent(service[1]) };
+  // Services with their own top-level address, e.g. /linkedin-marketing-services
+  const custom = getServiceByPath(path);
+  if (custom) return { page: 'service', slug: custom.slug };
   const match = path.match(/^\/blog\/([^/]+)$/);
   if (match) return { page: 'post', slug: decodeURIComponent(match[1]) };
   return { page: 'home' };
