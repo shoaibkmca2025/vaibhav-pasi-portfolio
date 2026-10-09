@@ -23,7 +23,7 @@ export function PageHero({ page, title, intro, facts }: PageHeroProps) {
           className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(245,255,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(245,255,0,0.3) 1px, transparent 1px)',
+              'linear-gradient(rgba(79,140,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(79,140,255,0.3) 1px, transparent 1px)',
             backgroundSize: '60px 60px',
           }}
         />

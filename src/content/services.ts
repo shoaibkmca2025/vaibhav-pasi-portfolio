@@ -20,6 +20,8 @@ export interface Service {
   href: string;
   title: string;
   navTitle: string;
+  // Decorative stock photo for cards and the detail page header
+  image?: { src: string; alt: string };
   icon: ServiceIcon;
   short: string;
   intro: string;
@@ -54,6 +56,8 @@ export const services: Service[] = [
     title: 'Websites & Landing Pages',
     navTitle: 'Website Development',
     icon: 'globe',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=75&w=1200', alt: 'Laptop showing website code on a bright desk' },
     short: 'Conversion-focused business websites, landing pages and web experiences that turn visitors into enquiries.',
     intro:
       'A website should do one job well: turn the right visitors into enquiries. I plan the structure around your offer, write for your buyer, and build fast, mobile-first pages with clear calls to action, analytics and SEO foundations from day one.',
@@ -93,6 +97,8 @@ export const services: Service[] = [
     title: 'Digital Marketing',
     navTitle: 'Digital Marketing',
     icon: 'megaphone',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&q=75&w=1200', alt: 'Marketing strategy notes and a pricing book on a desk' },
     short: 'Social media, content, campaign strategy and digital growth systems built around measurable goals.',
     intro:
       'Posting more is not a strategy. I set clear goals, define content pillars your audience actually cares about, plan campaigns, and track what turns attention into enquiries, so marketing becomes a system instead of guesswork.',
@@ -132,6 +138,8 @@ export const services: Service[] = [
     title: 'LinkedIn Marketing & B2B Lead Generation',
     navTitle: 'LinkedIn Marketing',
     icon: 'linkedin',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1611944212129-29977ae1398c?auto=format&fit=crop&q=75&w=1200', alt: 'LinkedIn logo on a dark blue background' },
     tagline: 'Build your brand authority. Connect with decision-makers. Generate business opportunities.',
     highlights: ['Personal Branding', 'Content Marketing', 'B2B Lead Generation'],
     short:
@@ -280,6 +288,8 @@ export const services: Service[] = [
     title: 'SEO',
     navTitle: 'SEO',
     icon: 'search',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=75&w=1200', alt: 'Analytics dashboard with traffic charts' },
     short: 'Search visibility through technical SEO, on-page optimisation and a content strategy aimed at buyers.',
     intro:
       'SEO is how customers find you when they are already looking. I fix the technical foundations, optimise the pages that should rank, and plan content around the searches your buyers make, including structured data that helps Google and AI assistants understand your business.',
@@ -318,6 +328,8 @@ export const services: Service[] = [
     title: 'AI Automation',
     navTitle: 'AI Automation',
     icon: 'bot',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=75&w=1200', alt: 'Blue 3D letters spelling AI' },
     short: 'Automate repetitive business work with AI, workflows and integrations between the tools you already use.',
     intro:
       'Most businesses lose hours every week copying data between forms, sheets, inboxes and WhatsApp. I map those repetitive steps and replace them with reliable automated workflows, using AI where it genuinely helps, such as qualifying enquiries or drafting replies, with a human in the loop where it matters.',
@@ -356,6 +368,8 @@ export const services: Service[] = [
     title: 'CRM & Business Software',
     navTitle: 'CRM Development',
     icon: 'database',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=75&w=1200', alt: 'Laptop showing a data dashboard' },
     short: 'Custom CRM systems, dashboards, portals and internal tools built around how your team actually works.',
     intro:
       'Spreadsheets break once a business grows. I build lightweight CRMs, dashboards and internal tools that match your sales and operations process, so leads, customers and tasks live in one place, with the reports you actually need.',
@@ -393,6 +407,8 @@ export const services: Service[] = [
     title: 'Software Development',
     navTitle: 'Software Development',
     icon: 'code',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=75&w=1200', alt: 'Code editor open on a laptop screen' },
     short: 'Web applications, APIs and integrations for businesses that need more than a website.',
     intro:
       'When a business process needs its own software, I design and build web applications and APIs with a focus on reliability, maintainability and a clean handover, from the first prototype to production.',
@@ -421,6 +437,8 @@ export const services: Service[] = [
     title: 'Personal Branding & Content Strategy',
     navTitle: 'Personal Branding',
     icon: 'user',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=75&w=1200', alt: 'Person using social media on a phone beside a laptop' },
     tools: ['Instagram', 'LinkedIn', 'Short-form video', 'Content calendar'],
     short: 'Positioning, content pillars and a consistent publishing system that builds a recognisable personal brand.',
     intro:
@@ -470,6 +488,8 @@ export const services: Service[] = [
     title: 'AI Workshops & Technology Consulting',
     navTitle: 'AI Workshops',
     icon: 'graduation',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=75&w=1200', alt: 'Team workshop around a whiteboard with sticky notes' },
     tools: ['AI models (LLMs)', 'n8n', 'Automation tools', 'Hands-on exercises'],
     short: 'Hands-on AI workshops, corporate training and technology consulting for teams, institutions and business leaders.',
     intro:
@@ -513,6 +533,8 @@ export const services: Service[] = [
     title: 'Consulting',
     navTitle: 'Consulting',
     icon: 'compass',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=75&w=1200', alt: 'Strategy meeting in a bright office' },
     short: 'Strategy sessions on websites, marketing, automation and technology decisions, with a clear action plan.',
     intro: 'A focused session to untangle a growth, marketing or technology decision and leave with a prioritised plan.',
     deliverables: ['60-minute focused session', 'Pre-call questionnaire review', 'Prioritised action plan', 'Recommended tools and next steps'],

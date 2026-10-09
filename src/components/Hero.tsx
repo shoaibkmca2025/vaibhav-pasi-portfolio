@@ -18,11 +18,12 @@ export default function Hero() {
           className="absolute inset-0 opacity-[0.05] [mask-image:radial-gradient(70%_60%_at_50%_40%,#000,transparent)]"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(245,255,0,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(245,255,0,0.5) 1px, transparent 1px)',
+              'linear-gradient(rgba(79,140,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(79,140,255,0.5) 1px, transparent 1px)',
             backgroundSize: '64px 64px',
           }}
         />
         <div className="absolute top-1/4 right-[8%] w-[320px] h-[320px] md:w-[520px] md:h-[520px] rounded-full bg-brand-yellow/10 blur-[90px] md:blur-[130px]" />
+        <div className="absolute -bottom-24 -left-24 w-[280px] h-[280px] md:w-[440px] md:h-[440px] rounded-full bg-coral/10 blur-[90px] md:blur-[130px]" />
       </div>
 
       <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-14 lg:gap-16 items-center">
@@ -44,7 +45,7 @@ export default function Hero() {
           >
             Build Better. <br className="hidden sm:block" />
             Market Smarter. <br />
-            <span className="text-accent">Grow Faster.</span>
+            <span className="text-gradient">Grow Faster.</span>
           </motion.h1>
 
           <motion.p

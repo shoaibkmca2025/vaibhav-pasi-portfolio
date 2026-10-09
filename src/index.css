@@ -6,30 +6,32 @@
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-script: "Great Vibes", "Brush Script MT", cursive;
   
-  --color-brand-yellow: #f5ff00;
-  --color-brand-black: #050505;
-  --color-brand-dark-gray: #0e0e0e;
-  --color-brand-muted: #1a1a1a;
+  --color-brand-yellow: #4f8cff;
+  --color-brand-black: #070b18;
+  --color-brand-dark-gray: #0c1222;
+  --color-brand-muted: #141c30;
 
   /* Neutral (untinted) greys tuned for the dark background: Tailwind's default greys lean blue,
-     which clashes with the yellow-green brand colour. Body text (400) is ~9.7:1 and small
+     which clashes with the blue brand colour. Body text (400) is ~9.7:1 and small
      labels (500) ~7.2:1, meeting the 7:1 the HIG recommends for small text in dark mode. */
-  --color-gray-100: #f0f0f0;
-  --color-gray-200: #e5e5e5;
-  --color-gray-300: #d4d4d4;
-  --color-gray-400: #b3b3b3;
-  --color-gray-500: #999999;
-  --color-gray-600: #6e6e6e;
-  --color-gray-700: #4d4d4d;
-  --color-gray-800: #2b2b2b;
-  --color-gray-900: #171717;
+  --color-gray-100: #e9eef5;
+  --color-gray-200: #dce4ef;
+  --color-gray-300: #cbd5e1;
+  --color-gray-400: #b0bccf;
+  --color-gray-500: #94a1b6;
+  --color-gray-600: #5c6980;
+  --color-gray-700: #3c4760;
+  --color-gray-800: #232c42;
+  --color-gray-900: #131a2b;
 
   /* Apple's soft white: avoids pure-white text and logo plates "glowing" against near-black */
-  --color-white: #f5f5f7;
+  --color-white: #f1f5f9;
 
   /* Accent for text, icons and borders. Solid fills (buttons) keep using brand-yellow, which
      stays bright in both themes; text needs a darker accent in light mode to stay readable. */
-  --color-accent: #f5ff00;
+  --color-accent: #7aa7ff;
+  /* Secondary warm accent, used sparingly: gradient ends and ambient glows */
+  --color-coral: #ff7a66;
 }
 
 /* ═══════════════════ Light & dark themes ═══════════════════
@@ -47,72 +49,75 @@
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     color-scheme: light;
-    --color-brand-black: #f6f6f3;
-    --color-brand-dark-gray: #ecece8;
-    --color-brand-muted: #e2e2dd;
-    --color-white: #141414;
-    --color-gray-100: #121212;
-    --color-gray-200: #1f1f1f;
-    --color-gray-300: #2b2b2b;
-    --color-gray-400: #454545;
-    --color-gray-500: #5c5c5c;
-    --color-gray-600: #858585;
-    --color-gray-700: #a6a6a6;
-    --color-gray-800: #d6d6d2;
-    --color-gray-900: #e9e9e5;
-    --color-accent: #5a6400;
+    --color-brand-black: #f5f7fb;
+    --color-brand-dark-gray: #ecf0f7;
+    --color-brand-muted: #e1e7f1;
+    --color-white: #0b1220;
+    --color-gray-100: #0f172a;
+    --color-gray-200: #1a2436;
+    --color-gray-300: #263247;
+    --color-gray-400: #3a475e;
+    --color-gray-500: #4f5d75;
+    --color-gray-600: #7d8aa0;
+    --color-gray-700: #a3aec0;
+    --color-gray-800: #d3dae6;
+    --color-gray-900: #e7ecf4;
+    --color-accent: #1d4ed8;
+    --color-coral: #d9452f;
   }
 }
 :root[data-theme="light"] {
   color-scheme: light;
-  --color-brand-black: #f6f6f3;
-  --color-brand-dark-gray: #ecece8;
-  --color-brand-muted: #e2e2dd;
-  --color-white: #141414;
-  --color-gray-100: #121212;
-  --color-gray-200: #1f1f1f;
-  --color-gray-300: #2b2b2b;
-  --color-gray-400: #454545;
-  --color-gray-500: #5c5c5c;
-  --color-gray-600: #858585;
-  --color-gray-700: #a6a6a6;
-  --color-gray-800: #d6d6d2;
-  --color-gray-900: #e9e9e5;
-  --color-accent: #5a6400;
+  --color-brand-black: #f5f7fb;
+  --color-brand-dark-gray: #ecf0f7;
+  --color-brand-muted: #e1e7f1;
+  --color-white: #0b1220;
+  --color-gray-100: #0f172a;
+  --color-gray-200: #1a2436;
+  --color-gray-300: #263247;
+  --color-gray-400: #3a475e;
+  --color-gray-500: #4f5d75;
+  --color-gray-600: #7d8aa0;
+  --color-gray-700: #a3aec0;
+  --color-gray-800: #d3dae6;
+  --color-gray-900: #e7ecf4;
+  --color-accent: #1d4ed8;
+  --color-coral: #d9452f;
 }
 
 /* Text laid over photos and the always-dark intro stay in the dark palette in both themes */
 .theme-dark {
   color-scheme: dark;
-  --color-brand-black: #050505;
-  --color-brand-dark-gray: #0e0e0e;
-  --color-brand-muted: #1a1a1a;
-  --color-white: #f5f5f7;
-  --color-gray-100: #f0f0f0;
-  --color-gray-200: #e5e5e5;
-  --color-gray-300: #d4d4d4;
-  --color-gray-400: #b3b3b3;
-  --color-gray-500: #999999;
-  --color-accent: #f5ff00;
+  --color-brand-black: #070b18;
+  --color-brand-dark-gray: #0c1222;
+  --color-brand-muted: #141c30;
+  --color-white: #f1f5f9;
+  --color-gray-100: #e9eef5;
+  --color-gray-200: #dce4ef;
+  --color-gray-300: #cbd5e1;
+  --color-gray-400: #b0bccf;
+  --color-gray-500: #94a1b6;
+  --color-accent: #7aa7ff;
+  --color-coral: #ff7a66;
 }
 
 /* System "Increase Contrast": push secondary text and borders further, in either theme */
 @media (prefers-contrast: more) {
   :root {
-    --color-gray-400: #d4d4d4;
-    --color-gray-500: #c4c4c4;
+    --color-gray-400: #d5dde8;
+    --color-gray-500: #c3cddb;
   }
 }
 @media (prefers-contrast: more) and (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --color-gray-400: #2b2b2b;
-    --color-gray-500: #383838;
+    --color-gray-400: #263247;
+    --color-gray-500: #2f3b51;
   }
 }
 @media (prefers-contrast: more) {
   :root[data-theme="light"] {
-    --color-gray-400: #2b2b2b;
-    --color-gray-500: #383838;
+    --color-gray-400: #263247;
+    --color-gray-500: #2f3b51;
   }
   .border-white\/5,
   .border-white\/10 {
@@ -214,7 +219,15 @@
   height: 3px;
   margin: 1.25rem auto 0;
   border-radius: 3px;
-  background: var(--color-accent);
+  background: linear-gradient(90deg, var(--color-accent), var(--color-coral));
+}
+
+/* Blue-to-coral text, for one key phrase per section at most */
+.text-gradient {
+  background: linear-gradient(100deg, var(--color-accent) 10%, var(--color-coral) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* ─── Skip link: first Tab stop, jumps keyboard users past the navigation ─── */
@@ -242,14 +255,14 @@
 /* ─── Glow effects ─── */
 .glow-yellow {
   /* Kept soft: a strong neon halo blurs letter edges and hurts legibility */
-  text-shadow: 0 0 24px rgba(245, 255, 0, 0.22);
+  text-shadow: 0 0 24px rgba(79, 140, 255, 0.22);
 }
 /* Light mode: a yellow highlighter stroke instead of yellow text, which would vanish on white.
    (Inside always-dark areas such as the hero, the glowing yellow text is kept: see .theme-dark rule below.) */
 :root[data-theme="light"] .glow-yellow {
   color: var(--color-white);
   text-shadow: none;
-  background: linear-gradient(transparent 58%, #f5ff00 58%, #f5ff00 90%, transparent 90%);
+  background: linear-gradient(transparent 58%, rgba(79, 140, 255, 0.32) 58%, rgba(79, 140, 255, 0.32) 90%, transparent 90%);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -257,7 +270,7 @@
   :root:not([data-theme="dark"]) .glow-yellow {
     color: var(--color-white);
     text-shadow: none;
-    background: linear-gradient(transparent 58%, #f5ff00 58%, #f5ff00 90%, transparent 90%);
+    background: linear-gradient(transparent 58%, rgba(79, 140, 255, 0.32) 58%, rgba(79, 140, 255, 0.32) 90%, transparent 90%);
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
   }
@@ -266,11 +279,11 @@
 :root:not([data-theme="dark"]) .theme-dark .glow-yellow {
   color: var(--color-accent);
   background: none;
-  text-shadow: 0 0 24px rgba(245, 255, 0, 0.22);
+  text-shadow: 0 0 24px rgba(79, 140, 255, 0.22);
 }
 
 .glow-box {
-  box-shadow: 0 0 40px -10px rgba(245, 255, 0, 0.2);
+  box-shadow: 0 0 40px -10px rgba(79, 140, 255, 0.2);
 }
 
 /* ─── Section padding ─── */
@@ -305,7 +318,7 @@
 
 .card-dark:hover {
   @apply border-accent/20;
-  box-shadow: 0 0 50px -20px rgba(245, 255, 0, 0.08);
+  box-shadow: 0 0 50px -20px rgba(79, 140, 255, 0.08);
 }
 
 /* ─── Horizontal scrollers (e.g. blog filters) ─── */
@@ -401,7 +414,7 @@
 
 /* ─── Selection ─── */
 ::selection {
-  background: #f5ff00;
+  background: #4f8cff;
   color: #000;
 }
 
