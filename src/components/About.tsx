@@ -143,7 +143,7 @@ export default function About() {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-7"
             >
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-4">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-4">
                 Vaibhav Pasi
               </h2>
 
@@ -351,8 +351,8 @@ export default function About() {
             className="mb-10 md:mb-14"
           >
             <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4 block">Expertise</span>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter italic uppercase leading-[0.9]">
-              Core <span className="text-gray-500">Competencies.</span>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-[0.9]">
+              Core <span className="text-accent">Competencies.</span>
             </h3>
           </motion.div>
 
@@ -396,9 +396,9 @@ export default function About() {
             className="mb-12 md:mb-16"
           >
             <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-4 block">Core Pillars</span>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter italic uppercase leading-[0.9]">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-[0.9]">
               The Framework <br />
-              <span className="text-gray-500">Behind the Results.</span>
+              <span className="text-accent">Behind the Results.</span>
             </h3>
           </motion.div>
 
@@ -422,7 +422,7 @@ export default function About() {
                     </div>
                     <ArrowUpRight className="w-5 h-5 text-gray-500 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight italic uppercase group-hover:text-accent transition-colors duration-300">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight group-hover:text-accent transition-colors duration-300">
                     {pillar.title}
                   </h3>
                   <p className="text-gray-400 text-sm md:text-base font-normal leading-relaxed group-hover:text-gray-300 transition-colors duration-300">

@@ -24,7 +24,7 @@ export default function CTASection() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16 relative z-10">
           <div className="max-w-2xl">
             <span className="text-[0.6875rem] font-bold tracking-[0.4em] uppercase text-black/50 mb-6 block">Ready to Scale?</span>
-            <h2 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[0.85] italic uppercase mb-8">
+            <h2 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[0.85] mb-8">
               Your Growth <br />
               Shouldn't Sleep.
             </h2>

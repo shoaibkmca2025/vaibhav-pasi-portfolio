@@ -42,11 +42,11 @@ export default function Skills() {
            style={{ backgroundImage: 'linear-gradient(#f5ff00 1px, transparent 1px), linear-gradient(90deg, #f5ff00 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
+        <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
           <div className="max-w-2xl">
             <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Toolkit</span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-6">
-              Marketing <span className="text-gray-500">Arsenal.</span>
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
+              Marketing <span className="text-accent">Arsenal.</span>
             </h2>
             <p className="text-gray-400 font-normal leading-relaxed md:text-lg">
               A comprehensive stack of digital expertise, spanning from creative social growth to high-performance software engineering.

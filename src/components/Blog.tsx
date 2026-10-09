@@ -148,11 +148,11 @@ export default function Blog() {
       <div className="absolute top-1/3 -left-32 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brand-yellow/5 blur-[80px] md:blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6">
+        <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6">
           <div className="max-w-2xl">
             <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Insights</span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-6">
-              The <span className="text-gray-500">Journal.</span>
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
+              The <span className="text-accent">Journal.</span>
             </h2>
             <p className="text-gray-400 font-normal leading-relaxed md:text-lg">
               Playbooks, experiments and lessons from the front lines of growth marketing, AI and e-commerce.
@@ -224,7 +224,7 @@ export function BlogIndex() {
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
               {posts.length} {posts.length === 1 ? 'Article' : 'Articles'}
             </span>
-            <h1 className="text-5xl min-[400px]:text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter italic uppercase leading-[0.85]">
+            <h1 className="text-5xl min-[400px]:text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85]">
               The <span className="text-accent glow-yellow">Journal.</span>
             </h1>
             <p className="mt-6 md:mt-8 text-gray-400 font-normal text-base md:text-xl leading-relaxed max-w-2xl">

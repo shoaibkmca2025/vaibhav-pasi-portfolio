@@ -31,9 +31,9 @@ export default function Scaling() {
     <section id="scaling" className="section-padding bg-brand-black border-t border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 md:mb-20">
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-8">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter mb-8">
             Everything You Need <br />
-            <span className="text-gray-500">To Scale.</span>
+            <span className="text-accent">To Scale.</span>
           </h2>
         </div>
 
@@ -52,7 +52,7 @@ export default function Scaling() {
                 <section.icon className={`w-8 h-8 ${section.textColor}`} />
               </div>
               
-              <h3 className="text-2xl font-bold mb-4 tracking-tight uppercase italic">{section.title}</h3>
+              <h3 className="text-2xl font-bold mb-4 tracking-tight">{section.title}</h3>
               <p className="text-gray-400 font-normal leading-relaxed mb-8 md:mb-10">
                 {section.description}
               </p>

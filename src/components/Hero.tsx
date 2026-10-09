@@ -4,7 +4,7 @@ import { onLinkClick } from '../router';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-svh flex flex-col items-center justify-center text-center pt-28 md:pt-32 pb-20 md:pb-28 px-5 sm:px-6 overflow-hidden">
+    <section className="theme-dark bg-brand-black text-white relative min-h-svh flex flex-col items-center justify-center text-center pt-28 md:pt-32 pb-20 md:pb-28 px-5 sm:px-6 overflow-hidden">
       {/* Background Animation */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div 

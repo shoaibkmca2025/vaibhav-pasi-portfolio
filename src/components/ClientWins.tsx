@@ -264,7 +264,7 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
       <div className="max-w-7xl mx-auto relative">
         {/* Header */}
         {!hideHeader && (
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
+        <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="max-w-2xl">
             <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Client Wins</span>
             <h2 className="flex items-end mb-6 leading-none" aria-label="Client Wins">

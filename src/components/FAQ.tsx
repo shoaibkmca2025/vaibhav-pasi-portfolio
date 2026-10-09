@@ -67,9 +67,9 @@ export default function FAQ() {
   return (
     <section className="section-padding bg-brand-black">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12 md:mb-20">
+        <div className="section-head text-center mb-12 md:mb-20">
           <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">FAQ</span>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic uppercase mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
             Questions? <br /> <span className="text-accent">Answered.</span>
           </h2>
         </div>

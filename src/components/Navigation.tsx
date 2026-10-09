@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Twitter, Instagram, Linkedin, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Twitter, Instagram, Linkedin, Menu, X } from 'lucide-react';
 import { contactHref, socialLinks } from '../contact';
 import ThemeToggle from './ThemeToggle';
 import { onLinkClick, sitePages, type Route } from '../router';
@@ -42,7 +42,7 @@ export default function Navigation({ route }: { route: Route }) {
     <>
     <nav
       aria-label="Primary"
-      className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between gap-6 py-4 md:py-6 px-5 sm:px-6 md:px-12 backdrop-blur-md bg-brand-black/50 border-b border-white/5"
+      className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between gap-6 py-4 md:py-6 px-5 sm:px-6 md:px-12 backdrop-blur-md bg-brand-black/85 border-b border-white/5"
     >
       <a href="/" onClick={onLinkClick} className="text-xl font-bold tracking-tighter uppercase italic whitespace-nowrap">
         Vaibhav Pasi
@@ -55,13 +55,13 @@ export default function Navigation({ route }: { route: Route }) {
               href={item.path}
               onClick={onLinkClick}
               aria-current={active === item.key ? 'page' : undefined}
-              className={`relative whitespace-nowrap text-[0.6875rem] font-bold tracking-widest uppercase transition-colors hover:text-accent ${
+              className={`relative whitespace-nowrap text-[0.9375rem] font-medium transition-colors hover:text-accent ${
                 active === item.key ? 'text-accent' : 'text-gray-400'
               }`}
             >
               {item.label}
               {active === item.key && (
-                <motion.span layoutId="activeTab" className="absolute -bottom-1.5 left-0 w-full h-[1px] bg-accent" />
+                <motion.span layoutId="activeTab" className="absolute -bottom-1.5 left-0 w-full h-[2px] rounded-full bg-accent" />
               )}
             </a>
           </li>
@@ -88,9 +88,9 @@ export default function Navigation({ route }: { route: Route }) {
 
         <a
           href={contactHref}
-          className="hidden md:block whitespace-nowrap bg-brand-yellow text-black px-6 py-2.5 text-[0.6875rem] font-bold uppercase tracking-widest hover:brightness-110 transition-all"
+          className="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-brand-yellow text-black px-5 py-2.5 text-sm font-semibold hover:brightness-105 hover:shadow-lg hover:shadow-brand-yellow/20 transition-all"
         >
-          LET'S COLLABORATE
+          Let's talk <ArrowUpRight className="w-4 h-4" aria-hidden />
         </a>
 
         <button
@@ -174,9 +174,9 @@ export default function Navigation({ route }: { route: Route }) {
 
               <a
                 href={contactHref}
-                className="w-full bg-brand-yellow text-black py-5 font-black uppercase tracking-widest text-xs text-center"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brand-yellow text-black py-4 text-base font-semibold"
               >
-                LET'S COLLABORATE
+                Let's talk <ArrowUpRight className="w-4 h-4" aria-hidden />
               </a>
             </motion.div>
           </motion.div>

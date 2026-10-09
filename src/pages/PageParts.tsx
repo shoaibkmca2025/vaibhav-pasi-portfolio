@@ -50,7 +50,7 @@ export function PageHero({ page, title, intro, facts }: PageHeroProps) {
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             {String(index + 1).padStart(2, '0')} / {label}
           </span>
-          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[8.5rem] font-black tracking-tighter italic uppercase leading-[0.85] max-w-6xl">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[8.5rem] font-black tracking-tighter leading-[0.85] max-w-6xl">
             {title}
           </h1>
           <div className="mt-8 md:mt-10 max-w-2xl text-gray-400 text-base md:text-xl font-normal leading-relaxed">{intro}</div>

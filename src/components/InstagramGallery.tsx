@@ -139,11 +139,11 @@ export default function InstagramGallery() {
   return (
     <section className="section-padding bg-brand-black border-t border-white/5">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-14">
+        <div className="section-head flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-14">
           <div className="max-w-2xl">
             <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5">Instagram</span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-6">
-              Behind the <span className="text-gray-500">Scenes.</span>
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
+              Behind the <span className="text-accent">Scenes.</span>
             </h2>
             <p className="text-gray-400 font-normal leading-relaxed md:text-lg">
               Campaigns, workshops and everyday moments from the work, straight from Instagram.

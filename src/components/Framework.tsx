@@ -15,7 +15,7 @@ export default function Framework() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 italic uppercase">
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6">
                 Everything You Need. <br />
                 <span className="text-accent">One Place.</span>
               </h2>

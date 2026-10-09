@@ -105,14 +105,14 @@ export default function Press() {
   return (
     <section className="section-padding bg-brand-black border-b border-white/5">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
+        <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
           <div className="max-w-2xl">
             <span className="eyebrow font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[0.6875rem] mb-6 block">
               In the Press
             </span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-6 leading-[0.9]">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter mb-6 leading-[0.9]">
               As Featured <br />
-              <span className="text-gray-500">In.</span>
+              <span className="text-accent">In.</span>
             </h2>
             <p className="text-gray-400 font-normal leading-relaxed flex gap-3">
               <Newspaper className="w-5 h-5 shrink-0 text-accent mt-0.5" />

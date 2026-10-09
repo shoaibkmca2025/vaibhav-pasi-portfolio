@@ -167,15 +167,45 @@
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.9em;
-  color: var(--color-gray-300);
+  gap: 0.6em;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--color-accent) 35%, transparent);
+  background: color-mix(in oklab, var(--color-accent) 8%, transparent);
+  color: var(--color-accent);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.2;
 }
 .eyebrow::before {
+  content: "✦";
+  font-size: 0.9em;
+  letter-spacing: 0;
+}
+
+/* ─── Section headers: centred, with a short accent rule under the title ───
+   Applied to each section's header row; the old right-hand "01 — LABEL" markers are hidden. */
+.section-head {
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center;
+}
+.section-head > div:first-child {
+  margin-inline: auto;
+}
+.section-head .section-marker {
+  display: none;
+}
+.section-head h2::after {
   content: "";
-  flex: none;
-  width: 1.75em;
-  height: 2px;
-  border-radius: 2px;
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  margin: 1.25rem auto 0;
+  border-radius: 3px;
   background: var(--color-accent);
 }
 
@@ -206,7 +236,8 @@
   /* Kept soft: a strong neon halo blurs letter edges and hurts legibility */
   text-shadow: 0 0 24px rgba(245, 255, 0, 0.22);
 }
-/* Light mode: a yellow highlighter stroke instead of yellow text, which would vanish on white */
+/* Light mode: a yellow highlighter stroke instead of yellow text, which would vanish on white.
+   (Inside always-dark areas such as the hero, the glowing yellow text is kept: see .theme-dark rule below.) */
 :root[data-theme="light"] .glow-yellow {
   color: var(--color-white);
   text-shadow: none;
@@ -223,6 +254,12 @@
     box-decoration-break: clone;
   }
 }
+:root[data-theme="light"] .theme-dark .glow-yellow,
+:root:not([data-theme="dark"]) .theme-dark .glow-yellow {
+  color: var(--color-accent);
+  background: none;
+  text-shadow: 0 0 24px rgba(245, 255, 0, 0.22);
+}
 
 .glow-box {
   box-shadow: 0 0 40px -10px rgba(245, 255, 0, 0.2);
@@ -235,11 +272,11 @@
 
 /* ─── Buttons ─── */
 .btn-primary {
-  @apply bg-brand-yellow text-black px-8 py-4 font-extrabold transition-all hover:brightness-110 active:scale-95 text-[0.6875rem] uppercase tracking-[0.25em];
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-yellow text-black px-7 py-3.5 text-sm font-semibold transition-all hover:brightness-105 hover:shadow-lg hover:shadow-brand-yellow/20 active:scale-[0.98];
 }
 
 .btn-secondary {
-  @apply border border-white/20 text-white px-8 py-4 font-extrabold transition-all hover:bg-white hover:text-black active:scale-95 text-[0.6875rem] uppercase tracking-[0.25em];
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/20 text-white px-7 py-3.5 text-sm font-semibold transition-all hover:bg-white hover:text-brand-black active:scale-[0.98];
 }
 
 /* ─── Editorial section markers ─── */
@@ -358,4 +395,32 @@
 ::selection {
   background: #f5ff00;
   color: #000;
+}
+
+/* ─── "As featured in" logo strip ─── */
+.logo-strip {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.logo-strip-track {
+  animation: logo-scroll 45s linear infinite;
+}
+.logo-strip:hover .logo-strip-track {
+  animation-play-state: paused;
+}
+@keyframes logo-scroll {
+  to {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-strip-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+  }
+  .logo-strip-track > li[aria-hidden] {
+    display: none;
+  }
 }

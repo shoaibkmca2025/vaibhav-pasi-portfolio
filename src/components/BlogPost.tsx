@@ -229,8 +229,8 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
         {more.length > 0 && (
           <section className="section-padding border-t border-white/5 bg-brand-dark-gray/20">
             <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter italic uppercase mb-10 md:mb-14">
-                Keep <span className="text-gray-500">Reading.</span>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-10 md:mb-14">
+                Keep <span className="text-accent">Reading.</span>
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {more.map((p) => (

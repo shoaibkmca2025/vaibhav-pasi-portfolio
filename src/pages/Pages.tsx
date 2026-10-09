@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight, Check, Mail } from 'lucide-react';
 import About from '../components/About';
+import Press from '../components/Press';
+import ServiceShowcase from '../components/ServiceShowcase';
 import Skills from '../components/Skills';
 import Experience from '../components/Experience';
 import Services from '../components/Services';
@@ -44,6 +46,7 @@ export function AboutPage() {
         ]}
       />
       <About />
+      <Press />
       <Skills />
       <Experience />
       <CTASection />
@@ -66,6 +69,7 @@ export function ServicesPage() {
         }
         intro="Growth marketing, paid ads, content, websites, AI automation and marketplace onboarding, planned and run as one system instead of ten separate vendors."
       />
+      <ServiceShowcase />
       <Services />
       <Framework />
       <Scaling />
@@ -201,8 +205,8 @@ export function ContactPage() {
         <div className="max-w-7xl mx-auto grid gap-16 lg:grid-cols-2">
           <div>
             <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Before you write</span>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-10">
-              What to <span className="text-gray-500">Include.</span>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[0.9] mb-10">
+              What to <span className="text-accent">Include.</span>
             </h2>
             <ol className="space-y-4">
               {firstMessageTips.map((t, i) => (
@@ -219,8 +223,8 @@ export function ContactPage() {
 
           <div>
             <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">I can help with</span>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-10">
-              Areas of <span className="text-gray-500">Work.</span>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[0.9] mb-10">
+              Areas of <span className="text-accent">Work.</span>
             </h2>
             <ul className="grid sm:grid-cols-2 gap-3">
               {person.knowsAbout.map((area) => (

@@ -13,13 +13,13 @@ import { Footer } from './components/Footer';
 import Testimonials from './components/Testimonials';
 import CTASection from './components/CTASection';
 import CustomCursor from './components/CustomCursor';
-import Marquee from './components/Marquee';
-import Press from './components/Press';
 import Blog, { BlogIndex } from './components/Blog';
 import BlogPost from './components/BlogPost';
 import ScrollProgress from './components/ScrollProgress';
-import HomeExplore from './pages/HomeExplore';
 import InstagramGallery from './components/InstagramGallery';
+import LogoStrip from './components/LogoStrip';
+import ServiceShowcase from './components/ServiceShowcase';
+import WhatsAppButton from './components/WhatsAppButton';
 import { AboutPage, ClientWinsPage, ContactPage, ServicesPage, WorkPage } from './pages/Pages';
 import { contactEmail, contactHref, socialLinks } from './contact';
 import { useRoute, type Route } from './router';
@@ -30,18 +30,18 @@ import { SPLASH_DONE_EVENT } from './splash';
 function HomePage({ heroKey }: { heroKey: number }) {
   return (
     <main>
+      {/* Layout inspired by agency sites: cinematic hero, press strip, big service cards */}
       <section id="home">
         <Hero key={heroKey} />
-        <Stats />
       </section>
 
-      <Marquee />
+      <LogoStrip />
 
-      <section id="press">
-        <Press />
+      <section id="services">
+        <ServiceShowcase limit={4} />
       </section>
 
-      <HomeExplore />
+      <Stats />
 
       <section id="testimonials">
         <Testimonials />
@@ -160,6 +160,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
       )}
 
       <Footer />
+      <WhatsAppButton />
     </div>
     </MotionConfig>
   );
