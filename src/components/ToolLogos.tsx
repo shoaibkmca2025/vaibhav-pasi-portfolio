@@ -39,7 +39,7 @@ export function ToolChips({ tools, label = 'Tools and technologies' }: { tools?:
 // Home page: the platforms and tools used day to day, shown as a logo row
 export default function ToolLogos() {
   return (
-    <div className="max-w-7xl mx-auto px-5 sm:px-6 md:px-12 lg:px-24 pb-14 md:pb-20">
+    <div className="max-w-5xl mx-auto px-5 sm:px-6 md:px-12 pt-14 md:pt-20 pb-14 md:pb-20">
       <p className="text-center text-xs font-bold tracking-[0.3em] uppercase text-gray-500">Tools and platforms I work with</p>
       <ul className="mt-7 grid grid-cols-4 sm:grid-cols-8 gap-3 md:gap-4">
         {toolStrip.map((icon) => {

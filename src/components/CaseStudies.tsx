@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { ArrowUpRight, Check } from 'lucide-react';
 import { caseStudies, type CaseStudy } from '../content/caseStudies';
 import { onLinkClick } from '../router';
+import { ToolChips } from './ToolLogos';
 
 // Real client case studies from content/caseStudies.ts (results backed by the screenshots in /public/wins).
 // FeaturedProjects is the compact home-page version; the default export shows every case study in full on /work.
@@ -144,13 +145,9 @@ export default function CaseStudies() {
                 <p className="mt-2 text-gray-300 leading-relaxed">{c.built.join(' · ')}</p>
 
                 <h3 className="mt-6 text-xs font-bold tracking-[0.2em] uppercase text-gray-500">Tools</h3>
-                <ul className="mt-2 flex flex-wrap gap-1.5">
-                  {c.stack.map((t) => (
-                    <li key={t} className="rounded-full border border-white/10 px-2.5 py-1 text-xs text-gray-400">
-                      {t}
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-2">
+                  <ToolChips tools={c.stack} />
+                </div>
               </div>
 
               <div className="flex flex-col gap-5">

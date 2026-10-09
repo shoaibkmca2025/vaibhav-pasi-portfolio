@@ -10,6 +10,7 @@ import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import CTASection from '../components/CTASection';
 import LeadForm from '../components/LeadForm';
+import { ToolChips } from '../components/ToolLogos';
 import { contactEmail, contactHref, contactPhoneDisplay, contactPhoneHref, socialLinks } from '../contact';
 import { industries, techGroups, trustFacts } from '../content/proof';
 import { hasDetailPage, services } from '../content/services';
@@ -46,7 +47,9 @@ function Toolkit() {
           {techGroups.map((g) => (
             <div key={g.group} className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
               <dt className="text-xs font-bold tracking-[0.2em] uppercase text-accent">{g.group}</dt>
-              <dd className="mt-2 text-gray-300 leading-relaxed">{g.items.join(' · ')}</dd>
+              <dd className="mt-3">
+                <ToolChips tools={[...g.items]} label={g.group} />
+              </dd>
             </div>
           ))}
         </dl>

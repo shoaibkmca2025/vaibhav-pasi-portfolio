@@ -1,8 +1,9 @@
 import { motion } from 'motion/react';
 import { trustFacts } from '../content/proof';
 import LogoStrip from './LogoStrip';
+import ToolLogos from './ToolLogos';
 
-// Section 3 of the home page: verified facts only (see content/proof.ts), then the press strip
+// Section 3 of the home page: verified facts only (see content/proof.ts), then the press strip and the tools used
 export default function Credibility() {
   return (
     <section aria-label="Credentials" className="bg-brand-black">
@@ -24,6 +25,7 @@ export default function Credibility() {
         </dl>
       </div>
       <LogoStrip />
+      <ToolLogos />
     </section>
   );
 }
