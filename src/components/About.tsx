@@ -319,7 +319,7 @@ export default function About() {
                       className="flex items-start gap-4 group"
                     >
                       <div className="flex flex-col items-center gap-1 shrink-0 mt-0.5">
-                        <span className="w-2 h-2 rounded-full bg-brand-yellow/60 group-hover:bg-brand-yellow group-hover:shadow-[0_0_8px_rgba(232,200,136,0.5)] transition-all" />
+                        <span className="w-2 h-2 rounded-full bg-brand-yellow/60 group-hover:bg-brand-yellow group-hover:shadow-[0_0_8px_rgba(245,255,0,0.5)] transition-all" />
                         {idx < journey.length - 1 && <div className="w-[1px] h-5 bg-white/10" />}
                       </div>
                       <div className="-mt-1">

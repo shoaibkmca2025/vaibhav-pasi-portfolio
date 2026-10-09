@@ -170,7 +170,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
               {service.whyUs && (
                 <motion.div
                   {...reveal}
-                  className="theme-dark rounded-[1.75rem] border border-white/10 p-7 md:p-9 text-white bg-[radial-gradient(120%_120%_at_100%_0%,rgba(232,200,136,0.14),transparent_45%),linear-gradient(135deg,#1c1c1c,#060606)]"
+                  className="theme-dark rounded-[1.75rem] border border-white/10 p-7 md:p-9 text-white bg-[radial-gradient(120%_120%_at_100%_0%,rgba(245,255,0,0.14),transparent_45%),linear-gradient(135deg,#1c1c1c,#060606)]"
                 >
                   <h3 className="text-xl md:text-2xl font-bold tracking-tight">Why choose 4AM Global Media?</h3>
                   <ul className="mt-6 space-y-5">
@@ -311,7 +311,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
                   transition={{ ...reveal.transition, delay: i * 0.08 }}
                   className={`relative flex flex-col rounded-[2rem] p-7 md:p-9 border ${
                     p.popular
-                      ? 'border-black/10 text-black bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#E8C888,#D4B06C)] lg:-my-3 shadow-xl shadow-brand-yellow/10'
+                      ? 'border-black/10 text-black bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#f5ff00,#dde800)] lg:-my-3 shadow-xl shadow-brand-yellow/10'
                       : 'border-white/10 bg-brand-black'
                   }`}
                 >
@@ -353,7 +353,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-5 md:gap-6">
             <motion.div
               {...reveal}
-              className="rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 border border-black/10 text-black bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#E8C888,#D4B06C)]"
+              className="rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 border border-black/10 text-black bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#f5ff00,#dde800)]"
             >
               <p className="text-sm font-semibold text-black/60">Pricing · {service.navTitle}</p>
               <p className="mt-3 text-4xl md:text-6xl font-bold tracking-tighter">{service.price}</p>

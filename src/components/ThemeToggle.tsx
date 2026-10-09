@@ -4,7 +4,7 @@ import { Moon, Sun, SunMoon } from 'lucide-react';
 type Theme = 'light' | 'dark';
 
 const STORAGE_KEY = 'vp-theme';
-const META_COLORS: Record<Theme, string> = { light: '#F8F8E8', dark: '#0B0B0B' };
+const META_COLORS: Record<Theme, string> = { light: '#f6f6f3', dark: '#050505' };
 
 // The theme on screen: an explicit choice (html[data-theme]) or the device setting
 function currentTheme(): Theme {

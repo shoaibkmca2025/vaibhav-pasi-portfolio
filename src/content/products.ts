@@ -23,7 +23,7 @@ export const products: Product[] = [
     category: 'AI',
     summary: 'Ready-to-use prompts for content ideas, captions, ad copy, emails and campaign planning with ChatGPT, Claude or Gemini.',
     features: ['Prompts grouped by marketing task', 'Fill-in-the-blank templates for your brand', 'Examples of strong vs weak outputs'],
-    accent: ['#E8C888', '#7c3aed'],
+    accent: ['#f5ff00', '#7c3aed'],
     format: 'PDF + Notion',
   },
   {
@@ -86,7 +86,7 @@ export const products: Product[] = [
     category: 'AI',
     summary: 'A practical toolkit for using AI across marketing, sales and operations, with prompts, checklists and use-case guides.',
     features: ['AI use-case map by department', 'Prompt library', 'Tool selection checklist', 'Rollout and policy template'],
-    accent: ['#E8C888', '#0a0a0a'],
+    accent: ['#f5ff00', '#0a0a0a'],
     format: 'PDF + Notion',
   },
 ];

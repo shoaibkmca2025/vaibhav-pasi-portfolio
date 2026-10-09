@@ -6,30 +6,30 @@
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-script: "Great Vibes", "Brush Script MT", cursive;
   
-  --color-brand-yellow: #E8C888;
-  --color-brand-black: #0B0B0B;
-  --color-brand-dark-gray: #151513;
-  --color-brand-muted: #1e1d1a;
+  --color-brand-yellow: #f5ff00;
+  --color-brand-black: #050505;
+  --color-brand-dark-gray: #0e0e0e;
+  --color-brand-muted: #1a1a1a;
 
   /* Neutral (untinted) greys tuned for the dark background: Tailwind's default greys lean blue,
-     which clashes with the warm gold brand colour. Body text (400) is ~9.7:1 and small
+     which clashes with the yellow-green brand colour. Body text (400) is ~9.7:1 and small
      labels (500) ~7.2:1, meeting the 7:1 the HIG recommends for small text in dark mode. */
-  --color-gray-100: #f1efe3;
-  --color-gray-200: #e6e3d6;
-  --color-gray-300: #d6d3c7;
-  --color-gray-400: #b5b2a6;
-  --color-gray-500: #9a978c;
-  --color-gray-600: #6f6c63;
-  --color-gray-700: #4a4842;
-  --color-gray-800: #2c2b27;
-  --color-gray-900: #191815;
+  --color-gray-100: #f0f0f0;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #b3b3b3;
+  --color-gray-500: #999999;
+  --color-gray-600: #6e6e6e;
+  --color-gray-700: #4d4d4d;
+  --color-gray-800: #2b2b2b;
+  --color-gray-900: #171717;
 
   /* Apple's soft white: avoids pure-white text and logo plates "glowing" against near-black */
-  --color-white: #F8F8E8;
+  --color-white: #f5f5f7;
 
   /* Accent for text, icons and borders. Solid fills (buttons) keep using brand-yellow, which
      stays bright in both themes; text needs a darker accent in light mode to stay readable. */
-  --color-accent: #E8C888;
+  --color-accent: #f5ff00;
 }
 
 /* ═══════════════════ Light & dark themes ═══════════════════
@@ -47,72 +47,72 @@
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     color-scheme: light;
-    --color-brand-black: #F8F8E8;
-    --color-brand-dark-gray: #EFEEDC;
-    --color-brand-muted: #E5E4D2;
-    --color-white: #0B0B0B;
-    --color-gray-100: #141412;
-    --color-gray-200: #1f1e1b;
-    --color-gray-300: #2c2b27;
-    --color-gray-400: #47453f;
-    --color-gray-500: #5e5b53;
-    --color-gray-600: #8a877d;
-    --color-gray-700: #a9a698;
-    --color-gray-800: #d9d8c6;
-    --color-gray-900: #ebeada;
-    --color-accent: #7A5A1E;
+    --color-brand-black: #f6f6f3;
+    --color-brand-dark-gray: #ecece8;
+    --color-brand-muted: #e2e2dd;
+    --color-white: #141414;
+    --color-gray-100: #121212;
+    --color-gray-200: #1f1f1f;
+    --color-gray-300: #2b2b2b;
+    --color-gray-400: #454545;
+    --color-gray-500: #5c5c5c;
+    --color-gray-600: #858585;
+    --color-gray-700: #a6a6a6;
+    --color-gray-800: #d6d6d2;
+    --color-gray-900: #e9e9e5;
+    --color-accent: #5a6400;
   }
 }
 :root[data-theme="light"] {
   color-scheme: light;
-  --color-brand-black: #F8F8E8;
-  --color-brand-dark-gray: #EFEEDC;
-  --color-brand-muted: #E5E4D2;
-  --color-white: #0B0B0B;
-  --color-gray-100: #141412;
-  --color-gray-200: #1f1e1b;
-  --color-gray-300: #2c2b27;
-  --color-gray-400: #47453f;
-  --color-gray-500: #5e5b53;
-  --color-gray-600: #8a877d;
-  --color-gray-700: #a9a698;
-  --color-gray-800: #d9d8c6;
-  --color-gray-900: #ebeada;
-  --color-accent: #7A5A1E;
+  --color-brand-black: #f6f6f3;
+  --color-brand-dark-gray: #ecece8;
+  --color-brand-muted: #e2e2dd;
+  --color-white: #141414;
+  --color-gray-100: #121212;
+  --color-gray-200: #1f1f1f;
+  --color-gray-300: #2b2b2b;
+  --color-gray-400: #454545;
+  --color-gray-500: #5c5c5c;
+  --color-gray-600: #858585;
+  --color-gray-700: #a6a6a6;
+  --color-gray-800: #d6d6d2;
+  --color-gray-900: #e9e9e5;
+  --color-accent: #5a6400;
 }
 
 /* Text laid over photos and the always-dark intro stay in the dark palette in both themes */
 .theme-dark {
   color-scheme: dark;
-  --color-brand-black: #0B0B0B;
-  --color-brand-dark-gray: #151513;
-  --color-brand-muted: #1e1d1a;
-  --color-white: #F8F8E8;
-  --color-gray-100: #f1efe3;
-  --color-gray-200: #e6e3d6;
-  --color-gray-300: #d6d3c7;
-  --color-gray-400: #b5b2a6;
-  --color-gray-500: #9a978c;
-  --color-accent: #E8C888;
+  --color-brand-black: #050505;
+  --color-brand-dark-gray: #0e0e0e;
+  --color-brand-muted: #1a1a1a;
+  --color-white: #f5f5f7;
+  --color-gray-100: #f0f0f0;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #b3b3b3;
+  --color-gray-500: #999999;
+  --color-accent: #f5ff00;
 }
 
 /* System "Increase Contrast": push secondary text and borders further, in either theme */
 @media (prefers-contrast: more) {
   :root {
     --color-gray-400: #e0ddd0;
-    --color-gray-500: #c9c6b9;
+    --color-gray-500: #c4c4c4;
   }
 }
 @media (prefers-contrast: more) and (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --color-gray-400: #2c2b27;
-    --color-gray-500: #3a3832;
+    --color-gray-400: #2b2b2b;
+    --color-gray-500: #383838;
   }
 }
 @media (prefers-contrast: more) {
   :root[data-theme="light"] {
-    --color-gray-400: #2c2b27;
-    --color-gray-500: #3a3832;
+    --color-gray-400: #2b2b2b;
+    --color-gray-500: #383838;
   }
   .border-white\/5,
   .border-white\/10 {
@@ -242,14 +242,14 @@
 /* ─── Glow effects ─── */
 .glow-yellow {
   /* Kept soft: a strong neon halo blurs letter edges and hurts legibility */
-  text-shadow: none;
+  text-shadow: 0 0 24px rgba(245, 255, 0, 0.22);
 }
 /* Light mode: a yellow highlighter stroke instead of yellow text, which would vanish on white.
    (Inside always-dark areas such as the hero, the glowing yellow text is kept: see .theme-dark rule below.) */
 :root[data-theme="light"] .glow-yellow {
   color: var(--color-white);
   text-shadow: none;
-  background: linear-gradient(transparent 58%, #E8C888 58%, #E8C888 90%, transparent 90%);
+  background: linear-gradient(transparent 58%, #f5ff00 58%, #f5ff00 90%, transparent 90%);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -257,7 +257,7 @@
   :root:not([data-theme="dark"]) .glow-yellow {
     color: var(--color-white);
     text-shadow: none;
-    background: linear-gradient(transparent 58%, #E8C888 58%, #E8C888 90%, transparent 90%);
+    background: linear-gradient(transparent 58%, #f5ff00 58%, #f5ff00 90%, transparent 90%);
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
   }
@@ -266,11 +266,11 @@
 :root:not([data-theme="dark"]) .theme-dark .glow-yellow {
   color: var(--color-accent);
   background: none;
-  text-shadow: none;
+  text-shadow: 0 0 24px rgba(245, 255, 0, 0.22);
 }
 
 .glow-box {
-  box-shadow: 0 0 40px -10px rgba(232, 200, 136, 0.2);
+  box-shadow: 0 0 40px -10px rgba(245, 255, 0, 0.2);
 }
 
 /* ─── Section padding ─── */
@@ -305,7 +305,7 @@
 
 .card-dark:hover {
   @apply border-accent/20;
-  box-shadow: 0 0 50px -20px rgba(232, 200, 136, 0.08);
+  box-shadow: 0 0 50px -20px rgba(245, 255, 0, 0.08);
 }
 
 /* ─── Horizontal scrollers (e.g. blog filters) ─── */
@@ -401,7 +401,7 @@
 
 /* ─── Selection ─── */
 ::selection {
-  background: #E8C888;
+  background: #f5ff00;
   color: #000;
 }
 
