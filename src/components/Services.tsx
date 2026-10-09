@@ -72,7 +72,7 @@ export default function Services() {
       <div
         className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
-          backgroundImage: 'linear-gradient(rgba(79,140,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(79,140,255,0.4) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(214,182,117,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(214,182,117,0.4) 1px, transparent 1px)',
           backgroundSize: '50px 50px'
         }}
       />
@@ -120,7 +120,7 @@ export default function Services() {
                   damping: 20, 
                   delay: index * 0.1 + 0.2 
                 }}
-                className="w-12 h-12 bg-brand-yellow/5 rounded-2xl flex items-center justify-center mb-6 md:mb-8 border border-white/5 group-hover:border-accent/40 group-hover:bg-brand-yellow transition-all duration-500 group-hover:shadow-[0_0_40px_-15px_rgba(79,140,255,0.6)]"
+                className="w-12 h-12 bg-brand-yellow/5 rounded-2xl flex items-center justify-center mb-6 md:mb-8 border border-white/5 group-hover:border-accent/40 group-hover:bg-brand-yellow transition-all duration-500 group-hover:shadow-[0_0_40px_-15px_rgba(214,182,117,0.6)]"
               >
                 <service.icon className="w-5 h-5 text-accent group-hover:text-brand-black transition-colors duration-500" />
               </motion.div>

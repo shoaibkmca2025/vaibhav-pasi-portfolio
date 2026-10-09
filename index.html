@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#070b18" />
+    <meta name="theme-color" content="#090B0F" />
     <!-- Theme: dark by default; the sun/moon button switches to light and remembers the choice.
          Runs before first paint so the page never flashes the wrong theme. -->
     <script>
@@ -13,7 +13,7 @@
         if (t !== 'light') t = 'dark';
         document.documentElement.dataset.theme = t;
         document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
-          m.setAttribute('content', t === 'light' ? '#f5f7fb' : '#070b18');
+          m.setAttribute('content', t === 'light' ? '#F5F3EE' : '#090B0F');
         });
       } catch (e) {}
     </script>
@@ -56,7 +56,7 @@
         align-items: center;
         justify-content: center;
         gap: 22px;
-        background: #070b18;
+        background: #090B0F;
         color: #fff;
         transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
         /* Failsafe: hides itself even if the app's JavaScript never runs */
@@ -80,7 +80,7 @@
         animation-delay: calc(var(--i) * 45ms + 0.1s);
       }
       .splash-name .gap { width: 0.26em; }
-      .splash-name .accent { color: #4f8cff; text-shadow: 0 0 30px rgba(79, 140, 255, 0.35); }
+      .splash-name .accent { color: #D6B675; text-shadow: 0 0 30px rgba(214, 182, 117, 0.35); }
       .splash-bar {
         width: min(320px, 60vw);
         height: 2px;
@@ -90,8 +90,8 @@
       .splash-bar i {
         display: block;
         height: 100%;
-        background: #4f8cff;
-        box-shadow: 0 0 12px rgba(79, 140, 255, 0.7);
+        background: #D6B675;
+        box-shadow: 0 0 12px rgba(214, 182, 117, 0.7);
         transform: scaleX(0);
         transform-origin: left;
         animation: splash-load 1.5s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
@@ -109,16 +109,16 @@
       @keyframes splash-fade { to { opacity: 1; } }
       @keyframes splash-failsafe { to { opacity: 0; visibility: hidden; } }
       /* Light theme intro */
-      :root[data-theme="light"] #splash { background: #f5f7fb; color: #0b1220; }
-      :root[data-theme="light"] .splash-name .accent { color: #1d4ed8; text-shadow: none; }
+      :root[data-theme="light"] #splash { background: #F5F3EE; color: #090B0F; }
+      :root[data-theme="light"] .splash-name .accent { color: #7C5E24; text-shadow: none; }
       :root[data-theme="light"] .splash-bar { background: rgba(0, 0, 0, 0.08); }
-      :root[data-theme="light"] .splash-bar i { background: #1d4ed8; box-shadow: none; }
+      :root[data-theme="light"] .splash-bar i { background: #7C5E24; box-shadow: none; }
       :root[data-theme="light"] .splash-tag { color: #5c5c5c; }
       @media (prefers-color-scheme: light) {
-        :root:not([data-theme="dark"]) #splash { background: #f5f7fb; color: #0b1220; }
-        :root:not([data-theme="dark"]) .splash-name .accent { color: #1d4ed8; text-shadow: none; }
+        :root:not([data-theme="dark"]) #splash { background: #F5F3EE; color: #090B0F; }
+        :root:not([data-theme="dark"]) .splash-name .accent { color: #7C5E24; text-shadow: none; }
         :root:not([data-theme="dark"]) .splash-bar { background: rgba(0, 0, 0, 0.08); }
-        :root:not([data-theme="dark"]) .splash-bar i { background: #1d4ed8; box-shadow: none; }
+        :root:not([data-theme="dark"]) .splash-bar i { background: #7C5E24; box-shadow: none; }
         :root:not([data-theme="dark"]) .splash-tag { color: #5c5c5c; }
       }
       @media (prefers-reduced-motion: reduce) { #splash { display: none; } }

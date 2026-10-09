@@ -18,7 +18,7 @@ export default function Hero() {
           className="absolute inset-0 opacity-[0.05] [mask-image:radial-gradient(70%_60%_at_50%_40%,#000,transparent)]"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(79,140,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(79,140,255,0.5) 1px, transparent 1px)',
+              'linear-gradient(rgba(214,182,117,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(214,182,117,0.5) 1px, transparent 1px)',
             backgroundSize: '64px 64px',
           }}
         />

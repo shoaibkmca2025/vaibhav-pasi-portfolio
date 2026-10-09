@@ -43,7 +43,7 @@ export default function Experience() {
               <div key={exp.company} className="relative">
                 {/* Node */}
                 <div className={`absolute left-[-31px] md:left-[-5px] top-4 w-3 h-3 rounded-full ${
-                  exp.active ? 'bg-accent shadow-[0_0_15px_rgba(79,140,255,0.45)]' : 'bg-gray-800'
+                  exp.active ? 'bg-accent shadow-[0_0_15px_rgba(214,182,117,0.45)]' : 'bg-gray-800'
                 }`} />
 
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>

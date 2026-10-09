@@ -13,7 +13,7 @@ export default function CTASection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="theme-dark relative overflow-hidden max-w-6xl mx-auto rounded-[2rem] md:rounded-[2.5rem] border border-brand-yellow/20 bg-[radial-gradient(90%_120%_at_100%_0%,rgba(79,140,255,0.18),transparent_55%),radial-gradient(70%_90%_at_0%_100%,rgba(255,122,102,0.12),transparent_60%),linear-gradient(135deg,#0f1a33,#070b18)] text-white px-7 py-14 sm:px-12 md:px-16 md:py-20 text-center"
+        className="theme-dark relative overflow-hidden max-w-6xl mx-auto rounded-[2rem] md:rounded-[2.5rem] border border-brand-yellow/20 bg-[radial-gradient(90%_120%_at_100%_0%,rgba(214,182,117,0.18),transparent_55%),radial-gradient(70%_90%_at_0%_100%,rgba(235,211,160,0.12),transparent_60%),linear-gradient(135deg,#151922,#090B0F)] text-white px-7 py-14 sm:px-12 md:px-16 md:py-20 text-center"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.05] max-w-4xl mx-auto">
           Ready to Turn Your Next Idea Into a <span className="text-gradient">Growth Opportunity?</span>

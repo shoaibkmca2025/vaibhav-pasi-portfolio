@@ -10,16 +10,16 @@ export type Variant = 'graphite' | 'yellow' | 'olive';
 const VARIANTS: Variant[] = ['graphite', 'yellow', 'olive'];
 
 export const cardStyle: Record<Variant, string> = {
-  graphite: 'theme-dark bg-[radial-gradient(120%_120%_at_100%_0%,rgba(79,140,255,0.14),transparent_45%),linear-gradient(135deg,#1c1c1c,#060606)] text-white',
-  yellow: 'bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#4f8cff,#3b78f0)] text-black',
-  olive: 'theme-dark bg-[radial-gradient(120%_120%_at_0%_100%,rgba(79,140,255,0.16),transparent_50%),linear-gradient(135deg,#0f1f45,#060a17)] text-white',
+  graphite: 'theme-dark bg-[radial-gradient(120%_120%_at_100%_0%,rgba(214,182,117,0.14),transparent_45%),linear-gradient(135deg,#1c1c1c,#060606)] text-white',
+  yellow: 'bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#D6B675,#C4A35F)] text-black',
+  olive: 'theme-dark bg-[radial-gradient(120%_120%_at_0%_100%,rgba(214,182,117,0.16),transparent_50%),linear-gradient(135deg,#1f1a10,#07080b)] text-white',
 };
 
 // Screen colours for the illustration on each card style
 const screen: Record<Variant, { bg: string; ink: string; soft: string; accent: string }> = {
-  graphite: { bg: '#101010', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#4f8cff' },
+  graphite: { bg: '#101010', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#D6B675' },
   yellow: { bg: '#ffffff', ink: '#111111', soft: 'rgba(0,0,0,0.08)', accent: '#111111' },
-  olive: { bg: '#0b1226', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#4f8cff' },
+  olive: { bg: '#0c0e13', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#D6B675' },
 };
 
 type Scene = 'site' | 'dashboard' | 'chat';
