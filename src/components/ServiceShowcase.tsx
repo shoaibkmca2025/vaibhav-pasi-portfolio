@@ -6,10 +6,10 @@ import { hasWhatsApp, whatsappHref } from '../lib/whatsapp';
 
 // Big rounded showcase cards, one per service: what it is, three deliverables, two actions,
 // and an illustrated laptop + phone. Card styles rotate through the brand: graphite, yellow, olive-black.
-type Variant = 'graphite' | 'yellow' | 'olive';
+export type Variant = 'graphite' | 'yellow' | 'olive';
 const VARIANTS: Variant[] = ['graphite', 'yellow', 'olive'];
 
-const cardStyle: Record<Variant, string> = {
+export const cardStyle: Record<Variant, string> = {
   graphite: 'theme-dark bg-[radial-gradient(120%_120%_at_100%_0%,rgba(245,255,0,0.14),transparent_45%),linear-gradient(135deg,#1c1c1c,#060606)] text-white',
   yellow: 'bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#f5ff00,#dde800)] text-black',
   olive: 'theme-dark bg-[radial-gradient(120%_120%_at_0%_100%,rgba(245,255,0,0.16),transparent_50%),linear-gradient(135deg,#232700,#070800)] text-white',
@@ -23,7 +23,7 @@ const screen: Record<Variant, { bg: string; ink: string; soft: string; accent: s
 };
 
 type Scene = 'site' | 'dashboard' | 'chat';
-const sceneFor = (icon: Service['icon']): Scene =>
+export const sceneFor = (icon: Service['icon']): Scene =>
   icon === 'bot' ? 'chat' : icon === 'megaphone' || icon === 'search' || icon === 'database' ? 'dashboard' : 'site';
 
 function Bar({ w, h = 6, c }: { w: string; h?: number; c: string }) {
@@ -96,7 +96,7 @@ function Screen({ scene, v, compact = false }: { scene: Scene; v: Variant; compa
   );
 }
 
-function Devices({ scene, v }: { scene: Scene; v: Variant }) {
+export function Devices({ scene, v }: { scene: Scene; v: Variant }) {
   const frame = v === 'yellow' ? '#111111' : '#2a2a2a';
   return (
     <div className="relative w-full max-w-[460px] mx-auto pr-[14%] pb-[6%]" aria-hidden>
@@ -181,13 +181,13 @@ export default function ServiceShowcase({ limit = services.length }: { limit?: n
                         {cta.label} <ArrowUpRight className="w-4 h-4" aria-hidden />
                       </a>
                       <a
-                        href="/services"
+                        href={service.href.startsWith('/services/') ? service.href : '/contact'}
                         onClick={onLinkClick}
                         className={`inline-flex items-center gap-2 min-h-11 px-6 rounded-full text-sm font-semibold border transition-colors ${
                           onYellow ? 'border-black/25 hover:bg-black/5' : 'border-white/25 hover:bg-white/10'
                         }`}
                       >
-                        Details & pricing
+                        {service.href.startsWith('/services/') ? 'Details & pricing' : 'Book a call'}
                       </a>
                     </div>
                   </div>

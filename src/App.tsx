@@ -21,6 +21,7 @@ import LogoStrip from './components/LogoStrip';
 import ServiceShowcase from './components/ServiceShowcase';
 import WhatsAppButton from './components/WhatsAppButton';
 import { AboutPage, ClientWinsPage, ContactPage, ServicesPage, WorkPage } from './pages/Pages';
+import ServiceDetailPage from './pages/ServiceDetailPage';
 import { contactEmail, contactHref, socialLinks } from './contact';
 import { useRoute, type Route } from './router';
 import { applySeo, getSeo } from './seo';
@@ -105,6 +106,8 @@ function PageContent({ route, heroKey }: { route: Route; heroKey: number; key?: 
       return <AboutPage />;
     case 'services':
       return <ServicesPage />;
+    case 'service':
+      return <ServiceDetailPage slug={route.slug} />;
     case 'work':
       return <WorkPage />;
     case 'client-wins':
@@ -121,7 +124,8 @@ function PageContent({ route, heroKey }: { route: Route; heroKey: number; key?: 
 // `initialPath` is passed when prerendering at build time; in the browser the URL is used
 export default function App({ initialPath }: { initialPath?: string }) {
   const route = useRoute(initialPath);
-  const routeKey = route.page === 'post' ? `post:${route.slug}` : route.page;
+  const routeKey =
+    route.page === 'post' ? `post:${route.slug}` : route.page === 'service' ? `service:${route.slug}` : route.page;
   const previousRoute = useRef(routeKey);
   // Bumped when the intro splash lifts, remounting the hero so its entrance plays in view
   const [heroKey, setHeroKey] = useState(0);

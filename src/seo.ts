@@ -1,4 +1,5 @@
 import { posts, getPost } from './blog/posts';
+import { getService } from './content/services';
 import { faqs } from './components/FAQ';
 import { featureHeadline, publications } from './components/Press';
 import { parseRoute, sitePages, type PageKey } from './router';
@@ -189,6 +190,77 @@ export function getSeo(pathname: string): Seo {
         ],
       },
     };
+  }
+
+  if (route.page === 'service') {
+    const service = getService(route.slug);
+    if (service) {
+      const path = service.href;
+      const url = absoluteUrl(path);
+      const priceMatch = service.price.replace(/,/g, '').match(/\d+/);
+      return {
+        title: service.seo.title,
+        description: service.seo.description || service.short,
+        path,
+        image: SHARE_IMAGE_URL,
+        type: 'website',
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@graph': [
+            websiteSchema,
+            personSchema,
+            organizationSchema,
+            {
+              '@type': 'Service',
+              '@id': `${url}#service`,
+              name: service.title,
+              serviceType: service.navTitle,
+              description: service.intro,
+              url,
+              provider: { '@id': PERSON_ID },
+              areaServed: { '@type': 'Country', name: 'India' },
+              ...(priceMatch
+                ? {
+                    offers: {
+                      '@type': 'Offer',
+                      priceCurrency: 'INR',
+                      price: priceMatch[0],
+                      description: service.priceNote,
+                      url,
+                    },
+                  }
+                : {}),
+              hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: `${service.navTitle}: what's included`,
+                itemListElement: service.deliverables.map((d) => ({
+                  '@type': 'Offer',
+                  itemOffered: { '@type': 'Service', name: d },
+                })),
+              },
+            },
+            ...(service.faqs.length
+              ? [
+                  {
+                    '@type': 'FAQPage',
+                    '@id': `${url}#faq`,
+                    mainEntity: service.faqs.map((f) => ({
+                      '@type': 'Question',
+                      name: f.question,
+                      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+                    })),
+                  },
+                ]
+              : []),
+            breadcrumbs([
+              { name: 'Home', path: '/' },
+              { name: 'Services', path: '/services' },
+              { name: service.navTitle, path },
+            ]),
+          ],
+        },
+      };
+    }
   }
 
   if (route.page === 'blog') {

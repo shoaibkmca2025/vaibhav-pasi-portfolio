@@ -5,9 +5,6 @@ import Press from '../components/Press';
 import ServiceShowcase from '../components/ServiceShowcase';
 import Skills from '../components/Skills';
 import Experience from '../components/Experience';
-import Services from '../components/Services';
-import Framework from '../components/Framework';
-import Scaling from '../components/Scaling';
 import HowItWorks from '../components/HowItWorks';
 import Projects from '../components/Projects';
 import CaseStudies from '../components/CaseStudies';
@@ -17,7 +14,9 @@ import FAQ from '../components/FAQ';
 import CTASection from '../components/CTASection';
 import { contactEmail, contactHref, socialLinks } from '../contact';
 import { person } from '../site';
+import { services } from '../content/services';
 import { NextPage, PageHero } from './PageParts';
+import { onLinkClick } from '../router';
 
 /* ─────────────── About ─────────────── */
 export function AboutPage() {
@@ -56,6 +55,48 @@ export function AboutPage() {
 }
 
 /* ─────────────── Services ─────────────── */
+// Side-by-side summary of every service and its starting price, linking to the detail pages
+function ServicesCompare() {
+  return (
+    <section id="compare" className="scroll-mt-24 section-padding bg-brand-dark-gray border-y border-white/5">
+      <div className="max-w-5xl mx-auto">
+        <div className="section-head flex flex-col items-center text-center mb-10 md:mb-14">
+          <div className="max-w-2xl">
+            <span className="eyebrow mb-5">Compare</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-[1.08]">
+              Services at a <span className="text-accent">glance.</span>
+            </h2>
+            <p className="mt-6 text-gray-400 md:text-lg leading-relaxed">Starting prices, so you know where to begin. Open any service for the full scope, process and FAQs.</p>
+          </div>
+        </div>
+        <ul className="rounded-[1.75rem] border border-white/10 bg-brand-black overflow-hidden divide-y divide-white/10">
+          {services.map((s) => {
+            const detail = s.href.startsWith('/services/');
+            return (
+              <li key={s.slug}>
+                <a
+                  href={detail ? s.href : '/contact'}
+                  onClick={onLinkClick}
+                  className="group grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] items-center gap-2 sm:gap-6 px-6 md:px-8 py-5 hover:bg-white/[0.03] transition-colors"
+                >
+                  <span>
+                    <span className="block font-bold text-lg tracking-tight group-hover:text-accent transition-colors">{s.title}</span>
+                    <span className="block text-sm text-gray-400 mt-0.5">{s.short}</span>
+                  </span>
+                  <span className="font-semibold whitespace-nowrap">{s.price}</span>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent whitespace-nowrap">
+                    {detail ? 'View details' : 'Book a call'} <ArrowUpRight className="w-4 h-4" aria-hidden />
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 export function ServicesPage() {
   return (
     <main>
@@ -70,9 +111,7 @@ export function ServicesPage() {
         intro="Growth marketing, paid ads, content, websites, AI automation and marketplace onboarding, planned and run as one system instead of ten separate vendors."
       />
       <ServiceShowcase />
-      <Services />
-      <Framework />
-      <Scaling />
+      <ServicesCompare />
       <HowItWorks />
       <CTASection />
       <NextPage page="services" />

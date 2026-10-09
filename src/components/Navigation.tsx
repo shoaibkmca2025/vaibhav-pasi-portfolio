@@ -8,7 +8,8 @@ import { onLinkClick, sitePages, type Route } from '../router';
 const navItems = [{ key: 'home', path: '/', label: 'Home' }, ...sitePages];
 
 // Articles live under the Blog tab
-const activeKey = (route: Route) => (route.page === 'post' ? 'blog' : route.page);
+// Article pages highlight Blog; individual service pages highlight Services
+const activeKey = (route: Route) => (route.page === 'post' ? 'blog' : route.page === 'service' ? 'services' : route.page);
 
 export default function Navigation({ route }: { route: Route }) {
   const [isOpen, setIsOpen] = useState(false);
