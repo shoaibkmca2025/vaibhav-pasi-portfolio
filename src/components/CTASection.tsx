@@ -1,50 +1,43 @@
 import { motion } from 'motion/react';
-import { ArrowUpRight } from 'lucide-react';
-import { contactHref } from '../contact';
+import { ArrowUpRight, MessageCircle, Send } from 'lucide-react';
+import { bookingExternal, bookingHref } from '../lib/booking';
+import { hasWhatsApp, whatsappHref } from '../lib/whatsapp';
+import { onLinkClick } from '../router';
 
+// Final call to action, used at the end of most pages
 export default function CTASection() {
   return (
-    <section className="py-20 md:py-40 px-5 sm:px-6 overflow-hidden">
-      <motion.div 
-        initial={{ scale: 0.95, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
+    <section className="px-5 sm:px-6 md:px-12 lg:px-24 py-20 md:py-28">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="max-w-7xl mx-auto bg-brand-yellow rounded-[2rem] md:rounded-[3rem] p-10 sm:p-14 md:p-28 text-black relative overflow-hidden"
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="theme-dark relative overflow-hidden max-w-6xl mx-auto rounded-[2rem] md:rounded-[2.5rem] border border-brand-yellow/20 bg-[radial-gradient(90%_120%_at_100%_0%,rgba(232,200,136,0.16),transparent_55%),linear-gradient(135deg,#171613,#0B0B0B)] text-white px-7 py-14 sm:px-12 md:px-16 md:py-20 text-center"
       >
-        {/* Background grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.06] pointer-events-none"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.4) 1px, transparent 1px)',
-            backgroundSize: '40px 40px'
-          }}
-        />
-
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16 relative z-10">
-          <div className="max-w-2xl">
-            <span className="text-[0.6875rem] font-bold tracking-[0.4em] uppercase text-black/50 mb-6 block">Ready to Scale?</span>
-            <h2 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[0.85] mb-8">
-              Your Growth <br />
-              Shouldn't Sleep.
-            </h2>
-            <p className="text-black/60 font-medium text-base sm:text-lg md:text-xl max-w-xl leading-relaxed">
-              Neither do we. Join the 30,000+ brands and creators who have integrated our ecosystem to achieve total digital dominance.
-            </p>
-          </div>
-          
-          <div className="flex-shrink-0">
-            <a href={contactHref} className="w-36 h-36 sm:w-44 sm:h-44 md:w-56 md:h-56 bg-black text-brand-yellow rounded-full flex flex-col items-center justify-center font-black tracking-[0.2em] text-[0.6875rem] gap-3 hover:scale-105 transition-all group relative overflow-hidden">
-              {/* Rotating border */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-1 rounded-full border border-dashed border-brand-yellow/20"
-              />
-              <span className="uppercase relative z-10">Scale Now</span>
-              <ArrowUpRight className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform relative z-10" />
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.05] max-w-4xl mx-auto">
+          Ready to Turn Your Next Idea Into a <span className="text-accent">Growth Opportunity?</span>
+        </h2>
+        <p className="mt-6 text-gray-400 md:text-lg max-w-2xl mx-auto leading-relaxed">
+          Let's discuss your business goals and identify the right technology or marketing solution.
+        </p>
+        <div className="mt-10 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3">
+          <a
+            href={bookingHref}
+            data-cta="book"
+            {...(bookingExternal ? { target: '_blank', rel: 'noopener noreferrer' } : { onClick: onLinkClick })}
+            className="btn-primary w-full sm:w-auto"
+          >
+            Book a Strategy Call <ArrowUpRight className="w-4 h-4" aria-hidden />
+          </a>
+          {hasWhatsApp && (
+            <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className="btn-secondary w-full sm:w-auto">
+              <MessageCircle className="w-4 h-4" aria-hidden /> WhatsApp
             </a>
-          </div>
+          )}
+          <a href="/contact#enquire" onClick={onLinkClick} className="btn-secondary w-full sm:w-auto">
+            <Send className="w-4 h-4" aria-hidden /> Send an Enquiry
+          </a>
         </div>
       </motion.div>
     </section>

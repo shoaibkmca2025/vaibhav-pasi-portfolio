@@ -1,28 +1,12 @@
 import { motion } from 'motion/react';
-import { FileCheck2, PhoneCall, Rocket, TrendingUp } from 'lucide-react';
+import { Map as MapIcon, Rocket, Search, TrendingUp } from 'lucide-react';
 
 // How an engagement runs, whichever service it is
 const steps = [
-  {
-    icon: PhoneCall,
-    title: 'Discovery call',
-    description: 'A focused conversation about your business, goals, audience and what has or hasn\'t worked so far.',
-  },
-  {
-    icon: FileCheck2,
-    title: 'Proposal & fixed scope',
-    description: 'A written plan with deliverables, timeline and price, so you know exactly what you\'re getting before we start.',
-  },
-  {
-    icon: Rocket,
-    title: 'Build & launch',
-    description: 'The work gets done in short, visible milestones with your feedback at each step, then goes live.',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Measure & improve',
-    description: 'Tracking is in place from day one, so we review real numbers and keep improving what moves results.',
-  },
+  { icon: Search, title: 'Discover', description: 'Understand goals, audience, and challenges.' },
+  { icon: MapIcon, title: 'Strategize', description: 'Define the scope, priorities, and execution plan.' },
+  { icon: Rocket, title: 'Execute', description: 'Deliver the agreed marketing, development, or automation work.' },
+  { icon: TrendingUp, title: 'Optimize', description: 'Measure performance and improve based on real data.' },
 ];
 
 export default function HowItWorks() {
@@ -32,10 +16,10 @@ export default function HowItWorks() {
         <div className="section-head text-center mb-12 md:mb-16">
           <span className="eyebrow mb-5">Process</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-[1.08]">
-            How we <span className="text-accent">work together.</span>
+            How I <span className="text-accent">work.</span>
           </h2>
           <p className="mt-6 text-gray-400 md:text-lg max-w-xl mx-auto leading-relaxed">
-            The same clear four steps for every project, from a one-page website to a full automation system.
+            The same four stages for every engagement, from a one-page website to a full automation system.
           </p>
         </div>
 

@@ -1,65 +1,9 @@
 import { useState } from 'react';
 import { Plus } from 'lucide-react';
-import { contactEmail } from '../contact';
 
-// Short, direct answers (~40-60 words) so search and AI answer engines can quote them.
-// These also feed the FAQPage structured data in src/seo.ts.
-export const faqs = [
-  {
-    question: 'Who is Vaibhav Pasi?',
-    answer:
-      'Vaibhav Pasi is a technology entrepreneur, digital marketing strategist, software developer and AI consultant based in India. He is the Co-Founder of 4AM Global Media and helps startups, SMEs and enterprises grow through data-driven marketing, AI-powered business systems, high-performance websites and marketplace onboarding.',
-  },
-  {
-    question: 'What services does Vaibhav Pasi offer?',
-    answer:
-      'Vaibhav offers digital marketing strategy, performance marketing, social media growth, SEO, branding, website design and development, AI and business automation, product onboarding for e-commerce and quick-commerce marketplaces, technology consulting, and AI workshops and corporate training.',
-  },
-  {
-    question: 'What is 4AM Global Media?',
-    answer:
-      '4AM Global Media is a digital company co-founded by Vaibhav Pasi. It delivers software engineering, AI automation, branding, digital marketing, website development, cloud technologies and technology consulting for brands that want to scale.',
-  },
-  {
-    question: 'Where is Vaibhav Pasi based?',
-    answer:
-      'Vaibhav Pasi is based in India and works with startups, SMEs, enterprises and creators across India and internationally, both remotely and on site for workshops and training.',
-  },
-  {
-    question: 'How can I contact Vaibhav Pasi?',
-    answer: `Email Vaibhav Pasi at ${contactEmail}, or reach him on LinkedIn, Instagram or X. The contact page at vaibhavpasi.online/contact lists every channel and what to include in your first message.`,
-  },
-  {
-    question: 'Can Vaibhav help my brand launch on Blinkit, Zepto or Instamart?',
-    answer:
-      'Yes. As a Product Onboarding Expert, Vaibhav provides end-to-end support for launching on India\'s leading e-commerce and quick-commerce platforms, including seller account setup, compliance, catalog creation, listing optimization, inventory management, pricing strategy and marketplace growth consulting.',
-  },
-  {
-    question: 'Does Vaibhav Pasi run AI workshops and training?',
-    answer:
-      'Yes. Vaibhav runs AI workshops, corporate training programs and Vibe Coding sessions that help students, professionals and business leaders adopt AI, build digital products and automate business processes.',
-  },
-  {
-    question: 'How long does it take to see results?',
-    answer:
-      'Our ecosystem begins operating immediately upon setup. While viral loops can happen instantly, we optimize for sustained exponential growth over 90-day cycles.',
-  },
-  {
-    question: 'Do you offer custom plans?',
-    answer:
-      'Every brand has a unique DNA. While our frameworks are standardized for performance, we tailor the strategic execution to fit your specific market category.',
-  },
-  {
-    question: 'What platforms do you specialize in?',
-    answer:
-      'We dominate where the attention is. This includes Instagram, TikTok, YouTube, X (Twitter), and emerging tech-centric social ecosystems.',
-  },
-  {
-    question: 'How do I get started?',
-    answer:
-      'The first step is choosing a plan or booking a strategy call. Once initiated, our team will reach out within 24 hours to begin the integration process.',
-  },
-];
+// Answers come from content/faqs.ts (accurate, no guarantees). Re-exported for the FAQ structured data.
+export { faqs } from '../content/faqs';
+import { faqs } from '../content/faqs';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);

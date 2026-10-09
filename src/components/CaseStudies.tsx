@@ -1,170 +1,168 @@
 import { motion } from 'motion/react';
-import { Target, Lightbulb, BarChart3, ChevronRight } from 'lucide-react';
-import { unsplashAt, unsplashSrcSet } from '../image';
+import { ArrowUpRight, Check } from 'lucide-react';
+import { caseStudies, type CaseStudy } from '../content/caseStudies';
+import { onLinkClick } from '../router';
 
-const caseStudies = [
-  {
-    id: 'growth-01',
-    title: '4amglobalmedia: Scaling to 100K+',
-    client: 'Internal Brand',
-    category: 'Viral Growth',
-    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop',
-    secondaryImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
-    goals: 'Establish a dominant digital presence and reach 100,000 active followers within 12 months without paid acquisitions.',
-    strategy: [
-      'Iterative algorithmic testing for short-form video optimization.',
-      'Narrative-driven content pillars focused on "Digital Sovereignty".',
-      'High-frequency distribution across Twitter and Instagram ecosystems.'
-    ],
-    results: [
-      { label: 'Followers', value: '112,400' },
-      { label: 'Avg Monthly Reach', value: '1.2M' },
-      { label: 'Conversion Rate', value: '8.4%' }
-    ]
-  },
-  {
-    id: 'tech-01',
-    title: 'Luxury E-commerce Re-architecture',
-    client: 'Elite Maison',
-    category: 'Software Solutions',
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop',
-    secondaryImage: 'https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1964&auto=format&fit=crop',
-    goals: 'Reduce cart abandonment and improve mobile site performance for a high-ticket lifestyle brand.',
-    strategy: [
-      'Migration to a headless commerce architecture using Next.js.',
-      'Implementation of one-click checkout and AI-driven product recommendations.',
-      'Precision LCP (Largest Contentful Paint) optimization for global users.'
-    ],
-    results: [
-      { label: 'Page Load', value: '0.9s' },
-      { label: 'Checkout Conv.', value: '+42%' },
-      { label: 'Mobile Sales', value: '+65%' }
-    ]
-  }
-];
+// Real client case studies from content/caseStudies.ts (results backed by the screenshots in /public/wins).
+// FeaturedProjects is the compact home-page version; the default export shows every case study in full on /work.
 
-export default function CaseStudies() {
+const enquireHref = (c: CaseStudy) => `/contact?service=${encodeURIComponent(c.cta.service)}#enquire`;
+
+function Badge() {
+  return (
+    <span className="inline-flex items-center rounded-full border border-brand-yellow/30 bg-brand-yellow/10 px-3 py-1 text-xs font-semibold text-accent">
+      Client work
+    </span>
+  );
+}
+
+function Outcomes({ outcome }: { outcome: CaseStudy['outcome'] }) {
+  return (
+    <dl className="grid grid-cols-3 gap-3">
+      {outcome.map((o) => (
+        <div key={o.label} className="flex flex-col-reverse justify-end rounded-xl border border-white/10 px-3 py-3">
+          <dt className="mt-1 text-xs text-gray-400 leading-snug">{o.label}</dt>
+          <dd className="text-xl md:text-2xl font-bold tracking-tight text-accent">{o.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+function Screenshot({ c, priority = false }: { c: CaseStudy; priority?: boolean }) {
+  const shot = c.screenshots[0];
+  if (!shot) return null;
+  return (
+    <a href={shot.src} target="_blank" rel="noopener" className="block rounded-2xl overflow-hidden border border-white/10 bg-brand-dark-gray group/shot">
+      <img
+        src={shot.src}
+        alt={shot.alt}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        className="w-full max-h-[420px] object-contain transition-transform duration-500 group-hover/shot:scale-[1.02]"
+      />
+      <span className="sr-only">Open the original screenshot</span>
+    </a>
+  );
+}
+
+export function FeaturedProjects() {
   return (
     <section className="section-padding bg-brand-black">
       <div className="max-w-7xl mx-auto">
-        <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
+        <div className="section-head flex flex-col items-center text-center mb-12 md:mb-16">
           <div className="max-w-2xl">
-            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Proof</span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
-              Case <span className="text-accent">Studies.</span>
+            <span className="eyebrow mb-5">Featured projects</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-[1.08]">
+              Real work, <span className="text-accent">real numbers.</span>
             </h2>
-            <p className="text-gray-400 font-normal leading-relaxed md:text-lg">
-              Deep dives into the strategies that drive exponential growth. No fluff—just data, precision, and architectural mastery.
+            <p className="mt-6 text-gray-400 md:text-lg leading-relaxed">
+              Results from client accounts, each backed by the original screenshot. Client names are kept private.
             </p>
           </div>
-          <div className="section-marker self-start md:self-auto">
-            03 — IMPACT
-          </div>
         </div>
 
-        <div className="space-y-20 md:space-y-32">
-          {caseStudies.map((study, idx) => (
-            <motion.div
-              key={study.id}
-              initial={{ opacity: 0, y: 40 }}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+          {caseStudies.slice(0, 3).map((c, i) => (
+            <motion.article
+              key={c.slug}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className={`flex flex-col ${idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 md:gap-12 lg:gap-24`}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+              className="flex flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-5 md:p-6"
             >
-              {/* Visual Side */}
-              <div className="flex-1 lg:w-1/2 relative group">
-                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/5 bg-brand-dark-gray/20">
-                  <img
-                    src={unsplashAt(study.image, 1200)}
-                    srcSet={unsplashSrcSet(study.image)}
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    alt={study.title}
-                    className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 pointer-coarse:grayscale-0 pointer-coarse:opacity-90 transition-all duration-1000"
-                    loading="lazy"
-                    decoding="async"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-                  <div className="absolute top-4 left-4 md:top-6 md:left-6">
-                     <span className="theme-dark bg-black/50 backdrop-blur-md text-accent border border-accent/20 px-4 py-1 rounded-full text-[0.6875rem] font-bold tracking-widest uppercase">
-                        {study.category}
-                     </span>
-                  </div>
-                </div>
-
-                {/* Secondary Floating Image */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8, x: idx % 2 === 0 ? 50 : -50 }}
-                  whileInView={{ opacity: 1, scale: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.4 }}
-                  className={`absolute -bottom-10 ${idx % 2 === 0 ? '-right-10' : '-left-10'} w-2/3 aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl z-20 hidden md:block`}
-                >
-                  <img
-                    src={unsplashAt(study.secondaryImage, 800)}
-                    srcSet={unsplashSrcSet(study.secondaryImage, [480, 800, 1200])}
-                    sizes="(min-width: 1024px) 33vw, 66vw"
-                    alt={`${study.title} detail`}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
-                    loading="lazy"
-                    decoding="async"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-black/20" />
-                </motion.div>
+              <Screenshot c={c} />
+              <div className="mt-5 flex flex-wrap items-center gap-2">
+                <Badge />
+                <span className="text-xs text-gray-500">{c.category}</span>
               </div>
-
-              {/* Content Side */}
-              <div className="flex-1 lg:w-1/2 flex flex-col justify-center">
-                <div className="text-xs font-bold text-gray-500 mb-2 uppercase tracking-widest">CLIENT: {study.client}</div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-8 leading-tight md:leading-none">{study.title}</h3>
-                
-                <div className="space-y-10">
-                  <div>
-                    <div className="flex items-center gap-2 mb-3 text-accent">
-                      <Target className="w-4 h-4" />
-                      <span className="text-[0.6875rem] font-bold tracking-widest uppercase">Project Goal</span>
-                    </div>
-                    <p className="text-sm text-gray-400 font-normal leading-relaxed">
-                      {study.goals}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-2 mb-4 text-accent">
-                      <Lightbulb className="w-4 h-4" />
-                      <span className="text-[0.6875rem] font-bold tracking-widest uppercase">Implemented Strategy</span>
-                    </div>
-                    <ul className="space-y-3">
-                      {study.strategy.map((item, i) => (
-                        <li key={i} className="flex gap-3 text-sm text-gray-300 font-normal">
-                          <ChevronRight className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="pt-8 border-t border-white/5">
-                    <div className="flex items-center gap-2 mb-6 text-accent">
-                      <BarChart3 className="w-4 h-4" />
-                      <span className="text-[0.6875rem] font-bold tracking-widest uppercase">Measurable Results</span>
-                    </div>
-                    <div className="grid grid-cols-3 gap-3 sm:gap-4">
-                      {study.results.map((res) => (
-                        <div key={res.label}>
-                          <div className="text-lg min-[400px]:text-xl sm:text-2xl font-bold tracking-tighter">{res.value}</div>
-                          <div className="text-[0.6875rem] text-gray-500 font-bold uppercase tracking-wider">{res.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+              <h3 className="mt-3 text-xl font-bold tracking-tight leading-snug">{c.headline}</h3>
+              <p className="mt-2 text-sm text-gray-400 leading-relaxed">{c.challenge}</p>
+              <div className="mt-5">
+                <Outcomes outcome={c.outcome} />
               </div>
-            </motion.div>
+              <a
+                href={`/work#${c.slug}`}
+                onClick={onLinkClick}
+                className="mt-auto pt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent link-underline self-start"
+              >
+                Read case study <ArrowUpRight className="w-4 h-4" aria-hidden />
+              </a>
+            </motion.article>
           ))}
         </div>
+
+        <div className="mt-10 text-center">
+          <a href="/work" onClick={onLinkClick} className="btn-secondary">
+            View all work
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Full case studies for /work
+export default function CaseStudies() {
+  return (
+    <section className="section-padding bg-brand-black">
+      <div className="max-w-6xl mx-auto space-y-8 md:space-y-10">
+        {caseStudies.map((c, i) => (
+          <motion.article
+            key={c.slug}
+            id={c.slug}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.6 }}
+            className="scroll-mt-28 rounded-[2rem] border border-white/10 bg-white/[0.02] p-6 sm:p-8 md:p-10"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-8 lg:gap-12">
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge />
+                  <span className="text-sm text-gray-500">
+                    {c.client} · {c.category}
+                  </span>
+                </div>
+                <h2 className="mt-4 text-2xl md:text-3xl font-bold tracking-tight leading-snug">{c.headline}</h2>
+
+                <h3 className="mt-6 text-xs font-bold tracking-[0.2em] uppercase text-gray-500">The challenge</h3>
+                <p className="mt-2 text-gray-300 leading-relaxed">{c.challenge}</p>
+
+                <h3 className="mt-6 text-xs font-bold tracking-[0.2em] uppercase text-gray-500">The solution</h3>
+                <ul className="mt-2 space-y-2">
+                  {c.approach.map((a) => (
+                    <li key={a} className="flex gap-2.5 text-gray-300">
+                      <Check className="w-4 h-4 mt-1 shrink-0 text-accent" aria-hidden /> {a}
+                    </li>
+                  ))}
+                </ul>
+
+                <h3 className="mt-6 text-xs font-bold tracking-[0.2em] uppercase text-gray-500">My role & deliverables</h3>
+                <p className="mt-2 text-gray-300 leading-relaxed">{c.built.join(' · ')}</p>
+
+                <h3 className="mt-6 text-xs font-bold tracking-[0.2em] uppercase text-gray-500">Tools</h3>
+                <ul className="mt-2 flex flex-wrap gap-1.5">
+                  {c.stack.map((t) => (
+                    <li key={t} className="rounded-full border border-white/10 px-2.5 py-1 text-xs text-gray-400">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-5">
+                <Screenshot c={c} priority={i === 0} />
+                <Outcomes outcome={c.outcome} />
+                <a href={enquireHref(c)} onClick={onLinkClick} className="btn-primary self-start">
+                  {c.cta.label} <ArrowUpRight className="w-4 h-4" aria-hidden />
+                </a>
+              </div>
+            </div>
+          </motion.article>
+        ))}
       </div>
     </section>
   );

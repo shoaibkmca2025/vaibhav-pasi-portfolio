@@ -1,5 +1,5 @@
-import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react';
-import { contactEmail, contactHref, socialLinks } from '../contact';
+import { ArrowUp, ArrowUpRight, Mail, Phone } from 'lucide-react';
+import { contactEmail, contactHref, contactPhoneDisplay, contactPhoneHref, socialLinks } from '../contact';
 import { posts } from '../blog/posts';
 import { onLinkClick } from '../router';
 import { person } from '../site';
@@ -7,10 +7,9 @@ import { person } from '../site';
 const exploreLinks = [
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
-  { label: 'Work', href: '/work' },
+  { label: 'Portfolio', href: '/work' },
   { label: 'Client Wins', href: '/client-wins' },
-  { label: 'Press', href: '/#press' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Insights', href: '/blog' },
   { label: 'FAQ', href: '/#faq' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -43,6 +42,13 @@ export function Footer() {
               className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-accent transition-colors break-all"
             >
               <Mail className="w-4 h-4 shrink-0 text-accent" /> {contactEmail}
+            </a>
+            <a
+              href={contactPhoneHref}
+              className="mt-3 flex items-center gap-2 text-sm font-medium text-white hover:text-accent transition-colors"
+            >
+              <Phone className="w-4 h-4 shrink-0 text-accent" aria-hidden /> {contactPhoneDisplay}
+              <span className="text-gray-500 font-normal">(call or WhatsApp)</span>
             </a>
           </div>
 
@@ -109,9 +115,16 @@ export function Footer() {
         </div>
 
         <div className="mt-16 md:mt-20 pt-8 pb-[env(safe-area-inset-bottom)] border-t border-white/5 flex flex-col-reverse sm:flex-row items-center justify-between gap-6">
-          <p className="text-[0.6875rem] tracking-widest text-gray-500 uppercase font-bold text-center sm:text-left">
-            © {year} Vaibhav Pasi. All rights reserved.
-          </p>
+          <div className="text-center sm:text-left space-y-2">
+            <p className="text-[0.6875rem] tracking-widest text-gray-500 uppercase font-bold">© {year} Vaibhav Pasi. All rights reserved.</p>
+            <p className="text-xs text-gray-500 max-w-md">
+              Vaibhav Pasi's personal website. Agency projects may be delivered through {person.organization.name}, which he co-founded.
+            </p>
+            <p className="flex justify-center sm:justify-start gap-4 text-xs">
+              <a href="/privacy" onClick={onLinkClick} className="text-gray-400 hover:text-white link-underline">Privacy Policy</a>
+              <a href="/terms" onClick={onLinkClick} className="text-gray-400 hover:text-white link-underline">Terms of Service</a>
+            </p>
+          </div>
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

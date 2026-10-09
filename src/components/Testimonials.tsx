@@ -1,86 +1,52 @@
 import { motion } from 'motion/react';
-import { Quote } from 'lucide-react';
-import { unsplashAt } from '../image';
+import { ArrowUpRight, Quote } from 'lucide-react';
+import { testimonials } from '../content/proof';
 
-const testimonials = [
-  {
-    quote: "Vaibhav's ability to bridge the gap between complex software architecture and aggressive marketing growth is rare. He didn't just build our platform; he engineered our success.",
-    author: "Jameson Lock",
-    title: "Founder, Elite Maison",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop"
-  },
-  {
-    quote: "The viral engineering strategies implemented by Vaibhav took our brand from obscurity to a household name in the tech space in less than six months.",
-    author: "Sarah Chen",
-    title: "Director of Growth, Nexa Systems",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop"
-  },
-  {
-    quote: "Precision is the word that comes to mind. Every line of code and every ad campaign was optimized for performance. A true master of his craft.",
-    author: "Marcus Thorne",
-    title: "CTO, Alpha Stream",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop"
-  }
-];
-
+// Genuine client messages from content/proof.ts, quoted as sent and linked to the original screenshot.
+// Names are withheld; add a name, role and company only with the client's permission.
 export default function Testimonials() {
   return (
-    <section className="section-padding bg-brand-black border-t border-white/5">
+    <section className="section-padding bg-brand-black">
       <div className="max-w-7xl mx-auto">
-        <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
+        <div className="section-head flex flex-col items-center text-center mb-12 md:mb-16">
           <div className="max-w-2xl">
-            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Testimonials</span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
-              Trust by <span className="text-accent">Design.</span>
+            <span className="eyebrow mb-5">In clients' words</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-[1.08]">
+              Messages from <span className="text-accent">real clients.</span>
             </h2>
-            <p className="text-gray-400 font-normal leading-relaxed md:text-lg">
-              Collaborations with industry leaders, founders, and visionaries across the global digital landscape.
+            <p className="mt-6 text-gray-400 md:text-lg leading-relaxed">
+              Quoted exactly as sent. Names are kept private; the original messages are linked.
             </p>
-          </div>
-          <div className="section-marker self-start md:self-auto">
-            04 — VOICES
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-          {testimonials.map((t, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          {testimonials.map((t, i) => (
+            <motion.li
+              key={t.quote}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/10 border border-white/5 flex flex-col justify-between group hover:border-accent/30 transition-all"
+              transition={{ duration: 0.5, delay: (i % 2) * 0.06 }}
             >
-              <div>
-                <Quote className="w-8 h-8 text-accent/20 mb-6 md:mb-8 group-hover:text-accent/50 transition-colors" />
-                <p className="text-base md:text-lg text-gray-300 font-normal leading-relaxed mb-8 md:mb-12 italic">
-                  "{t.quote}"
-                </p>
-              </div>
-              
-              <div className="flex items-center gap-4">
-                <div className="shrink-0 w-12 h-12 rounded-full overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 transition-all">
-                  <img
-                    src={unsplashAt(t.avatar, 96)}
-                    srcSet={`${unsplashAt(t.avatar, 96)} 1x, ${unsplashAt(t.avatar, 192)} 2x`}
-                    width={48}
-                    height={48}
-                    alt={t.author}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <div>
-                  <div className="text-sm font-bold tracking-tight">{t.author}</div>
-                  <div className="text-[0.6875rem] text-gray-500 font-bold uppercase tracking-widest">{t.title}</div>
-                </div>
-              </div>
-            </motion.div>
+              <figure className="h-full flex flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-6 md:p-8">
+                <Quote className="w-6 h-6 text-accent" aria-hidden />
+                <blockquote className="mt-4 text-lg leading-relaxed text-gray-200">“{t.quote}”</blockquote>
+                <figcaption className="mt-auto pt-6 flex items-center justify-between gap-4 text-sm">
+                  <span className="text-gray-400">
+                    {t.author}
+                    {t.role ? ` · ${t.role}` : ''}
+                  </span>
+                  {t.proof && (
+                    <a href={t.proof} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-accent link-underline">
+                      Original message <ArrowUpRight className="w-3.5 h-3.5" aria-hidden />
+                    </a>
+                  )}
+                </figcaption>
+              </figure>
+            </motion.li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
