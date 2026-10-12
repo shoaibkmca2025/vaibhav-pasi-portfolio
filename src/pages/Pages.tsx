@@ -1,4 +1,3 @@
-import { motion } from 'motion/react';
 import { ArrowUpRight, Mail, MessageCircle, Phone } from 'lucide-react';
 import Press from '../components/Press';
 import ServiceShowcase from '../components/ServiceShowcase';
@@ -242,21 +241,16 @@ export function ContactPage() {
 
       <section id="enquire" className="scroll-mt-24 section-padding border-b border-white/5">
         <div className="max-w-7xl mx-auto grid gap-10 lg:gap-12 lg:grid-cols-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
+            data-reveal="up"
             className="lg:col-span-7"
           >
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">Send an enquiry</h2>
             <LeadForm source="contact" />
-          </motion.div>
+          </div>
 
-          <motion.aside
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.08 }}
+          <aside
+            data-reveal="up"
             className="lg:col-span-5"
             aria-label="Other ways to get in touch"
           >
@@ -285,7 +279,7 @@ export function ContactPage() {
                 </li>
               ))}
             </ul>
-          </motion.aside>
+          </aside>
         </div>
       </section>
 

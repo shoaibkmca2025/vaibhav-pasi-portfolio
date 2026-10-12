@@ -65,12 +65,9 @@ function PostCard({ post, index }: { post: Post; index: number; key?: string }) 
 
 function FeaturedPost({ post }: { post: Post }) {
   return (
-    <motion.a
+    <a
+      data-reveal="up"
       href={`/blog/${post.slug}`} onClick={onLinkClick}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="group relative grid grid-cols-1 lg:grid-cols-2 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-accent/30 bg-brand-dark-gray/30 transition-colors duration-500 mb-6 md:mb-8"
     >
       <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-brand-muted">
@@ -108,7 +105,7 @@ function FeaturedPost({ post }: { post: Post }) {
           </span>
         </div>
       </div>
-    </motion.a>
+    </a>
   );
 }
 
@@ -126,7 +123,7 @@ function PostGrid({ items }: { items: Post[] }) {
   const cols = items.length === 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3';
   return (
     <motion.div layout className={`grid grid-cols-1 sm:grid-cols-2 ${cols} gap-4 md:gap-6`}>
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence mode="popLayout" initial={false}>
         {items.map((post, idx) => (
           <PostCard key={post.slug} post={post} index={idx} />
         ))}
@@ -216,23 +213,19 @@ export function BlogIndex() {
       {/* Page hero */}
       <section className="pt-32 md:pt-44 pb-10 md:pb-16 px-5 sm:px-6 md:px-12 lg:px-24 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div className="reveal">
             <span className="inline-flex items-center gap-2.5 text-[0.6875rem] font-extrabold tracking-[0.4em] uppercase text-accent px-5 py-2.5 border border-accent/20 bg-brand-yellow/5 rounded-full mb-8">
               <span className="w-1.5 h-1.5 rounded-full bg-accent" />
               {posts.length} {posts.length === 1 ? 'Article' : 'Articles'}
             </span>
             <h1 className="text-5xl min-[400px]:text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85]">
-              The <span className="text-accent glow-yellow">Journal.</span>
+              All <span className="text-accent glow-yellow">Insights.</span>
             </h1>
             <p className="mt-6 md:mt-8 text-gray-400 font-normal text-base md:text-xl leading-relaxed max-w-2xl">
               Playbooks, experiments and hard-won lessons on growth marketing, AI, e-commerce and building brands that
               scale.
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 

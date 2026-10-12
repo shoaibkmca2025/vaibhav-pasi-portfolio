@@ -1,5 +1,4 @@
-import type { ReactNode } from 'react';
-import { motion } from 'motion/react';
+import type { CSSProperties, ReactNode } from 'react';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { onLinkClick, sitePages, type PageKey } from '../router';
 
@@ -45,7 +44,7 @@ export function PageHero({ page, title, intro, facts }: PageHeroProps) {
           </ol>
         </nav>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <div className="reveal">
           <span className="inline-flex items-center gap-2.5 text-[0.6875rem] font-extrabold tracking-[0.4em] uppercase text-gray-300 mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-accent" />
             {String(index + 1).padStart(2, '0')} / {label}
@@ -54,23 +53,21 @@ export function PageHero({ page, title, intro, facts }: PageHeroProps) {
             {title}
           </h1>
           <div className="mt-8 md:mt-10 max-w-2xl text-gray-400 text-base md:text-xl font-normal leading-relaxed">{intro}</div>
-        </motion.div>
+        </div>
 
         {facts && (
-          <motion.dl
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 max-w-4xl"
+          <dl
+            className="reveal mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 max-w-4xl"
+            style={{ '--d': '200ms' } as CSSProperties}
           >
             {facts.map((f) => (
               <div key={f.label} className="border-l-2 border-accent pl-4">
                 <dt className="sr-only">{f.label}</dt>
-                <dd className="text-3xl md:text-4xl font-black italic tracking-tighter">{f.value}</dd>
+                <dd data-count className="text-3xl md:text-4xl font-black italic tracking-tighter">{f.value}</dd>
                 <dd className="mt-1 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">{f.label}</dd>
               </div>
             ))}
-          </motion.dl>
+          </dl>
         )}
       </div>
     </header>

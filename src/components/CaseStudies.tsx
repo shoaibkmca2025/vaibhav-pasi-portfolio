@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import type { CSSProperties } from 'react';
 import { ArrowUpRight, Check } from 'lucide-react';
 import { caseStudies, type CaseStudy } from '../content/caseStudies';
 import { onLinkClick } from '../router';
@@ -23,7 +23,7 @@ function Outcomes({ outcome }: { outcome: CaseStudy['outcome'] }) {
       {outcome.map((o) => (
         <div key={o.label} className="flex flex-col-reverse justify-end rounded-xl border border-white/10 px-3 py-3">
           <dt className="mt-1 text-xs text-gray-400 leading-snug">{o.label}</dt>
-          <dd className="text-xl md:text-2xl font-bold tracking-tight text-accent">{o.value}</dd>
+          <dd data-count className="text-xl md:text-2xl font-bold tracking-tight text-accent">{o.value}</dd>
         </div>
       ))}
     </dl>
@@ -34,7 +34,7 @@ function Screenshot({ c, priority = false }: { c: CaseStudy; priority?: boolean 
   const shot = c.screenshots[0];
   if (!shot) return null;
   return (
-    <a href={shot.src} target="_blank" rel="noopener" className="block rounded-2xl overflow-hidden border border-white/10 bg-brand-dark-gray group/shot">
+    <a href={shot.src} target="_blank" rel="noopener" data-reveal="mask" className="block rounded-2xl overflow-hidden border border-white/10 bg-brand-dark-gray group/shot">
       <img
         src={shot.src}
         alt={shot.alt}
@@ -65,13 +65,11 @@ export function FeaturedProjects() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
           {caseStudies.slice(0, 3).map((c, i) => (
-            <motion.article
+            <article
+              data-reveal="scale"
+              style={{ '--i': i } as CSSProperties}
               key={c.slug}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="flex flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-5 md:p-6"
+              className="lift-card flex flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-5 md:p-6 hover:border-brand-yellow/30"
             >
               <Screenshot c={c} />
               <div className="mt-5 flex flex-wrap items-center gap-2">
@@ -88,9 +86,9 @@ export function FeaturedProjects() {
                 onClick={onLinkClick}
                 className="mt-auto pt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent link-underline self-start"
               >
-                Read case study <ArrowUpRight className="w-4 h-4" aria-hidden />
+                Read case study <ArrowUpRight className="nudge w-4 h-4" aria-hidden />
               </a>
-            </motion.article>
+            </article>
           ))}
         </div>
 
@@ -110,13 +108,10 @@ export default function CaseStudies() {
     <section className="section-padding bg-brand-black">
       <div className="max-w-6xl mx-auto space-y-8 md:space-y-10">
         {caseStudies.map((c, i) => (
-          <motion.article
+          <article
+            data-reveal="scale"
             key={c.slug}
             id={c.slug}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6 }}
             className="scroll-mt-28 rounded-[2rem] border border-white/10 bg-white/[0.02] p-6 sm:p-8 md:p-10"
           >
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-8 lg:gap-12">
@@ -158,7 +153,7 @@ export default function CaseStudies() {
                 </a>
               </div>
             </div>
-          </motion.article>
+          </article>
         ))}
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import type { CSSProperties } from 'react';
 import { ArrowUpRight, Check } from 'lucide-react';
 import { getService, type Service } from '../content/services';
 import { responsiveImage } from '../image';
@@ -57,12 +57,10 @@ export default function CoreServices() {
           {featured.map((s, i) => {
             const Icon = SERVICE_ICONS[s.icon];
             return (
-              <motion.article
+              <article
+                data-reveal="up"
+                style={{ '--i': i } as CSSProperties}
                 key={s.slug}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className="group flex flex-col rounded-[1.75rem] border border-white/10 bg-brand-black overflow-hidden hover:border-brand-yellow/40 transition-colors"
               >
                 <CardImage s={s} sizes="(min-width: 1024px) 400px, 100vw" className="aspect-[16/9]" />
@@ -94,7 +92,7 @@ export default function CoreServices() {
                     <span className="text-sm text-gray-500 whitespace-nowrap">{s.price}</span>
                   </div>
                 </div>
-              </motion.article>
+              </article>
             );
           })}
         </div>
@@ -104,12 +102,10 @@ export default function CoreServices() {
           {more.map((s, i) => {
             const Icon = SERVICE_ICONS[s.icon];
             return (
-              <motion.article
+              <article
+                data-reveal="up"
+                style={{ '--i': i } as CSSProperties}
                 key={s.slug}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
                 className="group flex flex-col rounded-2xl border border-white/10 bg-brand-black overflow-hidden hover:border-brand-yellow/40 transition-colors"
               >
                 <CardImage s={s} sizes="(min-width: 1024px) 240px, (min-width: 640px) 50vw, 100vw" className="aspect-[16/10]" />
@@ -128,7 +124,7 @@ export default function CoreServices() {
                     </a>
                   </div>
                 </div>
-              </motion.article>
+              </article>
             );
           })}
         </div>

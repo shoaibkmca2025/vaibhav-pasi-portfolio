@@ -1,5 +1,5 @@
+import type { CSSProperties } from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { motion } from 'motion/react';
 import { ArrowUpRight, ChevronLeft, ChevronRight, Instagram, Layers, Play, X } from 'lucide-react';
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL, mergeGallery, type GalleryItem, type GalleryUpload } from '../../shared/gallery';
 import uploadsData from '../content/gallery.json';
@@ -162,12 +162,10 @@ export default function InstagramGallery() {
 
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
           {items.map((item, i) => (
-            <motion.li
+            <li
+              data-reveal="up"
+              style={{ '--i': (i % 4) } as CSSProperties}
               key={item.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
             >
               <button
                 type="button"
@@ -194,7 +192,7 @@ export default function InstagramGallery() {
                   </span>
                 )}
               </button>
-            </motion.li>
+            </li>
           ))}
         </ul>
       </div>

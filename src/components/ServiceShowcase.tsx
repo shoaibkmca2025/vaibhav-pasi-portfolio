@@ -1,4 +1,3 @@
-import { motion } from 'motion/react';
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
 import { hasDetailPage, services, type Service } from '../content/services';
 import { onLinkClick } from '../router';
@@ -147,12 +146,9 @@ export default function ServiceShowcase({ limit = services.length }: { limit?: n
               ? { href: whatsappHref(service.whatsapp), label: 'Discuss on WhatsApp', external: true }
               : { href: '/contact', label: 'Get a quote', external: false };
             return (
-              <motion.article
+              <article
+                data-reveal="up"
                 key={service.slug}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 className={`relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border ${onYellow ? 'border-black/10' : 'border-white/10'} ${cardStyle[v]}`}
               >
                 <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-6 items-center p-7 sm:p-10 md:p-14">
@@ -193,7 +189,7 @@ export default function ServiceShowcase({ limit = services.length }: { limit?: n
                   </div>
                   <Devices scene={sceneFor(service.icon)} v={v} />
                 </div>
-              </motion.article>
+              </article>
             );
           })}
         </div>

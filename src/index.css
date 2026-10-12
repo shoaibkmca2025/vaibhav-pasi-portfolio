@@ -461,7 +461,7 @@
 }
 
 /* ─── Hero entrance: CSS only, so it plays from the prerendered HTML without waiting for JS ───
-   When the intro splash is showing, the entrance waits until the splash lifts (~1.6s). */
+   When the intro splash is showing, the entrance waits until the splash lifts (~1.2s). */
 @keyframes reveal-rise {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: none; }
@@ -471,8 +471,113 @@
   animation-delay: var(--d, 0ms);
 }
 html:not(.no-splash) .reveal {
-  animation-delay: calc(var(--d, 0ms) + 1.5s);
+  animation-delay: calc(var(--d, 0ms) + 1.1s);
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal { animation: none; }
+}
+
+/* ═══════════════════ Scroll-reveal system (src/lib/scrollReveal.ts) ═══════════════════
+   Spec: ease-out-expo, no overshoot · 700ms (headings 900ms) · 24px rise · 0.97 scale for cards
+   · 70ms stagger, capped at 6 · mobile and low-powered devices: 500ms, 14px, 40ms, no scale.
+   Hidden "before" states exist only under html.motion-ready, which is set by JavaScript after
+   on-screen content has been marked revealed; without JS everything is simply visible. */
+:root {
+  --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --reveal-dur: 700ms;
+  --reveal-dist: 24px;
+  --reveal-scale: 0.97;
+  --reveal-step: 70ms;
+}
+@media (max-width: 767px) {
+  :root { --reveal-dur: 500ms; --reveal-dist: 14px; --reveal-scale: 1; --reveal-step: 40ms; }
+}
+.motion-lite { --reveal-dur: 500ms; --reveal-dist: 14px; --reveal-scale: 1; --reveal-step: 40ms; }
+
+.motion-ready [data-reveal],
+.motion-ready [data-reveal-stagger] > * {
+  transition:
+    opacity var(--reveal-dur) var(--reveal-ease),
+    transform var(--reveal-dur) var(--reveal-ease),
+    clip-path calc(var(--reveal-dur) + 200ms) var(--reveal-ease);
+  transition-delay: calc(var(--i, 0) * var(--reveal-step));
+}
+
+/* Before states */
+.motion-ready [data-reveal='up']:not([data-revealed]),
+.motion-ready [data-reveal-stagger]:not([data-revealed]) > * {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-dist), 0);
+}
+.motion-ready [data-reveal='scale']:not([data-revealed]) {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-dist), 0) scale(var(--reveal-scale));
+}
+/* Images uncover upward from the bottom edge */
+.motion-ready [data-reveal='mask']:not([data-revealed]) {
+  clip-path: inset(100% 0 0 0 round 1.75rem);
+}
+.motion-ready [data-reveal='mask'] {
+  clip-path: inset(0 0 0 0 round 1.75rem);
+}
+/* Headings rise into place behind a mask (negative insets keep descenders and the
+   gold underline below section headings unclipped) */
+.motion-ready [data-reveal='heading'] {
+  clip-path: inset(-0.25em -0.1em -2rem -0.1em);
+  transition-duration: calc(var(--reveal-dur) + 200ms);
+}
+.motion-ready [data-reveal='heading']:not([data-revealed]) {
+  clip-path: inset(calc(100% + 2rem) -0.1em -2rem -0.1em);
+  transform: translate3d(0, 0.35em, 0);
+}
+/* Timeline connectors draw left to right */
+.motion-ready [data-reveal='line'] {
+  transform-origin: left center;
+  transition-duration: 1200ms;
+  transition-delay: 200ms;
+}
+.motion-ready [data-reveal='line']:not([data-revealed]) {
+  transform: scaleX(0);
+}
+
+/* Hero headline: words rise out of a mask, one after another (CSS only, plays from the prerendered HTML) */
+.hero-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.hero-word > span {
+  display: inline-block;
+  animation: word-rise 900ms var(--reveal-ease) both;
+  animation-delay: calc(var(--w, 0) * 70ms + 80ms);
+}
+html:not(.no-splash) .hero-word > span {
+  animation-delay: calc(var(--w, 0) * 70ms + 1.1s);
+}
+@keyframes word-rise {
+  from { transform: translate3d(0, 105%, 0); }
+  to { transform: none; }
+}
+
+/* Project cards: lift on hover, metadata arrow nudges */
+.lift-card {
+  transition: transform 300ms var(--reveal-ease), border-color 300ms ease, box-shadow 300ms ease;
+}
+@media (hover: hover) {
+  .lift-card:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.6);
+  }
+  .lift-card:hover .nudge { transform: translate3d(3px, -3px, 0); }
+}
+.nudge { transition: transform 300ms var(--reveal-ease); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-word > span { animation: none; }
+  .lift-card, .lift-card:hover { transform: none; }
+}
+@media print {
+  .motion-ready [data-reveal], .motion-ready [data-reveal-stagger] > * { opacity: 1 !important; transform: none !important; clip-path: none !important; }
 }

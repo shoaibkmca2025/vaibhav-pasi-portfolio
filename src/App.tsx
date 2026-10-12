@@ -21,10 +21,12 @@ import BlogPost from './components/BlogPost';
 import ScrollProgress from './components/ScrollProgress';
 import InstagramGallery from './components/InstagramGallery';
 import WhatsAppButton from './components/WhatsAppButton';
+import BackToTop from './components/BackToTop';
 import { AboutPage, ClientWinsPage, ContactPage, PrivacyPage, ServicesPage, TermsPage, WorkPage } from './pages/Pages';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import { useRoute, type Route } from './router';
 import { applySeo, getSeo } from './seo';
+import { initScrollReveal } from './lib/scrollReveal';
 
 // Home is the overview; each nav item has its own detailed page.
 // Order follows the site brief: hero, proof, services, work, about, process,
@@ -109,6 +111,9 @@ export default function App({ initialPath }: { initialPath?: string }) {
     route.page === 'post' ? `post:${route.slug}` : route.page === 'service' ? `service:${route.slug}` : route.page;
   const previousRoute = useRef(routeKey);
 
+  // Scroll reveals arm after hydration has committed, so prerendered content is never hidden first
+  useEffect(() => initScrollReveal(), []);
+
 
   useEffect(() => {
     if (previousRoute.current === routeKey) return;
@@ -138,6 +143,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
 
       <Footer />
       <WhatsAppButton />
+      <BackToTop />
     </div>
     </MotionConfig>
   );

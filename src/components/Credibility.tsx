@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import type { CSSProperties } from 'react';
 import { Building2, CalendarDays, Layers, Newspaper, PlayCircle } from 'lucide-react';
 import { trustFacts } from '../content/proof';
 import LogoStrip from './LogoStrip';
@@ -16,20 +16,18 @@ export default function Credibility() {
           {trustFacts.map((f, i) => {
             const Icon = FACT_ICONS[i] ?? Layers;
             return (
-            <motion.div
+            <div
+              data-reveal="up"
+              style={{ '--i': i } as CSSProperties}
               key={f.label}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
               className={`flex flex-col-reverse justify-end bg-brand-black px-5 py-6 md:py-8 text-center ${i === trustFacts.length - 1 ? 'col-span-2 md:col-span-1' : ''}`}
             >
               <dt className="mt-2 text-sm text-gray-400 leading-snug">{f.label}</dt>
               <dd className="text-3xl md:text-4xl font-bold tracking-tight text-accent">
                 <Icon aria-hidden className="mx-auto mb-3 block w-5 h-5 text-gray-500" />
-                {f.value}
+                <span data-count>{f.value}</span>
               </dd>
-            </motion.div>
+            </div>
             );
           })}
         </dl>

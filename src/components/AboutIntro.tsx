@@ -1,4 +1,3 @@
-import { motion } from 'motion/react';
 import { ArrowUpRight, Linkedin } from 'lucide-react';
 import { socialLinks } from '../contact';
 import { techGroups } from '../content/proof';
@@ -12,11 +11,8 @@ export default function AboutIntro({ onAboutPage = false }: { onAboutPage?: bool
   return (
     <section className="section-padding bg-brand-dark-gray border-y border-white/5">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16 items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+        <div
+          data-reveal="mask"
           className="relative max-w-sm mx-auto lg:max-w-none w-full"
         >
           <img
@@ -27,14 +23,9 @@ export default function AboutIntro({ onAboutPage = false }: { onAboutPage?: bool
             loading="lazy"
             className="w-full aspect-square object-cover rounded-[2rem] border border-white/10"
           />
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-        >
+        <div data-reveal="up">
           <span className="eyebrow mb-5">About Vaibhav</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-[1.08]">
             A developer who markets, <span className="text-accent">a marketer who builds.</span>
@@ -75,7 +66,7 @@ export default function AboutIntro({ onAboutPage = false }: { onAboutPage?: bool
               </a>
             )}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

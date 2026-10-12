@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, ChevronLeft, ChevronRight, Eye, Images, MessageCircle, Play, TrendingUp, X } from 'lucide-react';
@@ -60,13 +61,6 @@ const messages = [
   'Just closed a first client for the beta offer, it’s not even ready but he wanted to start right away!',
 ];
 
-const fade = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.6, delay },
-});
-
 type Glow = (typeof glowUps)[number];
 
 // Staggered, overlapping chip layout lifted from the "client wins" screenshots (percent of the board)
@@ -109,21 +103,18 @@ function Chip({
   key?: string;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16, scale: 0.96 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+    <div
+      data-reveal="scale"
       className={`absolute flex items-center gap-[2.5cqw] rounded-[2.2cqw] border border-white/10 bg-gradient-to-r ${tint} px-[4cqw] py-[2.6cqw] shadow-[0_18px_40px_-8px_rgba(0,0,0,0.9)] ${
         big ? 'ring-1 ring-brand-yellow/60' : ''
       }`}
-      style={{ top: `${slot.top}%`, left: `${slot.left}%`, width: `${slot.width}%`, zIndex: slot.z }}
+      style={{ top: `${slot.top}%`, left: `${slot.left}%`, width: `${slot.width}%`, zIndex: slot.z, transitionDelay: `${delay}s` }}
     >
       <Icon className={`shrink-0 w-[5cqw] h-[5cqw] ${dim ? 'text-white/70' : 'text-white'}`} strokeWidth={2.5} aria-hidden />
       <span className={`font-semibold tabular-nums tracking-tight ${big ? 'text-[7cqw] text-white' : dim ? 'text-[5cqw] text-white/75' : 'text-[6cqw] text-white'}`}>
         {value}
       </span>
-    </motion.div>
+    </div>
   );
 }
 
@@ -136,8 +127,9 @@ function WinBoard({ g, index, onProof }: { g: Glow; index: number; onProof: () =
   const head = index % 2 === 0 ? 'M8 65 L 12 61 L 16.5 64' : 'M67.5 57.5 L 72 54 L 75.5 59';
 
   return (
-    <motion.article
-      {...fade(index * 0.1)}
+    <article
+      data-reveal="up"
+      style={{ '--i': index } as CSSProperties}
       className="@container relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 bg-[#0b0b0b]"
     >
       {/* Striped, vignetted backdrop */}
@@ -176,17 +168,14 @@ function WinBoard({ g, index, onProof }: { g: Glow; index: number; onProof: () =
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 1.2, delay: 0.5, ease: 'easeInOut' }}
         />
-        <motion.path
+        <path
+          data-reveal="up"
           d={head}
           fill="none"
           stroke="white"
           strokeWidth={0.7}
           strokeLinecap="round"
           strokeLinejoin="round"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.2, delay: 1.6 }}
         />
       </svg>
 
@@ -217,7 +206,7 @@ function WinBoard({ g, index, onProof }: { g: Glow; index: number; onProof: () =
         </p>
         <ProofLink onClick={onProof} />
       </div>
-    </motion.article>
+    </article>
   );
 }
 
@@ -288,10 +277,11 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
           {stats.map((s, i) => {
             const featured = i === 0;
             return (
-              <motion.button
+              <button
+                data-reveal="up"
+                style={{ '--i': i % 3 } as CSSProperties}
                 key={`${s.metric}-${s.total}`}
                 type="button"
-                {...fade((i % 3) * 0.08)}
                 onClick={() => openSrc(s.receipt)}
                 className={`group text-left p-6 md:p-8 rounded-3xl border transition-all ${
                   featured
@@ -324,7 +314,7 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
                     Proof <ArrowUpRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
-              </motion.button>
+              </button>
             );
           })}
         </div>
@@ -341,7 +331,7 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
         <div className="mt-20 md:mt-28 grid gap-12 lg:gap-8 lg:grid-cols-12 items-start">
           <div className="lg:col-span-5">
             <p className={subHeading}>03 — Profile growth</p>
-            <motion.div {...fade()} className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5">
+            <div data-reveal="up" className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5">
               <div className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Personal-brand creator</div>
               <div className="mt-2 text-3xl md:text-4xl font-bold tracking-tighter italic uppercase leading-[0.95]">
                 0 → 10K in <span className="text-accent">2 months</span>
@@ -369,7 +359,7 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
               <div className="mt-6 flex justify-end">
                 <ProofLink onClick={() => openSrc('/wins/profile-growth.jpg')} />
               </div>
-            </motion.div>
+            </div>
           </div>
 
           <div className="lg:col-span-7">
@@ -379,15 +369,16 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               {messages.map((m, i) => (
-                <motion.figure
+                <figure
+                  data-reveal="up"
+                  style={{ '--i': i } as CSSProperties}
                   key={m}
-                  {...fade(i * 0.08)}
                   className="group p-6 rounded-3xl rounded-bl-md bg-brand-dark-gray/20 border border-white/5 hover:border-accent/30 transition-all"
                 >
                   <MessageCircle className="w-5 h-5 text-accent/40 group-hover:text-accent transition-colors mb-4" aria-hidden />
                   <blockquote className="text-gray-300 font-light leading-relaxed italic">“{m}”</blockquote>
                   <figcaption className="mt-4 text-[10px] text-gray-600 font-bold uppercase tracking-widest">Client message</figcaption>
-                </motion.figure>
+                </figure>
               ))}
             </div>
           </div>
@@ -402,10 +393,11 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
         </div>
         <div className="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory -mx-5 px-5 sm:mx-0 sm:px-0 pb-2">
           {screenshots.map((s, i) => (
-            <motion.button
+            <button
+              data-reveal="up"
+              style={{ '--i': Math.min(i, 4) } as CSSProperties}
               key={s.src}
               type="button"
-              {...fade(Math.min(i, 4) * 0.06)}
               onClick={() => setOpen(i)}
               className="group relative shrink-0 w-[62vw] sm:w-[240px] lg:w-[calc((100%-6*16px)/7)] snap-start text-left"
             >
@@ -421,7 +413,7 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
               <span className="mt-3 block text-[10px] font-bold tracking-widest uppercase text-gray-500 group-hover:text-accent transition-colors leading-relaxed">
                 {s.caption}
               </span>
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>

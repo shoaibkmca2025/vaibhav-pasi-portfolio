@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import type { CSSProperties } from 'react';
 import {
   AlertCircle,
   ArrowUpRight,
@@ -20,13 +20,6 @@ import { SERVICE_ICONS } from '../lib/serviceIcons';
 const ICONS = SERVICE_ICONS;
 
 const VARIANTS: Variant[] = ['graphite', 'yellow', 'olive'];
-
-const reveal = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
-};
 
 function SectionHeader({ label, title, accent, intro }: { label: string; title: string; accent: string; intro?: string }) {
   return (
@@ -112,7 +105,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-14 items-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <div className="reveal">
               <span className="eyebrow mb-6">
                 <Icon className="w-3.5 h-3.5" aria-hidden /> {service.navTitle}
               </span>
@@ -150,16 +143,14 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
                   <ToolChips tools={service.tools} />
                 </div>
               )}
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className={`rounded-[2rem] md:rounded-[2.5rem] border ${variant === 'yellow' ? 'border-black/10' : 'border-white/10'} p-8 sm:p-12 ${cardStyle[variant]}`}
+            <div
+              style={{ '--d': '120ms' } as CSSProperties}
+              className={`reveal rounded-[2rem] md:rounded-[2.5rem] border ${variant === 'yellow' ? 'border-black/10' : 'border-white/10'} p-8 sm:p-12 ${cardStyle[variant]}`}
             >
               <Devices scene={sceneFor(service.icon)} v={variant} />
-            </motion.div>
+            </div>
           </div>
         </div>
       </header>
@@ -171,7 +162,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
             <SectionHeader label="Why it matters" title="Common challenges," accent="clear answers." />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
               {service.challenges && (
-                <motion.div {...reveal} className="rounded-[1.75rem] border border-white/10 bg-brand-black p-7 md:p-9">
+                <div data-reveal="up" className="rounded-[1.75rem] border border-white/10 bg-brand-black p-7 md:p-9">
                   <h3 className="text-xl md:text-2xl font-bold tracking-tight">The challenges</h3>
                   <ul className="mt-6 space-y-5">
                     {service.challenges.map((c) => (
@@ -184,11 +175,11 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
                       </li>
                     ))}
                   </ul>
-                </motion.div>
+                </div>
               )}
               {service.whyUs && (
-                <motion.div
-                  {...reveal}
+                <div
+                  data-reveal="up"
                   className="theme-dark rounded-[1.75rem] border border-white/10 p-7 md:p-9 text-white bg-[radial-gradient(120%_120%_at_100%_0%,rgba(214,182,117,0.14),transparent_45%),linear-gradient(135deg,#1c1c1c,#060606)]"
                 >
                   <h3 className="text-xl md:text-2xl font-bold tracking-tight">Why choose 4AM Global Media?</h3>
@@ -203,7 +194,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
                       </li>
                     ))}
                   </ul>
-                </motion.div>
+                </div>
               )}
             </div>
           </div>
@@ -223,10 +214,10 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
               />
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                 {service.offerings.map((o, i) => (
-                  <motion.li
+                  <li
+                    data-reveal="up"
+                    style={{ '--i': (i % 2) } as CSSProperties}
                     key={o.title}
-                    {...reveal}
-                    transition={{ ...reveal.transition, delay: (i % 2) * 0.06 }}
                     className="group p-7 md:p-8 rounded-[1.75rem] border border-white/10 bg-white/[0.03] hover:border-accent/40 transition-colors"
                   >
                     <div className="flex items-center justify-between">
@@ -237,7 +228,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
                     </div>
                     <h3 className="mt-6 text-xl md:text-2xl font-bold tracking-tight">{o.title}</h3>
                     <p className="mt-2 text-gray-400 leading-relaxed">{o.text}</p>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
             </>
@@ -251,10 +242,10 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
               />
               <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                 {service.deliverables.map((d, i) => (
-                  <motion.li
+                  <li
+                    data-reveal="up"
+                    style={{ '--i': (i % 3) } as CSSProperties}
                     key={d}
-                    {...reveal}
-                    transition={{ ...reveal.transition, delay: (i % 3) * 0.06 }}
                     className="flex gap-4 p-6 rounded-2xl border border-white/10 bg-white/[0.03]"
                   >
                     <span className="grid w-10 h-10 shrink-0 place-items-center rounded-xl bg-brand-yellow text-black">
@@ -264,7 +255,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
                       <span className="block text-xs font-bold tracking-[0.2em] text-gray-500 mb-1">{String(i + 1).padStart(2, '0')}</span>
                       <span className="font-semibold leading-snug">{d}</span>
                     </span>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
             </>
@@ -279,10 +270,10 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
             <SectionHeader label="Who it's for" title="A good fit" accent="if you need…" />
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               {service.useCases.map((u) => (
-                <motion.li key={u} {...reveal} className="flex items-center gap-3 px-5 py-4 rounded-2xl bg-brand-black border border-white/10 font-medium">
+                <li data-reveal="up" key={u} className="flex items-center gap-3 px-5 py-4 rounded-2xl bg-brand-black border border-white/10 font-medium">
                   <ChevronRight className="w-5 h-5 text-accent shrink-0" aria-hidden />
                   {u}
-                </motion.li>
+                </li>
               ))}
             </ul>
           </div>
@@ -296,16 +287,16 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
             <SectionHeader label="How it works" title="From first call to" accent="results." />
             <ol className={`grid grid-cols-1 sm:grid-cols-2 ${service.process.length >= 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-4 md:gap-5`}>
               {service.process.map((step, i) => (
-                <motion.li
+                <li
+                  data-reveal="up"
+                  style={{ '--i': i } as CSSProperties}
                   key={step.title}
-                  {...reveal}
-                  transition={{ ...reveal.transition, delay: i * 0.08 }}
                   className="relative p-6 md:p-7 rounded-2xl border border-white/10 bg-white/[0.03]"
                 >
                   <span className="text-5xl font-black tracking-tighter text-accent/90 leading-none">{String(i + 1).padStart(2, '0')}</span>
                   <h3 className="mt-5 text-xl font-bold tracking-tight">{step.title}</h3>
                   <p className="mt-2 text-gray-400 leading-relaxed">{step.text}</p>
-                </motion.li>
+                </li>
               ))}
             </ol>
           </div>
@@ -324,10 +315,10 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
             />
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-6 items-stretch">
               {service.packages!.map((p, i) => (
-                <motion.article
+                <article
+                  data-reveal="up"
+                  style={{ '--i': i } as CSSProperties}
                   key={p.name}
-                  {...reveal}
-                  transition={{ ...reveal.transition, delay: i * 0.08 }}
                   className={`relative flex flex-col rounded-[2rem] p-7 md:p-9 border ${
                     p.popular
                       ? 'border-black/10 text-black bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#D6B675,#C4A35F)] lg:-my-3 shadow-xl shadow-brand-yellow/10'
@@ -361,7 +352,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
                   >
                     Choose {p.name} <ArrowUpRight className="w-4 h-4" aria-hidden />
                   </a>
-                </motion.article>
+                </article>
               ))}
             </div>
             {service.packagesNote && <p className="mt-8 max-w-3xl mx-auto text-center text-sm text-gray-500 leading-relaxed">{service.packagesNote}</p>}
@@ -370,8 +361,8 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
       ) : (
         <section className="px-5 sm:px-6 md:px-12 lg:px-24 pb-20 md:pb-32 bg-brand-black">
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-5 md:gap-6">
-            <motion.div
-              {...reveal}
+            <div
+              data-reveal="up"
               className="rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 border border-black/10 text-black bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#D6B675,#C4A35F)]"
             >
               <p className="text-sm font-semibold text-black/60">Pricing · {service.navTitle}</p>
@@ -390,9 +381,9 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
                   className="inline-flex items-center gap-2 min-h-11 px-6 rounded-full bg-black text-brand-yellow text-sm font-semibold hover:bg-black/85 transition-colors"
                 />
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div {...reveal} className="theme-dark rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 border border-white/10 bg-[linear-gradient(135deg,#1c1c1c,#060606)] text-white flex flex-col">
+            <div data-reveal="up" className="theme-dark rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 border border-white/10 bg-[linear-gradient(135deg,#1c1c1c,#060606)] text-white flex flex-col">
               <Compass className="w-8 h-8 text-accent" aria-hidden />
               <h2 className="mt-5 text-2xl md:text-3xl font-bold tracking-tight">Not sure what you need yet?</h2>
               <p className="mt-3 text-gray-400 leading-relaxed">
@@ -401,7 +392,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
               <a href="#enquire" className="mt-auto pt-8 inline-flex items-center gap-2 text-sm font-semibold text-accent hover:gap-3 transition-all">
                 Book a strategy call <ArrowUpRight className="w-4 h-4" aria-hidden />
               </a>
-            </motion.div>
+            </div>
           </div>
         </section>
       )}
@@ -415,11 +406,11 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
               { href: '/client-wins', title: 'Client wins', text: 'Before-and-after numbers from real client accounts, with the screenshots.' },
               { href: '/work', title: 'Case studies', text: 'Selected projects with the goal, the plan and the measurable outcome.' },
             ].map((l) => (
-              <motion.a
+              <a
+                data-reveal="up"
                 key={l.href}
                 href={l.href}
                 onClick={onLinkClick}
-                {...reveal}
                 className="group flex items-center justify-between gap-6 p-7 rounded-[1.75rem] border border-white/10 bg-white/[0.03] hover:border-accent/40 transition-colors"
               >
                 <span>
@@ -427,7 +418,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
                   <span className="block mt-1.5 text-gray-400 leading-relaxed">{l.text}</span>
                 </span>
                 <ArrowUpRight className="w-5 h-5 shrink-0 text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden />
-              </motion.a>
+              </a>
             ))}
           </div>
         </div>
@@ -474,11 +465,11 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
             {related.map((r) => {
               const RIcon = ICONS[r.icon];
               return (
-                <motion.a
+                <a
+                  data-reveal="up"
                   key={r.slug}
                   href={r.href}
                   onClick={onLinkClick}
-                  {...reveal}
                   className="group flex flex-col p-7 rounded-[1.75rem] border border-white/10 bg-brand-black hover:border-accent/40 transition-colors"
                 >
                   <span className="grid w-12 h-12 place-items-center rounded-2xl bg-brand-yellow/15 text-accent">
@@ -490,7 +481,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
                     <span className="text-gray-300">{r.price}</span>
                     <ArrowUpRight className="w-4 h-4 text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden />
                   </span>
-                </motion.a>
+                </a>
               );
             })}
           </div>

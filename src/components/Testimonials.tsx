@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import type { CSSProperties } from 'react';
 import { ArrowUpRight, Quote } from 'lucide-react';
 import { testimonials } from '../content/proof';
 
@@ -22,12 +22,10 @@ export default function Testimonials() {
 
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
           {testimonials.map((t, i) => (
-            <motion.li
+            <li
+              data-reveal="up"
+              style={{ '--i': (i % 2) } as CSSProperties}
               key={t.quote}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: (i % 2) * 0.06 }}
             >
               <figure className="h-full flex flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-6 md:p-8">
                 <Quote className="w-6 h-6 text-accent" aria-hidden />
@@ -44,7 +42,7 @@ export default function Testimonials() {
                   )}
                 </figcaption>
               </figure>
-            </motion.li>
+            </li>
           ))}
         </ul>
       </div>

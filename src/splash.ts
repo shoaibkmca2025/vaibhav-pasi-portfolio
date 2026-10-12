@@ -1,7 +1,7 @@
 // Lifts the intro splash (markup and styles live in index.html) once the app is ready.
 // It stays up just long enough for the name to finish animating, and any tap, click,
 // key press or scroll skips it straight away, so nobody is made to wait.
-const MIN_VISIBLE_MS = 1600;
+const MIN_VISIBLE_MS = 1200;
 const SKIP_EVENTS = ['pointerdown', 'keydown', 'wheel', 'touchstart'] as const;
 
 export const SPLASH_DONE_EVENT = 'splash:done';

@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import type { CSSProperties } from 'react';
 import { Map as MapIcon, Rocket, Search, TrendingUp } from 'lucide-react';
 import { responsiveImage } from '../image';
 
@@ -51,14 +51,12 @@ export default function HowItWorks() {
 
         <ol className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {/* Connector running through the step numbers on wide screens */}
-          <div aria-hidden className="hidden lg:block absolute left-[12%] right-[12%] top-36 h-px bg-gradient-to-r from-transparent via-brand-yellow/40 to-transparent" />
+          <div aria-hidden data-reveal="line" className="hidden lg:block absolute left-[12%] right-[12%] top-36 h-px bg-gradient-to-r from-transparent via-brand-yellow/40 to-transparent" />
           {steps.map((step, idx) => (
-            <motion.li
+            <li
+              data-reveal="up"
+              style={{ '--i': idx } as CSSProperties}
               key={step.title}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ type: 'spring', bounce: 0, duration: 0.5, delay: idx * 0.06 }}
               className="group relative flex flex-col rounded-2xl border border-white/10 bg-brand-dark-gray overflow-hidden hover:border-brand-yellow/40 transition-colors"
             >
               <div className="relative h-36 overflow-hidden">
@@ -83,7 +81,7 @@ export default function HowItWorks() {
                 <h3 className="mt-5 text-xl font-bold tracking-tight">{step.title}</h3>
                 <p className="mt-2 text-gray-400 leading-relaxed">{step.description}</p>
               </div>
-            </motion.li>
+            </li>
           ))}
         </ol>
       </div>

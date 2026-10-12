@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import type { CSSProperties } from 'react';
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 
 export const featureHeadline = 'Vaibhav Pasi: Visionary Entrepreneur Redefining Digital Marketing Through 4AM Global Media';
@@ -128,16 +128,14 @@ export default function Press() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
           {publications.map((pub, idx) => (
-            <motion.a
+            <a
+              data-reveal="up"
+              style={{ '--i': (idx % 4) } as CSSProperties}
               key={pub.name}
               href={pub.href}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Read the feature on ${pub.name} (opens in a new tab)`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: (idx % 4) * 0.08 }}
               className="group flex flex-col p-2 md:p-3 rounded-2xl md:rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-accent/40 transition-all"
             >
               <div
@@ -170,7 +168,7 @@ export default function Press() {
                 </span>
                 <ArrowUpRight className="w-4 h-4 shrink-0 text-gray-500 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </div>
-            </motion.a>
+            </a>
           ))}
         </div>
       </div>

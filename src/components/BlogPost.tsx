@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
+import { useState, type CSSProperties } from 'react';
 import { ArrowUpRight, Check, Clock, Linkedin, Link2, Share2, Twitter } from 'lucide-react';
 import { posts, getPost, formatDate } from '../blog/posts';
 import { responsiveImage } from '../image';
@@ -73,12 +72,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
       <main id="main" tabIndex={-1} className="outline-none">
         <article className="pt-28 md:pt-40 pb-16 md:pb-24">
           {/* Title block */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-4xl mx-auto px-5 sm:px-6 text-center"
-          >
+          <div className="reveal max-w-4xl mx-auto px-5 sm:px-6 text-center">
             <nav aria-label="Breadcrumb" className="mb-6 md:mb-8">
               <ol className="flex items-center justify-center gap-2 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">
                 <li>
@@ -123,16 +117,11 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Cover */}
           {post.cover && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-6xl mx-auto px-5 sm:px-6 mt-10 md:mt-16"
-            >
+            <div className="reveal max-w-6xl mx-auto px-5 sm:px-6 mt-10 md:mt-16" style={{ '--d': '150ms' } as CSSProperties}>
               <div className="aspect-[16/10] md:aspect-[21/9] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/10">
                 <img
                   {...responsiveImage(post.cover, '(min-width: 1152px) 1104px, 100vw')}
@@ -142,7 +131,7 @@ export default function BlogPost({ slug }: { slug: string; key?: string }) {
                   referrerPolicy="no-referrer"
                 />
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* Body */}
