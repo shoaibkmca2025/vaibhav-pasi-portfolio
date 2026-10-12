@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 import { bookingExternal, bookingHref } from '../lib/booking';
@@ -18,11 +18,14 @@ function Words({ text, start, className }: { text: string; start: number; classN
   return (
     <>
       {text.split(' ').map((word, i) => (
-        <span key={word} className="hero-word">
-          <span className={className} style={{ '--w': start + i } as CSSProperties}>
-            {word}
+        // The space sits outside the clipping box, where inline-block would swallow it
+        <Fragment key={word}>
+          <span className="hero-word">
+            <span className={className} style={{ '--w': start + i } as CSSProperties}>
+              {word}
+            </span>
           </span>{' '}
-        </span>
+        </Fragment>
       ))}
     </>
   );
