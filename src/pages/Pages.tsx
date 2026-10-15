@@ -81,7 +81,7 @@ export function AboutPage() {
           className="group mx-auto flex max-w-7xl flex-col gap-6 rounded-[1.75rem] border border-white/10 bg-brand-dark-gray/40 p-6 transition-colors hover:border-accent/40 sm:flex-row sm:items-center sm:justify-between md:p-8"
         >
           <span>
-            <span className="block text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-accent">Faces Behind 4AM</span>
+            <span className="block text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-accent">4AM Team</span>
             <span className="mt-2 block text-2xl font-black tracking-tight md:text-3xl">Meet the faces behind 4AM Global Media</span>
             <span className="mt-2 block text-gray-400">Strategy, technology, marketing and 3D motion: the five people who make the work happen.</span>
           </span>

@@ -11,7 +11,7 @@ export const sitePages = [
   { key: 'client-wins', path: '/client-wins', label: 'Client Wins', nav: false },
   { key: 'blog', path: '/blog', label: 'Insights', nav: true },
   { key: 'contact', path: '/contact', label: 'Contact', nav: true },
-  { key: 'team', path: '/faces-behind-4am-global-media', label: 'Faces Behind 4AM', nav: true },
+  { key: 'team', path: '/faces-behind-4am-global-media', label: '4AM Team', nav: true },
   { key: 'privacy', path: '/privacy', label: 'Privacy Policy', nav: false },
   { key: 'terms', path: '/terms', label: 'Terms of Service', nav: false },
 ] as const;
