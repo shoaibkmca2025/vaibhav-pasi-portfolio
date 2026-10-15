@@ -127,7 +127,7 @@ export const team: TeamMember[] = [
       'Digital Growth & Analytics',
     ],
     quote: 'Creating strategies that connect brands with people and turn digital interactions into meaningful growth.',
-    portrait: '',
+    portrait: '/team/rupali-bagul.jpg',
     socialLinks: [],
     profileDetailsConfirmed: true,
   },
