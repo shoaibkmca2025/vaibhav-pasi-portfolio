@@ -80,19 +80,34 @@ export default function Navigation({ route }: { route: Route }) {
       setSection(null);
       return;
     }
-    const ids = ['services', 'work', 'about', 'contact'];
-    const targets = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
-    const visible = new Set<string>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id);
-        setSection(ids.find((id) => visible.has(id)) ?? null);
-      },
-      // A thin band across the middle of the viewport decides the current section
-      { rootMargin: '-45% 0px -50% 0px' },
-    );
-    targets.forEach((t) => io.observe(t));
-    return () => io.disconnect();
+    const targets = ['services', 'work', 'about', 'contact']
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => !!el);
+    let frame = 0;
+    // The section crossing a line ~45% down the viewport is current; at the very bottom of the
+    // page the last section wins even if it can't reach that line
+    const pick = () => {
+      frame = 0;
+      const line = window.innerHeight * 0.45;
+      let current: string | null = null;
+      for (const el of targets) {
+        const r = el.getBoundingClientRect();
+        if (r.top <= line && r.bottom > line) current = el.id;
+      }
+      const last = targets[targets.length - 1];
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      if (atBottom && last && last.getBoundingClientRect().top < window.innerHeight) current = last.id;
+      setSection(current);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(pick);
+    };
+    pick();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, [route.page]);
 
   return (

@@ -61,7 +61,7 @@ export default function HowItWorks() {
 
         <ol ref={listRef} className="process-steps relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {/* Connector through the step numbers on wide screens: a faint track and a gold fill tied to scroll */}
-          <div aria-hidden className="hidden lg:block absolute left-[12%] right-[12%] top-36 z-10 h-px bg-white/10">
+          <div aria-hidden className="hidden lg:block absolute left-[12%] right-[12%] top-36 h-px bg-white/10">
             <motion.div
               style={{ scaleX: reduce ? 1 : scrollYProgress }}
               className="absolute inset-0 origin-left bg-gradient-to-r from-brand-yellow/30 via-brand-yellow to-brand-yellow/60"

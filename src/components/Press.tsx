@@ -103,7 +103,7 @@ export const publications = [
 
 export default function Press() {
   return (
-    <section className="section-padding bg-brand-black border-b border-white/5">
+    <section id="press" className="scroll-mt-24 section-padding bg-brand-black border-b border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
           <div className="max-w-2xl">

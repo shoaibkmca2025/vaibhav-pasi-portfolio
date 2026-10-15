@@ -3,6 +3,7 @@ import Press from '../components/Press';
 import ServiceShowcase from '../components/ServiceShowcase';
 import HowItWorks from '../components/HowItWorks';
 import AboutIntro from '../components/AboutIntro';
+import AboutTimeline from '../components/AboutTimeline';
 import CaseStudies from '../components/CaseStudies';
 import ClientWins from '../components/ClientWins';
 import Testimonials from '../components/Testimonials';
@@ -73,6 +74,7 @@ export function AboutPage() {
         facts={trustFacts.slice(0, 4)}
       />
       <AboutIntro onAboutPage />
+      <AboutTimeline />
       <section className="px-5 sm:px-6 md:px-12 lg:px-24 pb-4" aria-label="The team behind 4AM Global Media">
         <a
           href="/team"

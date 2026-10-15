@@ -15,14 +15,17 @@ export default function AboutIntro({ onAboutPage = false }: { onAboutPage?: bool
           data-reveal="mask"
           className="relative max-w-sm mx-auto lg:max-w-none w-full"
         >
-          <img
-            src="/vaibhav-pasi.jpg"
-            alt="Portrait of Vaibhav Pasi"
-            width={640}
-            height={640}
-            loading="lazy"
-            className="w-full aspect-square object-cover rounded-[2rem] border border-white/10"
-          />
+          {/* overflow-clip (not hidden) so the scroll-linked drift keeps tracking the page scroll */}
+          <div className="overflow-clip rounded-[2rem] border border-white/10">
+            <img
+              src="/vaibhav-pasi.jpg"
+              alt="Portrait of Vaibhav Pasi"
+              width={640}
+              height={640}
+              loading="lazy"
+              className="portrait-drift block w-full aspect-square object-cover"
+            />
+          </div>
         </div>
 
         <div data-reveal="up">
@@ -47,7 +50,7 @@ export default function AboutIntro({ onAboutPage = false }: { onAboutPage?: bool
               <li key={g.group}>
                 <span className="block text-xs font-bold tracking-[0.2em] uppercase text-gray-500">{g.group}</span>
                 <div className="mt-2">
-                  <ToolChips tools={[...g.items]} label={g.group} />
+                  <ToolChips tools={[...g.items]} label={g.group} stagger />
                 </div>
               </li>
             ))}

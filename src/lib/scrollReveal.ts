@@ -37,6 +37,12 @@ function reveal(el: Element) {
   observer?.unobserve(el);
   if (el.hasAttribute('data-count')) countUp(el as HTMLElement);
   el.querySelectorAll<HTMLElement>('[data-count]').forEach(countUp);
+  // Items in a horizontal swipe row (e.g. testimonials on phones) arrive together: the ones
+  // still off to the side would otherwise stay hidden until swiped into view
+  const row = el.parentElement;
+  if (row && row.scrollWidth > row.clientWidth + 1 && /auto|scroll/.test(getComputedStyle(row).overflowX)) {
+    row.querySelectorAll(':scope > [data-reveal]').forEach(reveal);
+  }
 }
 
 // Prepare one element: index stagger children, then either reveal now (on screen) or observe

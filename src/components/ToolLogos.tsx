@@ -11,10 +11,11 @@ export function BrandIcon({ icon, className = 'w-3.5 h-3.5' }: { icon: SimpleIco
 }
 
 // Tool name chips with the tool's logo in front (monochrome, so a row of them stays calm)
-export function ToolChips({ tools, label = 'Tools and technologies' }: { tools?: string[]; label?: string }) {
+// stagger: chips rise in one after another when the list scrolls into view
+export function ToolChips({ tools, label = 'Tools and technologies', stagger = false }: { tools?: string[]; label?: string; stagger?: boolean }) {
   if (!tools?.length) return null;
   return (
-    <ul className="flex flex-wrap gap-1.5" aria-label={label}>
+    <ul className="flex flex-wrap gap-1.5" aria-label={label} data-reveal-stagger={stagger || undefined}>
       {tools.map((t) => {
         const icons = logosFor(t);
         return (

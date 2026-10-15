@@ -91,7 +91,7 @@ export function FeaturedProjects() {
               data-reveal="scale"
               style={{ '--i': i } as CSSProperties}
               key={c.slug}
-              className="lift-card flex flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-5 md:p-6 hover:border-brand-yellow/30"
+              className="reveal-children lift-card flex flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-5 md:p-6 hover:border-brand-yellow/30"
             >
               <Screenshot c={c} />
               <div className="mt-5 flex flex-wrap items-center gap-2">

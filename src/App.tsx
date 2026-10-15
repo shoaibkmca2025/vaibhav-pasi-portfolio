@@ -30,6 +30,7 @@ import ServiceDetailPage from './pages/ServiceDetailPage';
 import { useRoute, type Route } from './router';
 import { applySeo, getSeo } from './seo';
 import { initScrollReveal } from './lib/scrollReveal';
+import { initTilt } from './lib/tilt';
 
 // Home is the overview; each nav item has its own detailed page.
 // Order follows the site brief: hero, proof, services, work, about, process,
@@ -121,7 +122,10 @@ export default function App({ initialPath }: { initialPath?: string }) {
   const previousRoute = useRef(routeKey);
 
   // Scroll reveals arm after hydration has committed, so prerendered content is never hidden first
-  useEffect(() => initScrollReveal(), []);
+  useEffect(() => {
+    initScrollReveal();
+    initTilt();
+  }, []);
 
 
   useEffect(() => {
@@ -132,6 +136,18 @@ export default function App({ initialPath }: { initialPath?: string }) {
     const target = window.location.hash && document.getElementById(window.location.hash.slice(1));
     if (target) target.scrollIntoView({ behavior: 'instant' });
     else window.scrollTo({ top: 0, behavior: 'instant' });
+    // Short page transition on client-side navigation (never on the first, prerendered load).
+    // Opacity and a few pixels of movement only; the page is interactive throughout.
+    const main = document.getElementById('main');
+    if (main && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      main.animate(
+        [
+          { opacity: 0, transform: 'translate3d(0, 10px, 0)' },
+          { opacity: 1, transform: 'none' },
+        ],
+        { duration: 380, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+      );
+    }
   }, [routeKey]);
 
   return (

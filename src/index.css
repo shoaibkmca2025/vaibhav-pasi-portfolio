@@ -717,3 +717,81 @@ html:not(.no-splash) .rule-draw {
   .gold-line,
   .arrow-nudge { transition: none; }
 }
+
+/* ═══════════════════ Site-wide motion upgrade ═══════════════════
+   Same easing and reveal-once rules as above. Everything here is transform/opacity/colour,
+   and every effect switches off under Reduce Motion. */
+
+/* Header: a denser bar once the page scrolls; slides away while reading down, back on scroll up */
+.site-header {
+  transition: transform 380ms var(--reveal-ease), background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+}
+.site-header[data-scrolled] {
+  background-color: color-mix(in srgb, var(--color-brand-black) 94%, transparent);
+  border-bottom-color: rgba(214, 182, 117, 0.14);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.55);
+}
+.site-header[data-tucked] { transform: translate3d(0, -100%, 0); }
+.site-header:focus-within { transform: none; }
+
+/* Home page: a faint underline under the nav item for the section in view */
+.section-tick {
+  transform: scaleX(0);
+  opacity: 0;
+  transition: transform 400ms var(--reveal-ease), opacity 300ms ease;
+}
+.section-tick.is-on { transform: scaleX(1); opacity: 1; }
+
+/* Card icons: a small lift and turn on hover or keyboard focus */
+.icon-nudge { transition: transform 450ms var(--reveal-ease); }
+@media (hover: hover) {
+  .group:hover .icon-nudge { transform: translate3d(0, -3px, 0) rotate(-6deg); }
+}
+.group:focus-within .icon-nudge { transform: translate3d(0, -3px, 0) rotate(-6deg); }
+
+/* Service cards: the image settles from a slight zoom as the card reveals */
+.service-card img { transition: transform 1100ms var(--reveal-ease), scale 700ms ease-out; }
+.motion-ready .service-card[data-reveal]:not([data-revealed]) img { transform: scale(1.08); }
+/* Pointer tilt (src/lib/tilt.ts): quick, undelayed transition only while tilting */
+[data-tilt].is-tilting {
+  transition: transform 450ms var(--reveal-ease), border-color 300ms ease !important;
+  transition-delay: 0s !important;
+  will-change: transform;
+}
+
+/* Process steps (large screens): the step the progress line has reached is emphasised */
+@media (min-width: 1024px) {
+  .motion-ready .process-step, .process-step { transition: border-color 400ms ease, opacity var(--reveal-dur) var(--reveal-ease), transform var(--reveal-dur) var(--reveal-ease); }
+  .process-step[data-active] { border-color: rgba(214, 182, 117, 0.5); }
+  .process-step .step-number { transition: background-color 400ms ease, color 400ms ease, transform 400ms var(--reveal-ease); }
+  .process-step[data-active] .step-number { background-color: var(--color-brand-yellow); color: #000; transform: scale(1.08); }
+}
+
+/* Card internals rise in just after their card (project cards on the home page) */
+.motion-ready [data-reveal].reveal-children > * {
+  transition: opacity 600ms var(--reveal-ease), transform 600ms var(--reveal-ease);
+  transition-delay: calc(var(--i, 0) * var(--reveal-step) + 120ms);
+}
+.motion-ready [data-reveal].reveal-children > :nth-child(3) { transition-delay: calc(var(--i, 0) * var(--reveal-step) + 180ms); }
+.motion-ready [data-reveal].reveal-children > :nth-child(4) { transition-delay: calc(var(--i, 0) * var(--reveal-step) + 240ms); }
+.motion-ready [data-reveal].reveal-children > :nth-child(n + 5) { transition-delay: calc(var(--i, 0) * var(--reveal-step) + 300ms); }
+.motion-ready [data-reveal].reveal-children:not([data-revealed]) > :not(:first-child) {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+}
+
+/* Buttons: the trailing arrow leans toward its destination */
+.btn-primary > svg:last-child,
+.btn-secondary > svg:last-child { transition: transform 300ms var(--reveal-ease); }
+@media (hover: hover) {
+  .btn-primary:hover > svg:last-child { transform: translate3d(2px, -2px, 0); }
+}
+
+/* Counted numbers keep a steady width while they count */
+[data-count] { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header, .section-tick, .icon-nudge, .service-card img, .btn-primary > svg:last-child { transition: none; }
+  .site-header[data-tucked] { transform: none; }
+  .group:hover .icon-nudge, .group:focus-within .icon-nudge { transform: none; }
+}
