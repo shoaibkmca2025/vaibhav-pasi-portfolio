@@ -10,7 +10,9 @@ const navItems = [{ key: 'home', path: '/', label: 'Home' }, ...navPages];
 
 // Articles live under the Blog tab
 // Article pages highlight Blog; individual service pages highlight Services
-const activeKey = (route: Route) => (route.page === 'post' ? 'blog' : route.page === 'service' ? 'services' : route.page);
+// Sub-pages highlight their section: articles → Insights, services → Services, profiles → 4AM Team
+const activeKey = (route: Route) =>
+  route.page === 'post' ? 'blog' : route.page === 'service' ? 'services' : route.page === 'member' ? 'team' : route.page;
 
 export default function Navigation({ route }: { route: Route }) {
   const [isOpen, setIsOpen] = useState(false);

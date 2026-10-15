@@ -82,7 +82,7 @@ const organizationSchema = {
 
 // Team page: everyone with a confirmed title. Only details published on the page are used
 // (no invented bios or skills). Vaibhav keeps his site-wide Person @id.
-const teamPersonId = (id: string) => (id === 'vaibhav-pasi' ? PERSON_ID : `${absoluteUrl('/team')}#${id}`);
+const teamPersonId = (id: string) => (id === 'vaibhav-pasi' ? PERSON_ID : `${absoluteUrl(`/team/${id}`)}#person`);
 const confirmedTeam = () => team.filter((m) => m.designation);
 
 const teamOrganizationSchema = () => ({
@@ -93,20 +93,24 @@ const teamOrganizationSchema = () => ({
   employee: confirmedTeam().map((m) => ({ '@id': teamPersonId(m.id) })),
 });
 
+// One team member as a Person, using only what their profile page publishes
+const memberPersonSchema = (m: (typeof team)[number]) => ({
+  '@type': 'Person',
+  '@id': teamPersonId(m.id),
+  name: m.name,
+  jobTitle: m.designation.replace(/\s+—\s+4AM Global Media$/, ''),
+  worksFor: { '@id': ORG_ID },
+  ...(m.profileDetailsConfirmed ? { description: m.shortDescription } : {}),
+  ...(m.expertise.length ? { knowsAbout: m.expertise } : {}),
+  ...(m.portrait ? { image: absoluteUrl(m.portrait) } : {}),
+  ...(m.socialLinks?.length ? { sameAs: m.socialLinks.map((l) => l.href) } : {}),
+  url: absoluteUrl(`/team/${m.id}`),
+});
+
 const teamPeopleSchema = () =>
   confirmedTeam()
     .filter((m) => m.id !== 'vaibhav-pasi')
-    .map((m) => ({
-      '@type': 'Person',
-      '@id': teamPersonId(m.id),
-      name: m.name,
-      jobTitle: m.designation.replace(/\s+—\s+4AM Global Media$/, ''),
-      worksFor: { '@id': ORG_ID },
-      ...(m.expertise.length ? { knowsAbout: m.expertise } : {}),
-      ...(m.portrait ? { image: absoluteUrl(m.portrait) } : {}),
-      ...(m.socialLinks?.length ? { sameAs: m.socialLinks.map((l) => l.href) } : {}),
-      url: absoluteUrl(`/team#${m.id}`),
-    }));
+    .map(memberPersonSchema);
 
 // `name` + `alternateName` tell Google which site name to show above the result (instead of the bare domain)
 const websiteSchema = {
@@ -206,6 +210,50 @@ export function getSeo(pathname: string): Seo {
       noindex: true,
       jsonLd: { '@context': 'https://schema.org', '@graph': [websiteSchema] },
     };
+  }
+
+  if (route.page === 'member') {
+    const m = team.find((t) => t.id === route.slug);
+    if (m) {
+      const path = `/team/${m.id}`;
+      const url = absoluteUrl(path);
+      // Short role for the title, e.g. "Co-Founder" from "Co-Founder | Digital Growth, ..."
+      const title = `${m.name}, ${m.designation.split('|')[0].replace(/\s+—\s+4AM Global Media$/, '').trim()} | 4AM Global Media`;
+      return {
+        title,
+        description: m.profileDetailsConfirmed
+          ? m.shortDescription
+          : `${m.name} is part of the 4AM Global Media team. A detailed profile is coming soon.`,
+        path,
+        image: m.portrait ? absoluteUrl(m.portrait) : SHARE_IMAGE_URL,
+        type: 'profile',
+        // Profiles still awaiting details stay out of search results until they are filled in
+        noindex: !m.profileDetailsConfirmed,
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@graph': [
+            websiteSchema,
+            ...(m.id === 'vaibhav-pasi' ? [personSchema] : [memberPersonSchema(m)]),
+            teamOrganizationSchema(),
+            {
+              '@type': 'ProfilePage',
+              '@id': `${url}#page`,
+              url,
+              name: title,
+              isPartOf: { '@id': WEBSITE_ID },
+              mainEntity: { '@id': teamPersonId(m.id) },
+              inLanguage: 'en',
+            },
+            breadcrumbs([
+              { name: 'Home', path: '/' },
+              { name: '4AM Team', path: '/team' },
+              { name: m.name, path },
+            ]),
+          ],
+        },
+      };
+    }
+    return getSeo('/404');
   }
 
   if (route.page in pageSeo) {

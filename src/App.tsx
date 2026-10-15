@@ -25,6 +25,7 @@ import BackToTop from './components/BackToTop';
 import { AboutPage, ClientWinsPage, ContactPage, PrivacyPage, ServicesPage, TermsPage, WorkPage } from './pages/Pages';
 import TeamPage from './pages/TeamPage';
 import NotFoundPage from './pages/NotFoundPage';
+import TeamMemberPage from './pages/TeamMemberPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import { useRoute, type Route } from './router';
 import { applySeo, getSeo } from './seo';
@@ -87,6 +88,8 @@ function PageContent({ route }: { route: Route; key?: string }) {
       return <AboutPage />;
     case 'team':
       return <TeamPage />;
+    case 'member':
+      return <TeamMemberPage slug={route.slug} />;
     case 'not-found':
       return <NotFoundPage />;
     case 'services':
@@ -114,7 +117,7 @@ function PageContent({ route }: { route: Route; key?: string }) {
 export default function App({ initialPath }: { initialPath?: string }) {
   const route = useRoute(initialPath);
   const routeKey =
-    route.page === 'post' ? `post:${route.slug}` : route.page === 'service' ? `service:${route.slug}` : route.page;
+    route.page === 'post' || route.page === 'service' || route.page === 'member' ? `${route.page}:${route.slug}` : route.page;
   const previousRoute = useRef(routeKey);
 
   // Scroll reveals arm after hydration has committed, so prerendered content is never hidden first

@@ -31,6 +31,7 @@ export type Route =
   | { page: 'blog' }
   | { page: 'post'; slug: string }
   | { page: 'service'; slug: string }
+  | { page: 'member'; slug: string }
   | { page: PageKey }
   | { page: 'not-found' };
 
@@ -42,6 +43,8 @@ export function parseRoute(pathname: string): Route {
   if (path === '/blog') return { page: 'blog' };
   const standalone = sitePages.find((p) => p.path === path && p.key !== 'blog');
   if (standalone) return { page: standalone.key as PageKey };
+  const member = path.match(/^\/team\/([^/]+)$/);
+  if (member) return { page: 'member', slug: decodeURIComponent(member[1]) };
   const service = path.match(/^\/services\/([^/]+)$/);
   if (service) return { page: 'service', slug: decodeURIComponent(service[1]) };
   // Services with their own top-level address, e.g. /linkedin-marketing-services

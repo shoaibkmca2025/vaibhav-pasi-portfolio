@@ -5,13 +5,15 @@ import { posts } from './blog/posts';
 import { landingServices } from './content/services';
 import { getSeo, renderHead, pageSeo } from './seo';
 import { sitePages } from './router';
+import { team } from './content/team';
 import { SITE_URL, DEFAULT_DESCRIPTION, person } from './site';
 import { faqs } from './components/FAQ';
 
 // Every page that gets its own prerendered HTML file
 const pagePaths = sitePages.filter((p) => p.key !== 'blog').map((p) => p.path);
 const servicePaths = landingServices.map((s) => s.href);
-export const routes = ['/', ...pagePaths, ...servicePaths, '/blog', ...posts.map((p) => `/blog/${p.slug}`), '/404'];
+const memberPaths = team.map((m) => `/team/${m.id}`);
+export const routes = ['/', ...pagePaths, ...memberPaths, ...servicePaths, '/blog', ...posts.map((p) => `/blog/${p.slug}`), '/404'];
 
 export function render(path: string) {
   return {
@@ -30,6 +32,7 @@ export function sitemap() {
     { loc: '/', lastmod: latest, priority: '1.0' },
     // Legal pages are indexable but low priority
     ...pagePaths.map((loc) => ({ loc, lastmod: latest, priority: ['/privacy', '/terms'].includes(loc) ? '0.3' : '0.9' })),
+    ...team.filter((m) => m.profileDetailsConfirmed).map((m) => ({ loc: `/team/${m.id}`, lastmod: latest, priority: '0.6' })),
     ...servicePaths.map((loc) => ({ loc, lastmod: latest, priority: '0.8' })),
     { loc: '/blog', lastmod: latest, priority: '0.8' },
     ...posts.map((p) => ({ loc: `/blog/${p.slug}`, lastmod: p.date, priority: '0.7' })),
