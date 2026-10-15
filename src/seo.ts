@@ -144,7 +144,7 @@ export const pageSeo: Record<PageKey, { name: string; title: string; description
     type: 'ProfilePage',
   },
   team: {
-    name: 'Our Team',
+    name: 'Faces Behind 4AM',
     title: 'The Faces Behind 4AM Global Media | Vaibhav Pasi',
     description:
       'Meet the people behind 4AM Global Media, combining digital marketing, software development, 3D animation, motion graphics, and creative strategy.',

@@ -6,12 +6,12 @@ import { useEffect, useState, type MouseEvent } from 'react';
 // Paths stay as they were (/work, /blog) so existing links keep working; only the labels changed.
 export const sitePages = [
   { key: 'about', path: '/about', label: 'About', nav: true },
-  { key: 'team', path: '/faces-behind-4am-global-media', label: 'Our Team', nav: true },
   { key: 'services', path: '/services', label: 'Services', nav: true },
   { key: 'work', path: '/work', label: 'Portfolio', nav: true },
   { key: 'client-wins', path: '/client-wins', label: 'Client Wins', nav: false },
   { key: 'blog', path: '/blog', label: 'Insights', nav: true },
   { key: 'contact', path: '/contact', label: 'Contact', nav: true },
+  { key: 'team', path: '/faces-behind-4am-global-media', label: 'Faces Behind 4AM', nav: true },
   { key: 'privacy', path: '/privacy', label: 'Privacy Policy', nav: false },
   { key: 'terms', path: '/terms', label: 'Terms of Service', nav: false },
 ] as const;

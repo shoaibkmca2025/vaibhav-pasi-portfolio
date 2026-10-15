@@ -44,20 +44,20 @@ export default function Navigation({ route }: { route: Route }) {
     <>
     <nav
       aria-label="Primary"
-      className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between gap-6 py-4 md:py-6 px-5 sm:px-6 md:px-12 backdrop-blur-md bg-brand-black/85 border-b border-white/5"
+      className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between gap-6 lg:gap-4 xl:gap-6 py-4 md:py-6 px-5 sm:px-6 md:px-12 lg:px-8 xl:px-12 backdrop-blur-md bg-brand-black/85 border-b border-white/5"
     >
       <a href="/" onClick={onLinkClick} className="text-xl font-bold tracking-tighter uppercase italic whitespace-nowrap">
         Vaibhav Pasi
       </a>
 
-      <ul className="hidden lg:flex items-center gap-6 xl:gap-9">
+      <ul className="hidden lg:flex items-center gap-4 xl:gap-9">
         {navItems.map((item) => (
           <li key={item.key}>
             <a
               href={item.path}
               onClick={onLinkClick}
               aria-current={active === item.key ? 'page' : undefined}
-              className={`relative whitespace-nowrap text-[0.9375rem] font-medium transition-colors hover:text-accent ${
+              className={`relative whitespace-nowrap text-sm xl:text-[0.9375rem] font-medium transition-colors hover:text-accent ${
                 active === item.key ? 'text-accent' : 'text-gray-400'
               }`}
             >
@@ -70,7 +70,7 @@ export default function Navigation({ route }: { route: Route }) {
         ))}
       </ul>
 
-      <div className="flex items-center gap-4 md:gap-6">
+      <div className="flex items-center gap-4 md:gap-6 lg:gap-4 xl:gap-6">
         <div className="hidden sm:flex lg:hidden 2xl:flex items-center gap-4 mr-2 border-r border-white/10 pr-6">
           {socials.map((social) => (
             <a

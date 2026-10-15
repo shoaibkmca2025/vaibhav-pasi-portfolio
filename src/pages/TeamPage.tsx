@@ -219,7 +219,7 @@ export default function TeamPage() {
               </li>
               <ChevronRight className="h-3 w-3" aria-hidden />
               <li aria-current="page" className="text-accent">
-                Our Team
+                Faces Behind 4AM
               </li>
             </ol>
           </nav>
