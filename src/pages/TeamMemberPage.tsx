@@ -90,7 +90,7 @@ export default function TeamMemberPage({ slug }: { slug: string }) {
 
           <div className="grid items-center gap-10 md:grid-cols-12 lg:gap-16">
             <div className="hero-parallax md:col-span-5">
-              <div className="reveal relative mx-auto aspect-[4/5] max-w-sm overflow-clip rounded-[2rem] border border-white/10 bg-brand-muted shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] md:max-w-none">
+              <div className="reveal relative mx-auto aspect-[4/5] min-h-0 max-w-sm overflow-clip rounded-[2rem] border border-white/10 bg-brand-muted shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] md:max-w-none">
                 <TeamPortrait member={m} eager />
               </div>
             </div>
@@ -246,7 +246,7 @@ export default function TeamMemberPage({ slug }: { slug: string }) {
             {others.map((o) => (
               <li key={o.id}>
                 <a href={`/team/${o.id}`} onClick={onLinkClick} className="group block">
-                  <span className="block aspect-[4/5] overflow-clip rounded-2xl border border-white/10 transition-colors group-hover:border-accent/40">
+                  <span className="block aspect-[4/5] min-h-0 overflow-clip rounded-2xl border border-white/10 transition-colors group-hover:border-accent/40">
                     <span className="block h-full w-full transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.04]">
                       <TeamPortrait member={o} drift />
                     </span>

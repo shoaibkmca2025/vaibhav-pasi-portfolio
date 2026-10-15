@@ -15,7 +15,7 @@ function TeamCard({ member }: { member: TeamMember }) {
       aria-labelledby={`${member.id}-name`}
       className="group relative flex h-full w-full flex-col overflow-clip rounded-[1.75rem] border border-white/10 bg-brand-dark-gray/40 transition-[border-color,transform,box-shadow] duration-300 ease-out hover:border-accent/40 hover:shadow-[0_24px_48px_-24px_rgba(0,0,0,0.6)] focus-within:border-accent/60 motion-safe:hover:-translate-y-1"
     >
-      <div className="relative aspect-[4/5] overflow-clip bg-brand-muted">
+      <div className="relative aspect-[4/5] min-h-0 overflow-clip bg-brand-muted">
         <div className="card-settle h-full w-full transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.03]">
           <TeamPortrait member={member} drift />
         </div>
@@ -129,7 +129,7 @@ export default function TeamPage() {
                   <a
                     href={`/team/${m.id}`}
                     onClick={onLinkClick}
-                    className="group relative block aspect-[4/5] overflow-clip rounded-2xl border border-white/10 transition-colors hover:border-accent/50"
+                    className="group relative block aspect-[4/5] min-h-0 overflow-clip rounded-2xl border border-white/10 transition-colors hover:border-accent/50"
                   >
                     <div className="h-full w-full transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.04]">
                       <TeamPortrait member={m} eager />
