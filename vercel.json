@@ -2,6 +2,15 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/faces-behind-4am-global-media", "destination": "/team", "statusCode": 301 }
+    {
+      "source": "/faces-behind-4am-global-media",
+      "destination": "/team",
+      "statusCode": 301
+    },
+    {
+      "source": "/team/shoiab-khatik",
+      "destination": "/team/shoaib-khatik",
+      "statusCode": 301
+    }
   ]
 }

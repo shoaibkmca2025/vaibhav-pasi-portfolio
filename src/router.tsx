@@ -22,6 +22,7 @@ export const navPages = sitePages.filter((p) => p.nav);
 // this map keeps in-app navigation and the dev server consistent with it.
 export const redirects: Record<string, string> = {
   '/faces-behind-4am-global-media': '/team',
+  '/team/shoiab-khatik': '/team/shoaib-khatik',
 };
 
 export type PageKey = Exclude<(typeof sitePages)[number]['key'], 'blog'>;

@@ -61,18 +61,18 @@ export const team: TeamMember[] = [
     isFounder: true,
   },
   {
-    id: 'shoiab-khatik',
-    name: 'Shoiab Khatik',
-    // Confirmed as "Team Member"; detailed role and biography still to be supplied
-    designation: 'Team Member',
-    shortDescription: 'A member of the team contributing to the journey and collaborative vision of 4AM Global Media.',
-    biography: [
-      "Shoiab Khatik is part of the people behind 4AM Global Media. At 4AM Global Media, team members contribute through their individual capabilities and collaborative efforts, working together to support the agency's projects and shared objectives.",
-    ],
-    expertise: [],
-    portrait: '/team/shoiab-khatik.jpg',
+    id: 'shoaib-khatik',
+    name: 'Shoaib Khatik',
+    designation: 'Co-Founder',
+    shortDescription:
+      'Leads the technology vision and product engineering — building scalable, user-focused digital products with Python, the MERN stack, React Native and cloud technologies.',
+    // Only the confirmed one-line introduction above so far; add a longer biography here when supplied
+    biography: [],
+    expertise: ['Full-Stack', 'MERN · Python', 'AI Solutions'],
+    portrait: '/team/shoaib-khatik.jpg',
     socialLinks: [],
-    profileDetailsConfirmed: false,
+    profileDetailsConfirmed: true,
+    isFounder: true,
   },
   {
     id: 'abhishek-prasad',
