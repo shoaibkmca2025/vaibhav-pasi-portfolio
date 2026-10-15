@@ -111,7 +111,11 @@ export function initScrollReveal() {
 
   observer = new IntersectionObserver(
     (entries) => {
-      for (const entry of entries) if (entry.isIntersecting) reveal(entry.target);
+      for (const entry of entries) {
+        // Reveal on entry, and also anything already scrolled past (a fast flick can carry an
+        // element through the trigger zone between frames), so nothing above the fold stays hidden
+        if (entry.isIntersecting || entry.boundingClientRect.top < 0) reveal(entry.target);
+      }
     },
     // Reveal once an element is ~18% of the way up the viewport (not the instant it peeks in)
     { rootMargin: '0px 0px -18% 0px', threshold: 0 },

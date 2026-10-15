@@ -679,7 +679,9 @@ html:not(.no-splash) .rule-draw {
 
 /* Scroll-linked effects: native scroll-driven animations, compositor-friendly, no JS listeners */
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
+  /* Tablet and desktop only: on phones these cost frames on low-powered devices, and the
+     one-off reveals already carry the motion there */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
     /* Portraits drift gently as they cross the viewport: scale 1.04 → 1.00 at centre → 1.04 */
     .portrait-drift {
       animation: portrait-drift linear both;
