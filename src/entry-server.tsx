@@ -11,7 +11,7 @@ import { faqs } from './components/FAQ';
 // Every page that gets its own prerendered HTML file
 const pagePaths = sitePages.filter((p) => p.key !== 'blog').map((p) => p.path);
 const servicePaths = landingServices.map((s) => s.href);
-export const routes = ['/', ...pagePaths, ...servicePaths, '/blog', ...posts.map((p) => `/blog/${p.slug}`)];
+export const routes = ['/', ...pagePaths, ...servicePaths, '/blog', ...posts.map((p) => `/blog/${p.slug}`), '/404'];
 
 export function render(path: string) {
   return {

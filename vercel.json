@@ -1,4 +1,7 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/faces-behind-4am-global-media", "destination": "/team", "statusCode": 301 }
+  ]
 }

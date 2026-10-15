@@ -1,6 +1,6 @@
 import { socialLinks } from '../contact';
 
-// The people behind 4AM Global Media, shown on /faces-behind-4am-global-media.
+// The people behind 4AM Global Media, shown on /team.
 // Edit profiles here; the page, its structured data and the sitemap update automatically.
 //
 // Content rules (please keep): publish only confirmed details. Leave `portrait`, `portfolioUrl`
@@ -63,8 +63,8 @@ export const team: TeamMember[] = [
   {
     id: 'shoiab-khatik',
     name: 'Shoiab Khatik',
-    // Designation not yet confirmed: do not assign a title until it is supplied
-    designation: '',
+    // Confirmed as "Team Member"; detailed role and biography still to be supplied
+    designation: 'Team Member',
     shortDescription: 'A member of the team contributing to the journey and collaborative vision of 4AM Global Media.',
     biography: [
       "Shoiab Khatik is part of the people behind 4AM Global Media. At 4AM Global Media, team members contribute through their individual capabilities and collaborative efforts, working together to support the agency's projects and shared objectives.",
@@ -77,7 +77,7 @@ export const team: TeamMember[] = [
   {
     id: 'abhishek-prasad',
     name: 'Abhishek Prasad',
-    designation: 'Co-Founder & Chief Technology Officer (CTO)',
+    designation: 'Co-Founder & Chief Technology Officer',
     shortDescription:
       'Technology-focused co-founder contributing to application development, engineering, and the technical implementation of digital solutions.',
     biography: [
@@ -107,7 +107,7 @@ export const team: TeamMember[] = [
   {
     id: 'rupali-bagul',
     name: 'Rupali Bagul',
-    designation: 'Digital Marketing Head — 4AM Global Media',
+    designation: 'Digital Marketing Head',
     shortDescription:
       'Leading digital marketing strategy, social media initiatives, brand communication, and campaign execution with a focus on creativity, audience engagement, and measurable growth.',
     biography: [
@@ -161,11 +161,12 @@ export const team: TeamMember[] = [
   },
 ];
 
-export const teamValues = [
-  { title: 'Creativity', text: 'Exploring fresh ideas and meaningful ways to communicate.' },
-  { title: 'Strategy', text: 'Aligning digital work with clear business objectives.' },
-  { title: 'Technology', text: 'Applying the right tools to solve real problems.' },
-  { title: 'Collaboration', text: 'Combining individual strengths to deliver stronger work.' },
+// "Different Talents. One Shared Vision." pillars
+export const teamPillars = [
+  { title: 'Strategy', text: 'Digital growth and planning' },
+  { title: 'Technology', text: 'Software and applications' },
+  { title: 'Marketing', text: 'Branding and campaigns' },
+  { title: 'Creativity', text: '3D, motion and visual storytelling' },
 ];
 
 // Optional "Creativity in Motion" gallery: shown only when real, approved work is listed here.

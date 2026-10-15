@@ -25,6 +25,8 @@ export interface Seo {
   type: 'website' | 'article' | 'profile';
   publishedTime?: string;
   jsonLd: object;
+  // 404 and other pages that must stay out of search results
+  noindex?: boolean;
 }
 
 const PERSON_ID = `${SITE_URL}/#person`;
@@ -78,10 +80,10 @@ const organizationSchema = {
   employee: { '@id': PERSON_ID },
 };
 
-// Team page: the confirmed people at 4AM Global Media. Only details published on the page are
-// used; profiles still awaiting confirmation are left out. Vaibhav keeps his site-wide Person @id.
-const teamPersonId = (id: string) => (id === 'vaibhav-pasi' ? PERSON_ID : `${absoluteUrl('/faces-behind-4am-global-media')}#${id}`);
-const confirmedTeam = () => team.filter((m) => m.profileDetailsConfirmed);
+// Team page: everyone with a confirmed title. Only details published on the page are used
+// (no invented bios or skills). Vaibhav keeps his site-wide Person @id.
+const teamPersonId = (id: string) => (id === 'vaibhav-pasi' ? PERSON_ID : `${absoluteUrl('/team')}#${id}`);
+const confirmedTeam = () => team.filter((m) => m.designation);
 
 const teamOrganizationSchema = () => ({
   ...organizationSchema,
@@ -100,10 +102,10 @@ const teamPeopleSchema = () =>
       name: m.name,
       jobTitle: m.designation.replace(/\s+—\s+4AM Global Media$/, ''),
       worksFor: { '@id': ORG_ID },
-      knowsAbout: m.expertise,
+      ...(m.expertise.length ? { knowsAbout: m.expertise } : {}),
       ...(m.portrait ? { image: absoluteUrl(m.portrait) } : {}),
       ...(m.socialLinks?.length ? { sameAs: m.socialLinks.map((l) => l.href) } : {}),
-      url: absoluteUrl(`/faces-behind-4am-global-media#${m.id}`),
+      url: absoluteUrl(`/team#${m.id}`),
     }));
 
 // `name` + `alternateName` tell Google which site name to show above the result (instead of the bare domain)
@@ -145,9 +147,9 @@ export const pageSeo: Record<PageKey, { name: string; title: string; description
   },
   team: {
     name: '4AM Team',
-    title: 'The Faces Behind 4AM Global Media | Vaibhav Pasi',
+    title: '4AM Team: Meet the People Behind 4AM Global Media | Vaibhav Pasi',
     description:
-      'Meet the people behind 4AM Global Media, combining digital marketing, software development, 3D animation, motion graphics, and creative strategy.',
+      'Meet the 4AM Global Media team: a multidisciplinary group bringing together digital strategy, software engineering, marketing, 3D and motion design.',
     type: 'AboutPage',
   },
   services: {
@@ -193,6 +195,18 @@ export const pageSeo: Record<PageKey, { name: string; title: string; description
 
 export function getSeo(pathname: string): Seo {
   const route = parseRoute(pathname);
+
+  if (route.page === 'not-found') {
+    return {
+      title: 'Page Not Found | Vaibhav Pasi',
+      description: "The page you're looking for doesn't exist or has moved.",
+      path: '/404',
+      image: SHARE_IMAGE_URL,
+      type: 'website',
+      noindex: true,
+      jsonLd: { '@context': 'https://schema.org', '@graph': [websiteSchema] },
+    };
+  }
 
   if (route.page in pageSeo) {
     const key = route.page as PageKey;
@@ -467,7 +481,7 @@ export function renderHead(seo: Seo) {
   const tags = [
     `<title>${escapeAttr(seo.title)}</title>`,
     `<meta name="description" content="${escapeAttr(seo.description)}" />`,
-    `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />`,
+    `<meta name="robots" content="${seo.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'}" />`,
     `<meta name="author" content="${person.name}" />`,
     `<link rel="canonical" href="${url}" />`,
     `<meta property="og:site_name" content="${SITE_NAME}" />`,
@@ -497,4 +511,7 @@ export function applySeo(seo: Seo) {
   document.title = seo.title;
   document.querySelector('meta[name="description"]')?.setAttribute('content', seo.description);
   document.querySelector('link[rel="canonical"]')?.setAttribute('href', absoluteUrl(seo.path));
+  document
+    .querySelector('meta[name="robots"]')
+    ?.setAttribute('content', seo.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1');
 }

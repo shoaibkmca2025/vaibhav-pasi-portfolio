@@ -11,12 +11,18 @@ export const sitePages = [
   { key: 'client-wins', path: '/client-wins', label: 'Client Wins', nav: false },
   { key: 'blog', path: '/blog', label: 'Insights', nav: true },
   { key: 'contact', path: '/contact', label: 'Contact', nav: true },
-  { key: 'team', path: '/faces-behind-4am-global-media', label: '4AM Team', nav: true },
+  { key: 'team', path: '/team', label: '4AM Team', nav: true },
   { key: 'privacy', path: '/privacy', label: 'Privacy Policy', nav: false },
   { key: 'terms', path: '/terms', label: 'Terms of Service', nav: false },
 ] as const;
 
 export const navPages = sitePages.filter((p) => p.nav);
+
+// Old addresses that now live elsewhere. The server sends a 301 for these (vercel.json);
+// this map keeps in-app navigation and the dev server consistent with it.
+export const redirects: Record<string, string> = {
+  '/faces-behind-4am-global-media': '/team',
+};
 
 export type PageKey = Exclude<(typeof sitePages)[number]['key'], 'blog'>;
 
@@ -25,11 +31,14 @@ export type Route =
   | { page: 'blog' }
   | { page: 'post'; slug: string }
   | { page: 'service'; slug: string }
-  | { page: PageKey };
+  | { page: PageKey }
+  | { page: 'not-found' };
 
 // Real paths so every page is indexable: /, /about, /services, /services/<slug>, ..., /blog, /blog/<slug>
 export function parseRoute(pathname: string): Route {
-  const path = pathname.replace(/\/+$/, '') || '/';
+  const trimmed = pathname.replace(/\/+$/, '') || '/';
+  const path = redirects[trimmed] ?? trimmed;
+  if (path === '/') return { page: 'home' };
   if (path === '/blog') return { page: 'blog' };
   const standalone = sitePages.find((p) => p.path === path && p.key !== 'blog');
   if (standalone) return { page: standalone.key as PageKey };
@@ -40,7 +49,7 @@ export function parseRoute(pathname: string): Route {
   if (custom) return { page: 'service', slug: custom.slug };
   const match = path.match(/^\/blog\/([^/]+)$/);
   if (match) return { page: 'post', slug: decodeURIComponent(match[1]) };
-  return { page: 'home' };
+  return { page: 'not-found' };
 }
 
 const NAVIGATE_EVENT = 'app:navigate';
@@ -59,7 +68,11 @@ export function useRoute(initialPath?: string) {
     if (window.location.hash.startsWith('#/blog')) {
       window.history.replaceState({}, '', window.location.hash.slice(1));
     }
-    const sync = () => setPath(window.location.pathname);
+    const sync = () => {
+      const old = window.location.pathname.replace(/\/+$/, '');
+      if (redirects[old]) window.history.replaceState({}, '', redirects[old] + window.location.hash);
+      setPath(window.location.pathname);
+    };
     sync();
     window.addEventListener('popstate', sync);
     window.addEventListener(NAVIGATE_EVENT, sync);

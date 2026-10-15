@@ -75,7 +75,7 @@ export function AboutPage() {
       <AboutIntro onAboutPage />
       <section className="px-5 sm:px-6 md:px-12 lg:px-24 pb-4" aria-label="The team behind 4AM Global Media">
         <a
-          href="/faces-behind-4am-global-media"
+          href="/team"
           onClick={onLinkClick}
           data-reveal="up"
           className="group mx-auto flex max-w-7xl flex-col gap-6 rounded-[1.75rem] border border-white/10 bg-brand-dark-gray/40 p-6 transition-colors hover:border-accent/40 sm:flex-row sm:items-center sm:justify-between md:p-8"

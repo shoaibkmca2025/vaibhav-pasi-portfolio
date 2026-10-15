@@ -7,7 +7,7 @@ import { person } from '../site';
 
 const exploreLinks = [
   { label: 'About', href: '/about' },
-  { label: '4AM Team', href: '/faces-behind-4am-global-media' },
+  { label: '4AM Team', href: '/team' },
   { label: 'Services', href: '/services' },
   { label: 'Portfolio', href: '/work' },
   { label: 'Client Wins', href: '/client-wins' },

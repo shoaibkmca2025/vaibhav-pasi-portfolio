@@ -24,6 +24,7 @@ import WhatsAppButton from './components/WhatsAppButton';
 import BackToTop from './components/BackToTop';
 import { AboutPage, ClientWinsPage, ContactPage, PrivacyPage, ServicesPage, TermsPage, WorkPage } from './pages/Pages';
 import TeamPage from './pages/TeamPage';
+import NotFoundPage from './pages/NotFoundPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import { useRoute, type Route } from './router';
 import { applySeo, getSeo } from './seo';
@@ -86,6 +87,8 @@ function PageContent({ route }: { route: Route; key?: string }) {
       return <AboutPage />;
     case 'team':
       return <TeamPage />;
+    case 'not-found':
+      return <NotFoundPage />;
     case 'services':
       return <ServicesPage />;
     case 'service':
