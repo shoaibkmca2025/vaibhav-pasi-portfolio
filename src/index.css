@@ -656,6 +656,10 @@ html:not(.no-splash) .rule-draw {
 .motion-ready .team-motion [data-reveal]:not([data-revealed]) .card-settle { scale: 1.06; }
 .motion-ready .team-motion [data-reveal]:not([data-revealed]) .card-stagger > * {
   opacity: 0;
+}
+/* Text rises slightly; the link row only fades, because a transform there would make it the
+   containing block for the card-wide link overlay and cause a layout shift when it clears */
+.motion-ready .team-motion [data-reveal]:not([data-revealed]) .card-stagger > :not(.card-cta) {
   translate: 0 10px;
 }
 

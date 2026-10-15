@@ -41,7 +41,7 @@ function TeamCard({ member }: { member: TeamMember }) {
 
         {/* The link's ::after covers the card, so the whole card opens the profile page
             while there is still exactly one focusable control per card */}
-        <div className="mt-auto pt-6">
+        <div className="card-cta mt-auto pt-6">
           <a
             href={`/team/${member.id}`}
             onClick={onLinkClick}
