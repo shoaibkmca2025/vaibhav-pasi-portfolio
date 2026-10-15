@@ -113,7 +113,8 @@ export function initScrollReveal() {
     (entries) => {
       for (const entry of entries) if (entry.isIntersecting) reveal(entry.target);
     },
-    { rootMargin: '0px 0px -12% 0px', threshold: 0 },
+    // Reveal once an element is ~18% of the way up the viewport (not the instant it peeks in)
+    { rootMargin: '0px 0px -18% 0px', threshold: 0 },
   );
 
   try {

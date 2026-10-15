@@ -13,10 +13,13 @@ const initials = (name: string) =>
 export default function TeamPortrait({
   member,
   eager = false,
+  drift = false,
   className = '',
 }: {
   member: TeamMember;
   eager?: boolean;
+  // Scroll-linked drift (max scale 1.04; see .portrait-drift in index.css)
+  drift?: boolean;
   className?: string;
 }) {
   if (member.portrait) {
@@ -29,7 +32,7 @@ export default function TeamPortrait({
         loading={eager ? 'eager' : 'lazy'}
         fetchPriority={eager ? 'high' : undefined}
         decoding="async"
-        className={`h-full w-full object-cover object-top ${className}`}
+        className={`h-full w-full object-cover object-top ${drift ? 'portrait-drift' : ''} ${className}`}
       />
     );
   }

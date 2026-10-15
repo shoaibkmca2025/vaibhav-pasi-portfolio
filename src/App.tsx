@@ -136,7 +136,7 @@ export default function App({ initialPath }: { initialPath?: string }) {
 
   return (
     <MotionConfig reducedMotion="user">
-    <div className="min-h-screen bg-brand-black text-white font-sans selection:bg-brand-yellow selection:text-brand-black overflow-x-hidden">
+    <div className="min-h-screen bg-brand-black text-white font-sans selection:bg-brand-yellow selection:text-brand-black overflow-x-clip">
       <div className="noise" />
       <a href="#main" className="skip-link">Skip to content</a>
 
