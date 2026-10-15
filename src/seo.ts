@@ -145,7 +145,7 @@ const breadcrumbs = (items: { name: string; path: string }[]) => ({
 export const pageSeo: Record<PageKey, { name: string; title: string; description: string; type: string }> = {
   about: {
     name: 'About',
-    title: 'About Vaibhav Pasi | Developer, Marketer & Co-Founder of 4AM Global Media',
+    title: 'About Vaibhav Pasi | Software Developer & Co-Founder, 4AM Global Media',
     description:
       'Vaibhav Pasi is an MCA graduate, software developer and digital marketer since 2019, and Co-Founder of 4AM Global Media. Background, toolkit, press and how he works.',
     type: 'ProfilePage',
@@ -159,7 +159,7 @@ export const pageSeo: Record<PageKey, { name: string; title: string; description
   },
   services: {
     name: 'Services',
-    title: 'Services: Digital Marketing, Websites, Software & AI Automation | Vaibhav Pasi',
+    title: 'Services: Marketing, Websites, Software & AI | Vaibhav Pasi',
     description:
       'Digital marketing, website and software development, SEO, LinkedIn marketing and AI automation, with starting prices, process and FAQs for each service.',
     type: 'WebPage',
@@ -446,7 +446,8 @@ export function getSeo(pathname: string): Seo {
     if (post) {
       const url = absoluteUrl(`/blog/${post.slug}`);
       return {
-        title: `${post.title} | Vaibhav Pasi`,
+        // Long headlines drop the name suffix so the title isn't cut off in results
+        title: post.title.length > 55 ? post.title : `${post.title} | Vaibhav Pasi`,
         description: post.excerpt || DEFAULT_DESCRIPTION,
         path: `/blog/${post.slug}`,
         image: coverUrl(post.cover),

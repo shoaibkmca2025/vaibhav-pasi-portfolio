@@ -314,7 +314,7 @@ export const services: Service[] = [
     priceNote: 'Start with the ₹1,499 Digital Growth Audit to see what needs fixing first.',
     whatsapp: "Hi Vaibhav, I'd like to discuss SEO for my website.",
     seo: {
-      title: 'SEO & AEO Services: Technical SEO and AI Search Visibility | Vaibhav Pasi',
+      title: 'SEO & AEO Services: Technical SEO & AI Search | Vaibhav Pasi',
       description:
         'Technical SEO, on-page optimisation, answer engine optimisation (AEO), structured data and content strategy aimed at the searches your buyers make.',
     },

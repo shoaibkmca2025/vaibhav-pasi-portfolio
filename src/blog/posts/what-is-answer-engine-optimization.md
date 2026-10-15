@@ -2,7 +2,7 @@
 title: "What Is Answer Engine Optimization? AEO, SEO and GEO Explained"
 date: 2026-10-16
 category: SEO & AEO
-excerpt: "AEO is the practice of making your content easy for answer-focused systems to discover, understand and reference. Here is how it relates to SEO and GEO, and what to do about it."
+excerpt: "AEO makes your content easy for answer engines to discover, understand and reference. How it relates to SEO and GEO, and a practical checklist."
 cover: https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2000
 tags: SEO, AEO, GEO, AI Search, Structured Data
 ---
