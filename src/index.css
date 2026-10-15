@@ -6,10 +6,123 @@
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-script: "Great Vibes", "Brush Script MT", cursive;
   
-  --color-brand-yellow: #f5ff00;
-  --color-brand-black: #050505;
-  --color-brand-dark-gray: #0e0e0e;
-  --color-brand-muted: #1a1a1a;
+  --color-brand-yellow: #D6B675;
+  --color-brand-black: #090B0F;
+  --color-brand-dark-gray: #151922;
+  --color-brand-muted: #1d222d;
+
+  /* Neutral (untinted) greys tuned for the dark background: Tailwind's default greys lean blue,
+     which clashes with the gold brand colour. Body text (400) is ~9.7:1 and small
+     labels (500) ~7.2:1, meeting the 7:1 the HIG recommends for small text in dark mode. */
+  --color-gray-100: #ece9e2;
+  --color-gray-200: #dedbd3;
+  --color-gray-300: #c9cbd1;
+  --color-gray-400: #9198A5;
+  --color-gray-500: #808794;
+  --color-gray-600: #5a606d;
+  --color-gray-700: #3c414c;
+  --color-gray-800: #262a33;
+  --color-gray-900: #151922;
+
+  /* Apple's soft white: avoids pure-white text and logo plates "glowing" against near-black */
+  --color-white: #F5F3EE;
+
+  /* Accent for text, icons and borders. Solid fills (buttons) keep using brand-yellow, which
+     stays bright in both themes; text needs a darker accent in light mode to stay readable. */
+  --color-accent: #D6B675;
+  /* Lighter gold, used sparingly: gradient ends and ambient glows */
+  --color-coral: #EBD3A0;
+}
+
+/* ═══════════════════ Light & dark themes ═══════════════════
+   The site follows the device's appearance setting. The sun/moon button stores an explicit
+   choice in localStorage and sets <html data-theme="light|dark"> (see index.html).
+   Components use the colour tokens above, so most switch automatically:
+     brand-black  → page background      white   → main text, and every white/5 tint & border
+     gray-300…900 → secondary text        accent  → yellow-ish text, icons and borders
+   "black" is never remapped: it's the text colour on yellow buttons in both themes. */
+:root {
+  color-scheme: dark;
+}
+
+/* Light palette (contrast on the page background: text 17:1, body 8.9:1, labels 6.2:1, accent 6:1) */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --color-brand-black: #F5F3EE;
+    --color-brand-dark-gray: #ECE9E1;
+    --color-brand-muted: #E2DED4;
+    --color-white: #090B0F;
+    --color-gray-100: #0d1015;
+    --color-gray-200: #161a22;
+    --color-gray-300: #262b35;
+    --color-gray-400: #4a515e;
+    --color-gray-500: #5d6472;
+    --color-gray-600: #8a909c;
+    --color-gray-700: #aab0ba;
+    --color-gray-800: #d6d3ca;
+    --color-gray-900: #e8e5dc;
+    --color-accent: #7C5E24;
+    --color-coral: #9a7a3a;
+  }
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-brand-black: #F5F3EE;
+  --color-brand-dark-gray: #ECE9E1;
+  --color-brand-muted: #E2DED4;
+  --color-white: #090B0F;
+  --color-gray-100: #0d1015;
+  --color-gray-200: #161a22;
+  --color-gray-300: #262b35;
+  --color-gray-400: #4a515e;
+  --color-gray-500: #5d6472;
+  --color-gray-600: #8a909c;
+  --color-gray-700: #aab0ba;
+  --color-gray-800: #d6d3ca;
+  --color-gray-900: #e8e5dc;
+  --color-accent: #7C5E24;
+  --color-coral: #9a7a3a;
+}
+
+/* Text laid over photos and the always-dark intro stay in the dark palette in both themes */
+.theme-dark {
+  color-scheme: dark;
+  --color-brand-black: #090B0F;
+  --color-brand-dark-gray: #151922;
+  --color-brand-muted: #1d222d;
+  --color-white: #F5F3EE;
+  --color-gray-100: #ece9e2;
+  --color-gray-200: #dedbd3;
+  --color-gray-300: #c9cbd1;
+  --color-gray-400: #9198A5;
+  --color-gray-500: #808794;
+  --color-accent: #D6B675;
+  --color-coral: #EBD3A0;
+}
+
+/* System "Increase Contrast": push secondary text and borders further, in either theme */
+@media (prefers-contrast: more) {
+  :root {
+    --color-gray-400: #c3c8d1;
+    --color-gray-500: #b0b6c0;
+  }
+}
+@media (prefers-contrast: more) and (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --color-gray-400: #262b35;
+    --color-gray-500: #323844;
+  }
+}
+@media (prefers-contrast: more) {
+  :root[data-theme="light"] {
+    --color-gray-400: #262b35;
+    --color-gray-500: #323844;
+  }
+  .border-white\/5,
+  .border-white\/10 {
+    border-color: color-mix(in oklab, var(--color-white) 30%, transparent);
+  }
 }
 
 @layer base {
@@ -33,9 +146,22 @@
     @apply bg-brand-black text-white antialiased selection:bg-brand-yellow selection:text-black min-h-screen relative;
   }
 
+  /* Clear focus ring for keyboard users (mouse clicks don't show it) */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+
+    /* Fade only: no animating out of a blur or scaling (HIG Reduce Motion guidance) */
+    .hero-title {
+      filter: none !important;
+      transform: none !important;
     }
 
     *,
@@ -46,6 +172,70 @@
       transition-duration: 0.01ms !important;
     }
   }
+}
+
+/* ─── Section labels ("eyebrows") ───
+   Neutral text with a short yellow dash: keeps the brand cue while reserving solid yellow
+   for actions and key highlights (HIG: don't use one colour to mean different things). */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--color-accent) 35%, transparent);
+  background: color-mix(in oklab, var(--color-accent) 8%, transparent);
+  color: var(--color-accent);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.eyebrow::before {
+  content: "✦";
+  font-size: 0.9em;
+  letter-spacing: 0;
+}
+
+/* ─── Section headers: centred, with a short accent rule under the title ───
+   Applied to each section's header row; the old right-hand "01 — LABEL" markers are hidden. */
+.section-head {
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center;
+}
+.section-head > div:first-child {
+  margin-inline: auto;
+}
+.section-head .section-marker {
+  display: none;
+}
+.section-head h2::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  margin: 1.25rem auto 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-coral));
+}
+
+/* Gold sheen text, for one key phrase per section at most */
+.text-gradient {
+  background: linear-gradient(100deg, var(--color-accent) 10%, var(--color-coral) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ─── Skip link: first Tab stop, jumps keyboard users past the navigation ─── */
+.skip-link {
+  @apply fixed left-4 top-4 z-[100001] -translate-y-24 rounded-full bg-brand-yellow px-5 py-3 text-sm font-bold text-black transition-transform;
+}
+.skip-link:focus {
+  @apply translate-y-0;
 }
 
 /* ─── Noise overlay ─── */
@@ -64,36 +254,61 @@
 
 /* ─── Glow effects ─── */
 .glow-yellow {
-  text-shadow: 0 0 30px rgba(245, 255, 0, 0.4), 0 0 60px rgba(245, 255, 0, 0.1);
+  /* Kept soft: a strong neon halo blurs letter edges and hurts legibility */
+  text-shadow: 0 0 24px rgba(214, 182, 117, 0.22);
+}
+/* Light mode: a yellow highlighter stroke instead of yellow text, which would vanish on white.
+   (Inside always-dark areas such as the hero, the glowing yellow text is kept: see .theme-dark rule below.) */
+:root[data-theme="light"] .glow-yellow {
+  color: var(--color-white);
+  text-shadow: none;
+  background: linear-gradient(transparent 58%, rgba(214, 182, 117, 0.32) 58%, rgba(214, 182, 117, 0.32) 90%, transparent 90%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .glow-yellow {
+    color: var(--color-white);
+    text-shadow: none;
+    background: linear-gradient(transparent 58%, rgba(214, 182, 117, 0.32) 58%, rgba(214, 182, 117, 0.32) 90%, transparent 90%);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}
+:root[data-theme="light"] .theme-dark .glow-yellow,
+:root:not([data-theme="dark"]) .theme-dark .glow-yellow {
+  color: var(--color-accent);
+  background: none;
+  text-shadow: 0 0 24px rgba(214, 182, 117, 0.22);
 }
 
 .glow-box {
-  box-shadow: 0 0 40px -10px rgba(245, 255, 0, 0.2);
+  box-shadow: 0 0 40px -10px rgba(214, 182, 117, 0.2);
 }
 
 /* ─── Section padding ─── */
 .section-padding {
-  @apply py-20 md:py-32 px-5 sm:px-6 md:px-12 lg:px-24;
+  @apply py-16 md:py-24 px-5 sm:px-6 md:px-12 lg:px-24;
 }
 
 /* ─── Buttons ─── */
 .btn-primary {
-  @apply bg-brand-yellow text-black px-8 py-4 font-extrabold transition-all hover:brightness-110 active:scale-95 text-[11px] uppercase tracking-[0.25em];
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-yellow text-black px-7 py-3.5 text-sm font-semibold transition-all hover:brightness-105 hover:shadow-lg hover:shadow-brand-yellow/20 active:scale-[0.98];
 }
 
 .btn-secondary {
-  @apply border border-white/20 text-white px-8 py-4 font-extrabold transition-all hover:bg-white hover:text-black active:scale-95 text-[11px] uppercase tracking-[0.25em];
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/20 text-white px-7 py-3.5 text-sm font-semibold transition-all hover:bg-white hover:text-brand-black active:scale-[0.98];
 }
 
 /* ─── Editorial section markers ─── */
 .section-marker {
-  @apply text-[10px] font-bold tracking-[0.4em] uppercase text-gray-600 border-b border-gray-800 pb-2;
+  @apply text-[0.6875rem] font-bold tracking-[0.4em] uppercase text-gray-500 border-b border-gray-800 pb-2;
 }
 
 /* ─── Horizontal divider ─── */
 .section-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--color-white) 8%, transparent), transparent);
 }
 
 /* ─── Card base ─── */
@@ -102,8 +317,8 @@
 }
 
 .card-dark:hover {
-  @apply border-brand-yellow/20;
-  box-shadow: 0 0 50px -20px rgba(245, 255, 0, 0.08);
+  @apply border-accent/20;
+  box-shadow: 0 0 50px -20px rgba(214, 182, 117, 0.08);
 }
 
 /* ─── Horizontal scrollers (e.g. blog filters) ─── */
@@ -116,7 +331,7 @@
 
 /* ─── Blog article body (rendered Markdown) ─── */
 .prose-blog {
-  @apply text-gray-300 font-light text-[17px] md:text-lg leading-[1.8];
+  @apply text-gray-300 font-normal text-[1.0625rem] md:text-lg leading-[1.8];
 }
 .prose-blog > * + * {
   margin-top: 1.4em;
@@ -140,7 +355,7 @@
   @apply text-white font-semibold;
 }
 .prose-blog a {
-  @apply text-brand-yellow underline decoration-brand-yellow/40 underline-offset-4 hover:decoration-brand-yellow;
+  @apply text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent;
 }
 .prose-blog ul,
 .prose-blog ol {
@@ -154,13 +369,13 @@
 }
 .prose-blog ul > li::before {
   content: "";
-  @apply absolute -left-5 top-[0.75em] w-2 h-2 rounded-full bg-brand-yellow;
+  @apply absolute -left-5 top-[0.75em] w-2 h-2 rounded-full bg-accent;
 }
 .prose-blog ol {
-  @apply list-decimal marker:text-brand-yellow marker:font-bold;
+  @apply list-decimal marker:text-accent marker:font-bold;
 }
 .prose-blog blockquote {
-  @apply border-l-4 border-brand-yellow pl-5 md:pl-6 py-1 text-xl md:text-2xl font-medium italic text-white leading-snug;
+  @apply border-l-4 border-accent pl-5 md:pl-6 py-1 text-xl md:text-2xl font-medium italic text-white leading-snug;
 }
 .prose-blog blockquote p {
   margin: 0;
@@ -173,7 +388,7 @@
   @apply w-full rounded-2xl border border-white/10;
 }
 .prose-blog code {
-  @apply text-brand-yellow bg-white/5 px-1.5 py-0.5 rounded text-[0.9em];
+  @apply text-accent bg-white/5 px-1.5 py-0.5 rounded text-[0.9em];
 }
 .prose-blog pre {
   @apply bg-brand-muted border border-white/10 rounded-2xl p-5 overflow-x-auto text-sm;
@@ -187,18 +402,182 @@
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: var(--color-brand-black);
 }
 ::-webkit-scrollbar-thumb {
-  background: #222;
+  background: color-mix(in oklab, var(--color-white) 15%, transparent);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #333;
+  background: color-mix(in oklab, var(--color-white) 25%, transparent);
 }
 
 /* ─── Selection ─── */
 ::selection {
-  background: #f5ff00;
+  background: #D6B675;
   color: #000;
+}
+
+/* ─── "As featured in" logo strip ─── */
+.logo-strip {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.logo-strip-track {
+  animation: logo-scroll 45s linear infinite;
+}
+.logo-strip:hover .logo-strip-track {
+  animation-play-state: paused;
+}
+@keyframes logo-scroll {
+  to {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-strip-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+  }
+  .logo-strip-track > li[aria-hidden] {
+    display: none;
+  }
+}
+
+/* ─── Animated underline for text links ─── */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 2px;
+  transition: background-size 0.3s ease;
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* ─── Hero entrance: CSS only, so it plays from the prerendered HTML without waiting for JS ───
+   When the intro splash is showing, the entrance waits until the splash lifts (~1.2s). */
+@keyframes reveal-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.reveal {
+  animation: reveal-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+html:not(.no-splash) .reveal {
+  animation-delay: calc(var(--d, 0ms) + 1.1s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; }
+}
+
+/* ═══════════════════ Scroll-reveal system (src/lib/scrollReveal.ts) ═══════════════════
+   Spec: ease-out-expo, no overshoot · 700ms (headings 900ms) · 24px rise · 0.97 scale for cards
+   · 70ms stagger, capped at 6 · mobile and low-powered devices: 500ms, 14px, 40ms, no scale.
+   Hidden "before" states exist only under html.motion-ready, which is set by JavaScript after
+   on-screen content has been marked revealed; without JS everything is simply visible. */
+:root {
+  --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --reveal-dur: 700ms;
+  --reveal-dist: 24px;
+  --reveal-scale: 0.97;
+  --reveal-step: 70ms;
+}
+@media (max-width: 767px) {
+  :root { --reveal-dur: 500ms; --reveal-dist: 14px; --reveal-scale: 1; --reveal-step: 40ms; }
+}
+.motion-lite { --reveal-dur: 500ms; --reveal-dist: 14px; --reveal-scale: 1; --reveal-step: 40ms; }
+
+.motion-ready [data-reveal],
+.motion-ready [data-reveal-stagger] > * {
+  transition:
+    opacity var(--reveal-dur) var(--reveal-ease),
+    transform var(--reveal-dur) var(--reveal-ease),
+    clip-path calc(var(--reveal-dur) + 200ms) var(--reveal-ease);
+  transition-delay: calc(var(--i, 0) * var(--reveal-step));
+}
+
+/* Before states */
+.motion-ready [data-reveal='up']:not([data-revealed]),
+.motion-ready [data-reveal-stagger]:not([data-revealed]) > * {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-dist), 0);
+}
+.motion-ready [data-reveal='scale']:not([data-revealed]) {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-dist), 0) scale(var(--reveal-scale));
+}
+/* Images uncover upward from the bottom edge */
+.motion-ready [data-reveal='mask']:not([data-revealed]) {
+  clip-path: inset(100% 0 0 0 round 1.75rem);
+}
+.motion-ready [data-reveal='mask'] {
+  clip-path: inset(0 0 0 0 round 1.75rem);
+}
+/* Headings rise into place behind a mask (negative insets keep descenders and the
+   gold underline below section headings unclipped) */
+.motion-ready [data-reveal='heading'] {
+  clip-path: inset(-0.25em -0.1em -2rem -0.1em);
+  transition-duration: calc(var(--reveal-dur) + 200ms);
+}
+.motion-ready [data-reveal='heading']:not([data-revealed]) {
+  clip-path: inset(calc(100% + 2rem) -0.1em -2rem -0.1em);
+  transform: translate3d(0, 0.35em, 0);
+}
+/* Timeline connectors draw left to right */
+.motion-ready [data-reveal='line'] {
+  transform-origin: left center;
+  transition-duration: 1200ms;
+  transition-delay: 200ms;
+}
+.motion-ready [data-reveal='line']:not([data-revealed]) {
+  transform: scaleX(0);
+}
+
+/* Hero headline: words rise out of a mask, one after another (CSS only, plays from the prerendered HTML) */
+.hero-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.hero-word > span {
+  display: inline-block;
+  animation: word-rise 900ms var(--reveal-ease) both;
+  animation-delay: calc(var(--w, 0) * 70ms + 80ms);
+}
+html:not(.no-splash) .hero-word > span {
+  animation-delay: calc(var(--w, 0) * 70ms + 1.1s);
+}
+@keyframes word-rise {
+  from { transform: translate3d(0, 105%, 0); }
+  to { transform: none; }
+}
+
+/* Project cards: lift on hover, metadata arrow nudges */
+.lift-card {
+  transition: transform 300ms var(--reveal-ease), border-color 300ms ease, box-shadow 300ms ease;
+}
+@media (hover: hover) {
+  .lift-card:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.6);
+  }
+  .lift-card:hover .nudge { transform: translate3d(3px, -3px, 0); }
+}
+.nudge { transition: transform 300ms var(--reveal-ease); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-word > span { animation: none; }
+  .lift-card, .lift-card:hover { transform: none; }
+}
+@media print {
+  .motion-ready [data-reveal], .motion-ready [data-reveal-stagger] > * { opacity: 1 !important; transform: none !important; clip-path: none !important; }
 }

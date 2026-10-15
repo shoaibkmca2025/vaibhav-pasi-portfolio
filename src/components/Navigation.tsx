@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Twitter, Instagram, Linkedin, Menu, X } from 'lucide-react';
-import { contactHref, socialLinks } from '../contact';
-import { onLinkClick, sitePages, type Route } from '../router';
+import { ArrowUpRight, Twitter, Instagram, Linkedin, Menu, X } from 'lucide-react';
+import { socialLinks } from '../contact';
+import { bookingExternal, bookingHref } from '../lib/booking';
+import ThemeToggle from './ThemeToggle';
+import { navPages, onLinkClick, type Route } from '../router';
 
-const navItems = [{ key: 'home', path: '/', label: 'Home' }, ...sitePages];
+const navItems = [{ key: 'home', path: '/', label: 'Home' }, ...navPages];
 
 // Articles live under the Blog tab
-const activeKey = (route: Route) => (route.page === 'post' ? 'blog' : route.page);
+// Article pages highlight Blog; individual service pages highlight Services
+const activeKey = (route: Route) => (route.page === 'post' ? 'blog' : route.page === 'service' ? 'services' : route.page);
 
 export default function Navigation({ route }: { route: Route }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +44,7 @@ export default function Navigation({ route }: { route: Route }) {
     <>
     <nav
       aria-label="Primary"
-      className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between gap-6 py-4 md:py-6 px-5 sm:px-6 md:px-12 backdrop-blur-md bg-brand-black/50 border-b border-white/5"
+      className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between gap-6 py-4 md:py-6 px-5 sm:px-6 md:px-12 backdrop-blur-md bg-brand-black/85 border-b border-white/5"
     >
       <a href="/" onClick={onLinkClick} className="text-xl font-bold tracking-tighter uppercase italic whitespace-nowrap">
         Vaibhav Pasi
@@ -54,13 +57,13 @@ export default function Navigation({ route }: { route: Route }) {
               href={item.path}
               onClick={onLinkClick}
               aria-current={active === item.key ? 'page' : undefined}
-              className={`relative whitespace-nowrap text-[11px] font-bold tracking-widest uppercase transition-colors hover:text-brand-yellow ${
-                active === item.key ? 'text-brand-yellow' : 'text-gray-400'
+              className={`relative whitespace-nowrap text-[0.9375rem] font-medium transition-colors hover:text-accent ${
+                active === item.key ? 'text-accent' : 'text-gray-400'
               }`}
             >
               {item.label}
               {active === item.key && (
-                <motion.span layoutId="activeTab" className="absolute -bottom-1.5 left-0 w-full h-[1px] bg-brand-yellow" />
+                <motion.span layoutId="activeTab" className="absolute -bottom-1.5 left-0 w-full h-[2px] rounded-full bg-accent" />
               )}
             </a>
           </li>
@@ -74,7 +77,7 @@ export default function Navigation({ route }: { route: Route }) {
               key={social.label}
               href={social.href}
               aria-label={`Open Vaibhav Pasi on ${social.label}`}
-              className="text-gray-400 hover:text-brand-yellow transition-colors"
+              className="p-1.5 -m-1.5 text-gray-400 hover:text-accent transition-colors"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -83,11 +86,15 @@ export default function Navigation({ route }: { route: Route }) {
           ))}
         </div>
 
+        <ThemeToggle className="-mx-2 md:mx-0" />
+
         <a
-          href={contactHref}
-          className="hidden md:block whitespace-nowrap bg-brand-yellow text-black px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all"
+          href={bookingHref}
+          data-cta="book"
+          {...(bookingExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          className="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-brand-yellow text-black px-5 py-2.5 text-sm font-semibold hover:brightness-105 hover:shadow-lg hover:shadow-brand-yellow/20 transition-all"
         >
-          LET'S COLLABORATE
+          Book a Strategy Call <ArrowUpRight className="w-4 h-4" aria-hidden />
         </a>
 
         <button
@@ -139,7 +146,7 @@ export default function Navigation({ route }: { route: Route }) {
                     }}
                     aria-current={active === item.key ? 'page' : undefined}
                     className={`block text-4xl sm:text-5xl font-black tracking-tighter uppercase italic leading-none py-1 ${
-                      active === item.key ? 'text-brand-yellow' : 'text-white/20 hover:text-white'
+                      active === item.key ? 'text-accent' : 'text-white/45 hover:text-white'
                     }`}
                   >
                     {item.label}
@@ -162,7 +169,7 @@ export default function Navigation({ route }: { route: Route }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open Vaibhav Pasi on ${social.label}`}
-                    className="p-2 -m-2 text-gray-400 hover:text-brand-yellow transition-colors"
+                    className="p-2.5 -m-2.5 text-gray-400 hover:text-accent transition-colors"
                   >
                     <social.icon className="w-6 h-6" />
                   </a>
@@ -170,10 +177,12 @@ export default function Navigation({ route }: { route: Route }) {
               </div>
 
               <a
-                href={contactHref}
-                className="w-full bg-brand-yellow text-black py-5 font-black uppercase tracking-widest text-xs text-center"
+                href={bookingHref}
+          data-cta="book"
+          {...(bookingExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brand-yellow text-black py-4 text-base font-semibold"
               >
-                LET'S COLLABORATE
+                Book a Strategy Call <ArrowUpRight className="w-4 h-4" aria-hidden />
               </a>
             </motion.div>
           </motion.div>

@@ -1,14 +1,27 @@
 // Services shown on the home page, /services and each /services/<slug> landing page.
 // Edit copy, deliverables and prices here; pages update automatically.
 
-export type ServiceIcon = 'globe' | 'megaphone' | 'search' | 'bot' | 'database' | 'code' | 'compass';
+export type ServiceIcon = 'globe' | 'megaphone' | 'search' | 'bot' | 'database' | 'code' | 'compass' | 'linkedin' | 'user' | 'graduation';
+
+// A monthly package in a 3-tier pricing table
+export interface ServicePackage {
+  name: string;
+  price: string; // e.g. '₹12,000'
+  period: string; // e.g. '/month'
+  description: string;
+  features: string[];
+  popular?: boolean;
+}
 
 export interface Service {
   slug: string;
-  // Consulting has its own page; everything else gets /services/<slug>
+  // Where the detail page lives: usually /services/<slug>; a service can use its own path
+  // (e.g. /linkedin-marketing-services). Consulting has no detail page (it links to /contact).
   href: string;
   title: string;
   navTitle: string;
+  // Decorative stock photo for cards and the detail page header
+  image?: { src: string; alt: string };
   icon: ServiceIcon;
   short: string;
   intro: string;
@@ -18,17 +31,33 @@ export interface Service {
   price: string;
   priceNote: string;
   whatsapp: string;
-  seo: { title: string; description: string };
+  seo: { title: string; description: string; keywords?: string[] };
   faqs: { question: string; answer: string }[];
+
+  // Tools and technologies used to deliver it (only ones used in real work: see proof.ts techGroups)
+  tools?: string[];
+
+  // ── Optional sections: shown on the detail page only when filled in ──
+  tagline?: string; // one-line promise under the page title
+  highlights?: string[]; // short chips in the hero
+  challenges?: { title: string; text: string }[]; // problems this service solves
+  whyUs?: { title: string; text: string }[]; // reasons to choose you
+  offerings?: { title: string; text: string }[]; // sub-services, shown instead of the deliverables grid
+  packages?: ServicePackage[]; // 3-tier pricing table, shown instead of the single pricing card
+  packagesNote?: string; // small print under the pricing table
+  ctas?: { primary: string; packages: string; final: string }; // custom button labels
 }
 
 export const services: Service[] = [
   {
     slug: 'website-development',
+    tools: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Vercel'],
     href: '/services/website-development',
     title: 'Websites & Landing Pages',
     navTitle: 'Website Development',
     icon: 'globe',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=75&w=1200', alt: 'Laptop showing website code on a bright desk' },
     short: 'Conversion-focused business websites, landing pages and web experiences that turn visitors into enquiries.',
     intro:
       'A website should do one job well: turn the right visitors into enquiries. I plan the structure around your offer, write for your buyer, and build fast, mobile-first pages with clear calls to action, analytics and SEO foundations from day one.',
@@ -63,10 +92,13 @@ export const services: Service[] = [
   },
   {
     slug: 'digital-marketing',
+    tools: ['Meta & Google Ads', 'Google Analytics', 'Instagram', 'Short-form video'],
     href: '/services/digital-marketing',
     title: 'Digital Marketing',
     navTitle: 'Digital Marketing',
     icon: 'megaphone',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&q=75&w=1200', alt: 'Marketing strategy notes and a pricing book on a desk' },
     short: 'Social media, content, campaign strategy and digital growth systems built around measurable goals.',
     intro:
       'Posting more is not a strategy. I set clear goals, define content pillars your audience actually cares about, plan campaigns, and track what turns attention into enquiries, so marketing becomes a system instead of guesswork.',
@@ -100,11 +132,164 @@ export const services: Service[] = [
     ],
   },
   {
+    slug: 'linkedin-marketing',
+    tools: ['LinkedIn', 'Content calendar', 'Lead pipeline tracking'],
+    href: '/linkedin-marketing-services',
+    title: 'LinkedIn Marketing & B2B Lead Generation',
+    navTitle: 'LinkedIn Marketing',
+    icon: 'linkedin',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1611944212129-29977ae1398c?auto=format&fit=crop&q=75&w=1200', alt: 'LinkedIn logo on a dark blue background' },
+    tagline: 'Build your brand authority. Connect with decision-makers. Generate business opportunities.',
+    highlights: ['Personal Branding', 'Content Marketing', 'B2B Lead Generation'],
+    short:
+      'LinkedIn marketing services for founders and B2B companies: personal branding, content, company page management and organic lead generation.',
+    intro:
+      'At 4AM Global Media, we help businesses strengthen their LinkedIn presence through strategic content creation, executive personal branding, company page management, and targeted organic lead generation.',
+    deliverables: [
+      'LinkedIn profile optimization',
+      'Content strategy, copywriting and carousels',
+      'Company page management',
+      'Prospect research and personalized outreach',
+      'Lead pipeline tracking',
+      'Monthly analytics and strategy review',
+    ],
+    offerings: [
+      {
+        title: 'LinkedIn Profile Optimization',
+        text: 'Improve professional positioning, headlines, About sections, Featured sections, and calls to action.',
+      },
+      {
+        title: 'LinkedIn Content Marketing',
+        text: 'Strategy, copywriting, carousel design, post scheduling, thought leadership, and company updates.',
+      },
+      {
+        title: 'B2B Lead Generation',
+        text: 'Target audience research, prospect identification, personalized outreach, follow-up coordination, and lead tracking.',
+      },
+      {
+        title: 'Company Page Management',
+        text: 'Page optimization, brand communication, content publishing, audience engagement, and analytics.',
+      },
+    ],
+    challenges: [
+      { title: 'Your profile undersells you', text: "Your headline and About section don't tell decision-makers what you do or why it matters to them." },
+      { title: 'Posting is inconsistent', text: 'Without a plan and a content calendar, LinkedIn activity stops the moment work gets busy.' },
+      { title: 'Connections, but no conversations', text: 'Your network grows, but it rarely turns into conversations with the right buyers.' },
+      { title: 'An inactive company page', text: 'An outdated company page weakens trust when prospects look you up before replying.' },
+    ],
+    whyUs: [
+      { title: 'Technology + marketing expertise', text: 'One partner for software development and digital growth.' },
+      { title: 'Business-focused strategy', text: "Content aligned with your industry, audience, and objectives." },
+      { title: 'Consistent execution', text: 'Planned publishing, outreach, and monthly reporting.' },
+      { title: 'Transparent deliverables', text: 'Clearly defined packages, scope, and performance tracking.' },
+    ],
+    useCases: [
+      'Founders and CEOs building a personal brand',
+      'B2B companies that want conversations with decision-makers',
+      'Consultants and professionals growing their authority',
+      'Businesses with an inactive LinkedIn company page',
+    ],
+    process: [
+      { title: 'Audit & strategy', text: 'Review your profile, company page, audience and competitors, then agree goals and content pillars.' },
+      { title: 'Optimize profiles', text: 'Rework headlines, About and Featured sections, the company page and calls to action.' },
+      { title: 'Publish & engage', text: 'Planned posts, carousels and thought leadership, plus organic outreach within the agreed scope.' },
+      { title: 'Report & refine', text: 'Monthly analytics and a strategy review, so effort goes into what is working.' },
+    ],
+    price: 'From ₹12,000 / month',
+    priceNote: 'Starter ₹12,000 · Growth ₹20,000 · Premium ₹35,000 per month (professional fees).',
+    packages: [
+      {
+        name: 'Starter',
+        price: '₹12,000',
+        period: '/month',
+        description: 'Ideal for professionals and small businesses building their LinkedIn presence.',
+        features: ['Profile optimization', '8 posts per month', 'Content calendar and copywriting', 'Basic keyword research', 'Monthly performance report'],
+      },
+      {
+        name: 'Growth',
+        price: '₹20,000',
+        period: '/month',
+        description: 'For growing businesses seeking stronger brand visibility and B2B engagement.',
+        features: [
+          '12–16 posts per month',
+          'Personal profile and company page management',
+          'Up to 4 carousel/document creatives',
+          'Audience and competitor research',
+          'Defined organic outreach allowance',
+          'Monthly analytics and strategy review',
+        ],
+        popular: true,
+      },
+      {
+        name: 'Premium',
+        price: '₹35,000',
+        period: '/month',
+        description: 'Full-service LinkedIn marketing for SMEs focused on B2B opportunities.',
+        features: [
+          '16–20 posts per month',
+          'Executive personal branding',
+          'Company page management',
+          'Content strategy and thought leadership',
+          'Prospect research and personalized outreach',
+          'Lead pipeline tracking and follow-up coordination',
+          'Monthly performance report and strategy meeting',
+        ],
+      },
+    ],
+    packagesNote:
+      'Prices are indicative starting packages. Advertising spend, premium tools, additional profiles, and applicable taxes are charged separately. Outreach and lead generation are subject to agreed scope; leads or sales are not guaranteed.',
+    ctas: { primary: 'Get a Free Consultation', packages: 'View Our Packages', final: 'Discuss Your LinkedIn Strategy' },
+    whatsapp: "Hi Vaibhav, I'd like to discuss LinkedIn marketing for my business.",
+    seo: {
+      title: 'LinkedIn Marketing Services & B2B Lead Generation | 4AM Global Media',
+      description:
+        'Grow your professional brand with LinkedIn marketing, content creation, company page management, and B2B lead generation services from 4AM Global Media.',
+      keywords: [
+        'LinkedIn marketing services',
+        'LinkedIn management services',
+        'LinkedIn lead generation',
+        'B2B marketing agency',
+        'LinkedIn personal branding',
+      ],
+    },
+    faqs: [
+      {
+        question: 'What do your LinkedIn marketing services include?',
+        answer:
+          'Every package includes content and copywriting plus a monthly performance report. Starter covers profile optimization and 8 posts a month; Growth adds company page management, carousels, research and a defined outreach allowance; Premium adds executive personal branding, personalized prospect outreach and lead pipeline tracking.',
+      },
+      {
+        question: 'How much does LinkedIn marketing cost?',
+        answer:
+          'Packages start at ₹12,000 per month (Starter), with Growth at ₹20,000 and Premium at ₹35,000 per month. These are professional fees; advertising spend, premium tools, additional profiles and applicable taxes are charged separately.',
+      },
+      {
+        question: 'Can you guarantee leads or sales from LinkedIn?',
+        answer:
+          'No. Outreach and lead generation follow an agreed scope, and results are tracked and reported every month, but leads or sales cannot be guaranteed.',
+      },
+      {
+        question: 'Do I have to write the posts myself?',
+        answer:
+          'No. Content strategy and copywriting are included in every package. You share your expertise, goals and updates; the posts and carousels are written and designed for you.',
+      },
+      {
+        question: 'Can you manage both my personal profile and our company page?',
+        answer:
+          'Yes. The Growth and Premium packages include both your personal profile and your company page. Additional profiles can be added for a separate fee.',
+      },
+    ],
+  },
+  {
     slug: 'seo',
+    tools: ['Google Search Console', 'Google Analytics', 'Structured data'],
     href: '/services/seo',
     title: 'SEO',
     navTitle: 'SEO',
     icon: 'search',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=75&w=1200', alt: 'Analytics dashboard with traffic charts' },
     short: 'Search visibility through technical SEO, on-page optimisation and a content strategy aimed at buyers.',
     intro:
       'SEO is how customers find you when they are already looking. I fix the technical foundations, optimise the pages that should rank, and plan content around the searches your buyers make, including structured data that helps Google and AI assistants understand your business.',
@@ -138,10 +323,13 @@ export const services: Service[] = [
   },
   {
     slug: 'ai-automation',
+    tools: ['n8n', 'AI models (LLMs)', 'Google Sheets', 'WhatsApp & email automation'],
     href: '/services/ai-automation',
     title: 'AI Automation',
     navTitle: 'AI Automation',
     icon: 'bot',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=75&w=1200', alt: 'Blue 3D letters spelling AI' },
     short: 'Automate repetitive business work with AI, workflows and integrations between the tools you already use.',
     intro:
       'Most businesses lose hours every week copying data between forms, sheets, inboxes and WhatsApp. I map those repetitive steps and replace them with reliable automated workflows, using AI where it genuinely helps, such as qualifying enquiries or drafting replies, with a human in the loop where it matters.',
@@ -175,10 +363,13 @@ export const services: Service[] = [
   },
   {
     slug: 'crm-development',
+    tools: ['Supabase / Postgres', 'React', 'Node.js', 'CRM integrations'],
     href: '/services/crm-development',
     title: 'CRM & Business Software',
     navTitle: 'CRM Development',
     icon: 'database',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=75&w=1200', alt: 'Laptop showing a data dashboard' },
     short: 'Custom CRM systems, dashboards, portals and internal tools built around how your team actually works.',
     intro:
       'Spreadsheets break once a business grows. I build lightweight CRMs, dashboards and internal tools that match your sales and operations process, so leads, customers and tasks live in one place, with the reports you actually need.',
@@ -211,10 +402,13 @@ export const services: Service[] = [
   },
   {
     slug: 'software-development',
+    tools: ['React', 'TypeScript', 'Node.js', 'Supabase / Postgres', 'Vercel'],
     href: '/services/software-development',
     title: 'Software Development',
     navTitle: 'Software Development',
     icon: 'code',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=75&w=1200', alt: 'Code editor open on a laptop screen' },
     short: 'Web applications, APIs and integrations for businesses that need more than a website.',
     intro:
       'When a business process needs its own software, I design and build web applications and APIs with a focus on reliability, maintainability and a clean handover, from the first prototype to production.',
@@ -238,11 +432,109 @@ export const services: Service[] = [
     ],
   },
   {
+    slug: 'personal-branding',
+    href: '/services/personal-branding',
+    title: 'Personal Branding & Content Strategy',
+    navTitle: 'Personal Branding',
+    icon: 'user',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=75&w=1200', alt: 'Person using social media on a phone beside a laptop' },
+    tools: ['Instagram', 'LinkedIn', 'Short-form video', 'Content calendar'],
+    short: 'Positioning, content pillars and a consistent publishing system that builds a recognisable personal brand.',
+    intro:
+      'A personal brand grows when people understand what you stand for and see it consistently. I help founders, creators and professionals define their positioning, plan content pillars, sharpen hooks and build a publishing rhythm they can sustain, using the same short-form approach behind the creator results on this site.',
+    deliverables: [
+      'Positioning and audience definition',
+      'Content pillars and core messaging',
+      'Hook and format playbook',
+      'Content calendar and publishing rhythm',
+      'Profile optimisation across platforms',
+      'Monthly performance review',
+    ],
+    useCases: ['Founders building authority in their market', 'Creators stuck at low reach', 'Consultants and coaches', 'Professionals building a public profile'],
+    process: [
+      { title: 'Discover', text: 'Your story, expertise, audience and what you want to be known for.' },
+      { title: 'Position', text: 'A clear positioning statement, content pillars and the formats that suit you.' },
+      { title: 'Publish', text: 'A calendar and hook playbook so content goes out consistently.' },
+      { title: 'Review', text: 'Monthly review of what performs, then double down on it.' },
+    ],
+    price: 'Custom quote',
+    priceNote: 'Scoped after a discovery call, as a fixed project or a monthly retainer.',
+    whatsapp: "Hi Vaibhav, I'd like to discuss personal branding and content strategy.",
+    seo: {
+      title: 'Personal Branding & Content Strategy | Vaibhav Pasi',
+      description:
+        'Personal branding for founders, creators and professionals: positioning, content pillars, hooks and a consistent publishing system for Instagram, LinkedIn and short-form video.',
+    },
+    faqs: [
+      {
+        question: 'Which platforms do you work on?',
+        answer: 'Mainly Instagram, LinkedIn and short-form video. The strategy focuses on the one or two platforms where your audience actually spends time.',
+      },
+      {
+        question: 'Do you create the content for me?',
+        answer:
+          'The strategy, hooks and content calendar are always included. Scripting and copywriting can be added to the scope; you stay the face and voice of the brand.',
+      },
+      {
+        question: 'Can you guarantee followers or viral posts?',
+        answer: 'No. Reach depends on many factors outside anyone’s control. What you get is a clear strategy, consistent execution and honest monthly reporting.',
+      },
+    ],
+  },
+  {
+    slug: 'ai-workshops',
+    href: '/services/ai-workshops',
+    title: 'AI Workshops & Technology Consulting',
+    navTitle: 'AI Workshops',
+    icon: 'graduation',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=75&w=1200', alt: 'Team workshop around a whiteboard with sticky notes' },
+    tools: ['AI models (LLMs)', 'n8n', 'Automation tools', 'Hands-on exercises'],
+    short: 'Hands-on AI workshops, corporate training and technology consulting for teams, institutions and business leaders.',
+    intro:
+      'I run AI workshops, corporate training programs and Vibe Coding sessions that help students, professionals and business leaders adopt AI, build simple digital products and automate business processes. Sessions are practical and built around exercises, not slides. The same experience is available as one-to-one technology consulting for tool and build decisions.',
+    deliverables: [
+      'Workshop agenda tailored to your audience',
+      'Hands-on AI and automation exercises',
+      'Vibe Coding sessions for building simple tools',
+      'Resources and follow-up material',
+      'Technology consulting for tool and vendor decisions',
+    ],
+    useCases: ['Colleges and educational institutions', 'Corporate teams adopting AI', 'Startup founders', 'Business leadership teams'],
+    process: [
+      { title: 'Brief', text: 'Your audience, their current skill level and what they should be able to do afterwards.' },
+      { title: 'Design', text: 'An agenda and exercises matched to the group and the time available.' },
+      { title: 'Deliver', text: 'On site or online, with hands-on practice throughout.' },
+      { title: 'Follow up', text: 'Resources and next steps so the learning turns into practice.' },
+    ],
+    price: 'Custom quote',
+    priceNote: 'Depends on duration, group size and on-site or online delivery.',
+    whatsapp: "Hi Vaibhav, I'd like to discuss an AI workshop or training session.",
+    seo: {
+      title: 'AI Workshops, Corporate Training & Technology Consulting | Vaibhav Pasi',
+      description:
+        'Practical AI workshops, corporate training and Vibe Coding sessions for institutions and teams, plus technology consulting for AI, automation and software decisions.',
+    },
+    faqs: [
+      {
+        question: 'Are workshops online or on site?',
+        answer: 'Both. Workshops can run on site at your campus or office, or online for distributed teams.',
+      },
+      {
+        question: 'Do participants need coding experience?',
+        answer: 'No. Each session is designed for its audience, from complete beginners to technical teams. The agenda is agreed with you beforehand.',
+      },
+    ],
+  },
+  {
     slug: 'consulting',
     href: '/consulting',
     title: 'Consulting',
     navTitle: 'Consulting',
     icon: 'compass',
+    // Decorative stock photo (Unsplash), not client work
+    image: { src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=75&w=1200', alt: 'Strategy meeting in a bright office' },
     short: 'Strategy sessions on websites, marketing, automation and technology decisions, with a clear action plan.',
     intro: 'A focused session to untangle a growth, marketing or technology decision and leave with a prioritised plan.',
     deliverables: ['60-minute focused session', 'Pre-call questionnaire review', 'Prioritised action plan', 'Recommended tools and next steps'],
@@ -256,5 +548,8 @@ export const services: Service[] = [
   },
 ];
 
-export const landingServices = services.filter((s) => s.href.startsWith('/services/'));
+// Services with a full detail page (Consulting is a short entry that links to /contact)
+export const landingServices = services.filter((s) => s.process.length > 0);
+export const hasDetailPage = (s: Service) => landingServices.includes(s);
+export const getServiceByPath = (path: string) => landingServices.find((s) => s.href === path);
 export const getService = (slug: string) => landingServices.find((s) => s.slug === slug);

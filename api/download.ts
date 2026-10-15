@@ -1,8 +1,8 @@
 // GET /api/download?token=… → redirects to the private file for a paid product.
 // File locations live only in server env vars (FILE_<PRODUCT>), e.g. a private S3/R2/Drive link.
-import { getCatalogItem } from '../shared/catalog';
-import { env, guard, send, type Req, type Res } from './_lib/http';
-import { readDownload } from './_lib/payments';
+import { getCatalogItem } from '../shared/catalog.js';
+import { env, guard, send, type Req, type Res } from './_lib/http.js';
+import { readDownload } from './_lib/payments.js';
 
 export default async function handler(req: Req, res: Res) {
   if (!guard(req, res, 'GET')) return;

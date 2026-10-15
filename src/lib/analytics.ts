@@ -1,76 +1,53 @@
-// Analytics: one `track()` call for every conversion event, sent to Google Analytics 4 when
-// VITE_GA_ID is set, and always pushed to window.dataLayer (Google Tag Manager-ready).
-// Never send personal data (names, emails, phone numbers) in event parameters.
+// Google Analytics 4. Off unless VITE_GA_ID (e.g. G-XXXXXXX) is set in Vercel; the ID is public by design.
+// Tracked events:
+//   generate_lead      a form was submitted successfully (failed submissions are never counted)
+//   whatsapp_click     any wa.me link
+//   book_call_click    the "Book a Strategy Call" buttons
+//   cta_click          any element with data-track="<name>" (e.g. service page CTAs)
+// Page views on in-app navigation are picked up by GA4's enhanced measurement (history changes).
+import { bookingHref, hasBooking } from './booking';
 
-export type AnalyticsEvent =
-  | 'page_view'
-  | 'cta_click'
-  | 'hire_me_click'
-  | 'whatsapp_click'
-  | 'form_start'
-  | 'form_submit'
-  | 'growth_score_start'
-  | 'growth_score_complete'
-  | 'audit_purchase'
-  | 'product_purchase'
-  | 'booking_start'
-  | 'booking_complete'
-  | 'tool_use'
-  | 'checkout_start';
-
-type Params = Record<string, string | number | boolean | undefined>;
-
+type Gtag = (...args: unknown[]) => void;
 declare global {
   interface Window {
     dataLayer?: unknown[];
-    gtag?: (...args: unknown[]) => void;
+    gtag?: Gtag;
   }
 }
 
-const GA_ID = import.meta.env.VITE_GA_ID as string | undefined;
+const GA_ID = String(import.meta.env.VITE_GA_ID ?? '').trim();
+const enabled = /^G-[A-Z0-9]+$/.test(GA_ID);
+
+export function track(event: string, params: Record<string, string | number | undefined> = {}) {
+  if (!enabled || typeof window === 'undefined') return;
+  window.gtag?.('event', event, { page_path: window.location.pathname, ...params });
+}
 
 export function initAnalytics() {
-  if (typeof window === 'undefined' || !GA_ID || window.gtag) return;
+  if (!enabled || window.gtag) return;
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() {
-    // eslint-disable-next-line prefer-rest-params
+    // gtag expects the arguments object itself, not an array
     window.dataLayer!.push(arguments);
   };
   window.gtag('js', new Date());
-  // Page views are sent manually on every route change (this is a single-page app)
-  window.gtag('config', GA_ID, { send_page_view: false });
-  const s = document.createElement('script');
-  s.async = true;
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-  document.head.appendChild(s);
-}
+  window.gtag('config', GA_ID, { anonymize_ip: true });
 
-export function track(event: AnalyticsEvent, params: Params = {}) {
-  if (typeof window === 'undefined') return;
-  const clean = Object.fromEntries(Object.entries(params).filter(([, v]) => v !== undefined));
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event, ...clean });
-  if (window.gtag && GA_ID) window.gtag('event', event, clean);
-  if (import.meta.env.DEV) console.debug('[analytics]', event, clean);
-}
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  document.head.appendChild(script);
 
-export function trackPageView(path: string) {
-  track('page_view', { page_path: path, page_title: typeof document !== 'undefined' ? document.title : '' });
-}
-
-// Any element with data-track="event_name" (and optional data-track-label) is tracked on click,
-// so CTAs don't each need their own onClick handler
-export function initClickTracking() {
-  if (typeof document === 'undefined') return;
+  // One listener for every link on the site, including ones added later
   document.addEventListener(
     'click',
     (e) => {
-      const el = (e.target as HTMLElement)?.closest<HTMLElement>('[data-track]');
+      const el = (e.target as HTMLElement | null)?.closest<HTMLElement>('a, button, [data-track]');
       if (!el) return;
-      const event = el.dataset.track as AnalyticsEvent;
-      const label = el.dataset.trackLabel || el.textContent?.trim().slice(0, 60);
-      track(event, { label, location: el.dataset.trackLocation, page_path: window.location.pathname });
-      if (event !== 'cta_click') track('cta_click', { label, type: event, page_path: window.location.pathname });
+      const href = el instanceof HTMLAnchorElement ? el.href : '';
+      if (el.dataset.track) track('cta_click', { cta: el.dataset.track });
+      if (href.includes('wa.me/')) track('whatsapp_click', { link_url: href });
+      else if (el.dataset.cta === 'book' || (hasBooking && href === bookingHref)) track('book_call_click');
     },
     { capture: true },
   );

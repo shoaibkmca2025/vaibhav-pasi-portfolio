@@ -1,4 +1,5 @@
 // Testimonials, the trust bar and the technology list. Only verified content belongs here.
+import { landingServices } from './services';
 
 // Real client messages, quoted as sent (screenshot: /public/wins/client-messages.jpg).
 // Add attributed testimonials (name, role, company) only with the client's permission.
@@ -37,7 +38,7 @@ export const trustFacts = [
   { value: '4AM', label: 'Co-Founder, 4AM Global Media' },
   { value: '11', label: 'Press features (May 2026)' },
   { value: '3.1M', label: 'Best client reel views' },
-  { value: '6', label: 'Service lines' },
+  { value: String(landingServices.length), label: 'Service lines' },
 ];
 
 export const industries = ['Creators & personal brands', 'D2C & e-commerce', 'Quick commerce', 'Startups & SMEs', 'Education & training', 'Professional services'];

@@ -1,22 +1,22 @@
-import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react';
-import { contactEmail, contactHref, socialLinks } from '../contact';
+import { ArrowUp, ArrowUpRight, Mail, Phone } from 'lucide-react';
+import { contactEmail, contactHref, contactPhoneDisplay, contactPhoneHref, socialLinks } from '../contact';
 import { posts } from '../blog/posts';
 import { onLinkClick } from '../router';
+import SocialIcon from './SocialIcon';
 import { person } from '../site';
 
 const exploreLinks = [
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
-  { label: 'Work', href: '/work' },
+  { label: 'Portfolio', href: '/work' },
   { label: 'Client Wins', href: '/client-wins' },
-  { label: 'Press', href: '/#press' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Insights', href: '/blog' },
   { label: 'FAQ', href: '/#faq' },
   { label: 'Contact', href: '/contact' },
 ];
 
-const linkClass = 'text-sm text-gray-400 hover:text-brand-yellow transition-colors';
-const headingClass = 'text-[10px] font-bold tracking-[0.3em] uppercase text-gray-500 mb-5';
+const linkClass = 'text-sm text-gray-400 hover:text-accent transition-colors';
+const headingClass = 'text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-500 mb-5';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -33,16 +33,23 @@ export function Footer() {
             <a href="/" onClick={onLinkClick} className="text-2xl font-bold tracking-tighter uppercase italic">
               Vaibhav Pasi
             </a>
-            <p className="mt-2 text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow">Tech x Marketing</p>
-            <p className="mt-6 text-sm text-gray-400 font-light leading-relaxed max-w-sm">
+            <p className="mt-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-accent">Tech x Marketing</p>
+            <p className="mt-6 text-sm text-gray-400 font-normal leading-relaxed max-w-sm">
               Digital marketing strategist, software developer and AI consultant. Co-Founder of{' '}
               {person.organization.name}, helping brands scale through growth marketing, AI and e-commerce.
             </p>
             <a
               href={contactHref}
-              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-brand-yellow transition-colors break-all"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-accent transition-colors break-all"
             >
-              <Mail className="w-4 h-4 shrink-0 text-brand-yellow" /> {contactEmail}
+              <Mail className="w-4 h-4 shrink-0 text-accent" /> {contactEmail}
+            </a>
+            <a
+              href={contactPhoneHref}
+              className="mt-3 flex items-center gap-2 text-sm font-medium text-white hover:text-accent transition-colors"
+            >
+              <Phone className="w-4 h-4 shrink-0 text-accent" aria-hidden /> {contactPhoneDisplay}
+              <span className="text-gray-500 font-normal">(call or WhatsApp)</span>
             </a>
           </div>
 
@@ -67,10 +74,10 @@ export function Footer() {
               {latest.map((post) => (
                 <li key={post.slug}>
                   <a href={`/blog/${post.slug}`} onClick={onLinkClick} className="group block">
-                    <span className="text-sm text-gray-300 group-hover:text-brand-yellow transition-colors leading-snug line-clamp-2">
+                    <span className="text-sm text-gray-300 group-hover:text-accent transition-colors leading-snug line-clamp-2">
                       {post.title}
                     </span>
-                    <span className="mt-1 block text-[10px] font-bold tracking-widest uppercase text-gray-600">
+                    <span className="mt-1 block text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">
                       {post.category} · {post.readingMinutes} min read
                     </span>
                   </a>
@@ -80,7 +87,7 @@ export function Footer() {
                 <a
                   href="/blog"
                   onClick={onLinkClick}
-                  className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.3em] uppercase text-brand-yellow hover:gap-2.5 transition-all"
+                  className="inline-flex items-center gap-1.5 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-accent hover:gap-2.5 transition-all"
                 >
                   All articles <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
@@ -98,9 +105,12 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer me"
-                    className={`${linkClass} inline-flex items-center gap-1.5`}
+                    className={`${linkClass} inline-flex items-center gap-2.5`}
                   >
-                    {social.label} <ArrowUpRight className="w-3 h-3" />
+                    <span className="grid w-8 h-8 place-items-center rounded-lg border border-white/10 text-accent">
+                      <SocialIcon label={social.label} className="w-3.5 h-3.5" />
+                    </span>
+                    {social.label}
                   </a>
                 </li>
               ))}
@@ -109,16 +119,23 @@ export function Footer() {
         </div>
 
         <div className="mt-16 md:mt-20 pt-8 pb-[env(safe-area-inset-bottom)] border-t border-white/5 flex flex-col-reverse sm:flex-row items-center justify-between gap-6">
-          <p className="text-[10px] tracking-widest text-gray-600 uppercase font-bold text-center sm:text-left">
-            © {year} Vaibhav Pasi. All rights reserved.
-          </p>
+          <div className="text-center sm:text-left space-y-2">
+            <p className="text-[0.6875rem] tracking-widest text-gray-500 uppercase font-bold">© {year} Vaibhav Pasi. All rights reserved.</p>
+            <p className="text-xs text-gray-500 max-w-md">
+              Vaibhav Pasi's personal website. Agency projects may be delivered through {person.organization.name}, which he co-founded.
+            </p>
+            <p className="flex justify-center sm:justify-start gap-4 text-xs">
+              <a href="/privacy" onClick={onLinkClick} className="text-gray-400 hover:text-white link-underline">Privacy Policy</a>
+              <a href="/terms" onClick={onLinkClick} className="text-gray-400 hover:text-white link-underline">Terms of Service</a>
+            </p>
+          </div>
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="group inline-flex items-center gap-3 text-[10px] font-bold tracking-[0.3em] uppercase text-gray-400 hover:text-brand-yellow transition-colors"
+            className="group inline-flex items-center gap-3 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-400 hover:text-accent transition-colors"
           >
             Back to top
-            <span className="w-10 h-10 rounded-full border border-white/10 group-hover:border-brand-yellow flex items-center justify-center transition-colors">
+            <span className="w-11 h-11 rounded-full border border-white/10 group-hover:border-accent flex items-center justify-center transition-colors">
               <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
             </span>
           </button>

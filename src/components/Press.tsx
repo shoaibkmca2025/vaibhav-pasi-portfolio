@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import type { CSSProperties } from 'react';
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 
 export const featureHeadline = 'Vaibhav Pasi: Visionary Entrepreneur Redefining Digital Marketing Through 4AM Global Media';
@@ -105,46 +105,44 @@ export default function Press() {
   return (
     <section className="section-padding bg-brand-black border-b border-white/5">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
+        <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[10px] mb-6 block">
+            <span className="eyebrow font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase text-[0.6875rem] mb-6 block">
               In the Press
             </span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase mb-6 leading-[0.9]">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter mb-6 leading-[0.9]">
               As Featured <br />
-              <span className="text-gray-500">In.</span>
+              <span className="text-accent">In.</span>
             </h2>
-            <p className="text-gray-400 font-light leading-relaxed flex gap-3">
-              <Newspaper className="w-5 h-5 shrink-0 text-brand-yellow mt-0.5" />
+            <p className="text-gray-400 font-normal leading-relaxed flex gap-3">
+              <Newspaper className="w-5 h-5 shrink-0 text-accent mt-0.5" />
               <span>
                 <span className="text-white font-medium">"{featureHeadline}"</span> — covered by {publications.length} publications, May 2026.
               </span>
             </p>
           </div>
-          <div className="text-[10px] tracking-[0.4em] font-bold text-gray-600 border-b border-gray-800 pb-2 uppercase self-start md:self-auto">
+          <div className="text-[0.6875rem] tracking-[0.4em] font-bold text-gray-500 border-b border-gray-800 pb-2 uppercase self-start md:self-auto">
             {publications.length} Publications
           </div>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
           {publications.map((pub, idx) => (
-            <motion.a
+            <a
+              data-reveal="up"
+              style={{ '--i': (idx % 4) } as CSSProperties}
               key={pub.name}
               href={pub.href}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Read the feature on ${pub.name} (opens in a new tab)`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: (idx % 4) * 0.08 }}
-              className="group flex flex-col p-2 md:p-3 rounded-2xl md:rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-brand-yellow/40 transition-all"
+              className="group flex flex-col p-2 md:p-3 rounded-2xl md:rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-accent/40 transition-all"
             >
               <div
                 className={`h-20 sm:h-24 md:h-28 rounded-xl md:rounded-2xl flex items-center justify-center gap-2 px-4 py-3 md:px-6 md:py-4 transition-transform duration-500 group-hover:scale-[0.98] ${
                   ('textOnly' in pub && pub.textOnly)
-                    ? 'bg-neutral-900 border border-white/10'
-                    : pub.plate === 'dark' ? 'bg-neutral-900 border border-white/10' : 'bg-white'
+                    ? 'theme-dark bg-neutral-900 border border-white/10'
+                    : pub.plate === 'dark' ? 'theme-dark bg-neutral-900 border border-white/10' : 'bg-[#f5f5f7] border border-black/5'
                 }`}
               >
                 {('textOnly' in pub && pub.textOnly) ? (
@@ -165,12 +163,12 @@ export default function Press() {
                 )}
               </div>
               <div className="flex items-center justify-between gap-2 px-2 pt-3 pb-1">
-                <span className="text-[10px] md:text-[11px] font-bold tracking-wider uppercase text-gray-400 group-hover:text-white transition-colors leading-tight">
+                <span className="text-[0.6875rem] md:text-[0.6875rem] font-bold tracking-wider uppercase text-gray-400 group-hover:text-white transition-colors leading-tight">
                   {pub.name}
                 </span>
-                <ArrowUpRight className="w-4 h-4 shrink-0 text-gray-600 group-hover:text-brand-yellow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                <ArrowUpRight className="w-4 h-4 shrink-0 text-gray-500 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </div>
-            </motion.a>
+            </a>
           ))}
         </div>
       </div>

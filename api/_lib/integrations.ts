@@ -5,8 +5,8 @@
 // With nothing configured (local development) leads are logged to the server console instead,
 // so the whole funnel can be tested end to end without any accounts.
 import { randomUUID } from 'node:crypto';
-import type { Lead, LeadInput } from '../../shared/leads';
-import { env } from './http';
+import type { Lead, LeadInput } from '../../shared/leads.js';
+import { env } from './http.js';
 
 export function buildLead(input: LeadInput, context: { page?: string; utm?: Record<string, string> } = {}): Lead {
   const { company_url: _honeypot, ...rest } = input;

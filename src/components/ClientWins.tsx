@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, ChevronLeft, ChevronRight, Eye, Images, MessageCircle, Play, TrendingUp, X } from 'lucide-react';
@@ -60,13 +61,6 @@ const messages = [
   'Just closed a first client for the beta offer, it’s not even ready but he wanted to start right away!',
 ];
 
-const fade = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.6, delay },
-});
-
 type Glow = (typeof glowUps)[number];
 
 // Staggered, overlapping chip layout lifted from the "client wins" screenshots (percent of the board)
@@ -109,21 +103,18 @@ function Chip({
   key?: string;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16, scale: 0.96 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+    <div
+      data-reveal="scale"
       className={`absolute flex items-center gap-[2.5cqw] rounded-[2.2cqw] border border-white/10 bg-gradient-to-r ${tint} px-[4cqw] py-[2.6cqw] shadow-[0_18px_40px_-8px_rgba(0,0,0,0.9)] ${
         big ? 'ring-1 ring-brand-yellow/60' : ''
       }`}
-      style={{ top: `${slot.top}%`, left: `${slot.left}%`, width: `${slot.width}%`, zIndex: slot.z }}
+      style={{ top: `${slot.top}%`, left: `${slot.left}%`, width: `${slot.width}%`, zIndex: slot.z, transitionDelay: `${delay}s` }}
     >
       <Icon className={`shrink-0 w-[5cqw] h-[5cqw] ${dim ? 'text-white/70' : 'text-white'}`} strokeWidth={2.5} aria-hidden />
       <span className={`font-semibold tabular-nums tracking-tight ${big ? 'text-[7cqw] text-white' : dim ? 'text-[5cqw] text-white/75' : 'text-[6cqw] text-white'}`}>
         {value}
       </span>
-    </motion.div>
+    </div>
   );
 }
 
@@ -136,8 +127,9 @@ function WinBoard({ g, index, onProof }: { g: Glow; index: number; onProof: () =
   const head = index % 2 === 0 ? 'M8 65 L 12 61 L 16.5 64' : 'M67.5 57.5 L 72 54 L 75.5 59';
 
   return (
-    <motion.article
-      {...fade(index * 0.1)}
+    <article
+      data-reveal="up"
+      style={{ '--i': index } as CSSProperties}
       className="@container relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 bg-[#0b0b0b]"
     >
       {/* Striped, vignetted backdrop */}
@@ -158,7 +150,7 @@ function WinBoard({ g, index, onProof }: { g: Glow; index: number; onProof: () =
           <div className="text-[2.6cqw] font-bold uppercase tracking-[0.2em] text-white/40 mt-[0.5cqw]">Reel views</div>
         </div>
         <div className="text-right">
-          <div className="text-[11cqw] font-black italic tracking-tighter leading-none text-brand-yellow glow-yellow">{multiple}×</div>
+          <div className="text-[11cqw] font-black italic tracking-tighter leading-none text-accent glow-yellow">{multiple}×</div>
           <div className="text-[2.6cqw] font-bold uppercase tracking-[0.2em] text-white/50 mt-[1cqw]">Best reel</div>
         </div>
       </div>
@@ -176,17 +168,14 @@ function WinBoard({ g, index, onProof }: { g: Glow; index: number; onProof: () =
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 1.2, delay: 0.5, ease: 'easeInOut' }}
         />
-        <motion.path
+        <path
+          data-reveal="up"
           d={head}
           fill="none"
           stroke="white"
           strokeWidth={0.7}
           strokeLinecap="round"
           strokeLinejoin="round"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.2, delay: 1.6 }}
         />
       </svg>
 
@@ -207,17 +196,17 @@ function WinBoard({ g, index, onProof }: { g: Glow; index: number; onProof: () =
       ))}
 
       <span className="absolute left-[6cqw] top-[59%] text-[2.6cqw] font-bold uppercase tracking-[0.2em] text-white/40 z-10">Before</span>
-      <span className="absolute left-[6cqw] top-[20%] text-[2.6cqw] font-bold uppercase tracking-[0.2em] text-brand-yellow z-10">After</span>
+      <span className="absolute left-[6cqw] top-[20%] text-[2.6cqw] font-bold uppercase tracking-[0.2em] text-accent z-10">After</span>
 
       {/* Footer line */}
       <div className="absolute bottom-[5cqw] left-[6cqw] right-[6cqw] flex flex-wrap items-center justify-between gap-2 z-10">
         <p className="text-[3.2cqw] text-gray-400 font-light">
           Best reel: <span className="text-white font-medium">{g.bestBefore.toLocaleString('en-US')}</span> →{' '}
-          <span className="text-brand-yellow font-bold">{g.after[0]}</span> views
+          <span className="text-accent font-bold">{g.after[0]}</span> views
         </p>
         <ProofLink onClick={onProof} />
       </div>
-    </motion.article>
+    </article>
   );
 }
 
@@ -226,7 +215,7 @@ function ProofLink({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-brand-yellow hover:gap-2.5 transition-all"
+      className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-accent hover:gap-2.5 transition-all"
     >
       See screenshot <ArrowUpRight className="w-3.5 h-3.5" />
     </button>
@@ -264,9 +253,9 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
       <div className="max-w-7xl mx-auto relative">
         {/* Header */}
         {!hideHeader && (
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
+        <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-20 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Client Wins</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Client Wins</span>
             <h2 className="flex items-end mb-6 leading-none" aria-label="Client Wins">
               <span className="text-6xl sm:text-7xl md:text-8xl font-black tracking-[-0.06em] bg-gradient-to-r from-[#d8c3a0] via-[#f1e6d0] to-white bg-clip-text text-transparent pb-2">
                 client
@@ -288,26 +277,27 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
           {stats.map((s, i) => {
             const featured = i === 0;
             return (
-              <motion.button
+              <button
+                data-reveal="up"
+                style={{ '--i': i % 3 } as CSSProperties}
                 key={`${s.metric}-${s.total}`}
                 type="button"
-                {...fade((i % 3) * 0.08)}
                 onClick={() => openSrc(s.receipt)}
                 className={`group text-left p-6 md:p-8 rounded-3xl border transition-all ${
                   featured
-                    ? 'bg-brand-yellow text-black border-brand-yellow glow-box'
-                    : 'bg-brand-dark-gray/20 border-white/5 hover:border-brand-yellow/30'
+                    ? 'bg-brand-yellow text-black border-accent glow-box'
+                    : 'bg-brand-dark-gray/20 border-white/5 hover:border-accent/30'
                 }`}
               >
                 <div className="flex items-center justify-between gap-3">
                   <span className={`text-[10px] font-bold tracking-widest uppercase ${featured ? 'text-black/60' : 'text-gray-500'}`}>
                     {s.metric} · {s.period}
                   </span>
-                  <TrendingUp className={`w-4 h-4 shrink-0 ${featured ? 'text-black' : 'text-brand-yellow'}`} />
+                  <TrendingUp className={`w-4 h-4 shrink-0 ${featured ? 'text-black' : 'text-accent'}`} />
                 </div>
                 <div
                   className={`mt-4 text-5xl md:text-6xl font-black tracking-tighter italic leading-none ${
-                    featured ? '' : 'text-white group-hover:text-brand-yellow transition-colors'
+                    featured ? '' : 'text-white group-hover:text-accent transition-colors'
                   }`}
                 >
                   {s.lift}
@@ -318,13 +308,13 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
                   </span>
                   <span
                     className={`inline-flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase ${
-                      featured ? 'text-black' : 'text-brand-yellow'
+                      featured ? 'text-black' : 'text-accent'
                     }`}
                   >
                     Proof <ArrowUpRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
-              </motion.button>
+              </button>
             );
           })}
         </div>
@@ -341,10 +331,10 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
         <div className="mt-20 md:mt-28 grid gap-12 lg:gap-8 lg:grid-cols-12 items-start">
           <div className="lg:col-span-5">
             <p className={subHeading}>03 — Profile growth</p>
-            <motion.div {...fade()} className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5">
+            <div data-reveal="up" className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5">
               <div className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Personal-brand creator</div>
               <div className="mt-2 text-3xl md:text-4xl font-bold tracking-tighter italic uppercase leading-[0.95]">
-                0 → 10K in <span className="text-brand-yellow">2 months</span>
+                0 → 10K in <span className="text-accent">2 months</span>
               </div>
               <table className="mt-8 w-full text-left">
                 <thead>
@@ -361,7 +351,7 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
                         {r.platform} <span className="font-light text-gray-500">{r.metric.toLowerCase()}</span>
                       </td>
                       <td className="py-4 text-right text-sm text-gray-500 tabular-nums">{r.before}</td>
-                      <td className="py-4 text-right text-xl font-black italic text-brand-yellow tabular-nums">{r.after}</td>
+                      <td className="py-4 text-right text-xl font-black italic text-accent tabular-nums">{r.after}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -369,7 +359,7 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
               <div className="mt-6 flex justify-end">
                 <ProofLink onClick={() => openSrc('/wins/profile-growth.jpg')} />
               </div>
-            </motion.div>
+            </div>
           </div>
 
           <div className="lg:col-span-7">
@@ -379,15 +369,16 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               {messages.map((m, i) => (
-                <motion.figure
+                <figure
+                  data-reveal="up"
+                  style={{ '--i': i } as CSSProperties}
                   key={m}
-                  {...fade(i * 0.08)}
-                  className="group p-6 rounded-3xl rounded-bl-md bg-brand-dark-gray/20 border border-white/5 hover:border-brand-yellow/30 transition-all"
+                  className="group p-6 rounded-3xl rounded-bl-md bg-brand-dark-gray/20 border border-white/5 hover:border-accent/30 transition-all"
                 >
-                  <MessageCircle className="w-5 h-5 text-brand-yellow/40 group-hover:text-brand-yellow transition-colors mb-4" aria-hidden />
+                  <MessageCircle className="w-5 h-5 text-accent/40 group-hover:text-accent transition-colors mb-4" aria-hidden />
                   <blockquote className="text-gray-300 font-light leading-relaxed italic">“{m}”</blockquote>
                   <figcaption className="mt-4 text-[10px] text-gray-600 font-bold uppercase tracking-widest">Client message</figcaption>
-                </motion.figure>
+                </figure>
               ))}
             </div>
           </div>
@@ -402,14 +393,15 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
         </div>
         <div className="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory -mx-5 px-5 sm:mx-0 sm:px-0 pb-2">
           {screenshots.map((s, i) => (
-            <motion.button
+            <button
+              data-reveal="up"
+              style={{ '--i': Math.min(i, 4) } as CSSProperties}
               key={s.src}
               type="button"
-              {...fade(Math.min(i, 4) * 0.06)}
               onClick={() => setOpen(i)}
               className="group relative shrink-0 w-[62vw] sm:w-[240px] lg:w-[calc((100%-6*16px)/7)] snap-start text-left"
             >
-              <div className="aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 group-hover:border-brand-yellow/50 transition-colors bg-brand-dark-gray">
+              <div className="aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 group-hover:border-accent/50 transition-colors bg-brand-dark-gray">
                 <img
                   src={s.src}
                   alt={s.caption}
@@ -418,10 +410,10 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
                   className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
                 />
               </div>
-              <span className="mt-3 block text-[10px] font-bold tracking-widest uppercase text-gray-500 group-hover:text-brand-yellow transition-colors leading-relaxed">
+              <span className="mt-3 block text-[10px] font-bold tracking-widest uppercase text-gray-500 group-hover:text-accent transition-colors leading-relaxed">
                 {s.caption}
               </span>
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>
@@ -444,7 +436,7 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
                 type="button"
                 onClick={() => step(-1)}
                 aria-label="Previous screenshot"
-                className="shrink-0 w-10 h-10 rounded-full border border-white/15 text-white hover:border-brand-yellow hover:text-brand-yellow flex items-center justify-center transition-colors"
+                className="shrink-0 w-10 h-10 rounded-full border border-white/15 text-white hover:border-accent hover:text-accent flex items-center justify-center transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -464,7 +456,7 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
                 type="button"
                 onClick={() => step(1)}
                 aria-label="Next screenshot"
-                className="shrink-0 w-10 h-10 rounded-full border border-white/15 text-white hover:border-brand-yellow hover:text-brand-yellow flex items-center justify-center transition-colors"
+                className="shrink-0 w-10 h-10 rounded-full border border-white/15 text-white hover:border-accent hover:text-accent flex items-center justify-center transition-colors"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>

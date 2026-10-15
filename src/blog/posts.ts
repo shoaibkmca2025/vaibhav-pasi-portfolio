@@ -1,7 +1,9 @@
 import { marked } from 'marked';
+import { parsePostFile } from '../../shared/blog';
 
 // Every .md file in ./posts becomes a blog post. The file name is the URL slug:
 // posts/my-first-post.md  ->  /blog/my-first-post
+// Posts are usually written in the dashboard at /admin, which commits them here.
 const files = import.meta.glob('./posts/*.md', {
   query: '?raw',
   import: 'default',
@@ -22,39 +24,22 @@ export interface Post {
   html: string;
 }
 
-type Frontmatter = Record<string, string>;
-
-function parseFrontmatter(raw: string): { data: Frontmatter; body: string } {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
-  if (!match) return { data: {}, body: raw };
-
-  const data: Frontmatter = {};
-  for (const line of match[1].split(/\r?\n/)) {
-    const idx = line.indexOf(':');
-    if (idx === -1) continue;
-    const key = line.slice(0, idx).trim();
-    const value = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
-    if (key) data[key] = value;
-  }
-  return { data, body: raw.slice(match[0].length) };
-}
-
 function toPost(path: string, raw: string): Post | null {
   const slug = path.split('/').pop()!.replace(/\.md$/, '');
-  const { data, body } = parseFrontmatter(raw);
-  if (data.draft === 'true') return null;
+  const { meta, body } = parsePostFile(raw);
+  if (meta.draft) return null;
 
   const words = body.trim().split(/\s+/).length;
 
   return {
     slug,
-    title: data.title || slug.replace(/-/g, ' '),
-    date: data.date || '',
-    category: data.category || 'Insights',
-    excerpt: data.excerpt || '',
-    cover: data.cover || '',
-    tags: data.tags ? data.tags.split(',').map((t) => t.trim()).filter(Boolean) : [],
-    featured: data.featured === 'true',
+    title: meta.title || slug.replace(/-/g, ' '),
+    date: meta.date,
+    category: meta.category,
+    excerpt: meta.excerpt,
+    cover: meta.cover,
+    tags: meta.tags,
+    featured: meta.featured,
     readingMinutes: Math.max(1, Math.round(words / 200)),
     wordCount: words,
     html: marked.parse(body, { async: false }),

@@ -15,14 +15,14 @@ export function send(res: Res, status: number, body: unknown) {
 }
 
 // Vercel parses JSON bodies for us; the Vite dev bridge passes a raw stream
-export async function readJson<T = Record<string, unknown>>(req: Req): Promise<T> {
+export async function readJson<T = Record<string, unknown>>(req: Req, maxBytes = 64 * 1024): Promise<T> {
   if (req.body && typeof req.body === 'object') return req.body as T;
   if (typeof req.body === 'string') return JSON.parse(req.body || '{}');
   const chunks: Buffer[] = [];
   let size = 0;
   for await (const chunk of req) {
     size += (chunk as Buffer).length;
-    if (size > 64 * 1024) throw new Error('Body too large');
+    if (size > maxBytes) throw new Error('Body too large');
     chunks.push(chunk as Buffer);
   }
   const text = Buffer.concat(chunks).toString('utf8');

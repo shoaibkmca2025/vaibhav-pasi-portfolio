@@ -39,16 +39,16 @@ export default function Skills() {
     <section className="section-padding bg-brand-dark-gray/10 relative overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'linear-gradient(#f5ff00 1px, transparent 1px), linear-gradient(90deg, #f5ff00 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+           style={{ backgroundImage: 'linear-gradient(#D6B675 1px, transparent 1px), linear-gradient(90deg, #D6B675 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
+        <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Toolkit</span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-6">
-              Marketing <span className="text-gray-500">Arsenal.</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Toolkit</span>
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
+              Marketing <span className="text-accent">Arsenal.</span>
             </h2>
-            <p className="text-gray-400 font-light leading-relaxed md:text-lg">
+            <p className="text-gray-400 font-normal leading-relaxed md:text-lg">
               A comprehensive stack of digital expertise, spanning from creative social growth to high-performance software engineering.
             </p>
           </div>
@@ -65,10 +65,10 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-brand-yellow/20 transition-all group"
+              className="p-6 md:p-10 rounded-3xl bg-brand-dark-gray/20 border border-white/5 hover:border-accent/20 transition-all group"
             >
               <div className="flex items-center gap-4 mb-6 md:mb-8">
-                <div className="w-10 h-10 rounded-xl bg-brand-yellow/5 border border-brand-yellow/20 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-brand-yellow/5 border border-accent/20 flex items-center justify-center">
                   <motion.div
                     initial={{ scale: 0, rotate: -20 }}
                     whileInView={{ scale: 1, rotate: 0 }}
@@ -80,7 +80,7 @@ export default function Skills() {
                       delay: idx * 0.1 + 0.4
                     }}
                   >
-                    <category.icon className="w-5 h-5 text-brand-yellow group-hover:scale-110 transition-transform" />
+                    <category.icon className="w-5 h-5 text-accent group-hover:scale-110 transition-transform" />
                   </motion.div>
                 </div>
                 <h3 className="text-lg font-bold tracking-tight">{category.title}</h3>
@@ -90,7 +90,7 @@ export default function Skills() {
                 {category.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="text-[10px] font-bold tracking-wider text-gray-500 bg-white/5 border border-white/5 px-3 py-1.5 rounded-full hover:bg-brand-yellow/10 hover:text-brand-yellow hover:border-brand-yellow/20 transition-all cursor-default"
+                    className="text-[0.6875rem] font-bold tracking-wider text-gray-500 bg-white/5 border border-white/5 px-3 py-1.5 rounded-full hover:bg-brand-yellow/10 hover:text-accent hover:border-accent/20 transition-all cursor-default"
                   >
                     {skill}
                   </span>

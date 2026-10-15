@@ -9,7 +9,7 @@ const PAGE_SIZE = 9;
 
 function PostMeta({ post }: { post: Post }) {
   return (
-    <div className="flex items-center gap-3 text-[10px] font-bold tracking-widest uppercase text-gray-500">
+    <div className="flex items-center gap-3 text-[0.6875rem] font-bold tracking-widest uppercase text-gray-500">
       <span>{formatDate(post.date)}</span>
       <span className="w-1 h-1 rounded-full bg-gray-700" />
       <span className="inline-flex items-center gap-1.5">
@@ -30,7 +30,7 @@ function PostCard({ post, index }: { post: Post; index: number; key?: string }) 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ duration: 0.45, delay: (index % 3) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex flex-col rounded-[1.5rem] md:rounded-[2rem] bg-brand-dark-gray/30 border border-white/5 hover:border-brand-yellow/30 overflow-hidden transition-colors duration-500"
+      className="group flex flex-col rounded-[1.5rem] md:rounded-[2rem] bg-brand-dark-gray/30 border border-white/5 hover:border-accent/30 overflow-hidden transition-colors duration-500"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-brand-muted">
         {post.cover && (
@@ -44,18 +44,18 @@ function PostCard({ post, index }: { post: Post; index: number; key?: string }) 
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-        <span className="absolute top-4 left-4 text-[9px] font-bold tracking-widest uppercase text-brand-yellow bg-black/60 backdrop-blur-md border border-brand-yellow/20 px-3 py-1 rounded-full">
+        <span className="theme-dark absolute top-4 left-4 text-[0.6875rem] font-bold tracking-widest uppercase text-accent bg-black/60 backdrop-blur-md border border-accent/20 px-3 py-1 rounded-full">
           {post.category}
         </span>
       </div>
 
       <div className="flex flex-col flex-1 p-6 md:p-7">
         <PostMeta post={post} />
-        <h3 className="mt-4 text-xl md:text-2xl font-bold tracking-tight leading-snug group-hover:text-brand-yellow transition-colors duration-300">
+        <h3 className="mt-4 text-xl md:text-2xl font-bold tracking-tight leading-snug group-hover:text-accent transition-colors duration-300">
           {post.title}
         </h3>
-        <p className="mt-3 text-sm text-gray-400 font-light leading-relaxed line-clamp-3">{post.excerpt}</p>
-        <span className="mt-auto pt-6 inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-gray-300 group-hover:text-brand-yellow group-hover:gap-3 transition-all">
+        <p className="mt-3 text-sm text-gray-400 font-normal leading-relaxed line-clamp-3">{post.excerpt}</p>
+        <span className="mt-auto pt-6 inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-300 group-hover:text-accent group-hover:gap-3 transition-all">
           Read article <ArrowUpRight className="w-3.5 h-3.5" />
         </span>
       </div>
@@ -65,13 +65,10 @@ function PostCard({ post, index }: { post: Post; index: number; key?: string }) 
 
 function FeaturedPost({ post }: { post: Post }) {
   return (
-    <motion.a
+    <a
+      data-reveal="up"
       href={`/blog/${post.slug}`} onClick={onLinkClick}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative grid grid-cols-1 lg:grid-cols-2 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-brand-yellow/30 bg-brand-dark-gray/30 transition-colors duration-500 mb-6 md:mb-8"
+      className="group relative grid grid-cols-1 lg:grid-cols-2 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-accent/30 bg-brand-dark-gray/30 transition-colors duration-500 mb-6 md:mb-8"
     >
       <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-brand-muted">
         {post.cover && (
@@ -90,17 +87,17 @@ function FeaturedPost({ post }: { post: Post }) {
       <div className="relative flex flex-col justify-center p-6 sm:p-8 md:p-12">
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-brand-yellow/5 blur-[80px] rounded-full pointer-events-none" />
         <div className="flex flex-wrap items-center gap-3 mb-5 md:mb-6">
-          <span className="text-[9px] font-black tracking-widest uppercase text-black bg-brand-yellow px-3 py-1 rounded-full">
+          <span className="text-[0.6875rem] font-black tracking-widest uppercase text-black bg-brand-yellow px-3 py-1 rounded-full">
             Featured
           </span>
-          <span className="text-[9px] font-bold tracking-widest uppercase text-brand-yellow border border-brand-yellow/20 px-3 py-1 rounded-full">
+          <span className="text-[0.6875rem] font-bold tracking-widest uppercase text-accent border border-accent/20 px-3 py-1 rounded-full">
             {post.category}
           </span>
         </div>
-        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-[1.05] group-hover:text-brand-yellow transition-colors duration-300">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-[1.05] group-hover:text-accent transition-colors duration-300">
           {post.title}
         </h3>
-        <p className="mt-5 text-gray-400 font-light leading-relaxed md:text-lg line-clamp-3">{post.excerpt}</p>
+        <p className="mt-5 text-gray-400 font-normal leading-relaxed md:text-lg line-clamp-3">{post.excerpt}</p>
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
           <PostMeta post={post} />
           <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-yellow text-black group-hover:rotate-45 transition-transform duration-500">
@@ -108,24 +105,25 @@ function FeaturedPost({ post }: { post: Post }) {
           </span>
         </div>
       </div>
-    </motion.a>
+    </a>
   );
 }
 
 function EmptyState({ title, hint }: { title: string; hint: string }) {
   return (
     <div className="flex flex-col items-center text-center py-16 md:py-20 px-6 rounded-[2rem] border border-dashed border-white/10">
-      <PenLine className="w-8 h-8 text-brand-yellow mb-4" />
+      <PenLine className="w-8 h-8 text-accent mb-4" />
       <p className="text-lg font-bold">{title}</p>
-      <p className="text-sm text-gray-500 mt-2">{hint}</p>
+      <p className="text-sm text-gray-400 mt-2">{hint}</p>
     </div>
   );
 }
 
 function PostGrid({ items }: { items: Post[] }) {
+  const cols = items.length === 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3';
   return (
-    <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-      <AnimatePresence mode="popLayout">
+    <motion.div layout className={`grid grid-cols-1 sm:grid-cols-2 ${cols} gap-4 md:gap-6`}>
+      <AnimatePresence mode="popLayout" initial={false}>
         {items.map((post, idx) => (
           <PostCard key={post.slug} post={post} index={idx} />
         ))}
@@ -148,20 +146,20 @@ export default function Blog() {
       <div className="absolute top-1/3 -left-32 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brand-yellow/5 blur-[80px] md:blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6">
+        <div className="section-head flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6">
           <div className="max-w-2xl">
-            <span className="text-brand-yellow font-bold tracking-[0.4em] uppercase text-[10px] mb-5 block">Insights</span>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter italic uppercase leading-[0.9] mb-6">
-              The <span className="text-gray-500">Journal.</span>
+            <span className="eyebrow font-bold tracking-[0.4em] uppercase text-[0.6875rem] mb-5 block">Insights</span>
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-6">
+              Latest <span className="text-accent">Insights.</span>
             </h2>
-            <p className="text-gray-400 font-light leading-relaxed md:text-lg">
+            <p className="text-gray-400 font-normal leading-relaxed md:text-lg">
               Playbooks, experiments and lessons from the front lines of growth marketing, AI and e-commerce.
             </p>
           </div>
           {posts.length > 0 && (
             <a
               href="/blog" onClick={onLinkClick}
-              className="group self-start md:self-auto inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-brand-yellow border-b border-white/10 hover:border-brand-yellow pb-2 transition-colors"
+              className="group self-start md:self-auto inline-flex items-center gap-2 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-300 hover:text-accent border-b border-white/10 hover:border-accent pb-2 transition-colors"
             >
               All {posts.length} articles
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -209,29 +207,25 @@ export function BlogIndex() {
   const resetPaging = () => setVisible(PAGE_SIZE);
 
   return (
-    <main className="relative overflow-hidden">
+    <main id="main" tabIndex={-1} className="relative overflow-hidden outline-none">
       <div className="absolute top-0 right-0 w-[320px] h-[320px] md:w-[600px] md:h-[600px] bg-brand-yellow/5 blur-[80px] md:blur-[160px] rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none" />
 
       {/* Page hero */}
       <section className="pt-32 md:pt-44 pb-10 md:pb-16 px-5 sm:px-6 md:px-12 lg:px-24 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="inline-flex items-center gap-2.5 text-[10px] font-extrabold tracking-[0.4em] uppercase text-brand-yellow px-5 py-2.5 border border-brand-yellow/20 bg-brand-yellow/5 rounded-full mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse" />
+          <div className="reveal">
+            <span className="inline-flex items-center gap-2.5 text-[0.6875rem] font-extrabold tracking-[0.4em] uppercase text-accent px-5 py-2.5 border border-accent/20 bg-brand-yellow/5 rounded-full mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent" />
               {posts.length} {posts.length === 1 ? 'Article' : 'Articles'}
             </span>
-            <h1 className="text-5xl min-[400px]:text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter italic uppercase leading-[0.85]">
-              The <span className="text-brand-yellow glow-yellow">Journal.</span>
+            <h1 className="text-5xl min-[400px]:text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85]">
+              All <span className="text-accent glow-yellow">Insights.</span>
             </h1>
-            <p className="mt-6 md:mt-8 text-gray-400 font-light text-base md:text-xl leading-relaxed max-w-2xl">
+            <p className="mt-6 md:mt-8 text-gray-400 font-normal text-base md:text-xl leading-relaxed max-w-2xl">
               Playbooks, experiments and hard-won lessons on growth marketing, AI, e-commerce and building brands that
               scale.
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -254,7 +248,7 @@ export function BlogIndex() {
                       resetPaging();
                     }}
                     placeholder="Search articles…"
-                    className="w-full bg-white/[0.03] border border-white/10 focus:border-brand-yellow/50 rounded-full pl-12 pr-5 py-3.5 text-base md:text-sm text-white placeholder:text-gray-500 outline-none transition-colors"
+                    className="w-full bg-white/[0.03] border border-white/10 focus:border-accent/50 rounded-full pl-12 pr-5 py-3.5 text-base md:text-sm text-white placeholder:text-gray-500 outline-none transition-colors"
                   />
                 </label>
 
@@ -274,9 +268,9 @@ export function BlogIndex() {
                           setCategory(c);
                           resetPaging();
                         }}
-                        className={`relative shrink-0 px-5 py-2.5 rounded-full text-[10px] font-bold tracking-widest uppercase border transition-colors ${
+                        className={`relative shrink-0 min-h-11 px-5 py-2.5 rounded-full text-[0.6875rem] font-bold tracking-widest uppercase border transition-colors ${
                           category === c
-                            ? 'text-black border-brand-yellow'
+                            ? 'text-black border-accent'
                             : 'text-gray-400 border-white/10 hover:text-white hover:border-white/30'
                         }`}
                       >

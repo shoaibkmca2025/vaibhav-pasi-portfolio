@@ -2,7 +2,7 @@
 // Needs RAZORPAY_KEY_ID + RAZORPAY_KEY_SECRET. Without them checkout runs in "test mode"
 // (no money moves; the buyer's details are captured as a lead so nothing is lost).
 import { createHmac, timingSafeEqual } from 'node:crypto';
-import { env } from './http';
+import { env } from './http.js';
 
 export const paymentsConfigured = () => Boolean(env('RAZORPAY_KEY_ID') && env('RAZORPAY_KEY_SECRET'));
 

@@ -3,6 +3,7 @@ import {createRoot, hydrateRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { finishSplash } from './splash';
+import { initAnalytics } from './lib/analytics';
 
 const root = document.getElementById('root')!;
 const app = (
@@ -20,3 +21,5 @@ if (root.firstElementChild) {
 }
 
 finishSplash();
+// GA4 loads only when VITE_GA_ID is set
+initAnalytics();

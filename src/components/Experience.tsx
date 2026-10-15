@@ -32,10 +32,10 @@ export default function Experience() {
     <div className="pt-4 md:pt-32 md:min-h-screen">
       <div className="section-padding">
         <div className="max-w-7xl mx-auto">
-          <div className="text-[10px] tracking-widest text-brand-yellow mb-8 uppercase font-bold">CHRONOLOGY OF IMPACT</div>
+          <div className="eyebrow text-[0.6875rem] tracking-widest mb-8 uppercase font-bold">CHRONOLOGY OF IMPACT</div>
           <h2 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter mb-12 md:mb-20 leading-[0.9]">
             Engineering Growth <br />
-            Through <span className="text-brand-yellow glow-yellow">Precision.</span>
+            Through <span className="text-accent glow-yellow">Precision.</span>
           </h2>
 
           <div className="relative border-l border-white/5 ml-1 md:ml-0 md:pl-0 pl-6 space-y-16 md:space-y-32">
@@ -43,7 +43,7 @@ export default function Experience() {
               <div key={exp.company} className="relative">
                 {/* Node */}
                 <div className={`absolute left-[-31px] md:left-[-5px] top-4 w-3 h-3 rounded-full ${
-                  exp.active ? 'bg-brand-yellow shadow-[0_0_15px_#FFD700]' : 'bg-gray-800'
+                  exp.active ? 'bg-accent shadow-[0_0_15px_rgba(214,182,117,0.45)]' : 'bg-gray-800'
                 }`} />
 
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>
@@ -56,22 +56,22 @@ export default function Experience() {
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-8 md:mb-10">
                       <div>
                         <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 tracking-tighter break-words">{exp.company}</h3>
-                        <div className="text-[10px] tracking-widest text-brand-yellow font-bold uppercase">{exp.role}</div>
+                        <div className="text-[0.6875rem] tracking-widest text-accent font-bold uppercase">{exp.role}</div>
                       </div>
-                      <div className="shrink-0 text-xs font-bold text-gray-600 tracking-widest">{exp.period}</div>
+                      <div className="shrink-0 text-xs font-bold text-gray-500 tracking-widest">{exp.period}</div>
                     </div>
                     
-                    <p className="text-gray-400 font-light text-sm mb-8 md:mb-12 leading-relaxed">
+                    <p className="text-gray-400 font-normal text-sm mb-8 md:mb-12 leading-relaxed">
                       {exp.description}
                     </p>
 
                     <div className="pt-8 border-t border-white/5">
-                      <div className="text-[10px] tracking-widest text-gray-500 font-bold mb-4 uppercase">KEY ACHIEVEMENTS</div>
+                      <div className="text-[0.6875rem] tracking-widest text-gray-500 font-bold mb-4 uppercase">KEY ACHIEVEMENTS</div>
                       <div className="flex items-center gap-4">
-                        <exp.icon className="w-6 h-6 text-brand-yellow" />
+                        <exp.icon className="w-6 h-6 text-accent" />
                         <div>
                           <div className="text-3xl font-bold text-white">{exp.achievement}</div>
-                          <div className="text-[9px] tracking-wider text-gray-600 font-bold uppercase">{exp.metric}</div>
+                          <div className="text-[0.6875rem] tracking-wider text-gray-500 font-bold uppercase">{exp.metric}</div>
                         </div>
                       </div>
                     </div>
