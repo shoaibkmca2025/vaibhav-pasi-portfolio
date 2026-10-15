@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight, Twitter, Instagram, Linkedin, Menu, X } from 'lucide-react';
 import { socialLinks } from '../contact';
@@ -42,11 +42,67 @@ export default function Navigation({ route }: { route: Route }) {
   // Close the menu whenever the page changes
   useEffect(() => setIsOpen(false), [active]);
 
+  // Header state from scroll position: a denser bar once the page moves, and the bar slides away
+  // while reading downwards (back on any upward scroll). One passive listener, rAF-throttled;
+  // React skips the re-render when a value hasn't changed.
+  const [scrolled, setScrolled] = useState(false);
+  const [tucked, setTucked] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      // Never hide while the menu is open or while focus is inside the bar (keyboard users)
+      const focusInside = navRef.current?.contains(document.activeElement) ?? false;
+      if (Math.abs(y - lastY) > 6) {
+        setTucked(y > lastY && y > 480 && !focusInside);
+        lastY = y;
+      }
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  // Home page: which section is in view (visual hint only; aria-current stays with the real page)
+  const [section, setSection] = useState<string | null>(null);
+  useEffect(() => {
+    if (route.page !== 'home') {
+      setSection(null);
+      return;
+    }
+    const ids = ['services', 'work', 'about', 'contact'];
+    const targets = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+    const visible = new Set<string>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id);
+        setSection(ids.find((id) => visible.has(id)) ?? null);
+      },
+      // A thin band across the middle of the viewport decides the current section
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    targets.forEach((t) => io.observe(t));
+    return () => io.disconnect();
+  }, [route.page]);
+
   return (
     <>
     <nav
+      ref={navRef}
       aria-label="Primary"
-      className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between gap-6 lg:gap-4 xl:gap-6 py-4 md:py-6 px-5 sm:px-6 md:px-12 lg:px-8 xl:px-12 backdrop-blur-md bg-brand-black/85 border-b border-white/5"
+      data-scrolled={scrolled || undefined}
+      data-tucked={(tucked && !isOpen) || undefined}
+      className="site-header fixed top-0 left-0 w-full z-[1000] flex items-center justify-between gap-6 lg:gap-4 xl:gap-6 py-4 md:py-6 px-5 sm:px-6 md:px-12 lg:px-8 xl:px-12 backdrop-blur-md bg-brand-black/85 border-b border-white/5"
     >
       <a href="/" onClick={onLinkClick} className="text-xl font-bold tracking-tighter uppercase italic whitespace-nowrap">
         Vaibhav Pasi
@@ -60,10 +116,14 @@ export default function Navigation({ route }: { route: Route }) {
               onClick={onLinkClick}
               aria-current={active === item.key ? 'page' : undefined}
               className={`relative whitespace-nowrap text-sm xl:text-[0.9375rem] font-medium transition-colors hover:text-accent ${
-                active === item.key ? 'text-accent' : 'text-gray-400'
+                active === item.key ? 'text-accent' : section === item.key ? 'text-white' : 'text-gray-400'
               }`}
             >
               {item.label}
+              <span
+                aria-hidden
+                className={`section-tick absolute -bottom-1.5 left-0 w-full h-px rounded-full bg-accent/60 ${section === item.key ? 'is-on' : ''}`}
+              />
               {active === item.key && (
                 <motion.span layoutId="activeTab" className="absolute -bottom-1.5 left-0 w-full h-[2px] rounded-full bg-accent" />
               )}

@@ -1,4 +1,5 @@
-import type { CSSProperties } from 'react';
+import { useRef, useState, type CSSProperties } from 'react';
+import { motion, useMotionValueEvent, useReducedMotion, useScroll } from 'motion/react';
 import { Map as MapIcon, Rocket, Search, TrendingUp } from 'lucide-react';
 import { responsiveImage } from '../image';
 
@@ -36,6 +37,15 @@ const steps = [
 ];
 
 export default function HowItWorks() {
+  // Large screens: as the row of steps scrolls through the viewport, a gold line fills from
+  // Discover to Optimize and the step it has reached is highlighted. Nothing is pinned, so
+  // scrolling is never held up. Phones and tablets keep the plain stacked cards.
+  const listRef = useRef<HTMLOListElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: listRef, offset: ['start 80%', 'end 45%'] });
+  const [active, setActive] = useState(0);
+  useMotionValueEvent(scrollYProgress, 'change', (p) => setActive(Math.min(steps.length - 1, Math.floor(p * steps.length))));
+
   return (
     <section className="section-padding bg-brand-black border-b border-white/5">
       <div className="max-w-7xl mx-auto">
@@ -49,15 +59,21 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        <ol className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-          {/* Connector running through the step numbers on wide screens */}
-          <div aria-hidden data-reveal="line" className="hidden lg:block absolute left-[12%] right-[12%] top-36 h-px bg-gradient-to-r from-transparent via-brand-yellow/40 to-transparent" />
+        <ol ref={listRef} className="process-steps relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+          {/* Connector through the step numbers on wide screens: a faint track and a gold fill tied to scroll */}
+          <div aria-hidden className="hidden lg:block absolute left-[12%] right-[12%] top-36 z-10 h-px bg-white/10">
+            <motion.div
+              style={{ scaleX: reduce ? 1 : scrollYProgress }}
+              className="absolute inset-0 origin-left bg-gradient-to-r from-brand-yellow/30 via-brand-yellow to-brand-yellow/60"
+            />
+          </div>
           {steps.map((step, idx) => (
             <li
               data-reveal="up"
+              data-active={idx === active || undefined}
               style={{ '--i': idx } as CSSProperties}
               key={step.title}
-              className="group relative flex flex-col rounded-2xl border border-white/10 bg-brand-dark-gray overflow-hidden hover:border-brand-yellow/40 transition-colors"
+              className="process-step group relative flex flex-col rounded-2xl border border-white/10 bg-brand-dark-gray overflow-hidden hover:border-brand-yellow/40 transition-colors"
             >
               <div className="relative h-36 overflow-hidden">
                 <img
@@ -71,10 +87,10 @@ export default function HowItWorks() {
               </div>
               <div className="relative px-6 pb-6 md:px-7 md:pb-7 -mt-6">
                 <div className="flex items-center justify-between">
-                  <span className="grid w-12 h-12 place-items-center rounded-2xl bg-brand-yellow text-black shadow-lg shadow-black/30">
+                  <span className="icon-nudge grid w-12 h-12 place-items-center rounded-2xl bg-brand-yellow text-black shadow-lg shadow-black/30">
                     <step.icon className="w-5 h-5" aria-hidden />
                   </span>
-                  <span className="grid w-9 h-9 place-items-center rounded-full border border-brand-yellow/30 bg-brand-dark-gray text-xs font-bold text-accent">
+                  <span className="step-number grid w-9 h-9 place-items-center rounded-full border border-brand-yellow/30 bg-brand-dark-gray text-xs font-bold text-accent">
                     {String(idx + 1).padStart(2, '0')}
                   </span>
                 </div>

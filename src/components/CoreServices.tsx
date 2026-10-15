@@ -59,13 +59,14 @@ export default function CoreServices() {
             return (
               <article
                 data-reveal="up"
+                data-tilt
                 style={{ '--i': i } as CSSProperties}
                 key={s.slug}
-                className="group flex flex-col rounded-[1.75rem] border border-white/10 bg-brand-black overflow-hidden hover:border-brand-yellow/40 transition-colors"
+                className="service-card group flex flex-col rounded-[1.75rem] border border-white/10 bg-brand-black overflow-hidden hover:border-brand-yellow/40 focus-within:border-brand-yellow/40 transition-colors"
               >
                 <CardImage s={s} sizes="(min-width: 1024px) 400px, 100vw" className="aspect-[16/9]" />
                 <div className="relative flex flex-1 flex-col px-7 pb-7 md:px-8 md:pb-8 -mt-7">
-                  <span className="grid w-12 h-12 place-items-center rounded-2xl bg-brand-yellow text-black shadow-lg shadow-black/30">
+                  <span className="icon-nudge grid w-12 h-12 place-items-center rounded-2xl bg-brand-yellow text-black shadow-lg shadow-black/30">
                     <Icon className="w-5 h-5" aria-hidden />
                   </span>
                   <h3 className="mt-5 text-2xl font-bold tracking-tight">{s.title}</h3>
@@ -106,11 +107,11 @@ export default function CoreServices() {
                 data-reveal="up"
                 style={{ '--i': i } as CSSProperties}
                 key={s.slug}
-                className="group flex flex-col rounded-2xl border border-white/10 bg-brand-black overflow-hidden hover:border-brand-yellow/40 transition-colors"
+                className="service-card group flex flex-col rounded-2xl border border-white/10 bg-brand-black overflow-hidden hover:border-brand-yellow/40 focus-within:border-brand-yellow/40 transition-colors"
               >
                 <CardImage s={s} sizes="(min-width: 1024px) 240px, (min-width: 640px) 50vw, 100vw" className="aspect-[16/10]" />
                 <div className="relative flex flex-1 flex-col px-5 pb-5 -mt-5">
-                  <span className="grid w-10 h-10 place-items-center rounded-xl bg-brand-yellow text-black shadow-lg shadow-black/30">
+                  <span className="icon-nudge grid w-10 h-10 place-items-center rounded-xl bg-brand-yellow text-black shadow-lg shadow-black/30">
                     <Icon className="w-4 h-4" aria-hidden />
                   </span>
                   <h3 className="mt-4 font-bold leading-snug">{s.title}</h3>

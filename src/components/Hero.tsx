@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { Fragment, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react';
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 import { bookingExternal, bookingHref } from '../lib/booking';
 import { onLinkClick } from '../router';
@@ -37,18 +37,21 @@ function useParallaxEnabled() {
   useEffect(() => {
     const wide = window.matchMedia('(min-width: 1024px)');
     const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    // A mouse or trackpad is also required for the pointer tilt (never on touch screens)
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
     const update = () =>
-      setEnabled(wide.matches && !calm.matches && !document.documentElement.classList.contains('motion-lite'));
+      setEnabled(wide.matches && fine.matches && !calm.matches && !document.documentElement.classList.contains('motion-lite'));
     update();
-    wide.addEventListener('change', update);
-    calm.addEventListener('change', update);
+    for (const q of [wide, calm, fine]) q.addEventListener('change', update);
     return () => {
-      wide.removeEventListener('change', update);
-      calm.removeEventListener('change', update);
+      for (const q of [wide, calm, fine]) q.removeEventListener('change', update);
     };
   }, []);
   return enabled;
 }
+
+// Hero role indicators: verifiable facts only
+const roles = ['Co-Founder, 4AM Global Media', 'MCA, software developer', 'Digital marketing since 2019'];
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -58,6 +61,21 @@ export default function Hero() {
   const glowY = useTransform(scrollYProgress, [0, 1], [0, parallax ? 160 : 0]);
   const gridY = useTransform(scrollYProgress, [0, 1], [0, parallax ? 70 : 0]);
   const portraitY = useTransform(scrollYProgress, [0, 1], [0, parallax ? -40 : 0]);
+  // Pointer tilt on the portrait: at most 3° each way, eased by a soft spring
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+  const rotateX = useSpring(tiltX, { stiffness: 120, damping: 18 });
+  const rotateY = useSpring(tiltY, { stiffness: 120, damping: 18 });
+  const onPointerMove = (e: PointerEvent<HTMLElement>) => {
+    if (!parallax || e.pointerType !== 'mouse') return;
+    const r = e.currentTarget.getBoundingClientRect();
+    tiltY.set(((e.clientX - r.left) / r.width - 0.5) * 6);
+    tiltX.set(-((e.clientY - r.top) / r.height - 0.5) * 6);
+  };
+  const resetTilt = () => {
+    tiltX.set(0);
+    tiltY.set(0);
+  };
 
   return (
     <section ref={ref} className="theme-dark bg-brand-black text-white relative overflow-hidden pt-32 md:pt-40 pb-20 md:pb-28 px-5 sm:px-6 md:px-12 lg:px-24">
@@ -112,19 +130,32 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Verifiable facts only */}
-          <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400 reveal" style={delay(620)}>
-            <li>Co-Founder, 4AM Global Media</li>
-            <li aria-hidden className="hidden sm:block text-gray-600">·</li>
-            <li>MCA, software developer</li>
-            <li aria-hidden className="hidden sm:block text-gray-600">·</li>
-            <li>Digital marketing since 2019</li>
+          {/* Verifiable facts only; each indicator follows the CTAs in turn */}
+          <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-400">
+            {roles.map((role, i) => (
+              <Fragment key={role}>
+                {i > 0 && (
+                  <li aria-hidden className="hidden sm:block text-gray-600 reveal" style={delay(600 + i * 90 - 45)}>
+                    ·
+                  </li>
+                )}
+                <li className="reveal inline-flex items-center gap-2" style={delay(600 + i * 90)}>
+                  <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent/70" />
+                  {role}
+                </li>
+              </Fragment>
+            ))}
           </ul>
         </div>
 
         {/* Founder portrait */}
-        <figure className="relative mx-auto w-full max-w-[420px] lg:max-w-none reveal" style={delay(200)}>
-          <motion.div style={{ y: portraitY }} className="relative aspect-[4/5] rounded-[2rem] overflow-hidden border border-brand-yellow/25 bg-brand-dark-gray">
+        <figure
+          className="relative mx-auto w-full max-w-[420px] lg:max-w-none reveal [perspective:1200px]"
+          style={delay(200)}
+          onPointerMove={onPointerMove}
+          onPointerLeave={resetTilt}
+        >
+          <motion.div style={{ y: portraitY, rotateX, rotateY }} className="relative aspect-[4/5] rounded-[2rem] overflow-hidden border border-brand-yellow/25 bg-brand-dark-gray">
             <img
               src="/vaibhav-pasi.jpg"
               alt="Vaibhav Pasi, digital marketer, software developer and Co-Founder of 4AM Global Media"
