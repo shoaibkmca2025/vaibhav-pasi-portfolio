@@ -7,6 +7,27 @@
 // Page views on in-app navigation are picked up by GA4's enhanced measurement (history changes).
 import { bookingHref, hasBooking } from './booking';
 
+export type AnalyticsEvent =
+  | 'page_view'
+  | 'cta_click'
+  | 'hire_me_click'
+  | 'whatsapp_click'
+  | 'form_start'
+  | 'form_submit'
+  | 'growth_score_start'
+  | 'growth_score_complete'
+  | 'audit_purchase'
+  | 'product_purchase'
+  | 'booking_start'
+  | 'booking_complete'
+  | 'tool_use'
+  | 'checkout_start'
+  | 'generate_lead'
+  | 'book_call_click'
+  | (string & {});
+
+type Params = Record<string, string | number | boolean | undefined>;
+
 type Gtag = (...args: unknown[]) => void;
 declare global {
   interface Window {
@@ -18,25 +39,40 @@ declare global {
 const GA_ID = String(import.meta.env.VITE_GA_ID ?? '').trim();
 const enabled = /^G-[A-Z0-9]+$/.test(GA_ID);
 
-export function track(event: string, params: Record<string, string | number | undefined> = {}) {
-  if (!enabled || typeof window === 'undefined') return;
-  window.gtag?.('event', event, { page_path: window.location.pathname, ...params });
+export function track(event: AnalyticsEvent, params: Params = {}) {
+  if (typeof window === 'undefined') return;
+  const clean = Object.fromEntries(Object.entries(params).filter(([, v]) => v !== undefined));
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event, page_path: window.location.pathname, ...clean });
+  if (enabled && window.gtag) {
+    window.gtag('event', event, { page_path: window.location.pathname, ...clean });
+  }
+  if (import.meta.env.DEV) {
+    console.debug('[analytics]', event, clean);
+  }
+}
+
+export function trackPageView(path: string) {
+  track('page_view', { page_path: path, page_title: typeof document !== 'undefined' ? document.title : '' });
 }
 
 export function initAnalytics() {
-  if (!enabled || window.gtag) return;
+  if (typeof window === 'undefined') return;
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag() {
-    // gtag expects the arguments object itself, not an array
-    window.dataLayer!.push(arguments);
-  };
-  window.gtag('js', new Date());
-  window.gtag('config', GA_ID, { anonymize_ip: true });
 
-  const script = document.createElement('script');
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-  document.head.appendChild(script);
+  if (enabled && !window.gtag) {
+    window.gtag = function gtag() {
+      // gtag expects the arguments object itself, not an array
+      window.dataLayer!.push(arguments);
+    };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID, { anonymize_ip: true });
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+    document.head.appendChild(script);
+  }
 
   // One listener for every link on the site, including ones added later
   document.addEventListener(
