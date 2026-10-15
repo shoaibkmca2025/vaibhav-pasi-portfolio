@@ -154,7 +154,7 @@ export const team: TeamMember[] = [
       'Visual Storytelling',
     ],
     quote: '5+ years of experience. Always learning. Always creating. Always evolving.',
-    portrait: '',
+    portrait: '/team/sahil-pasi.jpg',
     portfolioUrl: '',
     socialLinks: [],
     profileDetailsConfirmed: true,
