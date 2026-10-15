@@ -276,7 +276,7 @@ export default function TeamPage() {
             </ol>
           </nav>
 
-          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
             <div className="reveal lg:col-span-6 xl:col-span-7">
               <span className="eyebrow mb-6">Meet the team</span>
               <h1 className="text-5xl font-black leading-[0.92] tracking-tighter sm:text-6xl md:text-7xl xl:text-[5.5rem]">
@@ -292,10 +292,11 @@ export default function TeamPage() {
               </a>
             </div>
 
-            {/* Portrait arrangement: middle column offset for an editorial rhythm */}
-            <ul className="reveal grid grid-cols-3 gap-3 pb-6 sm:gap-4 sm:pb-8 lg:col-span-6 xl:col-span-5" style={{ '--d': '150ms' } as CSSProperties} aria-label="Team members">
+            {/* Portraits: one compact row of five on phones and tablets; on desktop a 3-column
+                arrangement with the middle column offset for an editorial rhythm */}
+            <ul className="reveal grid grid-cols-5 gap-2 sm:gap-3 lg:col-span-6 lg:grid-cols-3 lg:gap-4 lg:pb-8 xl:col-span-5" style={{ '--d': '150ms' } as CSSProperties} aria-label="Team members">
               {team.map((m, i) => (
-                <li key={m.id} className={i % 3 === 1 ? 'translate-y-6 sm:translate-y-8' : ''}>
+                <li key={m.id} className={i % 3 === 1 ? 'lg:translate-y-8' : ''}>
                   <a
                     href={`#${m.id}`}
                     className="group relative block aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 transition-colors hover:border-accent/50"
@@ -303,13 +304,13 @@ export default function TeamPage() {
                     <div className="h-full w-full transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.04]">
                       <Portrait member={m} eager />
                     </div>
-                    <span className="theme-dark absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-2.5 pb-2 pt-6 text-[0.6875rem] font-semibold leading-tight text-white sm:px-3 sm:text-xs">
+                    <span className="theme-dark absolute inset-x-0 bottom-0 hidden bg-gradient-to-t from-black/75 to-transparent px-2.5 pb-2 pt-6 text-[0.6875rem] font-semibold leading-tight text-white sm:block sm:px-3 sm:text-xs">
                       {m.name}
                     </span>
                   </a>
                 </li>
               ))}
-              <li className="translate-y-6 sm:translate-y-8" aria-hidden>
+              <li className="hidden lg:block lg:translate-y-8" aria-hidden>
                 <div className="flex aspect-[4/5] flex-col items-center justify-center rounded-2xl border border-accent/25 bg-accent/[0.06] text-center">
                   <span className="text-3xl font-black tracking-tighter text-accent sm:text-4xl">{team.length}</span>
                   <span className="mt-1 px-2 text-[0.625rem] font-bold uppercase tracking-[0.2em] text-gray-400 sm:text-[0.6875rem]">
