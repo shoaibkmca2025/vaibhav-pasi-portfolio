@@ -1,5 +1,6 @@
 // Case studies built only from verified client results (screenshots in /public/wins).
-// Client names are kept private. Add new case studies here; every field is shown on /case-studies.
+// Clients are named only when they are happy to be featured; others stay anonymous.
+// Add new case studies here; every field is shown on /work (the first three also on the home page).
 
 export interface CaseStudy {
   slug: string;
@@ -14,10 +15,74 @@ export interface CaseStudy {
   // Before → after series for the view-count board (optional)
   board?: { before: number[]; after: string[]; bestBefore: number; bestAfter: number; icon: 'eye' | 'play' };
   screenshots: { src: string; alt: string }[];
+  // Optional detailed numbers, shown as a compact panel beside the case study
+  insights?: { title: string; rows: { label: string; value: string }[] }[];
   cta: { label: string; service: string };
 }
 
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: 'mauli-overseas',
+    client: 'Mauli Overseas',
+    category: 'Study & work abroad · Instagram growth',
+    headline: '112,640 views on one reel, and six reels past 37K views for a study & work abroad consultancy',
+    challenge:
+      'Mauli Overseas, a verified study visa, immigration and overseas-jobs consultancy, needed its Instagram to reach people planning to study or work abroad and turn that attention into consultation enquiries.',
+    approach: [
+      'Opportunity-led reels for specific roles and destinations, such as "Chef Jobs Abroad!" and a Hindi reel on going to the UK',
+      'Real client stories on camera: visa approvals and congratulations in the office',
+      'The consultant presenting on camera to build trust',
+      'One clear call to action on every reel: "Apply now → maulioverseas.com" and "DM for free consultation"',
+      'Consistent red-and-black branded templates, pinned posts and story highlights (Global Jobs, Study Abroad, Why Mauli?, Client Stories)',
+      'The "Chef Jobs Abroad!" reel boosted with a paid ad',
+    ],
+    built: ['Reel content and creative direction', 'Branded post and highlight design', 'Paid promotion of the top reel'],
+    stack: ['Instagram', 'Meta Ads', 'Short-form video'],
+    outcome: [
+      { value: '112,640', label: 'Views on “Chef Jobs Abroad!” (reel + ad)' },
+      { value: '1,264', label: 'Shares of that reel' },
+      { value: '154K', label: 'Best reel views' },
+    ],
+    // Add the Instagram screenshots to /public/wins and list them here, e.g.
+    //   { src: '/wins/mauli-chef-reel-insights.jpg', alt: 'Chef Jobs Abroad reel insights: 112,640 views, 3,863 interactions' },
+    //   { src: '/wins/mauli-reels.jpg', alt: 'Mauli Overseas reels at 154K, 133K, 132K, 112K, 83.8K and 37.6K views' },
+    screenshots: [],
+    // From the client's Instagram insights (the Chef reel's figures include its paid ad)
+    insights: [
+      {
+        title: '“Chef Jobs Abroad!” reel',
+        rows: [
+          { label: 'Views', value: '112,640' },
+          { label: 'Interactions', value: '3,863' },
+          { label: 'Likes', value: '2,559' },
+          { label: 'Shares', value: '1,264' },
+          { label: 'Saves', value: '22' },
+          { label: 'Comments', value: '18' },
+          { label: 'New follows', value: '38' },
+        ],
+      },
+      {
+        title: 'Reel views',
+        rows: [
+          { label: 'Client video, “Apply now”', value: '154K' },
+          { label: '“Namaste India!”', value: '133K' },
+          { label: 'UK opportunity (Hindi)', value: '132K' },
+          { label: '“Chef Jobs Abroad!”', value: '112K' },
+          { label: 'Client congratulations', value: '83.8K' },
+          { label: 'Visa approved story', value: '37.6K' },
+        ],
+      },
+      {
+        title: 'Account',
+        rows: [
+          { label: 'Views in the last 30 days', value: '113.6K' },
+          { label: 'Followers', value: '1,806' },
+          { label: 'Posts', value: '93' },
+        ],
+      },
+    ],
+    cta: { label: 'Grow My Business on Instagram', service: 'Digital Marketing' },
+  },
   {
     slug: 'creator-reach-3m',
     client: 'Creator B (personal brand)',

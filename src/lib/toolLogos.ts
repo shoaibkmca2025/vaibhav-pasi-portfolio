@@ -33,6 +33,7 @@ const BY_NAME: Record<string, SimpleIcon[]> = {
   Vite: [siVite],
   Vercel: [siVercel],
   'Meta & Google Ads': [siMeta, siGoogleads],
+  'Meta Ads': [siMeta],
   'Google Analytics': [siGoogleanalytics],
   Instagram: [siInstagram],
   TikTok: [siTiktok],

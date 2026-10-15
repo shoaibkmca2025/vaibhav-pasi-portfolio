@@ -30,6 +30,28 @@ function Outcomes({ outcome }: { outcome: CaseStudy['outcome'] }) {
   );
 }
 
+// Detailed numbers beside a case study (e.g. a reel's full insights), when supplied
+function Insights({ insights }: { insights?: CaseStudy['insights'] }) {
+  if (!insights?.length) return null;
+  return (
+    <div className="grid gap-4 sm:grid-cols-2" data-reveal-stagger>
+      {insights.map((group, i) => (
+        <section key={group.title} className={`rounded-2xl border border-white/10 p-4 ${i === 0 ? 'sm:row-span-2' : ''}`}>
+          <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-500">{group.title}</h3>
+          <dl className="mt-3 divide-y divide-white/5">
+            {group.rows.map((r) => (
+              <div key={r.label} className="flex items-baseline justify-between gap-3 py-1.5">
+                <dt className="text-sm text-gray-400">{r.label}</dt>
+                <dd className="text-sm font-semibold tabular-nums">{r.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 function Screenshot({ c, priority = false }: { c: CaseStudy; priority?: boolean }) {
   const shot = c.screenshots[0];
   if (!shot) return null;
@@ -58,7 +80,7 @@ export function FeaturedProjects() {
               Real work, <span className="text-accent">real numbers.</span>
             </h2>
             <p className="mt-6 text-gray-400 md:text-lg leading-relaxed">
-              Results from client accounts, each backed by the original screenshot. Client names are kept private.
+              Results from real client accounts, backed by their analytics. Some clients are named; others stay private.
             </p>
           </div>
         </div>
@@ -148,6 +170,7 @@ export default function CaseStudies() {
               <div className="flex flex-col gap-5">
                 <Screenshot c={c} priority={i === 0} />
                 <Outcomes outcome={c.outcome} />
+                <Insights insights={c.insights} />
                 <a href={enquireHref(c)} onClick={onLinkClick} className="btn-primary self-start">
                   {c.cta.label} <ArrowUpRight className="w-4 h-4" aria-hidden />
                 </a>
