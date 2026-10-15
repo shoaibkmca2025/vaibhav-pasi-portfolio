@@ -23,7 +23,7 @@ import { goTo } from './nav';
 import { Button, Field, Notice, Panel, Spinner, Toggle, inputClass } from './ui';
 
 const AUTOSAVE_KEY = 'vp-dashboard-new-article';
-const SITE_HOST = 'vaibhavpasi.online';
+const SITE_HOST = 'www.vaibhavpasi.online';
 
 const today = () => {
   const d = new Date();

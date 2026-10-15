@@ -6,7 +6,7 @@ import { landingServices } from './content/services';
 import { getSeo, renderHead, pageSeo } from './seo';
 import { sitePages } from './router';
 import { team } from './content/team';
-import { SITE_URL, DEFAULT_DESCRIPTION, person } from './site';
+import { SITE_URL, PERSON_DESCRIPTION, person } from './site';
 import { faqs } from './components/FAQ';
 
 // Every page that gets its own prerendered HTML file
@@ -57,7 +57,7 @@ export function llmsTxt() {
   const lines = [
     `# ${person.name}`,
     '',
-    `> ${DEFAULT_DESCRIPTION}`,
+    `> ${PERSON_DESCRIPTION}`,
     '',
     `- Role: ${person.jobTitle}`,
     `- Company: ${person.organization.name} (${person.organization.url})`,

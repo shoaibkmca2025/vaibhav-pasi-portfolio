@@ -285,23 +285,25 @@ export const services: Service[] = [
     slug: 'seo',
     tools: ['Google Search Console', 'Google Analytics', 'Structured data'],
     href: '/services/seo',
-    title: 'SEO',
+    title: 'SEO & AEO',
     navTitle: 'SEO',
     icon: 'search',
     // Decorative stock photo (Unsplash), not client work
     image: { src: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=75&w=1200', alt: 'Analytics dashboard with traffic charts' },
-    short: 'Search visibility through technical SEO, on-page optimisation and a content strategy aimed at buyers.',
+    short: 'Search visibility through technical SEO, on-page optimisation, answer engine optimisation and a content strategy aimed at buyers.',
     intro:
-      'SEO is how customers find you when they are already looking. I fix the technical foundations, optimise the pages that should rank, and plan content around the searches your buyers make, including structured data that helps Google and AI assistants understand your business.',
+      'SEO is how customers find you when they are already looking, and more of those searches now end in a direct answer from Google AI Overviews, ChatGPT search or Perplexity. I fix the technical foundations, optimise the pages that should rank, write clear answers to the questions your buyers ask, and add structured data that helps search engines and AI assistants understand who you are and what you offer.',
     deliverables: [
       'Technical SEO audit and fixes',
       'Keyword and search-intent research',
       'On-page optimisation of key pages',
       'Structured data (schema) implementation',
+      'Answer engine optimisation: question-led content and entity clarity',
+      'Crawler access review (robots.txt, sitemap, AI search crawlers)',
       'Content plan and article briefs',
       'Google Search Console setup and reporting',
     ],
-    useCases: ['Not showing up on Google', 'Website traffic without enquiries', 'Launching a new site the right way', 'Local and service-area visibility'],
+    useCases: ['Not showing up on Google', 'Website traffic without enquiries', 'Launching a new site the right way', 'Local and service-area visibility', 'Unclear brand information in AI answers'],
     process: [
       { title: 'Audit', text: 'Crawl, indexing, speed, metadata and structured data review.' },
       { title: 'Research', text: 'Keywords and questions your buyers actually search.' },
@@ -312,13 +314,28 @@ export const services: Service[] = [
     priceNote: 'Start with the ₹1,499 Digital Growth Audit to see what needs fixing first.',
     whatsapp: "Hi Vaibhav, I'd like to discuss SEO for my website.",
     seo: {
-      title: 'SEO Services: Technical SEO, On-Page & Content | Vaibhav Pasi',
+      title: 'SEO & AEO Services: Technical SEO and AI Search Visibility | Vaibhav Pasi',
       description:
-        'Technical SEO audits, on-page optimisation, structured data and content strategy aimed at the searches your buyers make. Start with a ₹1,499 audit.',
+        'Technical SEO, on-page optimisation, answer engine optimisation (AEO), structured data and content strategy aimed at the searches your buyers make.',
     },
     faqs: [
       { question: 'How long does SEO take to work?', answer: 'Technical fixes can show results within weeks; competitive rankings usually take three to six months of consistent work.' },
       { question: 'Do you guarantee first-page rankings?', answer: 'No one can honestly guarantee rankings. I focus on the factors you control: technical health, relevant content and a site that deserves to rank.' },
+      {
+        question: 'What is Answer Engine Optimization (AEO)?',
+        answer:
+          'Answer Engine Optimization (AEO) is the practice of making your website content and brand information easy for answer-focused systems, such as Google AI Overviews, ChatGPT search and Perplexity, to discover, understand and reference. In practice it means clear answers to real questions, consistent facts about your business, structured data and pages crawlers can access.',
+      },
+      {
+        question: 'How is AEO different from SEO and GEO?',
+        answer:
+          'SEO improves how your pages rank in search results. AEO focuses on being the clear, quotable answer to a specific question. GEO (Generative Engine Optimization) is a newer term for the same goal inside AI-generated answers. They share one foundation: a technically sound site with accurate, useful, well-structured content.',
+      },
+      {
+        question: 'Can you guarantee my business appears in AI answers?',
+        answer:
+          'No. AI search tools decide what to cite, and that changes often. AEO improves the conditions that make your content usable as a source; it cannot force a citation. I report on what can be measured, such as Search Console data and AI referral visits, and check AI answers by manual sampling.',
+      },
     ],
   },
   {

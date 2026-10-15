@@ -97,7 +97,7 @@ export default async function handler(req: Req, res: Res) {
     const r = await fetch(url, {
       redirect: 'follow',
       signal: controller.signal,
-      headers: { 'User-Agent': 'VaibhavPasi-GrowthScore/1.0 (+https://vaibhavpasi.online/growth-score)', Accept: 'text/html' },
+      headers: { 'User-Agent': 'VaibhavPasi-GrowthScore/1.0 (+https://www.vaibhavpasi.online/growth-score)', Accept: 'text/html' },
     });
     const ms = Date.now() - started;
     const finalUrl = new URL(r.url || url.href);

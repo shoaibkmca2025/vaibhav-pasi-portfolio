@@ -1,10 +1,7 @@
 import { useRef, type CSSProperties } from 'react';
 import { motion, useReducedMotion, useScroll } from 'motion/react';
 import { onLinkClick } from '../router';
-import { publications } from './Press';
-
-// Verified press count: publications with a logo (the same count used in the hero)
-const pressCount = publications.filter((p) => 'logo' in p && p.logo).length;
+import { pressCount } from './Press';
 
 // Career milestones, facts only (the same facts used across the site). Add a year to an entry
 // only once it is confirmed; entries without one show a label instead.

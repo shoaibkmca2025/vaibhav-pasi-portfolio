@@ -65,4 +65,4 @@ export function rateLimited(req: Req, limit = 8, windowMs = 60_000) {
   return recent.length > limit;
 }
 
-export const siteUrl = () => env('SITE_URL') || 'https://vaibhavpasi.online';
+export const siteUrl = () => env('SITE_URL') || 'https://www.vaibhavpasi.online';

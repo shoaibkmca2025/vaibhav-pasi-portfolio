@@ -101,6 +101,10 @@ export const publications = [
   },
 ];
 
+// Every entry links to its published article, so the count is simply the list length.
+// Use this everywhere a press count is shown so the numbers can never disagree.
+export const pressCount = publications.length;
+
 export default function Press() {
   return (
     <section id="press" className="scroll-mt-24 section-padding bg-brand-black border-b border-white/5">

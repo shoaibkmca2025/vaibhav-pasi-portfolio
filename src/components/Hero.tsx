@@ -3,10 +3,7 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'moti
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 import { bookingExternal, bookingHref } from '../lib/booking';
 import { onLinkClick } from '../router';
-import { publications } from './Press';
-
-// Verified press count: publications with a logo (the same 11 counted in content/proof.ts)
-const pressCount = publications.filter((p) => 'logo' in p && p.logo).length;
+import { pressCount } from './Press';
 
 // Entrance is pure CSS (.reveal in index.css), so the prerendered hero is visible
 // before any JavaScript runs; --d staggers each line
@@ -98,11 +95,12 @@ export default function Hero() {
 
       <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-14 lg:gap-16 items-center">
         <div>
-          <span className="eyebrow mb-7 reveal" style={delay(0)}>
-            Technology × Marketing × AI
-          </span>
-
+          {/* One H1 that says who this is (identity line) and what he offers (the headline) */}
           <h1 className="text-[2.75rem] leading-[1.02] sm:text-6xl md:text-7xl xl:text-[5.5rem] font-bold tracking-tighter">
+            <span className="reveal mb-7 block max-w-xl text-sm sm:text-base font-semibold leading-snug tracking-normal text-gray-300" style={delay(0)}>
+              <span className="text-accent">Vaibhav Pasi</span> — Software Developer, Digital Marketing Strategist &amp; AI Automation
+              Consultant
+            </span>
             <Words text="Build Better." start={0} />
             <br className="hidden sm:block" />
             <Words text="Market Smarter." start={2} />
@@ -111,8 +109,8 @@ export default function Hero() {
           </h1>
 
           <p className="mt-7 max-w-xl text-lg md:text-xl text-gray-400 leading-relaxed reveal" style={delay(380)}>
-            I help ambitious businesses grow through performance-focused digital marketing, high-converting websites, custom
-            software, and practical AI-powered automation.
+            I help businesses build, market and scale their digital presence through website development, search optimization,
+            performance-focused marketing and practical AI automation.
           </p>
 
           <div className="mt-9 flex flex-col sm:flex-row gap-3">

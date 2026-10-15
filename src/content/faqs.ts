@@ -11,7 +11,7 @@ export const aboutFaqs: Faq[] = [
   {
     question: 'Who is Vaibhav Pasi?',
     answer:
-      'Vaibhav Pasi is a digital marketer, software developer and AI & automation consultant based in India, and Co-Founder of 4AM Global Media. He helps businesses grow through websites, digital marketing, SEO, AI automation and custom software.',
+      'Vaibhav Pasi is a software developer and digital marketing strategist based in India, an MCA graduate, and Co-Founder of 4AM Global Media. He has worked in digital marketing since 2019 and helps businesses grow through website development, SEO, digital marketing, AI-powered automation and custom software.',
   },
   {
     question: 'What is 4AM Global Media?',
@@ -24,7 +24,7 @@ export const aboutFaqs: Faq[] = [
   },
   {
     question: 'How can I contact Vaibhav Pasi?',
-    answer: `Email ${contactEmail}, use the enquiry form at vaibhavpasi.online/contact, or message on WhatsApp from any page of the website.`,
+    answer: `Email ${contactEmail}, use the enquiry form at www.vaibhavpasi.online/contact, or message on WhatsApp from any page of the website.`,
   },
 ];
 

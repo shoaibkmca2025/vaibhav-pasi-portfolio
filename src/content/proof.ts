@@ -1,5 +1,6 @@
 // Testimonials, the trust bar and the technology list. Only verified content belongs here.
 import { landingServices } from './services';
+import { pressCount } from '../components/Press';
 
 // Real client messages, quoted as sent (screenshot: /public/wins/client-messages.jpg).
 // Add attributed testimonials (name, role, company) only with the client's permission.
@@ -36,7 +37,7 @@ export const testimonials: Testimonial[] = [
 export const trustFacts = [
   { value: '2019', label: 'Working in digital marketing since' },
   { value: '4AM', label: 'Co-Founder, 4AM Global Media' },
-  { value: '11', label: 'Press features (May 2026)' },
+  { value: String(pressCount), label: 'Press features (May 2026)' },
   { value: '3.1M', label: 'Best client reel views' },
   { value: String(landingServices.length), label: 'Service lines' },
 ];
