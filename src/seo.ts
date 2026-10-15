@@ -15,6 +15,7 @@ import {
   absoluteUrl,
 } from './site';
 import { unsplashAt } from './image';
+import { team } from './content/team';
 
 export interface Seo {
   title: string;
@@ -77,6 +78,34 @@ const organizationSchema = {
   employee: { '@id': PERSON_ID },
 };
 
+// Team page: the confirmed people at 4AM Global Media. Only details published on the page are
+// used; profiles still awaiting confirmation are left out. Vaibhav keeps his site-wide Person @id.
+const teamPersonId = (id: string) => (id === 'vaibhav-pasi' ? PERSON_ID : `${absoluteUrl('/faces-behind-4am-global-media')}#${id}`);
+const confirmedTeam = () => team.filter((m) => m.profileDetailsConfirmed);
+
+const teamOrganizationSchema = () => ({
+  ...organizationSchema,
+  founder: confirmedTeam()
+    .filter((m) => m.isFounder)
+    .map((m) => ({ '@id': teamPersonId(m.id) })),
+  employee: confirmedTeam().map((m) => ({ '@id': teamPersonId(m.id) })),
+});
+
+const teamPeopleSchema = () =>
+  confirmedTeam()
+    .filter((m) => m.id !== 'vaibhav-pasi')
+    .map((m) => ({
+      '@type': 'Person',
+      '@id': teamPersonId(m.id),
+      name: m.name,
+      jobTitle: m.designation.replace(/\s+—\s+4AM Global Media$/, ''),
+      worksFor: { '@id': ORG_ID },
+      knowsAbout: m.expertise,
+      ...(m.portrait ? { image: absoluteUrl(m.portrait) } : {}),
+      ...(m.socialLinks?.length ? { sameAs: m.socialLinks.map((l) => l.href) } : {}),
+      url: absoluteUrl(`/faces-behind-4am-global-media#${m.id}`),
+    }));
+
 // `name` + `alternateName` tell Google which site name to show above the result (instead of the bare domain)
 const websiteSchema = {
   '@type': 'WebSite',
@@ -113,6 +142,13 @@ export const pageSeo: Record<PageKey, { name: string; title: string; description
     description:
       'Vaibhav Pasi is an MCA graduate, software developer and digital marketer since 2019, and Co-Founder of 4AM Global Media. Background, toolkit, press and how he works.',
     type: 'ProfilePage',
+  },
+  team: {
+    name: 'Our Team',
+    title: 'The Faces Behind 4AM Global Media | Vaibhav Pasi',
+    description:
+      'Meet the people behind 4AM Global Media, combining digital marketing, software development, 3D animation, motion graphics, and creative strategy.',
+    type: 'AboutPage',
   },
   services: {
     name: 'Services',
@@ -173,7 +209,8 @@ export function getSeo(pathname: string): Seo {
         '@graph': [
           websiteSchema,
           personSchema,
-          organizationSchema,
+          key === 'team' ? teamOrganizationSchema() : organizationSchema,
+          ...(key === 'team' ? teamPeopleSchema() : []),
           {
             '@type': meta.type,
             '@id': `${absoluteUrl(path)}#page`,
@@ -181,7 +218,7 @@ export function getSeo(pathname: string): Seo {
             name: meta.title,
             description: meta.description,
             isPartOf: { '@id': WEBSITE_ID },
-            about: { '@id': PERSON_ID },
+            about: key === 'team' ? { '@id': ORG_ID } : { '@id': PERSON_ID },
             ...(meta.type === 'ProfilePage' ? { mainEntity: { '@id': PERSON_ID } } : {}),
             inLanguage: 'en',
           },
@@ -200,6 +237,7 @@ export function getSeo(pathname: string): Seo {
             : []),
           breadcrumbs([
             { name: 'Home', path: '/' },
+            ...(key === 'team' ? [{ name: 'About', path: '/about' }] : []),
             { name: meta.name, path },
           ]),
         ],

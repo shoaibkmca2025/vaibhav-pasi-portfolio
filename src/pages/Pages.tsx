@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail, MessageCircle, Phone } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Mail, MessageCircle, Phone } from 'lucide-react';
 import Press from '../components/Press';
 import ServiceShowcase from '../components/ServiceShowcase';
 import HowItWorks from '../components/HowItWorks';
@@ -73,6 +73,23 @@ export function AboutPage() {
         facts={trustFacts.slice(0, 4)}
       />
       <AboutIntro onAboutPage />
+      <section className="px-5 sm:px-6 md:px-12 lg:px-24 pb-4" aria-label="The team behind 4AM Global Media">
+        <a
+          href="/faces-behind-4am-global-media"
+          onClick={onLinkClick}
+          data-reveal="up"
+          className="group mx-auto flex max-w-7xl flex-col gap-6 rounded-[1.75rem] border border-white/10 bg-brand-dark-gray/40 p-6 transition-colors hover:border-accent/40 sm:flex-row sm:items-center sm:justify-between md:p-8"
+        >
+          <span>
+            <span className="block text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-accent">Our Team</span>
+            <span className="mt-2 block text-2xl font-black tracking-tight md:text-3xl">Meet the faces behind 4AM Global Media</span>
+            <span className="mt-2 block text-gray-400">Strategy, technology, marketing and 3D motion: the five people who make the work happen.</span>
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-accent">
+            Meet the team <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
+          </span>
+        </a>
+      </section>
       <Toolkit />
       <Press />
       <HowItWorks />

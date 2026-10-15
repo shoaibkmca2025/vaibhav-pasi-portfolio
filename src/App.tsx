@@ -23,6 +23,7 @@ import InstagramGallery from './components/InstagramGallery';
 import WhatsAppButton from './components/WhatsAppButton';
 import BackToTop from './components/BackToTop';
 import { AboutPage, ClientWinsPage, ContactPage, PrivacyPage, ServicesPage, TermsPage, WorkPage } from './pages/Pages';
+import TeamPage from './pages/TeamPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import { useRoute, type Route } from './router';
 import { applySeo, getSeo } from './seo';
@@ -83,6 +84,8 @@ function PageContent({ route }: { route: Route; key?: string }) {
   switch (route.page) {
     case 'about':
       return <AboutPage />;
+    case 'team':
+      return <TeamPage />;
     case 'services':
       return <ServicesPage />;
     case 'service':
