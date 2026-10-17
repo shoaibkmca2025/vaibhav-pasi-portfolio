@@ -13,6 +13,8 @@ const files = import.meta.glob('./posts/*.md', {
 export interface Post {
   slug: string;
   title: string;
+  // Optional shorter title for search results (front matter: seoTitle)
+  seoTitle?: string;
   date: string;
   category: string;
   excerpt: string;
@@ -34,6 +36,7 @@ function toPost(path: string, raw: string): Post | null {
   return {
     slug,
     title: meta.title || slug.replace(/-/g, ' '),
+    seoTitle: meta.seoTitle || undefined,
     date: meta.date,
     category: meta.category,
     excerpt: meta.excerpt,

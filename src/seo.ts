@@ -1,5 +1,5 @@
 import { posts, getPost } from './blog/posts';
-import { getService } from './content/services';
+import { getService, landingServices } from './content/services';
 import { faqs } from './components/FAQ';
 import { contactPhone, contactPhoneDisplay } from './contact';
 import { featureHeadline, publications } from './components/Press';
@@ -79,6 +79,16 @@ const organizationSchema = {
   url: person.organization.url,
   founder: { '@id': PERSON_ID },
   employee: { '@id': PERSON_ID },
+  areaServed: { '@type': 'Country', name: 'India' },
+  knowsAbout: landingServices.map((s) => s.title),
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    email: person.email,
+    telephone: `+${contactPhone}`,
+    areaServed: 'IN',
+    availableLanguage: 'English',
+  },
 };
 
 // Team page: everyone with a confirmed title. Only details published on the page are used
@@ -145,7 +155,7 @@ const breadcrumbs = (items: { name: string; path: string }[]) => ({
 export const pageSeo: Record<PageKey, { name: string; title: string; description: string; type: string }> = {
   about: {
     name: 'About',
-    title: 'About Vaibhav Pasi | Software Developer & Co-Founder, 4AM Global Media',
+    title: 'About Vaibhav Pasi | Developer, Marketer & 4AM Co-Founder',
     description:
       'Vaibhav Pasi is an MCA graduate, software developer and digital marketer since 2019, and Co-Founder of 4AM Global Media. Background, toolkit, press and how he works.',
     type: 'ProfilePage',
@@ -198,7 +208,22 @@ export const pageSeo: Record<PageKey, { name: string; title: string; description
   },
 };
 
+// Trims a description to fit search snippets, ending on a full sentence where possible
+export function fitDescription(text: string, max = 160) {
+  const clean = text.replace(/s+/g, ' ').trim();
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max);
+  const sentence = cut.match(/^(.*[.!?])s/);
+  if (sentence && sentence[1].length >= 110) return sentence[1];
+  return cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:s]+$/, '') + '…';
+}
+
 export function getSeo(pathname: string): Seo {
+  const seo = buildSeo(pathname);
+  return { ...seo, description: fitDescription(seo.description) };
+}
+
+function buildSeo(pathname: string): Seo {
   const route = parseRoute(pathname);
 
   if (route.page === 'not-found') {
@@ -219,7 +244,9 @@ export function getSeo(pathname: string): Seo {
       const path = `/team/${m.id}`;
       const url = absoluteUrl(path);
       // Short role for the title, e.g. "Co-Founder" from "Co-Founder | Digital Growth, ..."
-      const title = `${m.name}, ${m.designation.split('|')[0].replace(/\s+—\s+4AM Global Media$/, '').trim()} | 4AM Global Media`;
+      const base = `${m.name}, ${m.designation.split('|')[0].replace(/\s+—\s+4AM Global Media$/, '').trim()}`;
+      // The company suffix is dropped when it would push the title past what search results show
+      const title = `${base} | 4AM Global Media`.length <= 60 ? `${base} | 4AM Global Media` : base;
       return {
         title,
         description: m.profileDetailsConfirmed
@@ -447,7 +474,7 @@ export function getSeo(pathname: string): Seo {
       const url = absoluteUrl(`/blog/${post.slug}`);
       return {
         // Long headlines drop the name suffix so the title isn't cut off in results
-        title: post.title.length > 55 ? post.title : `${post.title} | Vaibhav Pasi`,
+        title: post.seoTitle ?? (post.title.length > 55 ? post.title : `${post.title} | Vaibhav Pasi`),
         description: post.excerpt || DEFAULT_DESCRIPTION,
         path: `/blog/${post.slug}`,
         image: coverUrl(post.cover),
