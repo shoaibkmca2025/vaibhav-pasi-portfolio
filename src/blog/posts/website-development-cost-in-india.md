@@ -1,5 +1,6 @@
 ---
 title: "How Much Does Website Development Cost in India? A Practical Breakdown"
+seoTitle: "Website Development Cost in India: A Practical Breakdown"
 date: 2026-10-16
 category: Websites
 excerpt: "What actually drives the price of a business website in India, what my own projects cost, and the running costs people forget to budget for."

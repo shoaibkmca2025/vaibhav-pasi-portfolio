@@ -1,4 +1,4 @@
-import { publications } from './Press';
+import { logoSize, publications } from './Press';
 
 // Scrolling "As featured in" band of press logos, right under the hero.
 // The list is doubled so the loop is seamless; hovering pauses it, Reduce Motion stops it.
@@ -32,6 +32,7 @@ export default function LogoStrip() {
               >
                 <img
                   src={(pub as { logo: string }).logo}
+                  {...logoSize((pub as { logo: string }).logo)}
                   alt={`${pub.name} logo`}
                   loading="lazy"
                   decoding="async"

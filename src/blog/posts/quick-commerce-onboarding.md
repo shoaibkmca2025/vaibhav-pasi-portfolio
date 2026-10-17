@@ -1,5 +1,6 @@
 ---
 title: "The Quick-Commerce Playbook: Launching Your Brand on India's Fastest Shelves"
+seoTitle: "Quick-Commerce Onboarding: Blinkit, Zepto & Instamart Guide"
 date: 2026-09-02
 category: E-commerce
 excerpt: "Blinkit, Zepto and Instamart can make or break a D2C brand. Here's what we get right before a single product goes live."

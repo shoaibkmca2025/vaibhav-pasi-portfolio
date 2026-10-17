@@ -288,6 +288,8 @@ export function BlogIndex() {
                 )}
               </div>
 
+              {/* Keeps the outline h1 → h2 → h3 for search and screen readers; the filters above act as the visual header */}
+              <h2 className="sr-only">All articles</h2>
               {featured && <FeaturedPost post={featured} />}
 
               {matches.length === 0 ? (

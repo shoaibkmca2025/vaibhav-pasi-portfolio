@@ -529,7 +529,7 @@ export const services: Service[] = [
     priceNote: 'Depends on duration, group size and on-site or online delivery.',
     whatsapp: "Hi Vaibhav, I'd like to discuss an AI workshop or training session.",
     seo: {
-      title: 'AI Workshops, Corporate Training & Technology Consulting | Vaibhav Pasi',
+      title: 'AI Workshops & Corporate AI Training | Vaibhav Pasi',
       description:
         'Practical AI workshops, corporate training and Vibe Coding sessions for institutions and teams, plus technology consulting for AI, automation and software decisions.',
     },

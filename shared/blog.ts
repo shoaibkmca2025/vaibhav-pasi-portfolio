@@ -16,6 +16,8 @@ export const CATEGORIES = ['Growth', 'Social Media', 'E-commerce', 'AI & Tech', 
 
 export interface PostMeta {
   title: string;
+  // Optional shorter title for search results; the headline stays as `title`
+  seoTitle?: string;
   date: string; // YYYY-MM-DD
   category: string;
   excerpt: string;
@@ -70,6 +72,7 @@ export function parsePostFile(raw: string): { meta: PostMeta; body: string } {
   return {
     meta: {
       title: text(data.title),
+      seoTitle: text(data.seoTitle) || undefined,
       date: toDate(data.date),
       category: text(data.category) || 'Insights',
       excerpt: text(data.excerpt),
@@ -85,6 +88,7 @@ export function parsePostFile(raw: string): { meta: PostMeta; body: string } {
 export function serializePost(meta: PostMeta, body: string) {
   const header: Raw = {
     title: meta.title,
+    ...(meta.seoTitle ? { seoTitle: meta.seoTitle } : {}),
     date: meta.date,
     category: meta.category,
     excerpt: meta.excerpt,

@@ -404,6 +404,8 @@ export default function ClientWins({ hideHeader = false }: { hideHeader?: boolea
               <div className="aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 group-hover:border-accent/50 transition-colors bg-brand-dark-gray">
                 <img
                   src={s.src}
+                  width={1170}
+                  height={2080}
                   alt={s.caption}
                   loading="lazy"
                   decoding="async"

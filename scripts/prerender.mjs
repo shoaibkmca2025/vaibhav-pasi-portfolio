@@ -7,7 +7,7 @@ import { pathToFileURL } from 'node:url';
 const dist = path.resolve('dist');
 const ssrEntry = path.resolve('dist-ssr/entry-server.js');
 
-const { routes, render, sitemap, robots, llmsTxt } = await import(pathToFileURL(ssrEntry).href);
+const { routes, render, sitemap, robots, llmsTxt, llmsFullTxt } = await import(pathToFileURL(ssrEntry).href);
 
 const template = fs
   .readFileSync(path.join(dist, 'index.html'), 'utf-8')
@@ -31,6 +31,7 @@ for (const route of routes) {
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), sitemap());
 fs.writeFileSync(path.join(dist, 'robots.txt'), robots());
 fs.writeFileSync(path.join(dist, 'llms.txt'), llmsTxt());
-console.log('wrote sitemap.xml, robots.txt, llms.txt');
+fs.writeFileSync(path.join(dist, 'llms-full.txt'), llmsFullTxt());
+console.log('wrote sitemap.xml, robots.txt, llms.txt, llms-full.txt');
 
 fs.rmSync(path.resolve('dist-ssr'), { recursive: true, force: true });

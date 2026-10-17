@@ -15,7 +15,7 @@ export function unsplashAt(url: string, width: number) {
 // Responsive props for any image: Unsplash URLs get a srcSet, local files are used as-is.
 export function responsiveImage(url: string, sizes: string) {
   if (url.includes('images.unsplash.com') && /[?&]w=\d+/.test(url)) {
-    return { src: unsplashAt(url, 1200), srcSet: unsplashSrcSet(url), sizes };
+    return { src: unsplashAt(url, 1200), srcSet: unsplashSrcSet(url), sizes, width: 1200, height: 800 };
   }
   return { src: url };
 }

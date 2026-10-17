@@ -203,7 +203,7 @@ export const pageSeo: Record<PageKey, { name: string; title: string; description
   terms: {
     name: 'Terms of Service',
     title: 'Terms of Service | Vaibhav Pasi',
-    description: 'Terms for using vaibhavpasi.online and the information, prices and case studies published on it.',
+    description: 'Terms for using vaibhavpasi.online: how its articles, starting prices and case studies should be read, how paid work is agreed, and which law applies.',
     type: 'WebPage',
   },
 };

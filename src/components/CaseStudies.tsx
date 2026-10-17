@@ -59,6 +59,8 @@ function Screenshot({ c, priority = false }: { c: CaseStudy; priority?: boolean 
     <a href={shot.src} target="_blank" rel="noopener" data-reveal="mask" className="block rounded-2xl overflow-hidden border border-white/10 bg-brand-dark-gray group/shot">
       <img
         src={shot.src}
+        width={1170}
+        height={2080}
         alt={shot.alt}
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"

@@ -1,6 +1,25 @@
 import type { CSSProperties } from 'react';
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 
+// Intrinsic pixel sizes of the logo files, so the browser reserves space before they load
+const LOGO_SIZES: Record<string, [number, number]> = {
+  '/press/99-news.png': [342, 95],
+  '/press/daily-district-news.png': [340, 170],
+  '/press/dailyhunt.png': [140, 141],
+  '/press/eshn-news.png': [391, 65],
+  '/press/indian-prime-bulletin.png': [272, 78],
+  '/press/insider-news-times.png': [419, 247],
+  '/press/news-today-24x7.png': [558, 179],
+  '/press/news-wire-of-india.png': [199, 150],
+  '/press/prime-news-of-india.png': [226, 172],
+  '/press/the-india-forbes-news.png': [300, 51],
+  '/press/today-news-standard.png': [507, 248],
+};
+export const logoSize = (src: string) => {
+  const size = LOGO_SIZES[src];
+  return size ? { width: size[0], height: size[1] } : {};
+};
+
 export const featureHeadline = 'Vaibhav Pasi: Visionary Entrepreneur Redefining Digital Marketing Through 4AM Global Media';
 
 // Logos live in /public/press. Most are dark artwork, so they sit on a light plate;
@@ -155,6 +174,7 @@ export default function Press() {
                   <>
                     <img
                       src={pub.logo}
+                      {...logoSize(pub.logo)}
                       alt={`${pub.name} logo`}
                       className={`object-contain ${pub.wordmark ? 'h-8 md:h-10 w-auto' : 'max-h-full max-w-full'}`}
                       loading="lazy"
