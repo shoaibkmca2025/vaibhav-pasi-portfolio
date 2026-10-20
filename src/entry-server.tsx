@@ -37,8 +37,7 @@ interface SitemapEntry {
   images?: { src?: string; title: string }[];
 }
 
-// The stylesheet only affects how browsers display the file (public/sitemap.xsl); crawlers ignore it
-const XML_HEADER = '<?xml version="1.0" encoding="UTF-8"?>\n<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>\n';
+const XML_HEADER = '<?xml version="1.0" encoding="UTF-8"?>\n';
 
 const xmlEscape = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
