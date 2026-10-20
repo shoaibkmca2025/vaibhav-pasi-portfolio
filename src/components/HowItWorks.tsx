@@ -73,15 +73,15 @@ export default function HowItWorks() {
               data-active={idx === active || undefined}
               style={{ '--i': idx } as CSSProperties}
               key={step.title}
-              className="process-step group relative flex flex-col rounded-2xl border border-white/10 bg-brand-dark-gray overflow-hidden hover:border-brand-yellow/40 transition-colors"
+              className="process-step group relative flex flex-col rounded-2xl border border-white/10 bg-brand-dark-gray overflow-clip hover:border-brand-yellow/40 transition-colors"
             >
-              <div className="relative h-36 overflow-hidden">
+              <div className="relative h-36 overflow-clip">
                 <img
                   {...responsiveImage(step.image, '(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw')}
                   alt={step.alt}
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                  className="img-depth absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                 />
                 <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-brand-dark-gray via-brand-dark-gray/40 to-transparent" />
               </div>

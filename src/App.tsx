@@ -12,6 +12,7 @@ import CoreServices from './components/CoreServices';
 import { FeaturedProjects } from './components/CaseStudies';
 import AboutIntro from './components/AboutIntro';
 import HowItWorks from './components/HowItWorks';
+import ScrollMarquee from './components/ScrollMarquee';
 import FAQ from './components/FAQ';
 import { Footer } from './components/Footer';
 import Testimonials from './components/Testimonials';
@@ -52,6 +53,8 @@ function HomePage() {
       <section id="work">
         <FeaturedProjects />
       </section>
+
+      <ScrollMarquee />
 
       <section id="about">
         <AboutIntro />

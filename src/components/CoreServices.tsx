@@ -20,13 +20,13 @@ const enquireHref = (s: Service) => `/contact?service=${encodeURIComponent(s.nav
 function CardImage({ s, sizes, className }: { s: Service; sizes: string; className: string }) {
   if (!s.image) return null;
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-clip ${className}`}>
       <img
         {...responsiveImage(s.image.src, sizes)}
         alt={s.image.alt}
         loading="lazy"
         decoding="async"
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        className="img-depth absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
       />
       <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/30 to-transparent" />
     </div>
@@ -62,7 +62,7 @@ export default function CoreServices() {
                 data-tilt
                 style={{ '--i': i } as CSSProperties}
                 key={s.slug}
-                className="service-card group flex flex-col rounded-[1.75rem] border border-white/10 bg-brand-black overflow-hidden hover:border-brand-yellow/40 focus-within:border-brand-yellow/40 transition-colors"
+                className="service-card group flex flex-col rounded-[1.75rem] border border-white/10 bg-brand-black overflow-clip hover:border-brand-yellow/40 focus-within:border-brand-yellow/40 transition-colors"
               >
                 <CardImage s={s} sizes="(min-width: 1024px) 400px, 100vw" className="aspect-[16/9]" />
                 <div className="relative flex flex-1 flex-col px-7 pb-7 md:px-8 md:pb-8 -mt-7">
@@ -107,7 +107,7 @@ export default function CoreServices() {
                 data-reveal="up"
                 style={{ '--i': i } as CSSProperties}
                 key={s.slug}
-                className="service-card group flex flex-col rounded-2xl border border-white/10 bg-brand-black overflow-hidden hover:border-brand-yellow/40 focus-within:border-brand-yellow/40 transition-colors"
+                className="service-card group flex flex-col rounded-2xl border border-white/10 bg-brand-black overflow-clip hover:border-brand-yellow/40 focus-within:border-brand-yellow/40 transition-colors"
               >
                 <CardImage s={s} sizes="(min-width: 1024px) 240px, (min-width: 640px) 50vw, 100vw" className="aspect-[16/10]" />
                 <div className="relative flex flex-1 flex-col px-5 pb-5 -mt-5">

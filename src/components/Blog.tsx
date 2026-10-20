@@ -30,14 +30,14 @@ function PostCard({ post, index }: { post: Post; index: number; key?: string }) 
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ duration: 0.45, delay: (index % 3) * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex flex-col rounded-[1.5rem] md:rounded-[2rem] bg-brand-dark-gray/30 border border-white/5 hover:border-accent/30 overflow-hidden transition-colors duration-500"
+      className="group flex flex-col rounded-[1.5rem] md:rounded-[2rem] bg-brand-dark-gray/30 border border-white/5 hover:border-accent/30 overflow-clip transition-colors duration-500"
     >
-      <div className="relative aspect-[16/10] overflow-hidden bg-brand-muted">
+      <div className="relative aspect-[16/10] overflow-clip bg-brand-muted">
         {post.cover && (
           <img
             {...responsiveImage(post.cover, '(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw')}
             alt=""
-            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+            className="img-depth w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
             loading="lazy"
             decoding="async"
             referrerPolicy="no-referrer"
@@ -68,14 +68,14 @@ function FeaturedPost({ post }: { post: Post }) {
     <a
       data-reveal="up"
       href={`/blog/${post.slug}`} onClick={onLinkClick}
-      className="group relative grid grid-cols-1 lg:grid-cols-2 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-accent/30 bg-brand-dark-gray/30 transition-colors duration-500 mb-6 md:mb-8"
+      className="group relative grid grid-cols-1 lg:grid-cols-2 rounded-[1.5rem] md:rounded-[2.5rem] overflow-clip border border-white/5 hover:border-accent/30 bg-brand-dark-gray/30 transition-colors duration-500 mb-6 md:mb-8"
     >
-      <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-brand-muted">
+      <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-clip bg-brand-muted">
         {post.cover && (
           <img
             {...responsiveImage(post.cover, '(min-width: 1024px) 50vw, 100vw')}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
+            className="img-depth absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
             loading="lazy"
             decoding="async"
             referrerPolicy="no-referrer"
@@ -142,7 +142,7 @@ export default function Blog() {
   const latest = posts.filter((p) => p !== featured).slice(0, 3);
 
   return (
-    <section className="section-padding bg-brand-black relative overflow-hidden border-t border-white/5">
+    <section className="section-padding bg-brand-black relative overflow-clip border-t border-white/5">
       <div className="absolute top-1/3 -left-32 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brand-yellow/5 blur-[80px] md:blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -207,7 +207,7 @@ export function BlogIndex() {
   const resetPaging = () => setVisible(PAGE_SIZE);
 
   return (
-    <main id="main" tabIndex={-1} className="relative overflow-hidden outline-none">
+    <main id="main" tabIndex={-1} className="relative overflow-clip outline-none">
       <div className="absolute top-0 right-0 w-[320px] h-[320px] md:w-[600px] md:h-[600px] bg-brand-yellow/5 blur-[80px] md:blur-[160px] rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none" />
 
       {/* Page hero */}

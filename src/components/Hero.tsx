@@ -98,7 +98,7 @@ export default function Hero() {
   };
 
   return (
-    <section ref={ref} className="theme-dark bg-brand-black text-white relative overflow-hidden pt-32 md:pt-40 pb-20 md:pb-28 px-5 sm:px-6 md:px-12 lg:px-24">
+    <section ref={ref} className="theme-dark bg-brand-black text-white relative overflow-clip pt-32 md:pt-40 pb-20 md:pb-28 px-5 sm:px-6 md:px-12 lg:px-24">
       {/* Subtle background: fine grid fading out, and a soft warm glow behind the portrait */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
         <motion.div
@@ -117,7 +117,8 @@ export default function Hero() {
       </div>
 
       <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-14 lg:gap-16 items-center">
-        <div>
+        {/* hero-exit: the copy lifts and fades as the hero scrolls away (index.css) */}
+        <div className="hero-exit">
           {/* One H1 that says who this is (identity line) and what he offers (the headline) */}
           <h1 className="text-[2.75rem] leading-[1.02] sm:text-6xl md:text-7xl xl:text-[5.5rem] font-bold tracking-tighter">
             <span className="reveal mb-7 block max-w-xl text-sm sm:text-base font-semibold leading-snug tracking-normal text-gray-300" style={delay(0)}>
