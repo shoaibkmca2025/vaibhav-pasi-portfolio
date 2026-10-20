@@ -27,25 +27,100 @@ export function render(path: string) {
   };
 }
 
-export function sitemap() {
-  const latest = posts[0]?.date;
-  const entries = [
-    { loc: '/', lastmod: latest, priority: '1.0' },
-    // Legal pages are indexable but low priority
-    ...pagePaths.map((loc) => ({ loc, lastmod: latest, priority: ['/privacy', '/terms'].includes(loc) ? '0.3' : '0.9' })),
-    ...team.filter((m) => m.profileDetailsConfirmed).map((m) => ({ loc: `/team/${m.id}`, lastmod: latest, priority: '0.6' })),
-    ...servicePaths.map((loc) => ({ loc, lastmod: latest, priority: '0.8' })),
-    { loc: '/blog', lastmod: latest, priority: '0.8' },
-    ...posts.map((p) => ({ loc: `/blog/${p.slug}`, lastmod: p.date, priority: '0.7' })),
-  ];
-  const urls = entries
-    .map(
-      (e) =>
-        `  <url>\n    <loc>${SITE_URL}${e.loc}</loc>\n${e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>\n` : ''}    <priority>${e.priority}</priority>\n  </url>`,
-    )
-    .join('\n');
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+// ─── Sitemaps ───
+// /sitemap.xml is a sitemap index pointing to one sitemap per section, so Search Console
+// reports indexing for each group separately. Every entry lists its main image too.
+interface SitemapEntry {
+  loc: string;
+  lastmod?: string;
+  priority: string;
+  images?: { src?: string; title: string }[];
 }
+
+const xmlEscape = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+const fullUrl = (src: string) => (src.startsWith('http') ? src : `${SITE_URL}${src.startsWith('/') ? '' : '/'}${src}`);
+
+function urlset(entries: SitemapEntry[]) {
+  const urls = entries.map((e) => {
+    const images = (e.images ?? [])
+      .filter((img) => img.src)
+      .map(
+        (img) =>
+          `    <image:image>\n      <image:loc>${xmlEscape(fullUrl(img.src!))}</image:loc>\n    </image:image>`,
+      )
+      .join('\n');
+    return [
+      '  <url>',
+      `    <loc>${xmlEscape(SITE_URL + e.loc)}</loc>`,
+      e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : '',
+      `    <priority>${e.priority}</priority>`,
+      images,
+      '  </url>',
+    ]
+      .filter(Boolean)
+      .join('\n');
+  });
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls.join('\n')}\n</urlset>\n`;
+}
+
+const latestDate = () => posts[0]?.date;
+const portrait = { src: '/vaibhav-pasi.jpg', title: person.name };
+
+// Each section: file name → its pages
+function sitemapSections(): Record<string, SitemapEntry[]> {
+  const latest = latestDate();
+  return {
+    'sitemap-pages.xml': [
+      { loc: '/', lastmod: latest, priority: '1.0', images: [portrait] },
+      // Legal pages are indexable but low priority
+      ...pagePaths.map((loc) => ({
+        loc,
+        lastmod: latest,
+        priority: ['/privacy', '/terms'].includes(loc) ? '0.3' : '0.9',
+        images: loc === '/about' ? [portrait] : [],
+      })),
+      { loc: '/blog', lastmod: latest, priority: '0.8' },
+    ],
+    'sitemap-services.xml': landingServices.map((s) => ({
+      loc: s.href,
+      lastmod: latest,
+      priority: '0.8',
+      images: s.image ? [{ src: s.image.src, title: s.title }] : [],
+    })),
+    'sitemap-blog.xml': posts.map((p) => ({
+      loc: `/blog/${p.slug}`,
+      lastmod: p.date,
+      priority: '0.7',
+      images: p.cover ? [{ src: p.cover, title: p.title }] : [],
+    })),
+    // Only profiles with confirmed details; the rest are noindex until filled in
+    'sitemap-team.xml': team
+      .filter((m) => m.profileDetailsConfirmed)
+      .map((m) => ({
+        loc: `/team/${m.id}`,
+        lastmod: latest,
+        priority: '0.6',
+        images: m.portrait ? [{ src: m.portrait, title: m.name }] : [],
+      })),
+  };
+}
+
+// Every sitemap file to write: the index plus one per section
+export function sitemaps(): Record<string, string> {
+  const sections = sitemapSections();
+  const files: Record<string, string> = {};
+  const index: string[] = [];
+  for (const [file, entries] of Object.entries(sections)) {
+    if (!entries.length) continue;
+    files[file] = urlset(entries);
+    const lastmod = entries.map((e) => e.lastmod).filter(Boolean).sort().pop();
+    index.push(`  <sitemap>\n    <loc>${SITE_URL}/${file}</loc>\n${lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : ''}  </sitemap>`);
+  }
+  files['sitemap.xml'] = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${index.join('\n')}\n</sitemapindex>\n`;
+  return files;
+}
+
 
 export function robots() {
   // Search engines and AI assistants are all welcome, so the site can be cited in AI answers

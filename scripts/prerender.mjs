@@ -7,7 +7,7 @@ import { pathToFileURL } from 'node:url';
 const dist = path.resolve('dist');
 const ssrEntry = path.resolve('dist-ssr/entry-server.js');
 
-const { routes, render, sitemap, robots, llmsTxt, llmsFullTxt } = await import(pathToFileURL(ssrEntry).href);
+const { routes, render, sitemaps, robots, llmsTxt, llmsFullTxt } = await import(pathToFileURL(ssrEntry).href);
 
 const template = fs
   .readFileSync(path.join(dist, 'index.html'), 'utf-8')
@@ -28,10 +28,12 @@ for (const route of routes) {
   console.log(`prerendered ${route}`);
 }
 
-fs.writeFileSync(path.join(dist, 'sitemap.xml'), sitemap());
+// Sitemap index (sitemap.xml) plus one sitemap per section
+const sitemapFiles = sitemaps();
+for (const [file, xml] of Object.entries(sitemapFiles)) fs.writeFileSync(path.join(dist, file), xml);
 fs.writeFileSync(path.join(dist, 'robots.txt'), robots());
 fs.writeFileSync(path.join(dist, 'llms.txt'), llmsTxt());
 fs.writeFileSync(path.join(dist, 'llms-full.txt'), llmsFullTxt());
-console.log('wrote sitemap.xml, robots.txt, llms.txt, llms-full.txt');
+console.log(`wrote ${Object.keys(sitemapFiles).join(', ')}, robots.txt, llms.txt, llms-full.txt`);
 
 fs.rmSync(path.resolve('dist-ssr'), { recursive: true, force: true });
