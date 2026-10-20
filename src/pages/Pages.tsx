@@ -5,6 +5,7 @@ import HowItWorks from '../components/HowItWorks';
 import AboutIntro from '../components/AboutIntro';
 import AboutTimeline from '../components/AboutTimeline';
 import CaseStudies from '../components/CaseStudies';
+import ClientDirectory from '../components/ClientDirectory';
 import ClientWins from '../components/ClientWins';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
@@ -181,6 +182,7 @@ export function WorkPage() {
         intro="Case studies from real client accounts: the challenge, what I did, the tools used and the results, each backed by the original screenshot. Client names are kept private."
       />
       <CaseStudies />
+      <ClientDirectory />
       <section className="px-5 sm:px-6 md:px-12 lg:px-24 pb-16 md:pb-24">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-6 md:p-8">
           <p className="text-gray-300 md:text-lg">More screenshots, reel results and client messages are on the Client Wins page.</p>

@@ -9,6 +9,7 @@ import { team } from './content/team';
 import { SITE_URL, PERSON_DESCRIPTION, person } from './site';
 import { faqs } from './components/FAQ';
 import { caseStudies } from './content/caseStudies';
+import { clients, INDUSTRIES } from './content/clients';
 
 // Every page that gets its own prerendered HTML file
 const pagePaths = sitePages.filter((p) => p.key !== 'blog').map((p) => p.path);
@@ -210,6 +211,11 @@ export function llmsFullTxt() {
       `Results: ${c.outcome.map((o) => `${o.value} ${o.label}`).join('; ')}`,
       '',
     );
+  }
+  out.push('## Client websites', '', `${clients.length} websites delivered, by industry:`, '');
+  for (const industry of INDUSTRIES) {
+    const items = clients.filter((c) => c.industry === industry);
+    if (items.length) out.push(`### ${industry}`, ...items.map((c) => (c.url ? `- ${c.name}: ${c.url}` : `- ${c.name}`)), '');
   }
   out.push('## Articles', '');
   for (const p of posts) {

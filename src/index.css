@@ -451,6 +451,11 @@
 .logo-strip:hover .logo-strip-track {
   animation-play-state: paused;
 }
+/* Second row of the client wall scrolls the other way, a little slower */
+.logo-strip-track.logo-strip-reverse {
+  animation-direction: reverse;
+  animation-duration: 60s;
+}
 @keyframes logo-scroll {
   to {
     transform: translateX(calc(-50% - 0.5rem));

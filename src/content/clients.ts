@@ -1,21 +1,132 @@
-// Brands shown in the "Brands I've worked with" logo wall (components/ClientLogos.tsx).
+// Client websites shown in the client wall (components/ClientLogos.tsx) and the full directory
+// on /work (components/ClientDirectory.tsx). Source: "Portfolio Works" sheet supplied by Vaibhav.
 //
 // Rules (please keep):
-// - Only real clients of Vaibhav Pasi or 4AM Global Media, and only with their permission to be named.
-// - Never copy another agency's client list.
-// - Logo files go in /public/clients (SVG or PNG on a transparent background). Without a logo, the name is shown.
-//
-// The wall stays hidden until there are at least MIN_CLIENTS entries, so it never looks empty.
+// - Only real clients, and only ones you are allowed to name. Never copy another agency's client list.
+// - `url` is left out when the site is offline or has a broken certificate, so visitors never hit
+//   a warning page (checked Oct 2026: Full Drone and Little Fin Seafood certificate errors,
+//   the DeBartolo Longevity domain no longer resolves).
+// - Optional `logo`: a file in /public/clients (SVG or transparent PNG); otherwise the name is shown.
 export interface Client {
   name: string;
-  logo?: string; // e.g. '/clients/mauli-overseas.svg'
   url?: string;
-  industry?: string;
+  logo?: string;
+  industry: (typeof INDUSTRIES)[number];
 }
 
+// Display order of the industry groups in the directory
+export const INDUSTRIES = [
+  'Legal',
+  'Healthcare & wellness',
+  'Home & property services',
+  'Food, drink & hospitality',
+  'Finance, insurance & business',
+  'Science, non-profit & community',
+  'Retail, products & personal brands',
+  'Education & careers',
+] as const;
+
+// The home-page wall stays hidden below this many entries, so it never looks empty
 export const MIN_CLIENTS = 4;
 
 export const clients: Client[] = [
-  // Already named publicly in the Mauli Overseas case study (content/caseStudies.ts)
-  { name: 'Mauli Overseas', url: 'https://maulioverseas.com', industry: 'Study & work abroad' },
+  // Named publicly in the Mauli Overseas case study (content/caseStudies.ts)
+  { name: 'Mauli Overseas', url: 'https://maulioverseas.com', industry: 'Education & careers' },
+  { name: "Joker Media", url: 'https://jokermedia.com/', industry: 'Finance, insurance & business' },
+  { name: "Silver Thatch Pensions", url: 'https://silverthatch.org.ky/', industry: 'Finance, insurance & business' },
+  { name: "Century Boats", url: 'https://centuryboats.com/', industry: 'Retail, products & personal brands' },
+  { name: "Greendale Physical Therapy", url: 'https://greendalept.com/', industry: 'Healthcare & wellness' },
+  { name: "Russell's Orlando", url: 'https://russellsorlando.com/', industry: 'Food, drink & hospitality' },
+  { name: "Rolly Polly", url: 'https://rolypoly.com/', industry: 'Retail, products & personal brands' },
+  { name: "Verdant Isle Pension Plan", url: 'https://verdantisle.org.ky/', industry: 'Finance, insurance & business' },
+  { name: "SCCOOS", url: 'https://sccoos.org/', industry: 'Science, non-profit & community' },
+  { name: "GCOOS", url: 'https://gcoos.org/', industry: 'Science, non-profit & community' },
+  { name: "CeNCOOS", url: 'https://www.cencoos.org/', industry: 'Science, non-profit & community' },
+  { name: "Sarasota Dolphin Research Program", url: 'https://sarasotadolphin.org/', industry: 'Science, non-profit & community' },
+  { name: "Alan Smith Pool Plastering & Remodeling", url: 'https://alansmithpools.com/', industry: 'Home & property services' },
+  { name: "The Back Porch Mulberry", url: 'https://thebackporchmulberry.com/', industry: 'Food, drink & hospitality' },
+  { name: "Hogan’s Place Gibsonton Florida", url: 'https://hogansplacegibsontonflorida.com/', industry: 'Food, drink & hospitality' },
+  { name: "DMS Broadcasting", url: 'https://dmsbroadcasting.ky/', industry: 'Finance, insurance & business' },
+  { name: "CS Roofing Company", url: 'https://csroofingcompany.com/', industry: 'Home & property services' },
+  { name: "DeBartolo Longevity University", industry: 'Healthcare & wellness' },
+  { name: "Gutter Guards Direct", url: 'https://www.gutterguardsdirect.com/', industry: 'Home & property services' },
+  { name: "Coachman Tahoe", url: 'https://coachmantahoe.com/', industry: 'Food, drink & hospitality' },
+  { name: "Nashua Glass", url: 'https://nashuaglass.com/', industry: 'Home & property services' },
+  { name: "Creative Concrete Inc.", url: 'https://www.creativeconcreteinc.com/', industry: 'Home & property services' },
+  { name: "This Sold House", url: 'https://thissoldhouseinc.com/', industry: 'Home & property services' },
+  { name: "Orlando Hand Surgery Associates", url: 'https://orlandohandsurgery.com/', industry: 'Healthcare & wellness' },
+  { name: "Lake Shore Guys", url: 'https://lakeshoreguys.com/', industry: 'Home & property services' },
+  { name: "Ice Dam Removal Guys", url: 'https://icedamremovalguys.com/', industry: 'Home & property services' },
+  { name: "Landscape Guys", url: 'https://landscapeguys.com/', industry: 'Home & property services' },
+  { name: "Full Drone", industry: 'Retail, products & personal brands' },
+  { name: "Hand Armor Gloves", url: 'https://handarmorgloves.com/', industry: 'Retail, products & personal brands' },
+  { name: "The Back Porch Longwood", url: 'https://thebackporchlongwood.com/', industry: 'Food, drink & hospitality' },
+  { name: "Frenchy's Wood Fired", url: 'https://frenchyswoodfired.com/', industry: 'Food, drink & hospitality' },
+  { name: "The Greater Pine Island Alliance", url: 'https://www.gpialliance.org/', industry: 'Science, non-profit & community' },
+  { name: "Loeschen Art", url: 'https://loeschenart.com/', industry: 'Retail, products & personal brands' },
+  { name: "GM Rodriguez Law", url: 'https://gmrodriguezlaw.com/', industry: 'Legal' },
+  { name: "Hampton Closet Company", url: 'https://hamptonclosetcompany.com/', industry: 'Home & property services' },
+  { name: "Rebecca Waxse Law", url: 'https://www.rebeccalouiselaw.com/', industry: 'Legal' },
+  { name: "John's Pro Care", url: 'https://johnsprocare.com/', industry: 'Home & property services' },
+  { name: "Valley Agencies", url: 'https://valleyagencies.com/', industry: 'Finance, insurance & business' },
+  { name: "Little Fin Seafood", industry: 'Food, drink & hospitality' },
+  { name: "Waco Foundation Repair", url: 'https://wacofoundationrepair.com/', industry: 'Home & property services' },
+  { name: "Cross Stone Law", url: 'https://crossstone.com/', industry: 'Legal' },
+  { name: "Ocean Synchro", url: 'https://oceansynchro.io/', industry: 'Science, non-profit & community' },
+  { name: "Ridgeline Scientific", url: 'https://ridgelinescientificsx.com/', industry: 'Science, non-profit & community' },
+  { name: "Surface Waxse Law", url: 'https://surfacewaxselaw.com/', industry: 'Legal' },
+  { name: "MemoryBanc", url: 'https://memorybanc.com/', industry: 'Finance, insurance & business' },
+  { name: "Regulus Global", url: 'https://regulusglobal.com/', industry: 'Finance, insurance & business' },
+  { name: "Callicoon Hills", url: 'https://www.callicoonhills.com/', industry: 'Home & property services' },
+  { name: "Lavent Law", url: 'https://laventlaw.com/', industry: 'Legal' },
+  { name: "Athens Shutters", url: 'https://athensshutters.com/', industry: 'Home & property services' },
+  { name: "Saxon", url: 'https://www.saxon.ky/', industry: 'Finance, insurance & business' },
+  { name: "WC Beverage", url: 'https://www.wcbevdc.com/', industry: 'Food, drink & hospitality' },
+  { name: "Joker Care", url: 'https://jokercare.com/', industry: 'Finance, insurance & business' },
+  { name: "Four Daughters Vineyard", url: 'https://fourdaughtersvineyard.com/', industry: 'Food, drink & hospitality' },
+  { name: "Bald Beauties Project®", url: 'https://baldbeautiesproject.org/', industry: 'Healthcare & wellness' },
+  { name: "Success Print", url: 'https://successprint.com/', industry: 'Finance, insurance & business' },
+  { name: "Dynasty’s United Youth Association", url: 'https://dynastysyouth.org/', industry: 'Science, non-profit & community' },
+  { name: "Villagio Family & Cosmetic Dental", url: 'https://www.villagiofamilydental.com/', industry: 'Healthcare & wellness' },
+  { name: "Chatow Law", url: 'https://chatow.com/', industry: 'Legal' },
+  { name: "Josh Benson", url: 'https://joshbenson.com/', industry: 'Retail, products & personal brands' },
+  { name: "Prosper Shaked Accident Injury Attorneys PA", url: 'https://prosperlaw.com/', industry: 'Legal' },
+  { name: "North Star Fur", url: 'https://northstarfur.com/', industry: 'Retail, products & personal brands' },
+  { name: "Better Way Home Improvement", url: 'https://bettervinylsiding.com/', industry: 'Home & property services' },
+  { name: "Orlando Regenerative Medicine", url: 'https://orlandoregenerativemed.com/', industry: 'Healthcare & wellness' },
+  { name: "Lasers Over Los Angeles", url: 'https://www.lasersoverlosangeles.com/', industry: 'Healthcare & wellness' },
+  { name: "The Pilates Body", url: 'https://tpbody.com/', industry: 'Healthcare & wellness' },
+  { name: "Local Visibility System", url: 'https://www.localvisibilitysystem.com/', industry: 'Finance, insurance & business' },
+  { name: "Kickball Society of Tampa Bay", url: 'https://kickballsociety.com/', industry: 'Science, non-profit & community' },
+  { name: "Dr. Jason Attaman", url: 'https://jasonattaman.com/', industry: 'Healthcare & wellness' },
+  { name: "Newsroom Knot", url: 'https://newsroomknot.com/', industry: 'Finance, insurance & business' },
+  { name: "Tim Cortes", url: 'https://timcortes.com/', industry: 'Retail, products & personal brands' },
+  { name: "First State Bank and Trust", url: 'https://www.fsbt.com/', industry: 'Finance, insurance & business' },
+  { name: "Blue Sky Estate Services", url: 'https://www.blueskyestateservices.com/', industry: 'Home & property services' },
+  { name: "Butcher and Market", url: 'https://butcherandmarket.com/', industry: 'Food, drink & hospitality' },
+  { name: "Willy's Original Orlando", url: 'https://willysoriginalorlando.com/', industry: 'Food, drink & hospitality' },
+  { name: "Phoenix Accident and Injury Law Firm", url: 'https://phxinjurylaw.com/', industry: 'Legal' },
+  { name: "Saxon Administration", url: 'https://saxonadministration.ky/', industry: 'Finance, insurance & business' },
+  { name: "Kammes Colorworks", url: 'https://kammescolorworks.com/', industry: 'Home & property services' },
+  { name: "Forza Ltd", url: 'https://forza.ky/', industry: 'Finance, insurance & business' },
+  { name: "Regus Cayman", url: 'https://reguscayman.ky/', industry: 'Finance, insurance & business' },
+  { name: "Minnesota Rose Society", url: 'https://minnesotarosesociety.org/', industry: 'Science, non-profit & community' },
+  { name: "Find Jodi Huisentruit", url: 'https://findjodi.com/', industry: 'Science, non-profit & community' },
+  { name: "Mountaintop Roofing & Solar", url: 'https://www.mountaintoproofing.com/', industry: 'Home & property services' },
+  { name: "The Traditionalist Bourbon", url: 'https://thetraditionalistbourbon.com/', industry: 'Food, drink & hospitality' },
+  { name: "Cents of Relief", url: 'https://centsofrelief.org/', industry: 'Science, non-profit & community' },
+  { name: "Greta's Grotto", url: 'https://www.gretasgrotto.ky/', industry: 'Food, drink & hospitality' },
+  { name: "Loon Juice Hard Cider", url: 'https://loonjuice.com/', industry: 'Food, drink & hospitality' },
+  { name: "Small Victories Project", url: 'https://smallvictoriesproject.org/', industry: 'Science, non-profit & community' },
+  { name: "Dr. Anup Patel", url: 'https://dranuppatel.com/', industry: 'Healthcare & wellness' },
+  { name: "Boston Orthopaedic & Spine", url: 'https://bostonorthoandspine.com/', industry: 'Healthcare & wellness' },
+  { name: "OC Patent Lawyer", url: 'https://ocpatentlawyer.com/', industry: 'Legal' },
+  { name: "Warner & Fitzmartin", url: 'https://warnerfitzmartin.com/', industry: 'Legal' },
+  { name: "Houston Faces", url: 'https://www.houstonfaces.com/', industry: 'Healthcare & wellness' },
+  { name: "SeaForce Boats", url: 'https://seaforceboats.com/', industry: 'Retail, products & personal brands' },
+  { name: "PharmaKonnect", url: 'https://pharmakonnect.com/', industry: 'Finance, insurance & business' },
+  { name: "Smoke Boards: Cocktail Smoker", url: 'https://smokeboards.com/', industry: 'Food, drink & hospitality' },
+  { name: "Casper Mehlos Law Group", url: 'https://mehloslaw.com/', industry: 'Legal' },
+  { name: "Hollingsworth Kelly Law Firm", url: 'https://www.hollingsworthlaw.com/', industry: 'Legal' },
+  { name: "Jimmy Ryce Center", url: 'https://jimmyryce.org/', industry: 'Science, non-profit & community' },
 ];
