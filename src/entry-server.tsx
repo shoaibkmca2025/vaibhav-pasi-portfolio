@@ -37,6 +37,9 @@ interface SitemapEntry {
   images?: { src?: string; title: string }[];
 }
 
+// The stylesheet only affects how browsers display the file (public/sitemap.xsl); crawlers ignore it
+const XML_HEADER = '<?xml version="1.0" encoding="UTF-8"?>\n<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>\n';
+
 const xmlEscape = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
 const fullUrl = (src: string) => (src.startsWith('http') ? src : `${SITE_URL}${src.startsWith('/') ? '' : '/'}${src}`);
@@ -61,7 +64,7 @@ function urlset(entries: SitemapEntry[]) {
       .filter(Boolean)
       .join('\n');
   });
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls.join('\n')}\n</urlset>\n`;
+  return `${XML_HEADER}<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls.join('\n')}\n</urlset>\n`;
 }
 
 const latestDate = () => posts[0]?.date;
@@ -117,7 +120,7 @@ export function sitemaps(): Record<string, string> {
     const lastmod = entries.map((e) => e.lastmod).filter(Boolean).sort().pop();
     index.push(`  <sitemap>\n    <loc>${SITE_URL}/${file}</loc>\n${lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : ''}  </sitemap>`);
   }
-  files['sitemap.xml'] = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${index.join('\n')}\n</sitemapindex>\n`;
+  files['sitemap.xml'] = `${XML_HEADER}<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${index.join('\n')}\n</sitemapindex>\n`;
   return files;
 }
 
