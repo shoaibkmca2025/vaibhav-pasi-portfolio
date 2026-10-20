@@ -149,7 +149,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
               style={{ '--d': '120ms' } as CSSProperties}
               className={`reveal rounded-[2rem] md:rounded-[2.5rem] border ${variant === 'yellow' ? 'border-black/10' : 'border-white/10'} p-8 sm:p-12 ${cardStyle[variant]}`}
             >
-              <Devices scene={sceneFor(service.icon)} v={variant} />
+              <Devices scene={sceneFor(service.icon)} v={variant} image={service.image} />
             </div>
           </div>
         </div>

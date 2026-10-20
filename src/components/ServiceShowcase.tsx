@@ -2,9 +2,10 @@ import { ArrowUpRight, ChevronRight } from 'lucide-react';
 import { hasDetailPage, services, type Service } from '../content/services';
 import { onLinkClick } from '../router';
 import { hasWhatsApp, whatsappHref } from '../lib/whatsapp';
+import { responsiveImage } from '../image';
 
 // Big rounded showcase cards, one per service: what it is, three deliverables, two actions,
-// and an illustrated laptop + phone. Card styles rotate through the brand: graphite, yellow, olive-black.
+// and a laptop + phone showing the service's photo. Card styles rotate through the brand: graphite, yellow, olive-black.
 export type Variant = 'graphite' | 'yellow' | 'olive';
 const VARIANTS: Variant[] = ['graphite', 'yellow', 'olive'];
 
@@ -95,7 +96,65 @@ function Screen({ scene, v, compact = false }: { scene: Scene; v: Variant; compa
   );
 }
 
-export function Devices({ scene, v }: { scene: Scene; v: Variant }) {
+// Screen built from the service's photo: a website hero on the laptop, a mobile page on the phone.
+// The photo is decorative stock (see content/services.ts); the device frames are aria-hidden.
+function PhotoScreen({ image, v, compact = false }: { image: NonNullable<Service['image']>; v: Variant; compact?: boolean }) {
+  const c = screen[v];
+  const photo = (
+    <img
+      {...responsiveImage(image.src, compact ? '140px' : '(min-width: 1024px) 400px, 80vw')}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      className="absolute inset-0 w-full h-full object-cover"
+    />
+  );
+  if (compact) {
+    return (
+      <div className="flex flex-col h-full" style={{ background: c.bg }}>
+        <div className="relative h-[56%] overflow-hidden">
+          {photo}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        </div>
+        <div className="flex flex-col gap-1.5 p-2.5 flex-1">
+          <Bar w="80%" h={6} c={c.ink} />
+          <Bar w="55%" h={6} c={c.accent} />
+          <div className="mt-auto space-y-1.5">
+            <div className="rounded-md" style={{ background: c.accent, height: 18 }} />
+            <div className="rounded-md" style={{ background: c.soft, height: 18 }} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="relative h-full overflow-hidden" style={{ background: c.bg }}>
+      {photo}
+      {/* Darkening so the hero "text" reads, like a real landing page */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
+      <div className="relative flex flex-col h-full p-3">
+        <div className="flex items-center justify-between">
+          <Bar w="20%" h={5} c="rgba(255,255,255,0.9)" />
+          <div className="flex gap-1.5">
+            <Bar w="16px" h={4} c="rgba(255,255,255,0.45)" />
+            <Bar w="16px" h={4} c="rgba(255,255,255,0.45)" />
+            <Bar w="16px" h={4} c="#D6B675" />
+          </div>
+        </div>
+        <div className="mt-auto mb-1 space-y-1.5 w-[58%]">
+          <Bar w="100%" h={9} c="rgba(255,255,255,0.95)" />
+          <Bar w="72%" h={9} c="#D6B675" />
+          <Bar w="85%" h={4} c="rgba(255,255,255,0.5)" />
+          <div className="pt-1.5">
+            <div className="rounded-full" style={{ background: '#D6B675', width: '42%', height: 14 }} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Devices({ scene, v, image }: { scene: Scene; v: Variant; image?: Service['image'] }) {
   const frame = v === 'yellow' ? '#111111' : '#2a2a2a';
   return (
     <div className="relative w-full max-w-[460px] mx-auto pr-[14%] pb-[6%]" aria-hidden>
@@ -107,7 +166,7 @@ export function Devices({ scene, v }: { scene: Scene; v: Variant }) {
           ))}
         </div>
         <div className="h-[calc(100%-18px)]">
-          <Screen scene={scene} v={v} />
+          {image ? <PhotoScreen image={image} v={v} /> : <Screen scene={scene} v={v} />}
         </div>
       </div>
       <div className="mx-[-6%] h-3 rounded-b-xl" style={{ background: frame }} />
@@ -116,7 +175,7 @@ export function Devices({ scene, v }: { scene: Scene; v: Variant }) {
         className="absolute right-0 bottom-0 w-[30%] aspect-[9/18] rounded-[1.1rem] overflow-hidden shadow-2xl"
         style={{ border: `5px solid ${frame}` }}
       >
-        <Screen scene={scene} v={v} compact />
+        {image ? <PhotoScreen image={image} v={v} compact /> : <Screen scene={scene} v={v} compact />}
       </div>
     </div>
   );
@@ -187,7 +246,7 @@ export default function ServiceShowcase({ limit = services.length }: { limit?: n
                       </a>
                     </div>
                   </div>
-                  <Devices scene={sceneFor(service.icon)} v={v} />
+                  <Devices scene={sceneFor(service.icon)} v={v} image={service.image} />
                 </div>
               </article>
             );
