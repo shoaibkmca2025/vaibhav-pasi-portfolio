@@ -2,6 +2,38 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Quote } from 'lucide-react';
 import { testimonials } from '../content/proof';
 
+// Video testimonials (any testimonial with a `video`), shown above the written messages.
+// Plays only when the visitor presses play; never autoplays with sound.
+function VideoTestimonials() {
+  const videos = testimonials.filter((t) => t.video);
+  if (!videos.length) return null;
+  return (
+    <ul className="mb-8 md:mb-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5" aria-label="Video testimonials">
+      {videos.map((t, i) => (
+        <li key={t.video!.src} data-reveal="up" style={{ '--i': i } as CSSProperties}>
+          <figure className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.02]">
+            <video
+              src={t.video!.src}
+              poster={t.video!.poster}
+              controls
+              playsInline
+              preload="none"
+              className="w-full aspect-[9/16] max-h-[520px] object-cover bg-black"
+              aria-label={`Video testimonial from ${t.author}`}
+            />
+            <figcaption className="p-5">
+              <span className="block font-semibold">{t.author}</span>
+              {(t.role || t.company) && (
+                <span className="block text-sm text-gray-400">{[t.role, t.company].filter(Boolean).join(', ')}</span>
+              )}
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 // Genuine client messages from content/proof.ts, quoted as sent and linked to the original screenshot.
 // Names are withheld; add a name, role and company only with the client's permission.
 export default function Testimonials() {
@@ -50,6 +82,8 @@ export default function Testimonials() {
           </div>
         </div>
 
+        <VideoTestimonials />
+
         <ul
           ref={listRef}
           aria-label="Client messages"
@@ -70,6 +104,7 @@ export default function Testimonials() {
                   <span className="text-gray-400">
                     {t.author}
                     {t.role ? ` · ${t.role}` : ''}
+                    {t.company ? `, ${t.company}` : ''}
                   </span>
                   {t.proof && (
                     <a href={t.proof} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-accent link-underline">

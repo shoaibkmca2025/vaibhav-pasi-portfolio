@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import { Building2, CalendarDays, Layers, Newspaper, PlayCircle } from 'lucide-react';
 import { trustFacts } from '../content/proof';
 import LogoStrip from './LogoStrip';
+import ClientLogos from './ClientLogos';
 import ToolLogos from './ToolLogos';
 
 // One icon per fact, in the same order as trustFacts
@@ -32,6 +33,7 @@ export default function Credibility() {
           })}
         </dl>
       </div>
+      <ClientLogos />
       <LogoStrip />
       <ToolLogos />
     </section>

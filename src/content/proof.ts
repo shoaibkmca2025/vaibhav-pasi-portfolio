@@ -8,7 +8,10 @@ export interface Testimonial {
   quote: string;
   author: string;
   role?: string;
+  company?: string;
   proof?: string;
+  // Optional video testimonial: file in /public/videos, poster image shown before playing
+  video?: { src: string; poster?: string };
 }
 
 export const testimonials: Testimonial[] = [

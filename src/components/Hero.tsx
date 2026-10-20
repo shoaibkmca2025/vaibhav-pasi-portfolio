@@ -3,6 +3,7 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'moti
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 import { bookingExternal, bookingHref } from '../lib/booking';
 import { onLinkClick } from '../router';
+import { heroVideo } from '../content/media';
 import { pressCount } from './Press';
 
 // Entrance is pure CSS (.reveal in index.css), so the prerendered hero is visible
@@ -49,6 +50,28 @@ function useParallaxEnabled() {
 
 // Hero role indicators: verifiable facts only
 const roles = ['Co-Founder, 4AM Global Media', 'MCA, software developer', 'Digital marketing since 2019'];
+
+// Muted, looping clip over the portrait. Starts only after load and only without Reduce Motion,
+// so the portrait (the page's main image) still paints first.
+function HeroVideo({ src, poster }: { src: string; poster: string }) {
+  const [play, setPlay] = useState(false);
+  useEffect(() => {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPlay(true);
+  }, []);
+  if (!play) return null;
+  return (
+    <video
+      src={src}
+      poster={poster}
+      autoPlay
+      muted
+      loop
+      playsInline
+      aria-hidden
+      className="absolute inset-0 w-full h-full object-cover object-top"
+    />
+  );
+}
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -162,6 +185,8 @@ export default function Hero() {
               fetchPriority="high"
               className="w-full h-full object-cover object-top"
             />
+            {/* Optional clip from content/media.ts, layered over the portrait once motion is allowed */}
+            {heroVideo && <HeroVideo src={heroVideo.src} poster={heroVideo.poster} />}
             <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" />
             <figcaption className="absolute left-5 right-5 bottom-5">
               <span className="block text-lg font-semibold text-white">Vaibhav Pasi</span>
