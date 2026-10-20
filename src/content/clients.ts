@@ -35,6 +35,9 @@ export const MIN_CLIENTS = 4;
 export const clients: Client[] = [
   // Named publicly in the Mauli Overseas case study (content/caseStudies.ts)
   { name: 'Mauli Overseas', url: 'https://maulioverseas.com', industry: 'Education & careers' },
+  { name: "Art For Soul", url: 'https://www.artforsoul.in/', logo: '/clients/art-for-soul.webp', plate: 'light', industry: 'Healthcare & wellness' },
+  { name: "AstroSrijan", url: 'https://www.astrosrijan.com/', logo: '/clients/astrosrijan.webp', plate: 'dark', industry: 'Retail, products & personal brands' },
+  { name: "Adhira Herbals", url: 'https://www.adhiraherbals.com/', logo: '/clients/adhira-herbals.webp', plate: 'light', industry: 'Healthcare & wellness' },
   { name: "Joker Media", url: 'https://jokermedia.com/', logo: '/clients/joker-media.webp', plate: 'light', industry: 'Finance, insurance & business' },
   { name: "Silver Thatch Pensions", url: 'https://silverthatch.org.ky/', logo: '/clients/silver-thatch-pensions.webp', plate: 'dark', industry: 'Finance, insurance & business' },
   { name: "Century Boats", url: 'https://centuryboats.com/', logo: '/clients/century-boats.webp', plate: 'dark', industry: 'Retail, products & personal brands' },
