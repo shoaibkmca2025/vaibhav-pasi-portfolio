@@ -1,9 +1,23 @@
 import { ArrowUpRight } from 'lucide-react';
-import { clients, INDUSTRIES } from '../content/clients';
+import { clients, INDUSTRIES, type Client } from '../content/clients';
 
 // Full list of client websites on /work, grouped by industry. Each name links to the live site
 // (left unlinked when the site is offline; see content/clients.ts).
 const domain = (url: string) => new URL(url).hostname.replace(/^www\./, '');
+
+// Small logo beside each name; an initial when there is no usable logo
+function Thumb({ c }: { c: Client }) {
+  const plate = c.logo ? (c.plate === 'dark' ? 'bg-[#151922] border-white/10' : 'bg-[#f5f5f7] border-black/5') : 'border-white/10';
+  return (
+    <span aria-hidden className={`grid w-14 h-9 shrink-0 place-items-center rounded-lg border px-1.5 ${plate}`}>
+      {c.logo ? (
+        <img src={c.logo} alt="" loading="lazy" decoding="async" className="max-h-6 max-w-full object-contain" />
+      ) : (
+        <span className="text-xs font-bold text-gray-500">{c.name.replace(/^the /i, '').charAt(0)}</span>
+      )}
+    </span>
+  );
+}
 
 export default function ClientDirectory() {
   const groups = INDUSTRIES.map((industry) => ({ industry, items: clients.filter((c) => c.industry === industry) })).filter(
@@ -45,16 +59,20 @@ export default function ClientDirectory() {
                         href={c.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex items-center justify-between gap-3 py-2.5"
+                        className="group flex items-center gap-3 py-2.5"
                       >
-                        <span className="min-w-0">
+                        <Thumb c={c} />
+                        <span className="min-w-0 flex-1">
                           <span className="block text-gray-200 group-hover:text-accent transition-colors">{c.name}</span>
                           <span className="block text-xs text-gray-500 truncate">{domain(c.url)}</span>
                         </span>
                         <ArrowUpRight className="w-4 h-4 shrink-0 text-gray-500 group-hover:text-accent transition-colors" aria-hidden />
                       </a>
                     ) : (
-                      <span className="block py-2.5 text-gray-400">{c.name}</span>
+                      <span className="flex items-center gap-3 py-2.5 text-gray-400">
+                        <Thumb c={c} />
+                        {c.name}
+                      </span>
                     )}
                   </li>
                 ))}

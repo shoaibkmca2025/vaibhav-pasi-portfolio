@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { clients, MIN_CLIENTS, type Client } from '../content/clients';
 import { onLinkClick } from '../router';
 
-// Home page client wall (Designride-style "happy clients"): two rows of client names scrolling in
+// Home page client wall (Designride-style "happy clients"): two rows of client logos scrolling in
 // opposite directions. Uses the press strip's marquee (.logo-strip in index.css), so it pauses on
 // hover and becomes a static, wrapped list for Reduce Motion. Full linked list lives on /work#clients.
 function Row({ items, reverse = false }: { items: Client[]; reverse?: boolean }) {
@@ -11,14 +11,22 @@ function Row({ items, reverse = false }: { items: Client[]; reverse?: boolean })
       <ul className={`logo-strip-track flex w-max gap-3 md:gap-4 ${reverse ? 'logo-strip-reverse' : ''}`}>
         {[...items, ...items].map((c, i) => {
           const copy = i >= items.length;
-          const chip = c.logo ? (
-            <img src={c.logo} alt={c.name} loading="lazy" decoding="async" className="max-h-7 md:max-h-8 w-auto object-contain" />
-          ) : (
-            <span className="whitespace-nowrap text-sm md:text-base font-semibold tracking-tight text-gray-300">{c.name}</span>
-          );
+          // Each logo sits on the plate that keeps it visible (light for dark logos, dark for white ones)
+          const plate = c.plate === 'dark' ? 'theme-dark bg-[#151922] border-white/10' : 'bg-[#f5f5f7] border-black/5';
           return (
             <li key={`${c.name}-${i}`} aria-hidden={copy || undefined}>
-              <span className="flex h-14 md:h-16 items-center rounded-2xl border border-white/10 bg-white/[0.03] px-5 md:px-6">{chip}</span>
+              <span
+                title={c.name}
+                className={`flex h-16 md:h-20 w-36 md:w-44 items-center justify-center rounded-2xl border px-4 ${plate}`}
+              >
+                <img
+                  src={c.logo}
+                  alt={copy ? '' : c.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="max-h-9 md:max-h-11 max-w-full w-auto object-contain"
+                />
+              </span>
             </li>
           );
         })}
@@ -28,8 +36,10 @@ function Row({ items, reverse = false }: { items: Client[]; reverse?: boolean })
 }
 
 export default function ClientLogos() {
-  if (clients.length < MIN_CLIENTS) return null;
-  const half = Math.ceil(clients.length / 2);
+  // The wall shows logos only; every client (with or without a logo) is listed on /work#clients
+  const withLogos = clients.filter((c) => c.logo);
+  if (withLogos.length < MIN_CLIENTS) return null;
+  const half = Math.ceil(withLogos.length / 2);
 
   return (
     <div className="pt-4 pb-14 md:pb-20">
@@ -40,9 +50,9 @@ export default function ClientLogos() {
         </h2>
         <p className="mt-3 text-gray-400">Law firms, clinics, home services, restaurants, non-profits and more.</p>
       </div>
-      <div className="mt-8 space-y-3 md:space-y-4" aria-label="Client names">
-        <Row items={clients.slice(0, half)} />
-        <Row items={clients.slice(half)} reverse />
+      <div className="mt-8 space-y-3 md:space-y-4" aria-label="Client logos">
+        <Row items={withLogos.slice(0, half)} />
+        <Row items={withLogos.slice(half)} reverse />
       </div>
       <div className="mt-8 text-center">
         <a href="/work#clients" onClick={onLinkClick} className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent link-underline">
