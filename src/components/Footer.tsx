@@ -128,6 +128,7 @@ export function Footer() {
             <p className="flex justify-center sm:justify-start gap-4 text-xs">
               <a href="/privacy" onClick={onLinkClick} className="text-gray-400 hover:text-white link-underline">Privacy Policy</a>
               <a href="/terms" onClick={onLinkClick} className="text-gray-400 hover:text-white link-underline">Terms of Service</a>
+              <a href="/sitemap" onClick={onLinkClick} className="text-gray-400 hover:text-white link-underline">Sitemap</a>
             </p>
           </div>
           <button

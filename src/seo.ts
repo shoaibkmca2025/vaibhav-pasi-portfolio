@@ -206,6 +206,12 @@ export const pageSeo: Record<PageKey, { name: string; title: string; description
     description: 'Terms for using vaibhavpasi.online: how its articles, starting prices and case studies should be read, how paid work is agreed, and which law applies.',
     type: 'WebPage',
   },
+  sitemap: {
+    name: 'Sitemap',
+    title: 'Sitemap: All Pages | Vaibhav Pasi',
+    description: 'Every page on vaibhavpasi.online in one list: main pages, digital marketing, website and AI services, Insights articles and the 4AM Global Media team.',
+    type: 'CollectionPage',
+  },
 };
 
 // Trims a description to fit search snippets, ending on a full sentence where possible

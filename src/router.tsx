@@ -14,6 +14,7 @@ export const sitePages = [
   { key: 'team', path: '/team', label: '4AM Team', nav: true },
   { key: 'privacy', path: '/privacy', label: 'Privacy Policy', nav: false },
   { key: 'terms', path: '/terms', label: 'Terms of Service', nav: false },
+  { key: 'sitemap', path: '/sitemap', label: 'Sitemap', nav: false },
 ] as const;
 
 export const navPages = sitePages.filter((p) => p.nav);

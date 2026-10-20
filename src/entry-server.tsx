@@ -79,7 +79,7 @@ function sitemapSections(): Record<string, SitemapEntry[]> {
       ...pagePaths.map((loc) => ({
         loc,
         lastmod: latest,
-        priority: ['/privacy', '/terms'].includes(loc) ? '0.3' : '0.9',
+        priority: ['/privacy', '/terms', '/sitemap'].includes(loc) ? '0.3' : '0.9',
         images: loc === '/about' ? [portrait] : [],
       })),
       { loc: '/blog', lastmod: latest, priority: '0.8' },

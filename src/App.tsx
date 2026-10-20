@@ -27,6 +27,7 @@ import TeamPage from './pages/TeamPage';
 import NotFoundPage from './pages/NotFoundPage';
 import TeamMemberPage from './pages/TeamMemberPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
+import SitemapPage from './pages/SitemapPage';
 import { useRoute, type Route } from './router';
 import { applySeo, getSeo } from './seo';
 import { initScrollReveal } from './lib/scrollReveal';
@@ -107,6 +108,8 @@ function PageContent({ route }: { route: Route; key?: string }) {
       return <PrivacyPage />;
     case 'terms':
       return <TermsPage />;
+    case 'sitemap':
+      return <SitemapPage />;
     case 'blog':
       return <BlogIndex />;
     default:
