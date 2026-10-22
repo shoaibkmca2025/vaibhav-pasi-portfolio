@@ -1,4 +1,4 @@
-import { ArrowUp, ArrowUpRight, Mail, Phone } from 'lucide-react';
+import { ArrowUpRight, Mail, Phone } from 'lucide-react';
 import { contactEmail, contactHref, contactPhoneDisplay, contactPhoneHref, socialLinks } from '../contact';
 import { posts } from '../blog/posts';
 import { onLinkClick } from '../router';
@@ -131,16 +131,6 @@ export function Footer() {
               <a href="/sitemap" onClick={onLinkClick} className="text-gray-400 hover:text-white link-underline">Sitemap</a>
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="group inline-flex items-center gap-3 text-[0.6875rem] font-bold tracking-[0.3em] uppercase text-gray-400 hover:text-accent transition-colors"
-          >
-            Back to top
-            <span className="w-11 h-11 rounded-full border border-white/10 group-hover:border-accent flex items-center justify-center transition-colors">
-              <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
-            </span>
-          </button>
         </div>
       </div>
     </footer>

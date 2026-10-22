@@ -1,4 +1,4 @@
-import { logoSize, publications } from './Press';
+import { logoSize, pressCount, publications } from './Press';
 
 // Scrolling "As featured in" band of press logos, right under the hero.
 // The list is doubled so the loop is seamless; hovering pauses it, Reduce Motion stops it.
@@ -12,7 +12,7 @@ export default function LogoStrip() {
           As featured <span className="text-accent">in</span>
         </h2>
         <p className="mt-2 text-sm md:text-base text-gray-400">
-          Coverage of Vaibhav's work across {logos.length} publications.
+          Coverage of Vaibhav's work across {pressCount} publications, including these.
         </p>
       </div>
 

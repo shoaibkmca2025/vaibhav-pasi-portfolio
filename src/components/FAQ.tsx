@@ -5,8 +5,11 @@ import { Plus } from 'lucide-react';
 export { faqs } from '../content/faqs';
 import { faqs } from '../content/faqs';
 
-export default function FAQ() {
+// `initial`: how many questions show before "Show all"; the rest stay in the HTML (hidden),
+// so the FAQ structured data still matches the page
+export default function FAQ({ initial = faqs.length }: { initial?: number }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [showAll, setShowAll] = useState(false);
 
   return (
     <section className="section-padding bg-brand-black">
@@ -24,6 +27,7 @@ export default function FAQ() {
             return (
               <div
                 key={faq.question}
+                hidden={!showAll && idx >= initial}
                 className={`border rounded-2xl overflow-hidden bg-brand-dark-gray/20 transition-colors ${
                   open ? 'border-accent/30' : 'border-white/5'
                 }`}
@@ -64,6 +68,13 @@ export default function FAQ() {
             );
           })}
         </div>
+        {!showAll && faqs.length > initial && (
+          <div className="mt-8 text-center">
+            <button type="button" onClick={() => setShowAll(true)} className="btn-secondary">
+              Show all {faqs.length} questions <Plus className="w-4 h-4" aria-hidden />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

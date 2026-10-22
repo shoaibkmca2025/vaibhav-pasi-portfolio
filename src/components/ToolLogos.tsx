@@ -48,12 +48,11 @@ export default function ToolLogos() {
           return (
             <li key={icon.slug}>
               {/* Brand colour where it reads on the background; very dark logos use the text colour */}
-              <span
-                title={icon.title}
-                className="flex aspect-square items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] text-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-white/25"
-                style={hex ? { color: hex } : undefined}
-              >
-                <BrandIcon icon={icon} className="w-7 h-7 md:w-8 md:h-8" />
+              <span className="flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.03] px-1 transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-white/25">
+                <span className="text-white" style={hex ? { color: hex } : undefined}>
+                  <BrandIcon icon={icon} className="w-7 h-7 md:w-8 md:h-8" />
+                </span>
+                <span className="text-[0.625rem] md:text-[0.6875rem] leading-tight text-center text-gray-400">{icon.title}</span>
               </span>
             </li>
           );

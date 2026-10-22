@@ -77,7 +77,7 @@ function HomePage() {
       </section>
 
       <section id="faq">
-        <FAQ />
+        <FAQ initial={6} />
       </section>
 
       <section id="contact">

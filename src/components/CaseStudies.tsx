@@ -52,6 +52,25 @@ function Insights({ insights }: { insights?: CaseStudy['insights'] }) {
   );
 }
 
+// Stand-in for the screenshot on the home card: the first insights table, same footprint
+function InsightsPreview({ c }: { c: CaseStudy }) {
+  const group = c.insights?.[0];
+  if (!group) return null;
+  return (
+    <div className="rounded-2xl border border-white/10 bg-brand-dark-gray p-5">
+      <p className="text-xs font-bold tracking-[0.2em] uppercase text-gray-500">{group.title}</p>
+      <dl className="mt-3 divide-y divide-white/5">
+        {group.rows.slice(0, 7).map((r) => (
+          <div key={r.label} className="flex items-baseline justify-between gap-3 py-2">
+            <dt className="text-sm text-gray-400">{r.label}</dt>
+            <dd className="text-sm font-semibold tabular-nums text-accent">{r.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
 function Screenshot({ c, priority = false }: { c: CaseStudy; priority?: boolean }) {
   const shot = c.screenshots[0];
   if (!shot) return null;
@@ -95,7 +114,7 @@ export function FeaturedProjects() {
               key={c.slug}
               className="reveal-children lift-card flex flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.02] p-5 md:p-6 hover:border-brand-yellow/30"
             >
-              <Screenshot c={c} />
+              {c.screenshots.length ? <Screenshot c={c} /> : <InsightsPreview c={c} />}
               <div className="mt-5 flex flex-wrap items-center gap-2">
                 <Badge />
                 <span className="text-xs text-gray-500">{c.category}</span>
