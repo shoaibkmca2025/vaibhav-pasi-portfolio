@@ -12,7 +12,7 @@ function Row({ items, reverse = false }: { items: Client[]; reverse?: boolean })
         {[...items, ...items].map((c, i) => {
           const copy = i >= items.length;
           // Each logo sits on the plate that keeps it visible (light for dark logos, dark for white ones)
-          const plate = c.plate === 'dark' ? 'theme-dark bg-[#151922] border-white/10' : 'bg-[#f5f5f7] border-black/5';
+          const plate = c.plate === 'dark' ? 'theme-dark bg-[#0B2338] border-white/10' : 'bg-[#f5f5f7] border-black/5';
           return (
             <li key={`${c.name}-${i}`} aria-hidden={copy || undefined}>
               <span

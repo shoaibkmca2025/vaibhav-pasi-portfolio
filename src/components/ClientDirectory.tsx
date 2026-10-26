@@ -7,7 +7,7 @@ const domain = (url: string) => new URL(url).hostname.replace(/^www\./, '');
 
 // Small logo beside each name; an initial when there is no usable logo
 function Thumb({ c }: { c: Client }) {
-  const plate = c.logo ? (c.plate === 'dark' ? 'bg-[#151922] border-white/10' : 'bg-[#f5f5f7] border-black/5') : 'border-white/10';
+  const plate = c.logo ? (c.plate === 'dark' ? 'bg-[#0B2338] border-white/10' : 'bg-[#f5f5f7] border-black/5') : 'border-white/10';
   return (
     <span aria-hidden className={`grid w-14 h-9 shrink-0 place-items-center rounded-lg border px-1.5 ${plate}`}>
       {c.logo ? (

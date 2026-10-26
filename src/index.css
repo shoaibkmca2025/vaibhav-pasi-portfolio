@@ -6,32 +6,33 @@
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-script: "Great Vibes", "Brush Script MT", cursive;
   
-  --color-brand-yellow: #D6B675;
-  --color-brand-black: #090B0F;
-  --color-brand-dark-gray: #151922;
-  --color-brand-muted: #1d222d;
+  --color-brand-yellow: #E2A93B;
+  --color-brand-black: #07131F;
+  --color-brand-dark-gray: #0B2338;
+  --color-brand-muted: #12304A;
 
   /* Neutral (untinted) greys tuned for the dark background: Tailwind's default greys lean blue,
      which clashes with the gold brand colour. Body text (400) is ~9.7:1 and small
      labels (500) ~7.2:1, meeting the 7:1 the HIG recommends for small text in dark mode. */
-  --color-gray-100: #ece9e2;
-  --color-gray-200: #dedbd3;
-  --color-gray-300: #c9cbd1;
-  --color-gray-400: #9198A5;
-  --color-gray-500: #808794;
-  --color-gray-600: #5a606d;
-  --color-gray-700: #3c414c;
-  --color-gray-800: #262a33;
-  --color-gray-900: #151922;
+  --color-gray-100: #E8F0F8;
+  --color-gray-200: #DCE6F1;
+  --color-gray-300: #C3D1E0;
+  --color-gray-400: #93A6BB;
+  --color-gray-500: #7D90A6;
+  --color-gray-600: #52667D;
+  --color-gray-700: #36495E;
+  --color-gray-800: #1E3349;
+  --color-gray-900: #0F2235;
 
   /* Apple's soft white: avoids pure-white text and logo plates "glowing" against near-black */
-  --color-white: #F5F3EE;
+  --color-white: #F4F8FC;
 
   /* Accent for text, icons and borders. Solid fills (buttons) keep using brand-yellow, which
      stays bright in both themes; text needs a darker accent in light mode to stay readable. */
-  --color-accent: #D6B675;
+  --color-accent: #F2BD5A;
   /* Lighter gold, used sparingly: gradient ends and ambient glows */
-  --color-coral: #EBD3A0;
+  --color-coral: #F07A5F;
+  --color-dawn: #2F7BD0;
 }
 
 /* ═══════════════════ Light & dark themes ═══════════════════
@@ -49,75 +50,78 @@
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     color-scheme: light;
-    --color-brand-black: #F5F3EE;
-    --color-brand-dark-gray: #ECE9E1;
-    --color-brand-muted: #E2DED4;
-    --color-white: #090B0F;
-    --color-gray-100: #0d1015;
-    --color-gray-200: #161a22;
-    --color-gray-300: #262b35;
-    --color-gray-400: #4a515e;
-    --color-gray-500: #5d6472;
-    --color-gray-600: #8a909c;
-    --color-gray-700: #aab0ba;
-    --color-gray-800: #d6d3ca;
-    --color-gray-900: #e8e5dc;
-    --color-accent: #7C5E24;
-    --color-coral: #9a7a3a;
+    --color-brand-black: #F4F8FC;
+    --color-brand-dark-gray: #E8F0F8;
+    --color-brand-muted: #DCEAF7;
+    --color-white: #0B2338;
+    --color-gray-100: #0B2338;
+    --color-gray-200: #13304A;
+    --color-gray-300: #1F3B57;
+    --color-gray-400: #3E556D;
+    --color-gray-500: #51677E;
+    --color-gray-600: #7F93A8;
+    --color-gray-700: #A6B6C7;
+    --color-gray-800: #D3DEEA;
+    --color-gray-900: #E6EEF6;
+    --color-accent: #1D5FA8;
+    --color-coral: #3B8FD9;
+    --color-dawn: #1D5FA8;
   }
 }
 :root[data-theme="light"] {
   color-scheme: light;
-  --color-brand-black: #F5F3EE;
-  --color-brand-dark-gray: #ECE9E1;
-  --color-brand-muted: #E2DED4;
-  --color-white: #090B0F;
-  --color-gray-100: #0d1015;
-  --color-gray-200: #161a22;
-  --color-gray-300: #262b35;
-  --color-gray-400: #4a515e;
-  --color-gray-500: #5d6472;
-  --color-gray-600: #8a909c;
-  --color-gray-700: #aab0ba;
-  --color-gray-800: #d6d3ca;
-  --color-gray-900: #e8e5dc;
-  --color-accent: #7C5E24;
-  --color-coral: #9a7a3a;
+  --color-brand-black: #F4F8FC;
+  --color-brand-dark-gray: #E8F0F8;
+  --color-brand-muted: #DCEAF7;
+  --color-white: #0B2338;
+  --color-gray-100: #0B2338;
+  --color-gray-200: #13304A;
+  --color-gray-300: #1F3B57;
+  --color-gray-400: #3E556D;
+  --color-gray-500: #51677E;
+  --color-gray-600: #7F93A8;
+  --color-gray-700: #A6B6C7;
+  --color-gray-800: #D3DEEA;
+  --color-gray-900: #E6EEF6;
+  --color-accent: #1D5FA8;
+  --color-coral: #3B8FD9;
+  --color-dawn: #1D5FA8;
 }
 
 /* Text laid over photos and the always-dark intro stay in the dark palette in both themes */
 .theme-dark {
   color-scheme: dark;
-  --color-brand-black: #090B0F;
-  --color-brand-dark-gray: #151922;
-  --color-brand-muted: #1d222d;
-  --color-white: #F5F3EE;
-  --color-gray-100: #ece9e2;
-  --color-gray-200: #dedbd3;
-  --color-gray-300: #c9cbd1;
-  --color-gray-400: #9198A5;
-  --color-gray-500: #808794;
-  --color-accent: #D6B675;
-  --color-coral: #EBD3A0;
+  --color-brand-black: #07131F;
+  --color-brand-dark-gray: #0B2338;
+  --color-brand-muted: #12304A;
+  --color-white: #F4F8FC;
+  --color-gray-100: #E8F0F8;
+  --color-gray-200: #DCE6F1;
+  --color-gray-300: #C3D1E0;
+  --color-gray-400: #93A6BB;
+  --color-gray-500: #7D90A6;
+  --color-accent: #F2BD5A;
+  --color-coral: #F07A5F;
+  --color-dawn: #2F7BD0;
 }
 
 /* System "Increase Contrast": push secondary text and borders further, in either theme */
 @media (prefers-contrast: more) {
   :root {
-    --color-gray-400: #c3c8d1;
-    --color-gray-500: #b0b6c0;
+    --color-gray-400: #C3D1E0;
+    --color-gray-500: #B0C0D2;
   }
 }
 @media (prefers-contrast: more) and (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --color-gray-400: #262b35;
-    --color-gray-500: #323844;
+    --color-gray-400: #1F3B57;
+    --color-gray-500: #2A4560;
   }
 }
 @media (prefers-contrast: more) {
   :root[data-theme="light"] {
-    --color-gray-400: #262b35;
-    --color-gray-500: #323844;
+    --color-gray-400: #1F3B57;
+    --color-gray-500: #2A4560;
   }
   .border-white\/5,
   .border-white\/10 {
@@ -255,14 +259,14 @@
 /* ─── Glow effects ─── */
 .glow-yellow {
   /* Kept soft: a strong neon halo blurs letter edges and hurts legibility */
-  text-shadow: 0 0 24px rgba(214, 182, 117, 0.22);
+  text-shadow: 0 0 24px rgba(226, 169, 59, 0.22);
 }
 /* Light mode: a yellow highlighter stroke instead of yellow text, which would vanish on white.
    (Inside always-dark areas such as the hero, the glowing yellow text is kept: see .theme-dark rule below.) */
 :root[data-theme="light"] .glow-yellow {
   color: var(--color-white);
   text-shadow: none;
-  background: linear-gradient(transparent 58%, rgba(214, 182, 117, 0.32) 58%, rgba(214, 182, 117, 0.32) 90%, transparent 90%);
+  background: linear-gradient(transparent 58%, rgba(226, 169, 59, 0.32) 58%, rgba(226, 169, 59, 0.32) 90%, transparent 90%);
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -270,7 +274,7 @@
   :root:not([data-theme="dark"]) .glow-yellow {
     color: var(--color-white);
     text-shadow: none;
-    background: linear-gradient(transparent 58%, rgba(214, 182, 117, 0.32) 58%, rgba(214, 182, 117, 0.32) 90%, transparent 90%);
+    background: linear-gradient(transparent 58%, rgba(226, 169, 59, 0.32) 58%, rgba(226, 169, 59, 0.32) 90%, transparent 90%);
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
   }
@@ -279,11 +283,11 @@
 :root:not([data-theme="dark"]) .theme-dark .glow-yellow {
   color: var(--color-accent);
   background: none;
-  text-shadow: 0 0 24px rgba(214, 182, 117, 0.22);
+  text-shadow: 0 0 24px rgba(226, 169, 59, 0.22);
 }
 
 .glow-box {
-  box-shadow: 0 0 40px -10px rgba(214, 182, 117, 0.2);
+  box-shadow: 0 0 40px -10px rgba(226, 169, 59, 0.2);
 }
 
 /* ─── Section padding ─── */
@@ -318,7 +322,7 @@
 
 .card-dark:hover {
   @apply border-accent/20;
-  box-shadow: 0 0 50px -20px rgba(214, 182, 117, 0.08);
+  box-shadow: 0 0 50px -20px rgba(226, 169, 59, 0.08);
 }
 
 /* ─── Horizontal scrollers (e.g. blog filters) ─── */
@@ -436,7 +440,7 @@
 
 /* ─── Selection ─── */
 ::selection {
-  background: #D6B675;
+  background: #E2A93B;
   color: #000;
 }
 
@@ -813,7 +817,7 @@ html:not(.no-splash) .rule-draw {
 }
 .site-header[data-scrolled] {
   background-color: color-mix(in srgb, var(--color-brand-black) 94%, transparent);
-  border-bottom-color: rgba(214, 182, 117, 0.14);
+  border-bottom-color: rgba(226, 169, 59, 0.14);
   box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.55);
 }
 .site-header[data-tucked] { transform: translate3d(0, -100%, 0); }
@@ -847,7 +851,7 @@ html:not(.no-splash) .rule-draw {
 /* Process steps (large screens): the step the progress line has reached is emphasised */
 @media (min-width: 1024px) {
   .motion-ready .process-step, .process-step { transition: border-color 400ms ease, opacity var(--reveal-dur) var(--reveal-ease), transform var(--reveal-dur) var(--reveal-ease); }
-  .process-step[data-active] { border-color: rgba(214, 182, 117, 0.5); }
+  .process-step[data-active] { border-color: rgba(226, 169, 59, 0.5); }
   .process-step .step-number { transition: background-color 400ms ease, color 400ms ease, transform 400ms var(--reveal-ease); }
   .process-step[data-active] .step-number { background-color: var(--color-brand-yellow); color: #000; transform: scale(1.08); }
 }

@@ -10,16 +10,16 @@ export type Variant = 'graphite' | 'yellow' | 'olive';
 const VARIANTS: Variant[] = ['graphite', 'yellow', 'olive'];
 
 export const cardStyle: Record<Variant, string> = {
-  graphite: 'theme-dark bg-[radial-gradient(120%_120%_at_100%_0%,rgba(214,182,117,0.14),transparent_45%),linear-gradient(135deg,#1c1c1c,#060606)] text-white',
-  yellow: 'bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#D6B675,#C4A35F)] text-black',
-  olive: 'theme-dark bg-[radial-gradient(120%_120%_at_0%_100%,rgba(214,182,117,0.16),transparent_50%),linear-gradient(135deg,#1f1a10,#07080b)] text-white',
+  graphite: 'theme-dark bg-[radial-gradient(120%_120%_at_100%_0%,rgba(226,169,59,0.14),transparent_45%),linear-gradient(135deg,#1c1c1c,#060606)] text-white',
+  yellow: 'bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#E2A93B,#C98F25)] text-black',
+  olive: 'theme-dark bg-[radial-gradient(120%_120%_at_0%_100%,rgba(226,169,59,0.16),transparent_50%),linear-gradient(135deg,#0F2A44,#061826)] text-white',
 };
 
 // Screen colours for the illustration on each card style
 const screen: Record<Variant, { bg: string; ink: string; soft: string; accent: string }> = {
-  graphite: { bg: '#101010', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#D6B675' },
+  graphite: { bg: '#101010', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#E2A93B' },
   yellow: { bg: '#ffffff', ink: '#111111', soft: 'rgba(0,0,0,0.08)', accent: '#111111' },
-  olive: { bg: '#0c0e13', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#D6B675' },
+  olive: { bg: '#0A1C2D', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#E2A93B' },
 };
 
 type Scene = 'site' | 'dashboard' | 'chat';
@@ -138,15 +138,15 @@ function PhotoScreen({ image, v, compact = false }: { image: NonNullable<Service
           <div className="flex gap-1.5">
             <Bar w="16px" h={4} c="rgba(255,255,255,0.45)" />
             <Bar w="16px" h={4} c="rgba(255,255,255,0.45)" />
-            <Bar w="16px" h={4} c="#D6B675" />
+            <Bar w="16px" h={4} c="#E2A93B" />
           </div>
         </div>
         <div className="mt-auto mb-1 space-y-1.5 w-[58%]">
           <Bar w="100%" h={9} c="rgba(255,255,255,0.95)" />
-          <Bar w="72%" h={9} c="#D6B675" />
+          <Bar w="72%" h={9} c="#E2A93B" />
           <Bar w="85%" h={4} c="rgba(255,255,255,0.5)" />
           <div className="pt-1.5">
-            <div className="rounded-full" style={{ background: '#D6B675', width: '42%', height: 14 }} />
+            <div className="rounded-full" style={{ background: '#E2A93B', width: '42%', height: 14 }} />
           </div>
         </div>
       </div>

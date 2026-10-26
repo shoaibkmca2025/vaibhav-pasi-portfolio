@@ -105,14 +105,15 @@ export default function Hero() {
           style={{
             y: gridY,
             backgroundImage:
-              'linear-gradient(rgba(214,182,117,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(214,182,117,0.5) 1px, transparent 1px)',
+              'linear-gradient(rgba(226,169,59,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(226,169,59,0.5) 1px, transparent 1px)',
             backgroundSize: '64px 64px',
           }}
           className="absolute inset-0 opacity-[0.05] [mask-image:radial-gradient(70%_60%_at_50%_40%,#000,transparent)]"
         />
         <motion.div style={{ y: glowY }} className="absolute inset-0">
+          {/* Dawn sky: deep blue from one corner, sunrise gold from the other */}
           <div className="absolute top-1/4 right-[8%] w-[320px] h-[320px] md:w-[520px] md:h-[520px] rounded-full bg-brand-yellow/10 blur-[90px] md:blur-[130px]" />
-          <div className="absolute -bottom-24 -left-24 w-[280px] h-[280px] md:w-[440px] md:h-[440px] rounded-full bg-coral/10 blur-[90px] md:blur-[130px]" />
+          <div className="absolute -bottom-24 -left-24 w-[280px] h-[280px] md:w-[440px] md:h-[440px] rounded-full bg-dawn/25 blur-[90px] md:blur-[130px]" />
         </motion.div>
       </div>
 
