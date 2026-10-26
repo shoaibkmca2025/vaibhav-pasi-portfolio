@@ -3,6 +3,7 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'moti
 import { ArrowUpRight, Newspaper } from 'lucide-react';
 import { bookingExternal, bookingHref } from '../lib/booking';
 import { onLinkClick } from '../router';
+import OrbitGraphic from './OrbitGraphic';
 import { heroVideo } from '../content/media';
 import { pressCount } from './Press';
 
@@ -110,6 +111,10 @@ export default function Hero() {
           }}
           className="absolute inset-0 opacity-[0.05] [mask-image:radial-gradient(70%_60%_at_50%_40%,#000,transparent)]"
         />
+        {/* Orbit motion graphic behind the portrait (centred on it on wide screens) */}
+        <motion.div style={{ y: gridY }} className="absolute inset-0 text-white">
+          <OrbitGraphic className="absolute left-1/2 top-[80%] lg:top-1/2 lg:left-[74%] -translate-x-1/2 -translate-y-1/2 w-[560px] lg:w-[860px] max-w-none opacity-50 lg:opacity-80" />
+        </motion.div>
         <motion.div style={{ y: glowY }} className="absolute inset-0">
           {/* Dawn sky: deep blue from one corner, sunrise gold from the other */}
           <div className="absolute top-1/4 right-[8%] w-[320px] h-[320px] md:w-[520px] md:h-[520px] rounded-full bg-brand-yellow/10 blur-[90px] md:blur-[130px]" />

@@ -884,3 +884,36 @@ html:not(.no-splash) .rule-draw {
   .site-header[data-tucked] { transform: none; }
   .group:hover .icon-nudge, .group:focus-within .icon-nudge { transform: none; }
 }
+
+/* ─── Orbit motion graphic (components/OrbitGraphic.tsx) ─── */
+.orbit-graphic .orbit-spin {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: orbit-spin linear infinite;
+  /* Each ring keeps its own start angle (inline rotate) and adds the spin on top */
+  rotate: 0deg;
+}
+.orbit-graphic .orbit-reverse { animation-direction: reverse; }
+.orbit-graphic .orbit-core {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: orbit-breathe 7s ease-in-out infinite;
+}
+.orbit-graphic .orbit-star {
+  opacity: 0.5;
+  animation: orbit-twinkle 4.5s ease-in-out infinite;
+}
+@keyframes orbit-spin { to { rotate: 360deg; } }
+@keyframes orbit-breathe {
+  0%, 100% { scale: 1; opacity: 0.85; }
+  50% { scale: 1.12; opacity: 1; }
+}
+@keyframes orbit-twinkle {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.8; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-graphic .orbit-spin,
+  .orbit-graphic .orbit-core,
+  .orbit-graphic .orbit-star { animation: none; }
+}
