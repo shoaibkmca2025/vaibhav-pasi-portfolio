@@ -47,6 +47,13 @@ export async function savePushToken(token: string, platform: string) {
   if (!r.ok) throw new Error(`push_tokens upsert failed: ${r.status}`);
 }
 
+export async function deletePushToken(token: string) {
+  const db = supabase();
+  if (!db) return;
+  const r = await db(`push_tokens?token=eq.${encodeURIComponent(token)}`, { method: 'DELETE', headers: { Prefer: 'return=minimal' } });
+  if (!r.ok) throw new Error(`push_tokens delete failed: ${r.status}`);
+}
+
 // { "<slug>": { views, shares } } summed over all time (view: article_stats in supabase.sql)
 export async function articleStats(): Promise<Record<string, { views: number; shares: number }>> {
   const db = supabase();

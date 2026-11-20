@@ -1,9 +1,10 @@
 // POST /api/app: public endpoint for the mobile app (one function, to stay under Vercel's limit)
 //   { action: "track", slug, event: "view" | "share" }           -> counts a view or share
 //   { action: "register-push", token: "ExponentPushToken[...]", platform } -> subscribes to new-article pushes
+//   { action: "unregister-push", token }                         -> unsubscribes
 // Reading articles needs no API: the app reads the static /feed/*.json built with the site.
 import { isValidSlug } from '../shared/blog.js';
-import { savePushToken, trackEvent } from './_lib/app-data.js';
+import { deletePushToken, savePushToken, trackEvent } from './_lib/app-data.js';
 import { rateLimited, readJson, send, type Req, type Res } from './_lib/http.js';
 
 const PUSH_TOKEN = /^(Exponent|Expo)PushToken\[[\w-]{10,200}\]$/;
@@ -33,11 +34,15 @@ export default async function handler(req: Req, res: Res) {
       return send(res, 200, { ok: true });
     }
 
-    if (input.action === 'register-push') {
+    if (input.action === 'register-push' || input.action === 'unregister-push') {
       const token = String(input.token ?? '');
-      const platform = input.platform === 'ios' || input.platform === 'android' ? input.platform : 'unknown';
       if (!PUSH_TOKEN.test(token)) return send(res, 400, { error: 'Invalid push token' });
-      await savePushToken(token, platform);
+      if (input.action === 'unregister-push') {
+        await deletePushToken(token);
+      } else {
+        const platform = input.platform === 'ios' || input.platform === 'android' ? input.platform : 'unknown';
+        await savePushToken(token, platform);
+      }
       return send(res, 200, { ok: true });
     }
 
