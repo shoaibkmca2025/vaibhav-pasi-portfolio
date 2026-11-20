@@ -4,6 +4,8 @@
 //  - Local, on the admin's phone: published, scheduled-time reminder, draft reminders.
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+// Named import: eslint-plugin-import can't follow the namespace's `export *` re-exports
+import { AndroidImportance } from 'expo-notifications';
 import { Platform } from 'react-native';
 import { publicApi } from './api';
 import { EAS_PROJECT_ID } from './config';
@@ -21,11 +23,11 @@ export async function setUpChannels() {
   if (Platform.OS !== 'android') return;
   await Notifications.setNotificationChannelAsync('articles', {
     name: 'New articles',
-    importance: Notifications.AndroidImportance.DEFAULT,
+    importance: AndroidImportance.DEFAULT,
   });
   await Notifications.setNotificationChannelAsync('publishing', {
     name: 'Publishing (admin)',
-    importance: Notifications.AndroidImportance.DEFAULT,
+    importance: AndroidImportance.DEFAULT,
   });
 }
 

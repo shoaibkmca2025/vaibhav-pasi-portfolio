@@ -44,6 +44,12 @@ everyone out. The GitHub token never leaves the server, and `/admin` is excluded
 **Code:** dashboard UI in [`src/admin/`](src/admin/) (a separate bundle that site visitors never download), API in
 `api/admin-*.ts`, and the post format shared by both in [`shared/blog.ts`](shared/blog.ts).
 
+### From your phone: the mobile app
+
+The Android/iOS app in [`mobile/`](mobile/) has a full article editor and uses the same publishing API and password as
+`/admin`, so articles written in either place show up everywhere. It also supports **scheduled publishing** and push
+notifications to app readers. Setup and builds: [`docs/mobile-app/DEPLOYMENT.md`](docs/mobile-app/DEPLOYMENT.md).
+
 ### By hand
 
 Blog posts are Markdown files in [`src/blog/posts/`](src/blog/posts/). Each file becomes an article on the site. All articles are listed on the blog page at `yoursite.com/blog`, and the newest ones are previewed in the Blog section on the home page.

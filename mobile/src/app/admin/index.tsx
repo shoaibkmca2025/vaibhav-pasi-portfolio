@@ -66,7 +66,7 @@ export default function Dashboard() {
   const posts = useQuery({ queryKey: ['admin-posts'], queryFn: api.listPosts });
   const stats = useQuery({ queryKey: ['admin-stats'], queryFn: api.stats, staleTime: 60_000 });
 
-  const list = posts.data?.posts ?? [];
+  const list = useMemo(() => posts.data?.posts ?? [], [posts.data]);
   const totals = useMemo(() => {
     const s = stats.data?.stats ?? {};
     return {

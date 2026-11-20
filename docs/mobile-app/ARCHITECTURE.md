@@ -68,7 +68,7 @@ New:
 | `GET /feed/posts.json` | Static, built with the site: published articles (no body) for lists and search. |
 | `GET /feed/posts/<slug>.json` | Static: one article with rendered HTML. |
 | `POST /api/app` `{ action: "track", slug, event }` | Public, rate-limited view/share counter. |
-| `POST /api/app` `{ action: "register-push", token, platform }` | Public, stores the Expo push token. |
+| `POST /api/app` `{ action: "register-push" \| "unregister-push", token }` | Public, subscribes or unsubscribes this device's Expo push token. |
 
 The feed is static, so the app shows exactly what the website shows, from the CDN, with no function calls.
 
