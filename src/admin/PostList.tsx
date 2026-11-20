@@ -12,7 +12,14 @@ const formatDate = (date: string) => {
 };
 
 // Status shown with a word, not just a colour
-function Status({ draft }: { draft: boolean }) {
+function Status({ draft, publishAt }: { draft: boolean; publishAt?: string }) {
+  if (!draft && publishAt && new Date(publishAt).getTime() > Date.now()) {
+    return (
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-xs font-bold text-accent">
+        <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden /> Scheduled {new Date(publishAt).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
+      </span>
+    );
+  }
   return draft ? (
     <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-2.5 py-1 text-xs font-bold text-gray-300">
       <span className="w-1.5 h-1.5 rounded-full bg-gray-400" aria-hidden /> Draft
@@ -149,7 +156,7 @@ export default function PostList() {
                   </div>
                   <a href={`#/edit/${post.slug}`} className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <Status draft={post.draft} />
+                      <Status draft={post.draft} publishAt={post.publishAt} />
                       {post.featured && (
                         <span className="inline-flex items-center gap-1 text-xs font-bold text-accent">
                           <Star className="w-3.5 h-3.5 fill-current" aria-hidden /> Featured

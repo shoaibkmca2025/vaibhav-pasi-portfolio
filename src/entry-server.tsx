@@ -10,6 +10,7 @@ import { SITE_URL, PERSON_DESCRIPTION, person } from './site';
 import { faqs } from './components/FAQ';
 import { caseStudies } from './content/caseStudies';
 import { clients, INDUSTRIES } from './content/clients';
+export { feedFiles } from './feed';
 
 // Every page that gets its own prerendered HTML file
 const pagePaths = sitePages.filter((p) => p.key !== 'blog').map((p) => p.path);

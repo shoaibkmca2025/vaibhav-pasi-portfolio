@@ -12,5 +12,20 @@
       "destination": "/team/shoaib-khatik",
       "statusCode": 301
     }
+  ],
+  "headers": [
+    {
+      "source": "/feed/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=60, s-maxage=60, stale-while-revalidate=600"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    }
   ]
 }

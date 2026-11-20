@@ -12,13 +12,36 @@ import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
 export const POSTS_DIR = 'src/blog/posts';
 export const MEDIA_DIR = 'public/blog';
 
-export const CATEGORIES = ['Growth', 'Social Media', 'E-commerce', 'AI & Tech', 'Branding', 'Insights'];
+// Topics offered when writing. The original six stay so existing posts keep a valid category.
+export const CATEGORIES = [
+  'Technology',
+  'AI',
+  'Digital Marketing',
+  'Software Development',
+  'Business',
+  'Entrepreneurship',
+  'Personal Growth',
+  'Travel',
+  'Growth',
+  'Social Media',
+  'E-commerce',
+  'AI & Tech',
+  'Branding',
+  'Insights',
+];
+
+export type PostStatus = 'draft' | 'scheduled' | 'published';
 
 export interface PostMeta {
   title: string;
   // Optional shorter title for search results; the headline stays as `title`
   seoTitle?: string;
+  // Optional search-result description; falls back to the excerpt
+  metaDescription?: string;
   date: string; // YYYY-MM-DD
+  // Scheduled release (ISO timestamp). The post stays hidden until then. The GitHub Action
+  // .github/workflows/blog-schedule.yml removes this field when it is due, which rebuilds the site.
+  publishAt?: string;
   category: string;
   excerpt: string;
   cover: string;
@@ -52,6 +75,13 @@ function toDate(value: unknown) {
   return text(value).slice(0, 10);
 }
 
+// Accepts a Date or an ISO string and returns a full ISO timestamp, or undefined
+function toTimestamp(value: unknown) {
+  if (value == null || value === '') return undefined;
+  const d = value instanceof Date ? value : new Date(text(value));
+  return Number.isNaN(d.getTime()) ? undefined : d.toISOString();
+}
+
 // Accepts a YAML list or a comma-separated string
 function toTags(value: unknown) {
   const list = Array.isArray(value) ? value : text(value).split(',');
@@ -73,7 +103,9 @@ export function parsePostFile(raw: string): { meta: PostMeta; body: string } {
     meta: {
       title: text(data.title),
       seoTitle: text(data.seoTitle) || undefined,
+      metaDescription: text(data.metaDescription) || undefined,
       date: toDate(data.date),
+      publishAt: toTimestamp(data.publishAt),
       category: text(data.category) || 'Insights',
       excerpt: text(data.excerpt),
       cover: text(data.cover),
@@ -90,8 +122,10 @@ export function serializePost(meta: PostMeta, body: string) {
     title: meta.title,
     ...(meta.seoTitle ? { seoTitle: meta.seoTitle } : {}),
     date: meta.date,
+    ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
     category: meta.category,
     excerpt: meta.excerpt,
+    ...(meta.metaDescription ? { metaDescription: meta.metaDescription } : {}),
   };
   if (meta.cover) header.cover = meta.cover;
   if (meta.tags.length) header.tags = meta.tags;
@@ -122,12 +156,22 @@ export function validatePost(meta: PostMeta, body: string) {
   else if (meta.title.length > 150) errors.title = 'Keep the title under 150 characters.';
   if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.date)) errors.date = 'Pick a publish date.';
   if (!meta.category.trim()) errors.category = 'Choose a category.';
+  if (meta.seoTitle && meta.seoTitle.length > 70) errors.seoTitle = 'Keep the SEO title under 70 characters.';
+  if (meta.metaDescription && meta.metaDescription.length > 170) errors.metaDescription = 'Keep the meta description under 170 characters.';
+  if (meta.publishAt && Number.isNaN(new Date(meta.publishAt).getTime())) errors.publishAt = 'Pick a valid publish time.';
   if (meta.excerpt.length > 300) errors.excerpt = 'Keep the excerpt under 300 characters.';
   if (meta.cover && !/^(\/blog\/[\w.-]+|https:\/\/[^\s]+)$/.test(meta.cover)) errors.cover = 'Cover must be an uploaded image or an https:// link.';
   if (meta.tags.length > 12) errors.tags = 'Use at most 12 tags.';
   if (!meta.draft && body.trim().length < 20) errors.body = 'Write the article before publishing.';
   if (body.length > 200_000) errors.body = 'The article is too long.';
   return errors;
+}
+
+// A draft with a publish time is still a draft
+export function postStatus(meta: Pick<PostMeta, 'draft' | 'publishAt'>, now = Date.now()): PostStatus {
+  if (meta.draft) return 'draft';
+  if (meta.publishAt && new Date(meta.publishAt).getTime() > now) return 'scheduled';
+  return 'published';
 }
 
 export const readingMinutes = (body: string) => Math.max(1, Math.round(body.trim().split(/\s+/).filter(Boolean).length / 200));

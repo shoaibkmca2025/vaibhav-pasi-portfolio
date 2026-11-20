@@ -413,6 +413,13 @@
 .prose-blog img {
   @apply w-full rounded-2xl border border-white/10;
 }
+/* Captioned images: ![alt](src "caption") alone in a paragraph (shared/markdown.ts) */
+.prose-blog figure {
+  margin: 2.5em 0;
+}
+.prose-blog figcaption {
+  @apply text-gray-500 text-sm text-center mt-3;
+}
 .prose-blog code {
   @apply text-accent bg-white/5 px-1.5 py-0.5 rounded text-[0.9em];
 }

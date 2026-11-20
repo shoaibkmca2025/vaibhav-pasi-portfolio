@@ -1,5 +1,5 @@
-import { marked } from 'marked';
-import { parsePostFile } from '../../shared/blog';
+import { parsePostFile, postStatus } from '../../shared/blog';
+import { renderMarkdown } from '../../shared/markdown';
 
 // Every .md file in ./posts becomes a blog post. The file name is the URL slug:
 // posts/my-first-post.md  ->  /blog/my-first-post
@@ -15,6 +15,8 @@ export interface Post {
   title: string;
   // Optional shorter title for search results (front matter: seoTitle)
   seoTitle?: string;
+  // Optional search-result description (front matter: metaDescription); the excerpt otherwise
+  metaDescription?: string;
   date: string;
   category: string;
   excerpt: string;
@@ -29,7 +31,8 @@ export interface Post {
 function toPost(path: string, raw: string): Post | null {
   const slug = path.split('/').pop()!.replace(/\.md$/, '');
   const { meta, body } = parsePostFile(raw);
-  if (meta.draft) return null;
+  // Drafts, and scheduled posts whose time hasn't come at build time, stay off the site
+  if (postStatus(meta) !== 'published') return null;
 
   const words = body.trim().split(/\s+/).length;
 
@@ -37,6 +40,7 @@ function toPost(path: string, raw: string): Post | null {
     slug,
     title: meta.title || slug.replace(/-/g, ' '),
     seoTitle: meta.seoTitle || undefined,
+    metaDescription: meta.metaDescription || undefined,
     date: meta.date,
     category: meta.category,
     excerpt: meta.excerpt,
@@ -45,7 +49,7 @@ function toPost(path: string, raw: string): Post | null {
     featured: meta.featured,
     readingMinutes: Math.max(1, Math.round(words / 200)),
     wordCount: words,
-    html: marked.parse(body, { async: false }),
+    html: renderMarkdown(body),
   };
 }
 

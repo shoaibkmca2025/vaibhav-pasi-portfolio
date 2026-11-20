@@ -481,7 +481,7 @@ function buildSeo(pathname: string): Seo {
       return {
         // Long headlines drop the name suffix so the title isn't cut off in results
         title: post.seoTitle ?? (post.title.length > 55 ? post.title : `${post.title} | Vaibhav Pasi`),
-        description: post.excerpt || DEFAULT_DESCRIPTION,
+        description: post.metaDescription || post.excerpt || DEFAULT_DESCRIPTION,
         path: `/blog/${post.slug}`,
         image: coverUrl(post.cover),
         type: 'article',

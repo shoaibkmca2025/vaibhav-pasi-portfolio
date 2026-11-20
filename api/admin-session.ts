@@ -1,8 +1,9 @@
 // /api/admin-session: dashboard sign-in
 //   GET    -> { authenticated, setup: { password, github } }
 //   POST   { password } -> signs in (sets the session cookie)
+//   POST   { password, client: "app" } -> { token, expiresAt } for the mobile app (Authorization: Bearer)
 //   DELETE -> signs out
-import { adminConfigured, endSession, isAuthenticated, passwordMatches, startSession } from './_lib/admin.js';
+import { adminConfigured, endSession, isAuthenticated, issueAppToken, passwordMatches, startSession } from './_lib/admin.js';
 import { env, rateLimited, readJson, sameOrigin, send, type Req, type Res } from './_lib/http.js';
 
 export default async function handler(req: Req, res: Res) {
@@ -32,7 +33,7 @@ export default async function handler(req: Req, res: Res) {
     return send(res, 503, { error: 'The dashboard is not set up yet: add ADMIN_PASSWORD (8+ characters) in Vercel.' });
   }
 
-  let body: { password?: unknown };
+  let body: { password?: unknown; client?: unknown };
   try {
     body = await readJson(req);
   } catch {
@@ -42,6 +43,9 @@ export default async function handler(req: Req, res: Res) {
   if (typeof body.password !== 'string' || !passwordMatches(body.password)) {
     return send(res, 401, { error: 'That password is not right.' });
   }
+
+  // The mobile app can't use the HttpOnly cookie: it gets a bearer token for its keychain instead
+  if (body.client === 'app') return send(res, 200, { ok: true, ...issueAppToken() });
 
   startSession(req, res);
   return send(res, 200, { ok: true });

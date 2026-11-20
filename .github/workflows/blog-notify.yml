@@ -1,0 +1,33 @@
+# Sends a push notification to app readers when an article goes live: a new post, or a
+# draft that was published (from the app, /admin, or by hand). Waits for the site to finish deploying.
+name: Notify readers of new articles
+
+on:
+  push:
+    branches: [main]
+    paths: ['src/blog/posts/**']
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Find newly published posts
+        id: detect
+        run: |
+          slugs=$(npx tsx scripts/blog-automation.ts detect "${{ github.event.before }}" "${{ github.sha }}" | tr '\n' ' ')
+          echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
+      - name: Notify
+        if: steps.detect.outputs.slugs != ''
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: npx tsx scripts/blog-automation.ts notify ${{ steps.detect.outputs.slugs }}

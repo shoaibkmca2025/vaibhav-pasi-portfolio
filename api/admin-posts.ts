@@ -8,14 +8,25 @@ import {
   POSTS_DIR,
   isValidSlug,
   parsePostFile,
+  postStatus,
   serializePost,
   slugify,
   validatePost,
   type PostMeta,
 } from '../shared/blog.js';
+import { absolutizeHtml, renderMarkdown } from '../shared/markdown.js';
 import { requireAdmin } from './_lib/admin.js';
+import { articleStats } from './_lib/app-data.js';
 import { GitHubError, deleteFile, listDir, readFile, writeFile } from './_lib/github.js';
-import { readJson, send, type Req, type Res } from './_lib/http.js';
+import { htmlToMarkdown, relativeToSite } from './_lib/html-to-markdown.js';
+import { readJson, send, siteUrl, type Req, type Res } from './_lib/http.js';
+
+// HTML for the app editor: absolute image URLs, and captioned figures as <img title> (what the editor understands)
+const editorHtml = (body: string) =>
+  absolutizeHtml(renderMarkdown(body), siteUrl()).replace(
+    /<figure><img ([^>]*?)\s*\/?><figcaption>([\s\S]*?)<\/figcaption><\/figure>/g,
+    (_m, attrs: string, caption: string) => `<img ${attrs} title="${caption}" />`,
+  );
 
 const postPath = (slug: string) => `${POSTS_DIR}/${slug}.md`;
 
@@ -27,12 +38,17 @@ function query(req: Req, key: string) {
 // Normalises whatever the browser sent into a clean PostMeta
 function cleanMeta(input: Partial<Record<keyof PostMeta, unknown>> = {}): PostMeta {
   const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
+  const publishAt = str(input.publishAt, 40);
   return {
     title: str(input.title, 150),
+    seoTitle: str(input.seoTitle, 70) || undefined,
+    metaDescription: str(input.metaDescription, 170) || undefined,
     date: str(input.date, 10),
+    // Only a future time means "scheduled"; a past one just publishes
+    publishAt: publishAt && new Date(publishAt).getTime() > Date.now() ? new Date(publishAt).toISOString() : undefined,
     category: str(input.category, 40),
     excerpt: str(input.excerpt, 300),
-    cover: str(input.cover, 500),
+    cover: relativeToSite(str(input.cover, 500)),
     tags: Array.isArray(input.tags)
       ? input.tags.map((t) => str(t, 40)).filter(Boolean).slice(0, 12)
       : [],
@@ -52,6 +68,7 @@ async function listPosts() {
         slug: f.name.replace(/\.md$/, ''),
         sha: file.sha,
         ...meta,
+        status: postStatus(meta),
         words: body.trim().split(/\s+/).filter(Boolean).length,
       };
     }),
@@ -64,17 +81,25 @@ export default async function handler(req: Req, res: Res) {
 
   try {
     if (req.method === 'GET') {
+      if (query(req, 'stats')) return send(res, 200, { stats: await articleStats() });
       const slug = query(req, 'slug');
       if (!slug) return send(res, 200, { posts: await listPosts() });
       if (!isValidSlug(slug)) return send(res, 400, { error: 'Invalid post address.' });
       const file = await readFile(postPath(slug));
       if (!file) return send(res, 404, { error: 'That post no longer exists.' });
       const { meta, body } = parsePostFile(file.text);
-      return send(res, 200, { post: { slug, sha: file.sha, meta, body } });
+      return send(res, 200, { post: { slug, sha: file.sha, meta, body, status: postStatus(meta), html: editorHtml(body) } });
     }
 
     if (req.method === 'POST') {
-      let input: { slug?: unknown; sha?: unknown; meta?: Partial<Record<keyof PostMeta, unknown>>; body?: unknown };
+      let input: {
+        slug?: unknown;
+        sha?: unknown;
+        meta?: Partial<Record<keyof PostMeta, unknown>>;
+        body?: unknown;
+        // The app sends HTML from its rich-text editor instead of Markdown
+        html?: unknown;
+      };
       try {
         input = await readJson(req, 1024 * 1024);
       } catch {
@@ -82,7 +107,8 @@ export default async function handler(req: Req, res: Res) {
       }
 
       const meta = cleanMeta(input.meta);
-      const body = typeof input.body === 'string' ? input.body : '';
+      const body =
+        typeof input.html === 'string' ? htmlToMarkdown(input.html) : typeof input.body === 'string' ? input.body : '';
       const errors = validatePost(meta, body);
       if (Object.keys(errors).length) return send(res, 422, { error: 'Please fix the highlighted fields.', fields: errors });
 
@@ -95,14 +121,16 @@ export default async function handler(req: Req, res: Res) {
         return send(res, 409, { error: `A post at /blog/${slug} already exists. Change the web address.`, fields: { slug: 'Already taken.' } });
       }
 
-      const action = !sha ? (meta.draft ? 'draft' : 'publish') : meta.draft ? 'update draft' : 'update';
+      const status = postStatus(meta);
+      const verb = { draft: 'draft', scheduled: 'schedule', published: 'publish' }[status];
+      const action = !sha ? verb : `update (${verb})`;
       const saved = await writeFile(
         postPath(slug),
         Buffer.from(serializePost(meta, body), 'utf8').toString('base64'),
         `blog: ${action} "${meta.title}"`,
         sha,
       );
-      return send(res, 200, { ok: true, slug, sha: saved.sha, commit: saved.commit });
+      return send(res, 200, { ok: true, slug, sha: saved.sha, commit: saved.commit, status, publishAt: meta.publishAt ?? null });
     }
 
     if (req.method === 'DELETE') {

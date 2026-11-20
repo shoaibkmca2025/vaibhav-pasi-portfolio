@@ -7,7 +7,7 @@ import { pathToFileURL } from 'node:url';
 const dist = path.resolve('dist');
 const ssrEntry = path.resolve('dist-ssr/entry-server.js');
 
-const { routes, render, sitemaps, robots, llmsTxt, llmsFullTxt } = await import(pathToFileURL(ssrEntry).href);
+const { routes, render, sitemaps, robots, llmsTxt, llmsFullTxt, feedFiles } = await import(pathToFileURL(ssrEntry).href);
 
 const template = fs
   .readFileSync(path.join(dist, 'index.html'), 'utf-8')
@@ -35,5 +35,13 @@ fs.writeFileSync(path.join(dist, 'robots.txt'), robots());
 fs.writeFileSync(path.join(dist, 'llms.txt'), llmsTxt());
 fs.writeFileSync(path.join(dist, 'llms-full.txt'), llmsFullTxt());
 console.log(`wrote ${Object.keys(sitemapFiles).join(', ')}, robots.txt, llms.txt, llms-full.txt`);
+
+// JSON feed for the mobile app (src/feed.ts)
+const feed = feedFiles();
+for (const [file, json] of Object.entries(feed)) {
+  fs.mkdirSync(path.dirname(path.join(dist, file)), { recursive: true });
+  fs.writeFileSync(path.join(dist, file), json);
+}
+console.log(`wrote ${Object.keys(feed).length} feed files`);
 
 fs.rmSync(path.resolve('dist-ssr'), { recursive: true, force: true });

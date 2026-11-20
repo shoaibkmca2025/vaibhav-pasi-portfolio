@@ -40,14 +40,33 @@ export function endSession(req: Req, res: Res) {
   res.setHeader('Set-Cookie', `${COOKIE}=; ${cookieFlags(req)}; Max-Age=0`);
 }
 
+// Mobile app sign-in: the same signing key, but a separate "app." signing domain, so a cookie
+// value can't be replayed as a bearer token or the other way round. Lasts 30 days and is kept
+// in the device keychain. Changing ADMIN_PASSWORD (or ADMIN_SESSION_SECRET) revokes every token.
+const APP_TOKEN_MAX_AGE_S = 30 * 24 * 60 * 60;
+
+export function issueAppToken() {
+  const expiresAt = Date.now() + APP_TOKEN_MAX_AGE_S * 1000;
+  const payload = Buffer.from(JSON.stringify({ exp: expiresAt, typ: 'app' })).toString('base64url');
+  return { token: `${payload}.${sign(`app.${payload}`)}`, expiresAt: new Date(expiresAt).toISOString() };
+}
+
+const bearerToken = (req: Req) => String(req.headers.authorization ?? '').match(/^Bearer\s+([\w-]+\.[\w-]+)$/)?.[1];
+
 export function isAuthenticated(req: Req) {
   if (!adminConfigured()) return false;
+  const bearer = bearerToken(req);
+  if (bearer) return verify(bearer, 'app.');
   const match = String(req.headers.cookie ?? '').match(new RegExp(`(?:^|;\\s*)${COOKIE}=([^;]+)`));
   if (!match) return false;
-  const [payload, signature] = match[1].split('.');
+  return verify(match[1], '');
+}
+
+function verify(value: string, domain: string) {
+  const [payload, signature] = value.split('.');
   if (!payload || !signature) return false;
 
-  const expected = Buffer.from(sign(payload));
+  const expected = Buffer.from(sign(`${domain}${payload}`));
   const given = Buffer.from(signature);
   if (expected.length !== given.length || !timingSafeEqual(expected, given)) return false;
 
@@ -60,8 +79,9 @@ export function isAuthenticated(req: Req) {
 }
 
 // Gate for every dashboard endpoint: signed in, and (for changes) coming from our own pages
+// (Bearer requests skip the origin check: CSRF needs an ambient cookie, which they don't use.)
 export function requireAdmin(req: Req, res: Res) {
-  if (req.method !== 'GET' && !sameOrigin(req)) {
+  if (req.method !== 'GET' && !bearerToken(req) && !sameOrigin(req)) {
     send(res, 403, { error: 'Forbidden' });
     return false;
   }
