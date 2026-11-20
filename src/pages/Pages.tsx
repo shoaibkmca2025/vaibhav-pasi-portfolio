@@ -205,7 +205,7 @@ export function ClientWinsPage() {
         page="client-wins"
         title={
           <span className="flex items-end not-italic normal-case" aria-label="Client Wins">
-            <span className="font-black tracking-[-0.06em] bg-gradient-to-r from-[#d8c3a0] via-[#f1e6d0] to-white bg-clip-text text-transparent pb-2 pr-1">
+            <span className="font-black tracking-[-0.06em] bg-gradient-to-r from-accent via-sheen to-white bg-clip-text text-transparent pb-2 pr-1">
               client
             </span>
             <span className="font-script font-normal text-[1.45em] text-white ml-2 md:ml-3 -mb-[0.12em] leading-[0.8]">Wins</span>

@@ -180,7 +180,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
               {service.whyUs && (
                 <div
                   data-reveal="up"
-                  className="theme-dark rounded-[1.75rem] border border-white/10 p-7 md:p-9 text-white bg-[radial-gradient(120%_120%_at_100%_0%,rgba(226,169,59,0.14),transparent_45%),linear-gradient(135deg,#1c1c1c,#060606)]"
+                  className="theme-dark rounded-[1.75rem] border border-white/10 p-7 md:p-9 text-white bg-[radial-gradient(120%_120%_at_100%_0%,rgba(226,169,59,0.14),transparent_45%),linear-gradient(135deg,#0E1F30,#050C14)]"
                 >
                   <h3 className="text-xl md:text-2xl font-bold tracking-tight">Why choose 4AM Global Media?</h3>
                   <ul className="mt-6 space-y-5">
@@ -383,7 +383,7 @@ export default function ServiceDetailPage({ slug }: { slug: string }) {
               </div>
             </div>
 
-            <div data-reveal="up" className="theme-dark rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 border border-white/10 bg-[linear-gradient(135deg,#1c1c1c,#060606)] text-white flex flex-col">
+            <div data-reveal="up" className="theme-dark rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 border border-white/10 bg-[linear-gradient(135deg,#0E1F30,#050C14)] text-white flex flex-col">
               <Compass className="w-8 h-8 text-accent" aria-hidden />
               <h2 className="mt-5 text-2xl md:text-3xl font-bold tracking-tight">Not sure what you need yet?</h2>
               <p className="mt-3 text-gray-400 leading-relaxed">

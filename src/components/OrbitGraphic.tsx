@@ -15,7 +15,7 @@ const STARS = [
 // radius (in the 0–100 viewBox), seconds per lap, dot colour, dot size, start angle, direction
 const ORBITS = [
   { r: 18, dur: 14, color: 'var(--color-accent)', size: 1.6, start: 20, rev: false },
-  { r: 28, dur: 22, color: 'var(--color-coral)', size: 1.4, start: 200, rev: true },
+  { r: 28, dur: 22, color: 'var(--color-sheen)', size: 1.4, start: 200, rev: true },
   { r: 38, dur: 34, color: 'var(--color-dawn)', size: 2, start: 110, rev: false },
   { r: 47, dur: 48, color: 'var(--color-accent)', size: 1.1, start: 300, rev: true },
 ];
@@ -26,8 +26,8 @@ export default function OrbitGraphic({ className = '', stars = true }: { classNa
       <defs>
         <radialGradient id="orbit-core" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.55" />
-          <stop offset="45%" stopColor="var(--color-coral)" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="var(--color-coral)" stopOpacity="0" />
+          <stop offset="45%" stopColor="var(--color-sheen)" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="var(--color-sheen)" stopOpacity="0" />
         </radialGradient>
       </defs>
 

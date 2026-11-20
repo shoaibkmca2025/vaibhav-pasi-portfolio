@@ -110,7 +110,7 @@ export default function TeamPage() {
                   </span>
                 </span>
               </h1>
-              <div className="rule-draw mt-6 h-[3px] w-14 rounded-full bg-gradient-to-r from-accent to-coral" style={{ '--d': '380ms' } as CSSProperties} aria-hidden />
+              <div className="rule-draw mt-6 h-[3px] w-14 rounded-full bg-gradient-to-r from-accent to-sheen" style={{ '--d': '380ms' } as CSSProperties} aria-hidden />
               <p className="reveal mt-6 max-w-xl text-base leading-relaxed text-gray-400 md:text-lg" style={{ '--d': '420ms' } as CSSProperties}>
                 A multidisciplinary team bringing together digital strategy, software engineering, marketing and visual storytelling to
                 build meaningful digital experiences.

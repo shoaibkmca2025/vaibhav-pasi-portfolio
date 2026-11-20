@@ -100,7 +100,7 @@
         font: 700 11px 'Outfit', system-ui, sans-serif;
         letter-spacing: 0.55em;
         text-transform: uppercase;
-        color: #6b7280;
+        color: #93A6BB;
         opacity: 0;
         animation: splash-fade 0.5s ease 0.5s forwards;
       }
@@ -110,16 +110,16 @@
       @keyframes splash-failsafe { to { opacity: 0; visibility: hidden; } }
       /* Light theme intro */
       :root[data-theme="light"] #splash { background: #F4F8FC; color: #07131F; }
-      :root[data-theme="light"] .splash-name .accent { color: #1D5FA8; text-shadow: none; }
-      :root[data-theme="light"] .splash-bar { background: rgba(0, 0, 0, 0.08); }
-      :root[data-theme="light"] .splash-bar i { background: #1D5FA8; box-shadow: none; }
-      :root[data-theme="light"] .splash-tag { color: #5c5c5c; }
+      :root[data-theme="light"] .splash-name .accent { color: #6E4605; text-shadow: none; }
+      :root[data-theme="light"] .splash-bar { background: rgba(7, 19, 31, 0.08); }
+      :root[data-theme="light"] .splash-bar i { background: #E2A93B; box-shadow: none; }
+      :root[data-theme="light"] .splash-tag { color: #51677E; }
       @media (prefers-color-scheme: light) {
         :root:not([data-theme="dark"]) #splash { background: #F4F8FC; color: #07131F; }
-        :root:not([data-theme="dark"]) .splash-name .accent { color: #1D5FA8; text-shadow: none; }
-        :root:not([data-theme="dark"]) .splash-bar { background: rgba(0, 0, 0, 0.08); }
-        :root:not([data-theme="dark"]) .splash-bar i { background: #1D5FA8; box-shadow: none; }
-        :root:not([data-theme="dark"]) .splash-tag { color: #5c5c5c; }
+        :root:not([data-theme="dark"]) .splash-name .accent { color: #6E4605; text-shadow: none; }
+        :root:not([data-theme="dark"]) .splash-bar { background: rgba(7, 19, 31, 0.08); }
+        :root:not([data-theme="dark"]) .splash-bar i { background: #E2A93B; box-shadow: none; }
+        :root:not([data-theme="dark"]) .splash-tag { color: #51677E; }
       }
       @media (prefers-reduced-motion: reduce) { #splash { display: none; } }
     </style>

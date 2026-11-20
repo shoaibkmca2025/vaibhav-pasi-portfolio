@@ -107,7 +107,7 @@ export default function TeamMemberPage({ slug }: { slug: string }) {
               <p className="reveal mt-4 text-lg font-semibold leading-snug text-accent md:text-xl" style={{ '--d': '260ms' } as CSSProperties}>
                 {roleOnly(m)}
               </p>
-              <div className="rule-draw mt-6 h-[3px] w-14 rounded-full bg-gradient-to-r from-accent to-coral" style={{ '--d': '320ms' } as CSSProperties} aria-hidden />
+              <div className="rule-draw mt-6 h-[3px] w-14 rounded-full bg-gradient-to-r from-accent to-sheen" style={{ '--d': '320ms' } as CSSProperties} aria-hidden />
               <p className="reveal mt-6 max-w-2xl text-lg leading-relaxed text-gray-300 md:text-xl" style={{ '--d': '380ms' } as CSSProperties}>
                 {m.shortDescription}
               </p>

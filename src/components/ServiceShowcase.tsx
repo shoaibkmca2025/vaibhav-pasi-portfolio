@@ -10,15 +10,15 @@ export type Variant = 'graphite' | 'yellow' | 'olive';
 const VARIANTS: Variant[] = ['graphite', 'yellow', 'olive'];
 
 export const cardStyle: Record<Variant, string> = {
-  graphite: 'theme-dark bg-[radial-gradient(120%_120%_at_100%_0%,rgba(226,169,59,0.14),transparent_45%),linear-gradient(135deg,#1c1c1c,#060606)] text-white',
+  graphite: 'theme-dark bg-[radial-gradient(120%_120%_at_100%_0%,rgba(226,169,59,0.14),transparent_45%),linear-gradient(135deg,#0E1F30,#050C14)] text-white',
   yellow: 'bg-[radial-gradient(120%_120%_at_100%_0%,rgba(255,255,255,0.55),transparent_45%),linear-gradient(135deg,#E2A93B,#C98F25)] text-black',
   olive: 'theme-dark bg-[radial-gradient(120%_120%_at_0%_100%,rgba(226,169,59,0.16),transparent_50%),linear-gradient(135deg,#0F2A44,#061826)] text-white',
 };
 
 // Screen colours for the illustration on each card style
 const screen: Record<Variant, { bg: string; ink: string; soft: string; accent: string }> = {
-  graphite: { bg: '#101010', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#E2A93B' },
-  yellow: { bg: '#ffffff', ink: '#111111', soft: 'rgba(0,0,0,0.08)', accent: '#111111' },
+  graphite: { bg: '#08121C', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#E2A93B' },
+  yellow: { bg: '#F4F8FC', ink: '#07131F', soft: 'rgba(7,19,31,0.08)', accent: '#07131F' },
   olive: { bg: '#0A1C2D', ink: 'rgba(255,255,255,0.85)', soft: 'rgba(255,255,255,0.12)', accent: '#E2A93B' },
 };
 
@@ -155,7 +155,7 @@ function PhotoScreen({ image, v, compact = false }: { image: NonNullable<Service
 }
 
 export function Devices({ scene, v, image }: { scene: Scene; v: Variant; image?: Service['image'] }) {
-  const frame = v === 'yellow' ? '#111111' : '#2a2a2a';
+  const frame = v === 'yellow' ? '#07131F' : '#1E3349';
   return (
     <div className="relative w-full max-w-[460px] mx-auto pr-[14%] pb-[6%]" aria-hidden>
       {/* Laptop */}
